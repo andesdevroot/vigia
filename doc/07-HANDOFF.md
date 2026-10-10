@@ -7,17 +7,19 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **Medir si acierta.** El camino está probado; falta la calibración contra ejemplos públicos de phishing chileno. Alternativas: `T1.5` (guardián de privacidad) y `T0.8` (la API de ANCI) |
-| Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) |
-| Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo**. Sandbox `597907523413541`, webhook `4ace2423-…`, túnel de ngrok |
+| Tarea en curso | **`T1.9` — reformular la pregunta del producto.** El corpus midió que el 47 % de lo suplantado es Banco Ripley, un banco privado: «¿es del Estado?» no le sirve |
+| Después | `T1.8` extender el catálogo a lo suplantado · `T0.7` (clave de urlscan.io) · `T0.8` (API de ANCI) |
+| Medido | **45 estafas reales del CSIRT**, con fuente citable: **0 `GRAVE`**, y **0 de 45** nombran la marca imitada. Ver `doc/12-MEDICION.md` |
+| Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
+| Datos | `corpus/alertas_csirt.json` (45) · `scripts/cosechar_alertas.py` · `scripts/medir_motor.py` |
 | Tests | **91 verdes, 1 de integración**, sin red, en menos de un segundo |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
 ## Último commit
 
-`[T1.3]` Catálogo de instituciones, verificado abriendo el sitio.
+`[T1.6]` El arreglo del catálogo confirmado en producción.
 
 ## Blockers
 
@@ -34,6 +36,11 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-10 | **La pregunta del producto está mal planteada, y lo dijo el corpus.** El motor contesta «¿el enlace es del Estado?», pero **el 47 % de lo suplantado en 45 alertas reales es Banco Ripley**, un banco privado. A esa persona «NO es del Estado» le dice algo cierto y le deja la duda intacta. La pregunta que el corpus pide es **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** |
+| 2026-10-10 | **El motor nombra la marca imitada en 0 de 45 casos.** No es un fallo del detector: es que el catálogo solo tiene instituciones estatales bajo `.gob.cl`, y lo que se suplanta son bancos. Medido: Banco Ripley 21 veces, BancoEstado 16, Copec, Santander y Soprole una cada uno |
+| 2026-10-10 | **La medición no puede ser tautológica, y hay que decirlo.** Agregarle al mensaje la URL que el informe declara maliciosa garantiza que el veredicto sea `AJENO`: eso confirma la regla y **no mide ningún acierto**. El único número que vale de esa columna es **`GRAVE = 0`**: en 45 estafas reales el motor nunca dio por bueno el enlace malo |
+| 2026-10-10 | **El insumo del CSIRT es un fragmento, no el mensaje.** En **44 de 45** citas el enlace no está dentro del texto citado. Si alguien reenviara exactamente lo publicado por el Estado, no le serviríamos en el 98 % de los casos. La medición dice más sobre el insumo que sobre el motor |
+| 2026-10-10 | **Leer la composición de un corpus antes de recorrerlo.** De los 785 informes del repositorio del CSIRT, **499 no citan ningún mensaje**. Recorrerlos primero costó **cuarenta consultas para cero ejemplos**. Los 259 de phishing son los que sirven |
 | 2026-10-10 | **El servidor corría el motor SIN catálogo, y ningún test lo veía.** `atender` y `construir_servidor` traían la lista vacía por defecto y `main` no pasaba ninguna, así que en producción un mensaje legítimo del SERNAC se leía como ajeno. Los 90 tests estaban verdes porque **todos pasaban el catálogo a mano**: un test unitario no dice nada sobre con qué argumentos se llama a la función en producción. Se descubrió **comparando la respuesta que llegó a un teléfono real con la que daba el mismo texto en local** |
 | 2026-10-10 | **Probado de punta a punta, con un teléfono real.** 2026-10-10 17:17: un mensaje de phishing entrante y el veredicto saliente **un segundo después**, ambos `delivered`. Cierra la pregunta de `doc/08-CANAL.md`: el canal funciona sin instalar nada. **No dice nada sobre si el veredicto es correcto en general** — eso es calibración, y sigue pendiente |
 | 2026-10-10 | **Para comparar hay que tener las dos salidas.** El bug del catálogo no salió de leer el código ni de correr los tests: salió de **poner la respuesta que llegó al teléfono al lado de la que daba el mismo texto en local** y ver que no coincidían |

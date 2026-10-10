@@ -18,6 +18,9 @@
 | T1.4 | Endpoint que une el motor con Kapso | ✅ **74 tests verdes** |
 | T1.5 | Regla de privacidad del mensaje reenviado | ⬜ **escrita y cumplida; falta el test** |
 | T1.6 | Prueba de punta a punta por WhatsApp | ✅ **funcionó, y encontró un bug** |
+| T1.7 | Medir si acierta contra estafas reales | ✅ **45 del CSIRT; 0 graves** |
+| T1.8 | Extender el catálogo a lo suplantado | ⬜ **el corpus dice: 47 % Banco Ripley** |
+| T1.9 | Reformular la pregunta del producto | ⬜ **«¿es el sitio de la institución que dice ser?»** |
 | T2.1 | El paper de medición | ⬜ |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
@@ -385,6 +388,49 @@ adentro.
 **Lo que la prueba NO dice:** que el veredicto sea correcto en general. Dice que el camino funciona.
 La calibración sigue pendiente, y para medirla haría falta un corpus — que este proyecto decidió no
 guardar.
+
+## ✅ T1.7 — Medir si acierta, contra estafas reales
+
+**45 estafas cosechadas del CSIRT**, con su URL maliciosa y su fuente citable. `doc/12-MEDICION.md`.
+
+```
+                        la cita del CSIRT   la cita + el enlace del informe
+  avisa                        1  (2%)             45  (100%)
+  mudo                        44  (98%)             0    (0%)
+  GRAVE                        0   (0%)             0    (0%)
+  nombran la marca imitada     0                   0
+```
+
+**La columna derecha es tautológica y no es un resultado**: se le agregó al mensaje la URL que el
+informe declara maliciosa, así que «no es del Estado» está garantizado. Confirma la regla, no mide un
+acierto. **La única cifra tranquilizadora es el `0` de `GRAVE`**: en 45 estafas reales el motor nunca
+dio por bueno el enlace malo.
+
+**La columna izquierda habla del insumo, no del motor:** el CSIRT cita un **fragmento**, y en 44 de
+45 el enlace no está dentro de la cita. Si alguien reenviara exactamente lo que el Estado publicó,
+**no le serviríamos en el 98 % de los casos.**
+
+### Los dos hallazgos
+
+**1. Lo que se suplanta son bancos, no el Estado.** Contado sobre las 45 citas: **Banco Ripley 21
+veces**, BancoEstado 16, y uno cada uno para Copec, Santander y Soprole. El motor **nombra la marca
+imitada en 0 de 45**, porque el catálogo de `T1.3` solo tiene instituciones estatales bajo `.gob.cl`.
+
+**2. La pregunta del producto está mal planteada.** El 47 % de lo suplantado es un banco privado. A
+esa persona, «el enlace NO es del Estado» le dice algo cierto y **le deja la duda intacta**. El corpus
+pide otra pregunta: **«¿este enlace es el sitio de la institución que el mensaje dice ser?»**.
+
+### Se puede verificar, y se verificó
+
+Leyendo el certificado: `bancoripley.cl` → `O=BANCO RIPLEY`, `bci.cl` → `O=Banco de Credito e
+Inversiones`, `itau.cl` → `O=BANCO ITAU CHILE`. **`bancoestado.cl`, `santander.cl` y `scotiabank.cl`
+no tienen certificado desde esta máquina**: quedan fuera por el mismo blocker de DNS, no se adivinan.
+
+### Y un costo que se pagó
+
+De los 785 informes del repositorio, **499 son de «Falsificación de Registros o Identidad» y no citan
+ningún mensaje**. Ir por ellos primero devolvió **cero ejemplos después de cuarenta consultas**. Hay
+que leer la composición del repositorio antes de recorrerlo.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

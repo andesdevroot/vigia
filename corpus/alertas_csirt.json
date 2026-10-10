@@ -1,0 +1,542 @@
+[
+  {
+    "codigo": "8fph22-00663-01",
+    "texto_citado": "Banco Ripley, le informamos que nuestro sistema de seguridad detecto una actividad inusual en su tarjeta Ripley. Le pedimos que actualice sus datos de seguridad como email y telefono esto es importante para mantener nuestro Banco Ripley protegido y que su cuenta no este expuesta a terceros. Procedimos al Bloqueo de su Tarjeta Ripley, hasta que no termine el proceso de actualizacion de sus datos.",
+    "texto_reconstruido": "Banco Ripley, le informamos que nuestro sistema de seguridad detecto una actividad inusual en su tarjeta Ripley. Le pedimos que actualice sus datos de seguridad como email y telefono esto es importante para mantener nuestro Banco Ripley protegido y que su cuenta no este expuesta a terceros. Procedimos al Bloqueo de su Tarjeta Ripley, hasta que no termine el proceso de actualizacion de sus datos. https://bit.ly/3Ub4EKA?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3Ub4EKA?l=www.bancoripley.cl",
+    "dominios": [
+      "buckrealty.net"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00663-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00663-01.txt"
+  },
+  {
+    "codigo": "8fph22-00664-01",
+    "texto_citado": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligacion de Bloquearla Temporalmente.",
+    "texto_reconstruido": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligacion de Bloquearla Temporalmente. https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "url_agregada": true,
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "dominios": [
+      "melekcopeur.club"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00664-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00664-01.txt"
+  },
+  {
+    "codigo": "8fph22-00666-01",
+    "texto_citado": "Subsidio del Gobierno Copec 88 Aniversario! ¡Haga clic en el enlace para solicitar los subsidios del gobierno nacional!",
+    "texto_reconstruido": "Subsidio del Gobierno Copec 88 Aniversario! ¡Haga clic en el enlace para solicitar los subsidios del gobierno nacional! https://8yue22.cn/J4gzk8b6/empresascopeccl/?_t=1669680590470#1669680592761",
+    "url_agregada": true,
+    "url_maliciosa": "https://8yue22.cn/J4gzk8b6/empresascopeccl/?_t=1669680590470#1669680592761",
+    "dominios": [
+      "8yue22.cn"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00666-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00666-01.txt"
+  },
+  {
+    "codigo": "8fph22-00667-01",
+    "texto_citado": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya están operativos. Sin embargo, debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligación de Bloquearla Temporalmente",
+    "texto_reconstruido": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya están operativos. Sin embargo, debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligación de Bloquearla Temporalmente https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "url_agregada": true,
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "dominios": [
+      "chezcrom.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00667-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00667-01.txt"
+  },
+  {
+    "codigo": "8fph22-00668-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.350.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.350.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bit.ly/3VE72e1?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3VE72e1?l=www.bancoripley.cl",
+    "dominios": [
+      "buckrealty.net"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00668-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00668-01.txt"
+  },
+  {
+    "codigo": "8fph22-00671-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito.",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bit.ly/3UPthNv?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3UPthNv?l=www.bancoripley.cl",
+    "dominios": [
+      "bigfishservices.com.au"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00671-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00671-01.txt"
+  },
+  {
+    "codigo": "8fph22-00672-01",
+    "texto_citado": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente.",
+    "texto_reconstruido": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://nhmwcotitostado.info/activacion/cuenta-zlsn/",
+    "url_agregada": true,
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-zlsn/",
+    "dominios": [
+      "smscotito.info"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00672-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00672-01.txt"
+  },
+  {
+    "codigo": "8fph22-00673-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito.",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bit.ly/3BaZlEr?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3BaZlEr?l=www.bancoripley.cl",
+    "dominios": [
+      "bigfishservices.com.au"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00673-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00673-01.txt"
+  },
+  {
+    "codigo": "8fph22-00674-01",
+    "texto_citado": "🐄️Soprole 73 aniversario Fondo de subvenciones! 🧈🎊",
+    "texto_reconstruido": "🐄️Soprole 73 aniversario Fondo de subvenciones! 🧈🎊 https://subtletyjudicial.cn/soprole/tb.php?at=ok1670587908799",
+    "url_agregada": true,
+    "url_maliciosa": "https://subtletyjudicial.cn/soprole/tb.php?at=ok1670587908799",
+    "dominios": [
+      "conchch.top"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00674-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00674-01.txt"
+  },
+  {
+    "codigo": "8fph22-00675-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito.",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bit.ly/3iTAYES?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3iTAYES?l=www.bancoripley.cl",
+    "dominios": [
+      "wedoitbest.com.au"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00675-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00675-01.txt"
+  },
+  {
+    "codigo": "8fph22-00676-01",
+    "texto_citado": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente.",
+    "texto_reconstruido": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://ucmstudio.info/activacion/cuenta-aotq/",
+    "url_agregada": true,
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "dominios": [
+      "celebrafans.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00676-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00676-01.txt"
+  },
+  {
+    "codigo": "8fph22-00677-01",
+    "texto_citado": "Le Informamos que Banco Ripley detecto una compra fraudalente que lograron acceder a tu cuenta usando un software malicioso en uno de tus dispositivos(APP).Para proteger tu cuenta hemos decidido Bloquear temporalmente tu acceso a internet y Tarjeta Crebito.",
+    "texto_reconstruido": "Le Informamos que Banco Ripley detecto una compra fraudalente que lograron acceder a tu cuenta usando un software malicioso en uno de tus dispositivos(APP).Para proteger tu cuenta hemos decidido Bloquear temporalmente tu acceso a internet y Tarjeta Crebito. https://bit.ly/3hgrIug?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3hgrIug?l=www.bancoripley.cl",
+    "dominios": [
+      "browshapesmi.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00677-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00677-01.txt"
+  },
+  {
+    "codigo": "8fph22-00678-01",
+    "texto_citado": "Le informamos que se ha detectado un intento de ingreso desde un dispositivo desconocido a su banca, por lo que hemos restringido el acceso a su banca temporalmente",
+    "texto_reconstruido": "Le informamos que se ha detectado un intento de ingreso desde un dispositivo desconocido a su banca, por lo que hemos restringido el acceso a su banca temporalmente https://t.co/iivqY7ziPk",
+    "url_agregada": true,
+    "url_maliciosa": "https://t.co/iivqY7ziPk",
+    "dominios": [
+      "kar-growth.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00678-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00678-01.txt"
+  },
+  {
+    "codigo": "8fph22-00679-01",
+    "texto_citado": "Le Informamos que Banco Ripley detecto una compra fraudalente que lograron acceder a tu cuenta usando un software malicioso en uno de tus dispositivos(APP). Para proteger tu cuenta hemos decidido Bloquear temporalmente tu acceso a internet y Tarjeta Crebito. Esto se debe a la exigencia de la nueva ley de Fraudes N°21.234",
+    "texto_reconstruido": "Le Informamos que Banco Ripley detecto una compra fraudalente que lograron acceder a tu cuenta usando un software malicioso en uno de tus dispositivos(APP). Para proteger tu cuenta hemos decidido Bloquear temporalmente tu acceso a internet y Tarjeta Crebito. Esto se debe a la exigencia de la nueva ley de Fraudes N°21.234 https://bit.ly/3FsyhSe?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3FsyhSe?l=www.bancoripley.cl",
+    "dominios": [
+      "wonthaggicaravans.com.au"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00679-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00679-01.txt"
+  },
+  {
+    "codigo": "8fph22-00680-01",
+    "texto_citado": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad.",
+    "texto_reconstruido": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. https://avengerpati.com/activacion/cuenta-lkok/",
+    "url_agregada": true,
+    "url_maliciosa": "https://avengerpati.com/activacion/cuenta-lkok/",
+    "dominios": [
+      "smscotito.info"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00680-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00680-01.txt"
+  },
+  {
+    "codigo": "8fph22-00682-01",
+    "texto_citado": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente.",
+    "texto_reconstruido": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://ucmstudio.info/activacion/cuenta-aotq/",
+    "url_agregada": true,
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "dominios": [
+      "newbailando.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00682-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00682-01.txt"
+  },
+  {
+    "codigo": "8fph22-00683-01",
+    "texto_citado": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad.",
+    "texto_reconstruido": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. https://avengerpati.com/activacion/cuenta-veqo/",
+    "url_agregada": true,
+    "url_maliciosa": "https://avengerpati.com/activacion/cuenta-veqo/",
+    "dominios": [
+      "nmhpatito.info"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00683-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00683-01.txt"
+  },
+  {
+    "codigo": "8fph22-00684-01",
+    "texto_citado": "BancoRipley, le comunica que su tarjeta de credito se encuentra Bloqueada, porque no tiene afiliado a la APP en nuestro banco,el departamento de seguridad detecto una actividad inusual en sus compras realizadas en nuestras tiendas ripley",
+    "texto_reconstruido": "BancoRipley, le comunica que su tarjeta de credito se encuentra Bloqueada, porque no tiene afiliado a la APP en nuestro banco,el departamento de seguridad detecto una actividad inusual en sus compras realizadas en nuestras tiendas ripley https://bit.ly/3G5nHSG?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3G5nHSG?l=www.bancoripley.cl",
+    "dominios": [
+      "wonthaggicaravans.com.au"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00684-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00684-01.txt"
+  },
+  {
+    "codigo": "8fph22-00687-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bit.ly/3ChUzFR?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3ChUzFR?l=www.bancoripley.cl",
+    "dominios": [
+      "buckrealty.net"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00687-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00687-01.txt"
+  },
+  {
+    "codigo": "8fph22-00688-01",
+    "texto_citado": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente",
+    "texto_reconstruido": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente https://ucmstudio.info/activacion/cuenta-aotq/",
+    "url_agregada": true,
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "dominios": [
+      "newbailando.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00688-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00688-01.txt"
+  },
+  {
+    "codigo": "8fph22-00690-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito.",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bit.ly/3WMxent?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3WMxent?l=www.bancoripley.cl",
+    "dominios": [
+      "buckrealty.net"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00690-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00690-01.txt"
+  },
+  {
+    "codigo": "8fph22-00691-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bit.ly/3WMxent?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3WMxent?l=www.bancoripley.cl",
+    "dominios": [
+      "buckrealty.net"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00691-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00691-01.txt"
+  },
+  {
+    "codigo": "8fph22-00692-01",
+    "texto_citado": "Por motivos ‘de’ seguridad, no podrá realizar ninguna operación mediante la App Santander o banca por internet hasta que realice la verificación, de su SuperClave",
+    "texto_reconstruido": "Por motivos ‘de’ seguridad, no podrá realizar ninguna operación mediante la App Santander o banca por internet hasta que realice la verificación, de su SuperClave https://t.co/Wg8ni2PMei",
+    "url_agregada": true,
+    "url_maliciosa": "https://t.co/Wg8ni2PMei",
+    "dominios": [
+      "pn-koba.go.id"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00692-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00692-01.txt"
+  },
+  {
+    "codigo": "8fph22-00693-01",
+    "texto_citado": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos.Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente",
+    "texto_reconstruido": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos.Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente https://ucmstudio.info/activacion/cuenta-aotq/",
+    "url_agregada": true,
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "dominios": [
+      "smscotito.info"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00693-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00693-01.txt"
+  },
+  {
+    "codigo": "8fph22-00694-01",
+    "texto_citado": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad",
+    "texto_reconstruido": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad https://ibkpatatan.com/activacion/cuenta-kbqe/",
+    "url_agregada": true,
+    "url_maliciosa": "https://ibkpatatan.com/activacion/cuenta-kbqe/",
+    "dominios": [
+      "nmhpatito.info"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00694-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00694-01.txt"
+  },
+  {
+    "codigo": "8fph22-00695-01",
+    "texto_citado": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad",
+    "texto_reconstruido": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad https://balarockpop.com/activacion/cuenta-vfhh/",
+    "url_agregada": true,
+    "url_maliciosa": "https://balarockpop.com/activacion/cuenta-vfhh/",
+    "dominios": [
+      "nmhpatito.info"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00695-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00695-01.txt"
+  },
+  {
+    "codigo": "8fph22-00696-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bit.ly/3FWRqvY?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3FWRqvY?l=www.bancoripley.cl",
+    "dominios": [
+      "buckrealty.net"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00696-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00696-01.txt"
+  },
+  {
+    "codigo": "8fph22-00698-01",
+    "texto_citado": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito",
+    "texto_reconstruido": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bit.ly/3Z8OkOn?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3Z8OkOn?l=www.bancoripley.cl",
+    "dominios": [
+      "bluewayeducation.in"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00698-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00698-01.txt"
+  },
+  {
+    "codigo": "8fph23-00709-01",
+    "texto_citado": "Lamentamos Informarle que su cuenta ha sido suspendida temporalmente Por su seguridad le rogamos que complete inmediatamente la siguiente actualizacion de la cuenta",
+    "texto_reconstruido": "Lamentamos Informarle que su cuenta ha sido suspendida temporalmente Por su seguridad le rogamos que complete inmediatamente la siguiente actualizacion de la cuenta https://xtraillconver.com/activacion/cuenta-vtqz/",
+    "url_agregada": true,
+    "url_maliciosa": "https://xtraillconver.com/activacion/cuenta-vtqz/",
+    "dominios": [
+      "springpatito.info"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00709-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00709-01.txt"
+  },
+  {
+    "codigo": "8fph23-00710-01",
+    "texto_citado": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad",
+    "texto_reconstruido": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad https://xtraillconver.com/activacion/cuenta-hedd/",
+    "url_agregada": true,
+    "url_maliciosa": "https://xtraillconver.com/activacion/cuenta-hedd/",
+    "dominios": [
+      "springpatito.info"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00710-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00710-01.txt"
+  },
+  {
+    "codigo": "8fph23-00711-01",
+    "texto_citado": "BancoRipley, Porque estamos preocupados de la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N-21.234 sobre Prevencion de Fraudes, le informamos que de acuerdo a nuestros registros, su Tarjeta de Credito terminada en XXXX, detectamos uso inusual en los ultimos meses,algunas de tus compras que realizaste en lugares no seguros de pago,por lo que hemos procedido a bloquearla temporalmente de tu tarjeta de credito para desbloquearla",
+    "texto_reconstruido": "BancoRipley, Porque estamos preocupados de la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N-21.234 sobre Prevencion de Fraudes, le informamos que de acuerdo a nuestros registros, su Tarjeta de Credito terminada en XXXX, detectamos uso inusual en los ultimos meses,algunas de tus compras que realizaste en lugares no seguros de pago,por lo que hemos procedido a bloquearla temporalmente de tu tarjeta de credito para desbloquearla https://bit.ly/3k85YBR?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3k85YBR?l=www.bancoripley.cl",
+    "dominios": [
+      "awadgallery.co.uk"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00711-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00711-01.txt"
+  },
+  {
+    "codigo": "8fph23-00713-01",
+    "texto_citado": "BancoRipley, Porque estamos preocupados de la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N-21.234 sobre Prevencion de Fraudes, le informamos que de acuerdo a nuestros registros, su Tarjeta de Credito terminada en XXXX, detectamos uso inusual en los ultimos meses,algunas de tus compras que realizaste en lugares no seguros de pago,por lo que hemos procedido a bloquearla temporalmente de tu tarjeta de credito para desbloquearla",
+    "texto_reconstruido": "BancoRipley, Porque estamos preocupados de la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N-21.234 sobre Prevencion de Fraudes, le informamos que de acuerdo a nuestros registros, su Tarjeta de Credito terminada en XXXX, detectamos uso inusual en los ultimos meses,algunas de tus compras que realizaste en lugares no seguros de pago,por lo que hemos procedido a bloquearla temporalmente de tu tarjeta de credito para desbloquearla https://bit.ly/3XgwtDN?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3XgwtDN?l=www.bancoripley.cl",
+    "dominios": [
+      "archersbodyworks.com.au"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00713-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00713-01.txt"
+  },
+  {
+    "codigo": "8fph23-00720-01",
+    "texto_citado": "Lamentamos Informarle que su cuenta ha sido suspendida temporalmente Por su seguridad le rogamos que complete inmediatamente la siguiente actualizacion de la cuenta",
+    "texto_reconstruido": "Lamentamos Informarle que su cuenta ha sido suspendida temporalmente Por su seguridad le rogamos que complete inmediatamente la siguiente actualizacion de la cuenta https://bit.ly/3iHv9uH?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3iHv9uH?l=www.bancoripley.cl",
+    "dominios": [
+      "bm-rentacar.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00720-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00720-01.txt"
+  },
+  {
+    "codigo": "8fph23-00721-01",
+    "texto_citado": "! Tiene un Bono IFE disponible en su Banca en Linea, a traves de su correo registrado en nuestro sistema BancoEstado, ahora puede activar su ayuda Estatal Familiar o Laboral con un solo Click a su Cuenta de Preferencia",
+    "texto_reconstruido": "! Tiene un Bono IFE disponible en su Banca en Linea, a traves de su correo registrado en nuestro sistema BancoEstado, ahora puede activar su ayuda Estatal Familiar o Laboral con un solo Click a su Cuenta de Preferencia https://bit.ly/3BohsH2",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3BohsH2",
+    "dominios": [
+      "web.app"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00721-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00721-01.txt"
+  },
+  {
+    "codigo": "8fph23-00722-01",
+    "texto_citado": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla haz click aquí",
+    "texto_reconstruido": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla haz click aquí https://bit.ly/3BohsH2",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3BohsH2",
+    "dominios": [
+      "web.app"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00722-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00722-01.txt"
+  },
+  {
+    "codigo": "8fph23-00723-01",
+    "texto_citado": "Usted tiene Tres (3) Mensajes Pendientes de Entrega en su Portal de e-Mail desde: 18 Dic. 2022. Estos mensajes se pueden ver por el tema de cada mensaje o proceder a la actualización de correo ahora para liberar el mensaje en su buzón de abajo",
+    "texto_reconstruido": "Usted tiene Tres (3) Mensajes Pendientes de Entrega en su Portal de e-Mail desde: 18 Dic. 2022. Estos mensajes se pueden ver por el tema de cada mensaje o proceder a la actualización de correo ahora para liberar el mensaje en su buzón de abajo https://ipfs.io/ipfs/QmYaBZcHBefdcsjopwYGtWL7AewUkPPVdTgWXoFfwtQumE?filename=oglogz113_cham-e.html#test@csirt.gob.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://ipfs.io/ipfs/QmYaBZcHBefdcsjopwYGtWL7AewUkPPVdTgWXoFfwtQumE?filename=oglogz113_cham-e.html#test@csirt.gob.cl",
+    "dominios": [
+      "ipfs.io"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00723-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00723-01.txt"
+  },
+  {
+    "codigo": "8fph23-00724-01",
+    "texto_citado": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ",
+    "texto_reconstruido": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ https://bit.ly/3HfNI2m?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3HfNI2m?l=www.bancoripley.cl",
+    "dominios": [
+      "bm-rentacar.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00724-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00724-01.txt"
+  },
+  {
+    "codigo": "8fph23-00725-01",
+    "texto_citado": "Lamentamos Informarle que su tarjeta Ripley ha sido bloqueada. Por su seguridad le rogamos que complete inmediatamente la siguiente actualización de su cuenta para desbloquear el servicio",
+    "texto_reconstruido": "Lamentamos Informarle que su tarjeta Ripley ha sido bloqueada. Por su seguridad le rogamos que complete inmediatamente la siguiente actualización de su cuenta para desbloquear el servicio https://t.co/wkUrLb38TS",
+    "url_agregada": true,
+    "url_maliciosa": "https://t.co/wkUrLb38TS",
+    "dominios": [
+      "autoez123.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00725-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00725-01.txt"
+  },
+  {
+    "codigo": "8fph23-00726-01",
+    "texto_citado": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ",
+    "texto_reconstruido": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ https://bit.ly/3kzUC9N?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3kzUC9N?l=www.bancoripley.cl",
+    "dominios": [
+      "gkmayprop.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00726-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00726-01.txt"
+  },
+  {
+    "codigo": "8fph23-00727-01",
+    "texto_citado": "Lamentamos Informarle que su cuenta ha sido suspendida temporalmente Por su seguridad le rogamos que complete inmediatamente la siguiente actualizacion de la cuenta",
+    "texto_reconstruido": "Lamentamos Informarle que su cuenta ha sido suspendida temporalmente Por su seguridad le rogamos que complete inmediatamente la siguiente actualizacion de la cuenta https://contalaserena.net/activacion/cuenta-kppf/",
+    "url_agregada": true,
+    "url_maliciosa": "https://contalaserena.net/activacion/cuenta-kppf/",
+    "dominios": [
+      "xtraillconver.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00727-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00727-01.txt"
+  },
+  {
+    "codigo": "8fph23-00728-01",
+    "texto_citado": "BancoRipley, detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ.",
+    "texto_reconstruido": "BancoRipley, detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ. https://bit.ly/3ZVlO3b?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3ZVlO3b?l=www.bancoripley.cl",
+    "dominios": [
+      "gkmayprop.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00728-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00728-01.txt"
+  },
+  {
+    "codigo": "8fph23-00729-01",
+    "texto_citado": "BancoEstado le informa que hemos detectado actividad inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad",
+    "texto_reconstruido": "BancoEstado le informa que hemos detectado actividad inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad https://cartoonpuzzl3s.com/activacion/cuenta-vtvq/",
+    "url_agregada": true,
+    "url_maliciosa": "https://cartoonpuzzl3s.com/activacion/cuenta-vtvq/",
+    "dominios": [
+      "xtraillconver.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00729-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00729-01.txt"
+  },
+  {
+    "codigo": "8fph23-00730-01",
+    "texto_citado": "BancoRipley,detecto una actividad inusual en su cuenta por lo hemos procedido a bloquearla temporalmente. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta, su TarjetaRipley terminada en XXXX fue bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ",
+    "texto_reconstruido": "BancoRipley,detecto una actividad inusual en su cuenta por lo hemos procedido a bloquearla temporalmente. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta, su TarjetaRipley terminada en XXXX fue bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ https://bit.ly/3Jl5gLU?l=www.bancoripley.cl",
+    "url_agregada": true,
+    "url_maliciosa": "https://bit.ly/3Jl5gLU?l=www.bancoripley.cl",
+    "dominios": [
+      "gkmayprop.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00730-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00730-01.txt"
+  },
+  {
+    "codigo": "8fph23-00731-01",
+    "texto_citado": "Le informamos mediante este medio que hay una factura que se encuentra en estado de NO PAGADA, Le invitamos a regularizar esta situacion a traves del siguiente enlance. Por favor realice el pago lo mas pronto posible, a fin de evitar las molestias de un cobro judicial, que pueda implicar embargo o suspension temporal o definitiva depende el caso. Puede consultar el estado de su deuda actual mediante el siguiente enlace",
+    "texto_reconstruido": "Le informamos mediante este medio que hay una factura que se encuentra en estado de NO PAGADA, Le invitamos a regularizar esta situacion a traves del siguiente enlance. Por favor realice el pago lo mas pronto posible, a fin de evitar las molestias de un cobro judicial, que pueda implicar embargo o suspension temporal o definitiva depende el caso. Puede consultar el estado de su deuda actual mediante el siguiente enlace https://ppcproyectos.com/incoming.php?id=TYDWITCABYEVVZMTFEWZXDURJWGKMDLNAJCWVWEKJJKAESKALSVXDZSBHXRESJWLREDOOFWCWUYHPKWGBM",
+    "url_agregada": true,
+    "url_maliciosa": "https://ppcproyectos.com/incoming.php?id=TYDWITCABYEVVZMTFEWZXDURJWGKMDLNAJCWVWEKJJKAESKALSVXDZSBHXRESJWLREDOOFWCWUYHPKWGBM",
+    "dominios": [
+      "ppcproyectos.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00731-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00731-01.txt"
+  },
+  {
+    "codigo": "8fph23-00732-01",
+    "texto_citado": "Le informamos mediante este medio que hay una factura que se encuentra en estado de NO PAGADA, Le invitamos a regularizar esta situacion a traves del siguiente enlance. Por favor realice el pago lo mas pronto posible, a fin de evitar las molestias de un cobro judicial, que pueda implicar embargo o suspension temporal o definitiva depende el caso. Puede consultar el estado de su deuda actual mediante el siguiente enlace",
+    "texto_reconstruido": "Le informamos mediante este medio que hay una factura que se encuentra en estado de NO PAGADA, Le invitamos a regularizar esta situacion a traves del siguiente enlance. Por favor realice el pago lo mas pronto posible, a fin de evitar las molestias de un cobro judicial, que pueda implicar embargo o suspension temporal o definitiva depende el caso. Puede consultar el estado de su deuda actual mediante el siguiente enlace https://ppcproyectos.com/",
+    "url_agregada": true,
+    "url_maliciosa": "https://ppcproyectos.com/",
+    "dominios": [
+      "ppcproyectos.com"
+    ],
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00732-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00732-01.txt"
+  }
+]
