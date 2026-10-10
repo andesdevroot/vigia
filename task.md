@@ -11,6 +11,10 @@
 | T0.5 | ¿Es obtenible la lista de dominios del Estado? | ✅ **es completa por política** |
 | T0.6 | ¿La barra azul verifica algo? | ✅ **no verifica nada** |
 | T0.7 | Medir cuánto se usa mal la barra | 🚧 **diseño listo, bloqueada por acceso** |
+| T0.8 | ¿Qué expone la API pública de ANCI? | ⬜ |
+| T1.1 | El motor de respuesta: texto → veredicto | ⬜ |
+| T1.2 | Costo real por conversación de WhatsApp | ⬜ |
+| T2.1 | El paper de medición | ⬜ |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
 decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
@@ -92,17 +96,6 @@ competidor — la cita que más ayuda, porque el paper se escribe **encima** de 
 
 **La alarma de T0.3 fue mía, por haber leído solo el título.** T0.4 existía para eso.
 
-## ⬜ T0.5 — ¿Es obtenible la lista de dominios del Estado?
-
-Para la vía de certificación por lista blanca hace falta la lista **completa** de dominios oficiales.
-Si no es obtenible ni completa, esa vía muere como las demás — y conviene saberlo antes de construir.
-
-- **Entregable:** la lista, su origen, y si es completa o parcial. Más una decisión escrita.
-- **Criterio de aceptación:** cuántos dominios `.gob.cl` hay, de dónde salen, y si un dominio oficial
-  podría faltar (lo que produciría un falso negativo en la certificación).
-- **Riesgo:** que la lista no exista publicada y haya que construirla por rastreo, con lo que la
-  completitud pasa a ser indemostrable.
-
 ## ✅ T0.5 — La lista de dominios del Estado
 
 **Respuesta: es obtenible, y mejor que obtenible — es completa por POLÍTICA, no por enumeración.**
@@ -124,7 +117,20 @@ redirigir, y creó una **barra azul** de sitio oficial.
 
 Detalle en [`doc/04-LISTA-GOB-CL.md`](doc/04-LISTA-GOB-CL.md).
 
-## ⬜ T0.6 — El paper de medición
+## ⬜ T0.8 — ¿Qué expone la API pública de ANCI?
+
+La ANCI publica una **API Pública de Ciberseguridad** (`https://anci.gob.cl/api/v1/docs`, espejo en
+`csirt.gob.cl/api/v1/docs`). La documentación **no carga sin JavaScript**, así que hoy no se sabe qué
+entrega.
+
+- **Entregable:** qué endpoints hay, qué datos dan, si necesitan clave, y qué licencia tienen.
+- **Por qué importa:** si entrega alertas o indicadores, la herramienta se apoya en la ANCI en vez de
+  reconstruir lo que la ANCI ya tiene. Cambia el costo de todo el proyecto.
+- **Criterio de aceptación:** la lista de endpoints, o la constancia escrita de que no hay acceso
+  abierto.
+- **Riesgo:** que exista pero sea solo para organismos del Estado. **Eso también es un resultado.**
+
+## ⬜ T2.1 — El paper de medición
 
 > *Measuring a national trust anchor: does `.gob.cl` give the Chilean State identifiability online?*
 
@@ -174,6 +180,12 @@ argumento.
   interactuar con usuarios ni recoger datos personales. Lo que se encuentre va primero a la ANCI.
 - **Riesgo:** que casi nadie la use mal, en cuyo caso la barra es inofensiva y el hallazgo pierde
   fuerza — pero **eso también es un resultado**.
+
+## 📌 Decisión de canal — el mensaje, no el navegador
+
+La forma del producto cambió: **la extensión de navegador queda como accesorio y el canal principal
+es el reenvío de un mensaje.** Chrome de Android no acepta extensiones, y el fraude de ClaveÚnica
+llega por SMS y WhatsApp al teléfono. Detalle en [`doc/08-CANAL.md`](doc/08-CANAL.md).
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

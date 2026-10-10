@@ -7,7 +7,8 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **T0.7 bloqueada por acceso**: falta una clave de urlscan.io (gratis) |
+| Tarea en curso | **T1 — forma 1: reenviar a un número.** Canal decidido; falta el costo por conversación |
+| Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) |
 | Código | `suplantacion.py` (detector, 30 tests) · `scripts/medir_ct.py` (spike) |
 | Tests | **30 verdes** |
 | Gate | **`./gate.sh`** en verde |
@@ -15,7 +16,7 @@ decide si el proyecto existe.
 
 ## Último commit
 
-`[T0.6]` La barra azul no verifica nada: es una imagen pública que cualquiera copia.
+`[T0.7]` La medición del mal uso de la barra queda bloqueada por acceso, y el número no se inventa.
 
 ## Blockers
 
@@ -32,6 +33,8 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-10 | **El canal es el mensaje, no el navegador.** Chrome de Android no acepta extensiones y el fraude de ClaveÚnica llega por SMS y WhatsApp al teléfono: la extensión solo cubriría escritorio, donde el ataque no ocurre. **La forma principal es reenviar el mensaje a un número** (0 instalaciones, 1 gesto); la app de trámites queda como alternativa y la extensión como accesorio. **El detector no cambia: cambia la boca.** Ver `doc/08-CANAL.md` |
+| 2026-10-10 | **El Estado cubre el después, no el antes.** CiberLupa dice si tus datos **ya** se filtraron; Reporte Ciudadano sirve para denunciar **después**; el 1510 tiene humano. **Nadie contesta «¿aprieto este link?».** Queda como tarea `T0.8` averiguar qué expone la API pública de ANCI: si da alertas, el proyecto se construye **encima del Estado** |
 | 2026-10-04 | **T0.7 bloqueada, y se declara en vez de rodearse.** Medir el mal uso de la barra necesita un índice de subrecursos; urlscan lo tiene pero su API pide clave, y Common Crawl no registra subrecursos. **No se inventó un número** |
 | 2026-10-04 | **La barra azul no verifica nada.** `access-control-allow-origin: *` y cero ataduras al dominio: es una imagen que cualquiera copia. El dominio `.gob.cl` sí es sólido. **El ancla está bien puesta y el letrero está suelto** |
 | 2026-10-04 | **Un título no es una fuente.** Cuatro veces se concluyó desde el título o la memoria y las cuatro la conclusión cambió al abrir la fuente. La regla quedó en `00-METODOLOGIA.md`, con la tabla de los cuatro casos |
