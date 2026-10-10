@@ -368,6 +368,20 @@ Ahora el default es `MARCAS` en los tres puntos y hay un test que lo fija **dond
 la función en producción. Se descubrió **comparando la salida real con la local**, no leyendo el
 código.
 
+### Confirmado en producción a las 17:38
+
+El mismo mensaje, después del arreglo:
+
+```
+17:17:19   El enlace claveunica-gob-cl.xyz NO es del Estado. El mensaje dice ser del Estado…
+17:38:39   El enlace claveunica-gob-cl.xyz NO es del Estado. El enlace se parece a ClaveÚnica.
+           El mensaje dice ser del Estado…
+```
+
+**Un segundo** entre la entrada y la salida otra vez, `delivered`, `HTTP 200`. La frase que faltaba
+ahora está. **Comparar las dos salidas es lo que cerró el ciclo**; sin la primera, el bug seguía
+adentro.
+
 **Lo que la prueba NO dice:** que el veredicto sea correcto en general. Dice que el camino funciona.
 La calibración sigue pendiente, y para medirla haría falta un corpus — que este proyecto decidió no
 guardar.

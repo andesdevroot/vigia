@@ -7,7 +7,7 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **Repetir la prueba** con el catálogo arreglado, y decidir qué sigue: `T1.5` (test de privacidad) o `T0.8` (la API de ANCI) |
+| Tarea en curso | **Medir si acierta.** El camino está probado; falta la calibración contra ejemplos públicos de phishing chileno. Alternativas: `T1.5` (guardián de privacidad) y `T0.8` (la API de ANCI) |
 | Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) |
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo**. Sandbox `597907523413541`, webhook `4ace2423-…`, túnel de ngrok |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
