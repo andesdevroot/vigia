@@ -9,6 +9,8 @@
 | T0.3 | Estado del arte | ✅ |
 | T0.4 | Leer la tesis chilena 202581 | ✅ **el espacio está abierto** |
 | T0.5 | ¿Es obtenible la lista de dominios del Estado? | ✅ **es completa por política** |
+| T0.6 | ¿La barra azul verifica algo? | ✅ **no verifica nada** |
+| T0.7 | Medir cuánto se usa mal la barra | ⬜ |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
 decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
@@ -137,3 +139,38 @@ Tres preguntas medibles, en orden de costo:
 
 **Bloqueo de acceso, no de datos:** la lista de inscripciones de ANCI no se publica. Se puede pedir
 por Ley de Transparencia, y eso es una gestión.
+
+## ✅ T0.6 — La barra azul no verifica nada
+
+**El hallazgo, en una línea: la barra es una imagen pública, sin control de acceso y sin nada que la
+ate al dominio.**
+
+```
+$ curl -I https://media.anci.gob.cl/images/ANCI_Icono_Blanco.original.svg
+HTTP/2 200
+content-type: image/svg+xml
+access-control-allow-origin: *
+```
+
+`access-control-allow-origin: *` significa que cualquier sitio del mundo puede cargar el recurso. Y
+en la página de la barra **no hay ninguna verificación de dominio, ni DNSSEC, ni token firmado, ni
+script que compruebe que el sitio termina en `.gob.cl`**.
+
+**La barra es una imagen que cualquiera copia.** Un sitio falso la pega y queda idéntico. Pero el
+dominio **sí** es sólido (T0.5): depende de una restricción de registro que el Estado controla.
+
+> **El ancla está bien puesta y el letrero está suelto.**
+
+Detalle en [`doc/05-BARRA-AZUL.md`](doc/05-BARRA-AZUL.md).
+
+## ⬜ T0.7 — Medir cuánto se usa mal la barra
+
+**Convierte "es falsificable en teoría" en "N sitios la usan sin ser del Estado".** Un número, no un
+argumento.
+
+- **Método:** rastrear la web chilena buscando el recurso de la barra incrustado, y contar por dominio.
+- **Criterio de aceptación:** el número, y la lista de dominios no oficiales que la muestran.
+- **Ética:** no se construye ningún sitio de phishing. Solo se observan sitios existentes, sin
+  interactuar con usuarios ni recoger datos personales. Lo que se encuentre va primero a la ANCI.
+- **Riesgo:** que casi nadie la use mal, en cuyo caso la barra es inofensiva y el hallazgo pierde
+  fuerza — pero **eso también es un resultado**.

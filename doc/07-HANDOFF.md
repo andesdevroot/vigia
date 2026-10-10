@@ -7,7 +7,7 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | ninguna. Siguiente: **T0.6** (el paper de medición) |
+| Tarea en curso | ninguna. Siguiente: **T0.7** (medir el mal uso de la barra) |
 | Código | `suplantacion.py` (detector, 30 tests) · `scripts/medir_ct.py` (spike) |
 | Tests | **30 verdes** |
 | Gate | **`./gate.sh`** en verde |
@@ -15,7 +15,7 @@ decide si el proyecto existe.
 
 ## Último commit
 
-`[T0.5]` `.gob.cl` es un ancla completa por política; la ANCI ya escribió la tesis y nadie la midió.
+`[T0.6]` La barra azul no verifica nada: es una imagen pública que cualquiera copia.
 
 ## Blockers
 
@@ -32,6 +32,7 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-04 | **La barra azul no verifica nada.** `access-control-allow-origin: *` y cero ataduras al dominio: es una imagen que cualquiera copia. El dominio `.gob.cl` sí es sólido. **El ancla está bien puesta y el letrero está suelto** |
 | 2026-10-04 | **Un título no es una fuente.** Cuatro veces se concluyó desde el título o la memoria y las cuatro la conclusión cambió al abrir la fuente. La regla quedó en `00-METODOLOGIA.md`, con la tabla de los cuatro casos |
 | 2026-10-04 | **`.gob.cl` es un ancla de confianza completa por política de registro.** No hace falta una lista: solo el Estado puede inscribir bajo `gob.cl`. Y la **ANCI ya declaró la teoría** de la identificabilidad — lo que falta es **medir si funciona** |
 | 2026-10-04 | **La tesis chilena deja el espacio abierto.** Es captura física + Random Forest; sus limitaciones son de hardware. Se cita como precursora, no como competidora |
