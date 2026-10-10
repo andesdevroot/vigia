@@ -13,7 +13,10 @@
 | T0.7 | Medir cuánto se usa mal la barra | 🚧 **diseño listo, bloqueada por acceso** |
 | T0.8 | ¿Qué expone la API pública de ANCI? | ⬜ |
 | T1.1 | El motor de respuesta: texto → veredicto | ✅ **44 tests verdes** |
-| T1.2 | Costo real por conversación de WhatsApp | ⬜ |
+| T1.2 | Costo real por verificación | ✅ **≈$19, y las primeras 1.000 gratis** |
+| T1.3 | Catálogo de marcas chilenas | ⬜ |
+| T1.4 | Endpoint que une el motor con Kapso | ⬜ |
+| T1.5 | Regla de privacidad del mensaje reenviado | ⬜ |
 | T2.1 | El paper de medición | ⬜ |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
@@ -225,6 +228,30 @@ existir — que es exactamente lo que mató al proyecto anterior.
 
 **Y sí cubre el ataque que el ojo pierde:** `claveunica.gоb.cl` con la `o` cirílica da `AJENO`, con
 el aviso de que usa letras que no son latinas.
+
+## ✅ T1.2 — Cuánto cuesta cada verificación
+
+**Unas $19, y las primeras 1.000 del mes son gratis.** El canal sobrevive: no hay blocker de costo.
+
+Desde el **1 de octubre de 2026** Meta cobra los mensajes de servicio de WhatsApp Business Platform:
+**1.000 gratis por número al mes**, y después **entre $15 y $22 cada uno**
+([T13](https://www.t13.cl/noticia/tendencias/whatsapp-cobrara-entre-15-22-por-mensaje-quienes-se-les-aplicara-medida-2-10-2026)).
+Lo que se cobra es **nuestra respuesta**, no el reenvío del ciudadano.
+
+| Verificaciones al mes | Total |
+|---|---|
+| 1.000 | **$0** |
+| 2.000 | ~$18.500 |
+| 10.000 | ~$190.000 |
+
+**La interfaz es [Kapso](https://kapso.com/)**, Meta Business Partner: número, webhooks de entrada y
+envío de respuestas, con las tarifas de Meta a costo. Plan gratis con 2.000 mensajes al mes.
+
+**El número tiene que ser +56.** El plan gratis trae un número de EE.UU., pero «Bring your own SIM»
+permite conectar un chileno propio —chip nuevo, verificado por SMS, nunca registrado en WhatsApp—.
+Una herramienta chilena antiestafa con número gringo es ella misma sospechosa.
+
+Detalle, y lo que falta verificar, en [`doc/09-INTERFAZ.md`](doc/09-INTERFAZ.md).
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

@@ -7,7 +7,7 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **T1.2 — costo real por conversación de WhatsApp**, que es una gestión y no código |
+| Tarea en curso | **T1.4 — el endpoint que une el motor con Kapso** (el costo ya está medido) |
 | Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) · **T0.8**: qué expone la API de ANCI |
 | Código | `motor.py` (veredicto sobre el enlace) · `suplantacion.py` (detector) · `scripts/medir_ct.py` |
 | Tests | **44 verdes** |
@@ -33,6 +33,10 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-10 | **El canal sobrevive al costo: unas $19 por verificación.** Desde el 1 de octubre de 2026 Meta cobra los mensajes de servicio de WhatsApp Business Platform —**1.000 gratis por número al mes** y después $15 a $22 ([T13](https://www.t13.cl/noticia/tendencias/whatsapp-cobrara-entre-15-22-por-mensaje-quienes-se-les-aplicara-medida-2-10-2026))—. Se cobra **nuestra respuesta**, no el reenvío. 1.000 verificaciones al mes: **$0**. 10.000: ~$190.000. **T1.2 cerrada sin blocker** |
+| 2026-10-10 | **La interfaz es Kapso** ([kapso.com](https://kapso.com/)), Meta Business Partner: número, webhooks entrantes y respuestas, con las tarifas de Meta a costo y sin margen. Plan gratis de 2.000 mensajes/mes. **Kapso pone la boca; el veredicto sigue siendo nuestro** — y como el motor es stdlib pura y cero dependencias, se muda a cualquier host sin tocar una línea |
+| 2026-10-10 | **El número tiene que ser +56.** El plan gratis de Kapso trae un número de EE.UU., pero «Bring your own SIM» permite conectar un chileno propio: chip nuevo, verificado por SMS, nunca registrado antes en WhatsApp. **Una herramienta chilena antiestafa con número gringo es ella misma sospechosa** |
+| 2026-10-10 | **El mensaje reenviado no se guarda.** Al reenviar, el ciudadano entrega su número y a veces datos de terceros. Se procesa, se responde y se olvida; si se guarda algo para medir, es el veredicto y el dominio, nunca el texto ni el número. La promesa «el robot no lee tus chats» se sostiene sola; la de «no guardamos lo que nos mandas» hay que cumplirla |
 | 2026-10-10 | **El motor contesta sobre el enlace, nunca sobre el mensaje.** Tres veredictos: `OFICIAL` (todos los enlaces son `.gob.cl`), `AJENO` (alguno no lo es) y `SIN_ENLACES` (no hay qué revisar). **Un enlace bueno no lava a uno malo**, y hay un test que lo fija con varios textos: si bastara uno del Estado, el motor premiaría el ataque mejor construido. **No existe la palabra «seguro» en la respuesta, y hay un test que la prohíbe.** Ver `task.md` `[T1.1]` |
 | 2026-10-10 | **La primera versión no depende de un corpus.** La regla «¿termina en `.gob.cl`?» es completa por política de registro (`T0.5`), así que el motor arranca sin el insumo que mató al proyecto anterior. El catálogo de marcas chilenas queda como tarea aparte: sin él se sabe igual si el enlace es del Estado, solo se pierde el nombre de la marca imitada |
 | 2026-10-10 | **El canal es el mensaje, no el navegador.** Chrome de Android no acepta extensiones y el fraude de ClaveÚnica llega por SMS y WhatsApp al teléfono: la extensión solo cubriría escritorio, donde el ataque no ocurre. **La forma principal es reenviar el mensaje a un número** (0 instalaciones, 1 gesto); la app de trámites queda como alternativa y la extensión como accesorio. **El detector no cambia: cambia la boca.** Ver `doc/08-CANAL.md` |
