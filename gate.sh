@@ -11,6 +11,8 @@ uv run pytest "$@"
 echo "--- ruff ---"
 uv run ruff check .
 echo "--- mypy (src y tests) ---"
-uv run mypy
+# `python -m mypy` y no `mypy`: el ejecutable del venv no siempre queda en el PATH que uv
+# arma, y un gate que falla por eso no está midiendo el código.
+uv run python -m mypy
 echo
 echo "GATE EN VERDE"
