@@ -118,6 +118,21 @@ def test_enlace_sin_esquema_se_detecta() -> None:
     assert [e.registrable for e in extraer_enlaces("visite www.sii.cl/personas")] == ["sii.cl"]
 
 
+def test_una_ruta_con_punto_no_es_un_enlace() -> None:
+    """`.../SantaIsabelws/tb.php` no es un dominio: es una ruta, y nombrarla sería acusar en falso.
+
+    Lo encontró la medición sobre el corpus —el ejemplo `8fph22-00674-01`— y no un test unitario: el
+    motor nombraba `tb.php` como si fuera un sitio del atacante.
+    """
+    resultado = evaluar("ingrese a http://divisionstagnate.cn/SantaIsabelws/tb.php?ea=1")
+    assert [e.registrable for e in resultado.enlaces] == ["divisionstagnate.cn"]
+
+
+def test_varios_enlaces_con_ruta_se_reducen_a_su_dominio() -> None:
+    resultado = evaluar("vea https://uno.cl/a/b.php y http://dos.xyz/c/d.html")
+    assert [e.registrable for e in resultado.enlaces] == ["uno.cl", "dos.xyz"]
+
+
 def test_correo_electronico_no_es_enlace() -> None:
     """Un correo de contacto no es un enlace que se aprieta, y marcarlo sería una falsa alarma."""
     resultado = evaluar("Escribanos a contacto@bancoestado.cl o llame al 600 123 4567")

@@ -56,6 +56,46 @@ MARCAS: tuple[Marca, ...] = (
     Marca(nombre="tvn", etiqueta="TVN", oficiales=frozenset({"tvn.cl"})),
     Marca(nombre="codelco", etiqueta="Codelco", oficiales=frozenset({"codelco.cl", "codelco.com"})),
     Marca(nombre="tgr", etiqueta="TGR", oficiales=frozenset({"tgr.cl"})),
+    # --- Lo suplantado, que no es el Estado ---
+    #
+    # A partir de T1.8, y **porque el corpus lo midió**: de 45 estafas reales del CSIRT, 21
+    # suplantan a Banco Ripley y varias a otros bancos y empresas. El catálogo solo de
+    # instituciones estatales dejaba el veredicto `NO_COINCIDE` inalcanzable.
+    #
+    # Los alias salen del propio corpus, que escribe la misma institución de varias formas.
+    Marca(
+        nombre="bancoripley",
+        etiqueta="Banco Ripley",
+        alias=("banco ripley", "ripley"),
+        oficiales=frozenset({"bancoripley.cl"}),
+    ),
+    Marca(nombre="ripley", etiqueta="Ripley", oficiales=frozenset({"ripley.cl"})),
+    Marca(
+        nombre="bci",
+        etiqueta="BCI",
+        alias=("banco de credito e inversiones", "banco credito inversiones"),
+        oficiales=frozenset({"bci.cl"}),
+    ),
+    Marca(
+        nombre="itau",
+        etiqueta="Banco Itaú",
+        alias=("banco itau",),
+        oficiales=frozenset({"itau.cl"}),
+    ),
+    Marca(
+        nombre="bancochile",
+        etiqueta="Banco de Chile",
+        alias=("banco de chile",),
+        oficiales=frozenset({"bancochile.cl"}),
+    ),
+    Marca(
+        nombre="bancofalabella",
+        etiqueta="Banco Falabella",
+        alias=("banco falabella",),
+        oficiales=frozenset({"bancofalabella.cl"}),
+    ),
+    Marca(nombre="copec", etiqueta="Copec", oficiales=frozenset({"copec.cl"})),
+    Marca(nombre="soprole", etiqueta="Soprole", oficiales=frozenset({"soprole.cl"})),
 )
 
 _POR_DOMINIO: dict[str, str] = {

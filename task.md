@@ -19,7 +19,7 @@
 | T1.5 | Regla de privacidad del mensaje reenviado | ⬜ **escrita y cumplida; falta el test** |
 | T1.6 | Prueba de punta a punta por WhatsApp | ✅ **funcionó, y encontró un bug** |
 | T1.7 | Medir si acierta contra estafas reales | ✅ **45 del CSIRT; 0 graves** |
-| T1.8 | Extender el catálogo a lo suplantado | ⬜ **el corpus dice: 47 % Banco Ripley** |
+| T1.8 | Extender el catálogo a lo suplantado | ✅ **22 instituciones; `nombra` 0 → 24 de 45** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
 
@@ -450,6 +450,37 @@ escondiendo justo la incoherencia que el motor existe para encontrar.
 de esta tarea — es que **el catálogo no tiene a los suplantados**. `nombra` solo se alcanza
 reconociendo la institución. **Cambiar la pregunta era necesario y no es suficiente:** sin `T1.8`, el
 motor no puede decir «el mensaje dice ser de Banco Ripley» porque no sabe quién es Banco Ripley.
+
+## ✅ T1.8 — El catálogo, extendido a lo suplantado
+
+**Ocho instituciones nuevas, y no por gusto: por la medición.** El corpus dice a quién suplantan de
+verdad — **Banco Ripley 21 veces**, BancoEstado 16, Copec y Soprole una cada uno. Entraron las que se
+pudieron **verificar por certificado**: Banco Ripley, Ripley, BCI, Banco Itaú, Banco de Chile, Banco
+Falabella, Copec y Soprole. Catálogo: **22 instituciones**.
+
+```
+                         la cita del CSIRT   cita + enlace del informe
+  nombra                       0   (0%)            24  (53%)   ← era 0
+  avisa                        1   (2%)            21  (47%)
+  mudo                        44  (98%)             0    (0%)
+  GRAVE                        0   (0%)             0    (0%)
+```
+
+**`nombra` pasó de 0 a 24 de 45 (53 %).** Es el pago exacto de haber cambiado la pregunta *antes* de
+tener los datos: ahora el motor dice **«el mensaje dice ser de Banco Ripley y el enlace bit.ly no es
+de Banco Ripley»**, que es lo que la persona necesita leer.
+
+**Un detalle del mundo real que sale en los datos:** buena parte de esos mensajes enlazan a
+**`bit.ly`**. El atajo de URL es la norma, no la excepción.
+
+### Y la medición destapó un bug que ningún test unitario veía
+
+`.../SantaIsabelws/tb.php?ea=1` hacía que **`tb.php` contara como un dominio propio**, y el motor lo
+nombraba como si fuera un sitio del atacante: una acusación sobre un dato inventado. La causa era
+leer el host sin separar la ruta. Corregido, con dos tests, y el bug valía un caso más (23 → 24).
+
+> **Los alias son parte del dato.** El corpus escribe «Banco Ripley», «bancoripley» y «banco
+> ripley» para lo mismo; comparar solo contra el nombre normalizado perdía dos de las tres.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

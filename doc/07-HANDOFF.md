@@ -7,14 +7,15 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **`T1.8` — extender el catálogo a lo suplantado.** `T1.9` ya cambió la pregunta, y la medición dice que sin los datos no cambia nada |
+| Tarea en curso | **El paper**, o `T1.5` (guardián de privacidad) · **el diseño vivo está en `doc/design.md`** |
 | Después | `T0.7` (clave de urlscan.io) · `T0.8` (API de ANCI) |
-| Medido | **45 estafas reales del CSIRT**: **0 `GRAVE`**, **0 reconocen de quién dice ser**, y el insumo se cae en el 98 % si solo se reenvía la cita. Ver `doc/12-MEDICION.md` |
+| Medido | **45 estafas reales del CSIRT**: `nombra` **24 (53 %)**, `GRAVE` **0**, y el insumo se cae en el 98 % si solo se reenvía la cita. Ver `doc/12-MEDICION.md` |
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
+| Catálogo | **22 instituciones**: 14 estatales y 8 suplantadas, todas verificadas por certificado |
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Datos | `corpus/alertas_csirt.json` (45) · `scripts/cosechar_alertas.py` · `scripts/medir_motor.py` |
-| Tests | **93 verdes, 1 de integración**, sin red, en menos de un segundo |
+| Tests | **95 verdes, 1 de integración**, sin red, en menos de un segundo |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 

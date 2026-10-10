@@ -83,6 +83,19 @@ Dos detalles que no son cosméticos:
   análisis por no ser una letra latina.
 """
 
+_RE_URL_COMPLETA = re.compile(r"(?:https?://|www\.)[^\s<>\"'()\[\]]+", re.IGNORECASE)
+"""Un enlace completo, con su ruta. Sirve para **quitarlo entero** del texto antes de buscar
+hosts."""
+
+_RE_AUTORIDAD = re.compile(r"^(?:https?://|www\.)(?P<host>[^/\s]+)", re.IGNORECASE)
+"""De un enlace completo, **solo la autoridad**.
+
+Sin separar esto, la ruta se leía como un dominio propio: `.../SantaIsabelws/tb.php` hacía que
+`tb.php` apareciera como un enlace aparte, y el motor lo nombraba como si fuera un sitio del
+atacante — una acusación falsa sobre un dato inventado. **Lo encontró la medición sobre el corpus,
+no un test unitario**, y se ve en el ejemplo `8fph22-00674-01`.
+"""
+
 _RE_ETIQUETA_FINAL = re.compile(r"[^\W\d_]{2,}", re.UNICODE)
 """La última etiqueta tiene que ser alfabética y de dos letras o más.
 
@@ -143,7 +156,15 @@ def _plegar(texto: str) -> str:
 def extraer_enlaces(texto: str, marcas: Sequence[Marca] = MARCAS) -> tuple[Enlace, ...]:
     """Los enlaces del texto, sin repetir, en orden de aparición y ya reducidos a lo registrable."""
     vistos: dict[str, Enlace] = {}
-    for bruto in _RE_HOST.findall(texto):
+    candidatos: list[str] = []
+    for completo in _RE_URL_COMPLETA.findall(texto):
+        autoridad = _RE_AUTORIDAD.match(completo)
+        if autoridad:
+            candidatos.append(autoridad.group("host"))
+    # Los dominios que no traen esquema se buscan en lo que queda, para que una ruta no cuente.
+    candidatos.extend(_RE_HOST.findall(_RE_URL_COMPLETA.sub(" ", texto)))
+
+    for bruto in candidatos:
         host = bruto.strip(".-").lower()
         if not _RE_ETIQUETA_FINAL.fullmatch(host.rsplit(".", 1)[-1]):
             continue

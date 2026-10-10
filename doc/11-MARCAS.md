@@ -30,6 +30,28 @@ certificado.
 | TVN | `tvn.cl` | 200; certificado `CN=tvn.cl`, SAN `*.tvn.cl` |
 | Codelco | `codelco.cl`, `codelco.com` | `codelco.cl` → `www.codelco.com`; certificado `O=Corporacion Nacional del Cobre de Chile` |
 | TGR | `tgr.cl` | 200; certificado `CN=*.tgr.cl`, SAN `tgr.cl` |
+| **Banco Ripley** | `bancoripley.cl` | certificado `O=BANCO RIPLEY` |
+| Ripley | `ripley.cl` | certificado `CN=ripley.cl` |
+| BCI | `bci.cl` | certificado `O=Banco de Credito e Inversiones` |
+| Banco Itaú | `itau.cl` | certificado `O=BANCO ITAU CHILE` |
+| Banco de Chile | `bancochile.cl` | certificado `businessCategory=Private Organization` |
+| Banco Falabella | `bancofalabella.cl` | certificado `CN=bancofalabella.cl` |
+| Copec | `copec.cl` | certificado `CN=copec.cl` |
+| Soprole | `soprole.cl` | certificado `CN=www.soprole.cl` |
+
+### Las ocho últimas entraron por una medición, no por gusto (`T1.8`)
+
+El corpus de `doc/12-MEDICION.md` —45 estafas reales del CSIRT— dice a quién suplantan de verdad:
+**Banco Ripley 21 veces**, BancoEstado 16, y una cada uno para Copec, Santander y Soprole.
+
+Con el catálogo solo de instituciones estatales, **el motor reconocía de quién decía ser el mensaje
+en 0 de 45 casos**, y el veredicto `NO_COINCIDE` era inalcanzable. Con estas ocho entradas pasó a
+**24 de 45 (53 %)**.
+
+**Los alias son parte del dato, no un adorno.** El corpus escribe «Banco Ripley», «bancoripley» y
+«banco ripley» para lo mismo; comparar solo contra el nombre normalizado perdía dos de las tres. Un
+alias va en minúsculas y sin tildes porque el texto del mensaje se pliega antes de comparar, y hay un
+test que lo fija.
 
 ## Lo que la medición corrigió, y por eso se mide
 
