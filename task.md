@@ -15,7 +15,7 @@
 | T1.1 | El motor de respuesta: texto → veredicto | ✅ **44 tests verdes** |
 | T1.2 | Costo real por verificación | ✅ **≈$19, y las primeras 1.000 gratis** |
 | T1.3 | Catálogo de marcas chilenas | ⬜ |
-| T1.4 | Endpoint que une el motor con Kapso | ⬜ |
+| T1.4 | Endpoint que une el motor con Kapso | ✅ **74 tests verdes** |
 | T1.5 | Regla de privacidad del mensaje reenviado | ⬜ |
 | T2.1 | El paper de medición | ⬜ |
 
@@ -252,6 +252,48 @@ permite conectar un chileno propio —chip nuevo, verificado por SMS, nunca regi
 Una herramienta chilena antiestafa con número gringo es ella misma sospechosa.
 
 Detalle, y lo que falta verificar, en [`doc/09-INTERFAZ.md`](doc/09-INTERFAZ.md).
+
+## ✅ T1.4 — El endpoint que une el motor con Kapso
+
+Cinco piezas, y **solo la última toca la red**: `firma.py` (verifica el HMAC), `entrante.py` (lee el
+sobre), `motor.py` (el veredicto), `conversacion.py` (lo que se contesta) y `servidor.py` (HTTP y
+envío). 74 tests verdes, sin red, en menos de un segundo.
+
+**Lo que recibe la persona:**
+
+```
+ENTRA: Estimado usuario: su ClaveUnica sera BLOQUEADA. Regularice en
+       http://claveunica-gob-cl.xyz/renovar
+SALE:  El enlace claveunica-gob-cl.xyz NO es del Estado. El mensaje dice ser del
+       Estado y el enlace no lo es.
+
+ENTRA: BANCOESTADO: detectamos un cargo. Valide en bit.ly/3xR9k
+SALE:  El enlace bit.ly NO es del Estado.
+
+ENTRA: (una captura de pantalla)
+SALE:  No puedo leer imágenes. Mándame el mensaje como texto: mantén apretado el
+       mensaje, elige Copiar y pégalo acá.
+```
+
+**Tres invariantes, cada uno con su test:**
+
+1. **Un mensaje saliente no se procesa.** Si el motor contestara a sus propios mensajes, cada
+   respuesta generaría otra, para siempre y pagando cada una. Es el único error que no se nota en un
+   test unitario y sí en la factura.
+2. **La firma se verifica sobre los bytes crudos, no sobre el JSON.** Parsear y re-serializar cambia
+   el espaciado y rompe el HMAC; el arreglo natural —aflojar la comparación— es el que abre la
+   puerta.
+3. **El servidor siempre contesta 200.** Un 500 hace que Kapso reintente, y reintentar lo que no
+   supimos leer no lo vuelve legible.
+
+**Y lo que no hace:** no escribe en disco, no registra el cuerpo del mensaje, y no sigue
+redirecciones —`urlopen` las sigue por defecto y **reenvía la clave de API** al host de destino—.
+
+**Cómo se corre, y lo que falta confirmar, en [`doc/10-CORRER.md`](doc/10-CORRER.md).**
+
+**El hueco que queda a la vista:** `BANCOESTADO` en el texto no se reconoce como «dice ser del
+Estado», porque el catálogo de marcas es `T1.3`. El enlace igual se marca; lo que falta es el
+nombre.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 
