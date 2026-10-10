@@ -69,11 +69,16 @@ class Marca:
     `etiqueta` es el nombre para mostrar en la respuesta —«SERNAC»— y no el `nombre`, que va
     normalizado porque es con el que se compara. Es opcional para que una marca de prueba no tenga
     que inventar uno.
+
+    `alias` son **las otras formas en que se escribe la misma institución en un mensaje**. Hace
+    falta: el corpus del CSIRT escribe «Banco Ripley», «bancoripley» y «banco ripley» para lo mismo,
+    y comparar solo contra el nombre normalizado perdería dos de las tres.
     """
 
     nombre: str
     oficiales: frozenset[str]
     etiqueta: str = ""
+    alias: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True, slots=True)

@@ -20,7 +20,7 @@
 | T1.6 | Prueba de punta a punta por WhatsApp | ✅ **funcionó, y encontró un bug** |
 | T1.7 | Medir si acierta contra estafas reales | ✅ **45 del CSIRT; 0 graves** |
 | T1.8 | Extender el catálogo a lo suplantado | ⬜ **el corpus dice: 47 % Banco Ripley** |
-| T1.9 | Reformular la pregunta del producto | ⬜ **«¿es el sitio de la institución que dice ser?»** |
+| T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
@@ -431,6 +431,25 @@ no tienen certificado desde esta máquina**: quedan fuera por el mismo blocker d
 De los 785 informes del repositorio, **499 son de «Falsificación de Registros o Identidad» y no citan
 ningún mensaje**. Ir por ellos primero devolvió **cero ejemplos después de cuarenta consultas**. Hay
 que leer la composición del repositorio antes de recorrerlo.
+
+## ✅ T1.9 — La pregunta del producto
+
+De **«¿el enlace es del Estado?»** a **«¿este enlace es el sitio de la institución que el mensaje dice
+ser?»**. Dos veredictos nuevos —`COINCIDE` y `NO_COINCIDE`— y dos viejos que quedan de respaldo
+—`OFICIAL` y `AJENO`— para cuando no se reconoce ninguna institución reclamada.
+
+**Una trampa que apareció al implementarlo:** la URL contaba como «dice ser». El mensaje
+`Banco Ripley le informa: ingrese a claveunica.gob.cl` reclamaba ClaveÚnica **por el solo hecho de
+enlazarla**, así que la lista de reclamadas incluía a las dos y el veredicto daba `COINCIDE` —
+escondiendo justo la incoherencia que el motor existe para encontrar.
+
+> **Enlazar a alguien no es decir ser él.** El reclamo se busca en el texto **con los enlaces
+> borrados**.
+
+**Y la medición con la pregunta nueva no cambió ni un número: `nombra` sigue en 0.** No es un fallo
+de esta tarea — es que **el catálogo no tiene a los suplantados**. `nombra` solo se alcanza
+reconociendo la institución. **Cambiar la pregunta era necesario y no es suficiente:** sin `T1.8`, el
+motor no puede decir «el mensaje dice ser de Banco Ripley» porque no sabe quién es Banco Ripley.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

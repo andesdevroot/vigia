@@ -3,19 +3,21 @@
 ## Qué mide, y qué no
 
 Mide **si el motor ayuda** con estafas que el Estado ya identificó como tales. No mide si el
-veredicto es "correcto" en abstracto, porque para eso haría falta también un corpus de mensajes
-legítimos —que no existe— y la cuenta de falsas acusaciones quedaría sin denominador.
+veredicto es «correcto» en abstracto: para eso haría falta también un corpus de mensajes legítimos
+—que no existe— y la cuenta de falsas acusaciones quedaría sin denominador.
 
-Tres resultados posibles sobre un mensaje de estafa, y **no valen lo mismo**:
+Cuatro resultados posibles sobre un mensaje de estafa, y **no valen lo mismo**:
 
 | | Qué significa |
 |---|---|
-| **avisa** | `AJENO`: nombra el enlace que no es del Estado. Es el resultado útil |
-| **mudo** | `SIN_ENCLACES`: no hay enlace que revisar. Honesto, pero el ciudadano no recibe nada |
-| **grave** | `OFICIAL`: daría por bueno el enlace de una estafa. **Tiene que ser cero** |
+| **nombra** | `NO_COINCIDE`: dice de quién dice ser y que el enlace no es suyo. **El mejor** |
+| **avisa** | `AJENO`: nombra el enlace que no es del Estado, sin saber de quién dice ser |
+| **mudo** | `SIN_ENLACES`: no hay enlace que revisar. Honesto, pero no recibe nada |
+| **GRAVE** | `COINCIDE` u `OFICIAL`: le dijo que el enlace es el correcto. **Tiene que ser cero** |
 
-El número que importa no es el porcentaje de acierto: es **cuántos quedan mudos**, porque esos son
-estafas reales contra las que hoy no hacemos nada.
+Desde `T1.9` la pregunta es «¿este enlace es el sitio de la institución que el mensaje dice ser?»,
+así que `nombra` solo es alcanzable con las instituciones **que estén en el catálogo**. Si el
+catálogo no las tiene, el motor no reconoce el reclamo y cae a `avisa`.
 """
 
 from __future__ import annotations
@@ -31,25 +33,36 @@ from vigia.motor import Veredicto, evaluar  # noqa: E402
 
 CORPUS = RAIZ / "corpus" / "alertas_csirt.json"
 
+CATEGORIA = {
+    Veredicto.NO_COINCIDE: "nombra",
+    Veredicto.AJENO: "avisa",
+    Veredicto.SIN_ENLACES: "mudo",
+    Veredicto.COINCIDE: "GRAVE",
+    Veredicto.OFICIAL: "GRAVE",
+}
+ORDEN = ("nombra", "avisa", "mudo", "GRAVE")
+
 
 def clasificar(texto: str) -> tuple[str, str, bool]:
-    """Devuelve (categoría, explicación, si nombra la marca imitada)."""
+    """Devuelve (categoría, explicación, si reconoció de quién dice ser)."""
     evaluacion = evaluar(texto)
-    categorias = {
-        Veredicto.AJENO: "avisa",
-        Veredicto.SIN_ENLACES: "mudo",
-        Veredicto.OFICIAL: "GRAVE",
-    }
-    return categorias[evaluacion.veredicto], evaluacion.explicacion, bool(evaluacion.suplantaciones)
+    return CATEGORIA[evaluacion.veredicto], evaluacion.explicacion, bool(evaluacion.reclamadas)
 
 
-def medir(ejemplos: list[dict[str, object]], campo: str) -> dict[str, int]:
-    cuenta = {"avisa": 0, "mudo": 0, "GRAVE": 0, "con_marca": 0}
+def medir(
+    ejemplos: list[dict[str, object]], campo: str
+) -> tuple[dict[str, int], dict[str, list[str]]]:
+    cuenta = dict.fromkeys(ORDEN, 0)
+    cuenta["con_reclamo"] = 0
+    ejemplos_de = {}
     for ejemplo in ejemplos:
-        categoria, _, con_marca = clasificar(str(ejemplo[campo]))
+        categoria, explicacion, con_reclamo = clasificar(str(ejemplo[campo]))
         cuenta[categoria] += 1
-        cuenta["con_marca"] += int(con_marca)
-    return cuenta
+        cuenta["con_reclamo"] += int(con_reclamo)
+        ejemplos_de.setdefault(categoria, []).append(
+            f"[{ejemplo['codigo']}] {explicacion}"
+        )
+    return cuenta, ejemplos_de
 
 
 def main() -> None:
@@ -65,27 +78,19 @@ def main() -> None:
         ("texto_citado", "La cita del CSIRT, tal cual"),
         ("texto_reconstruido", "La cita con el enlace que el informe declara"),
     ):
-        cuenta = medir(ejemplos, campo)
+        cuenta, por_categoria = medir(ejemplos, campo)
         print(f"--- {titulo} ---")
-        for clave, etiqueta in (
-            ("avisa", "avisa"),
-            ("mudo", "mudo"),
-            ("GRAVE", "GRAVE"),
-        ):
-            n = cuenta[clave]
-            print(f"  {etiqueta:6} {n:3}  ({n / total:.0%})")
-        print(f"  de los que avisan, nombran la marca imitada: {cuenta['con_marca']}")
+        for clave in ORDEN:
+            print(f"  {clave:7} {cuenta[clave]:3}  ({cuenta[clave] / total:.0%})")
+        print(f"  reconoció de quién dice ser: {cuenta['con_reclamo']}")
+        for linea in por_categoria.get("nombra", [])[:6]:
+            print(f"    {linea[:100]}")
         print()
 
-    print("--- los mudos: estafas reales contra las que no hacemos nada ---")
-    for ejemplo in ejemplos:
-        if clasificar(str(ejemplo["texto_reconstruido"]))[0] == "mudo":
-            print(f"  [{ejemplo['codigo']}] {str(ejemplo['texto_reconstruido'])[:110]}")
-
-    print("\n--- los graves: darían por bueno el enlace de una estafa ---")
-    for ejemplo in ejemplos:
-        if clasificar(str(ejemplo["texto_reconstruido"]))[0] == "GRAVE":
-            print(f"  [{ejemplo['codigo']}] {str(ejemplo['texto_reconstruido'])[:110]}")
+    _, por_categoria = medir(ejemplos, "texto_reconstruido")
+    print("--- los graves: darían por bueno el enlace de una estafa ---")
+    graves = por_categoria.get("GRAVE", [])
+    print("  ninguno" if not graves else "\n".join(f"  {g[:110]}" for g in graves))
 
 
 if __name__ == "__main__":

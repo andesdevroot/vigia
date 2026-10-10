@@ -2,7 +2,16 @@
 
 ## La única pregunta que este programa contesta
 
-**¿El enlace del mensaje es del Estado?**
+**¿Este enlace es el sitio de la institución que el mensaje dice ser?**
+
+Hasta `T1.9` la pregunta era «¿el enlace es del Estado?». **La cambió el corpus de `T1.7`**: en 45
+estafas reales del CSIRT, el **47 % suplanta a Banco Ripley**, un banco privado. A esa persona,
+«el enlace NO es del Estado» le dice algo cierto y **le deja la duda intacta**.
+
+Ahora el motor busca **de quién dice ser** el mensaje en el catálogo, y compara con **de quién es**
+el enlace. Eso da dos veredictos nuevos —`COINCIDE` y `NO_COINCIDE`— y deja los dos viejos
+—`OFICIAL` y `AJENO`— para cuando no se reconoce ninguna institución reclamada, que es información
+peor pero cierta.
 
 No contesta si el mensaje es convincente, si el sitio es bonito ni si quien escribe es funcionario.
 Nada de eso se puede saber leyendo un texto, y afirmarlo sería el peor servicio posible: el ataque
@@ -83,8 +92,10 @@ respuesta de enlaces que nadie puede apretar.
 
 
 class Veredicto(StrEnum):
-    """Sobre el enlace, no sobre el mensaje. La distinción es todo el producto."""
+    """Sobre el enlace y su coherencia con lo que el mensaje dice ser. Nunca sobre el mensaje."""
 
+    COINCIDE = "coincide"
+    NO_COINCIDE = "no_coincide"
     OFICIAL = "oficial"
     AJENO = "ajeno"
     SIN_ENLACES = "sin_enlaces"
@@ -118,6 +129,7 @@ class Evaluacion:
     veredicto: Veredicto
     enlaces: tuple[Enlace, ...]
     suplantaciones: tuple[Coincidencia, ...]
+    reclamadas: tuple[str, ...]
     dice_ser_del_estado: bool
     explicacion: str
 
@@ -158,31 +170,92 @@ def _detalle(enlaces: tuple[Enlace, ...]) -> str:
     )
 
 
-def _dice_ser_del_estado(texto: str, marcas: Sequence[Marca]) -> bool:
-    """Si el mensaje **dice ser** de una institución.
+def _sin_enlaces(texto: str, enlaces: tuple[Enlace, ...]) -> str:
+    """El texto con los enlaces borrados, para buscar de quién dice ser **sin contar la URL**.
 
-    Dos señales. La primera es el discurso del Estado —«ClaveÚnica», «gob.cl», «Gobierno de
-    Chile»—. La segunda es el nombre de una institución del catálogo **como palabra completa**, que
-    es lo que hace que «SERVEL: tiene una multa» no pase por un mensaje cualquiera.
+    Sin esto, `... ingrese a claveunica.gob.cl` «diría ser» de ClaveÚnica por el solo hecho de
+    enlazarla. Y peor: un mensaje que dice ser del Banco Ripley y enlaza a un dominio del Estado
+    daría `COINCIDE`, porque la URL inflaba la lista de reclamadas y escondía la incoherencia —
+    justo la que el motor existe para encontrar.
 
-    Se compara palabra completa y no subcadena porque `sii` está en el catálogo y no puede
+    «Dice ser» es lo que está escrito en la prosa. Enlazar a alguien no es decir ser él.
+    """
+    limpio = texto
+    for enlace in enlaces:
+        limpio = re.sub(re.escape(enlace.host), " ", limpio, flags=re.IGNORECASE)
+    return limpio
+
+
+def _mencionadas(texto: str, marcas: Sequence[Marca]) -> tuple[Marca, ...]:
+    """Las instituciones del catálogo que el mensaje **dice ser**, en orden del catálogo.
+
+    Se busca el nombre normalizado y **todos sus alias**, cada uno como **palabra completa**. La
+    palabra completa no es un detalle: `sii` está en el catálogo con tres letras y no puede
     dispararse dentro de otra palabra.
+
+    El costo aceptado es que una palabra ambigua como `metro` —que es el Metro y también una unidad
+    de largo— marca de más. Va en la dirección segura: dice de más, no calla de menos.
     """
     plegado = _plegar(texto)
-    if any(termino in plegado for termino in TERMINOS_ESTADO):
+    encontradas: list[Marca] = []
+    for marca in marcas:
+        formas = (marca.nombre, *marca.alias)
+        if any(re.search(rf"\b{re.escape(forma)}\b", plegado) for forma in formas):
+            encontradas.append(marca)
+    return tuple(encontradas)
+
+
+def _dice_ser_del_estado(texto: str, marcas: Sequence[Marca]) -> bool:
+    """Si el mensaje **dice ser** de una institución, del catálogo o del Estado en general."""
+    if _mencionadas(texto, marcas):
         return True
-    return any(
-        re.search(rf"\b{re.escape(marca.nombre)}\b", plegado) is not None for marca in marcas
-    )
+    plegado = _plegar(texto)
+    return any(termino in plegado for termino in TERMINOS_ESTADO)
+
+
+def _sospechas(
+    enlaces: tuple[Enlace, ...], suplantaciones: tuple[Coincidencia, ...]
+) -> list[str]:
+    """Los agravantes de una respuesta que ya dice que hay algo mal.
+
+    Van aparte porque los comparten los dos veredictos que avisan, y tenerlos duplicados era pedir
+    que uno de los dos se olvidara de uno.
+    """
+    partes: list[str] = []
+    if any(not e.ascii for e in enlaces):
+        partes.append(
+            "Además usa letras que no son latinas: es un truco para que se vea igual al dominio "
+            "verdadero."
+        )
+    if suplantaciones:
+        nombres = ", ".join(dict.fromkeys(s.etiqueta or s.marca for s in suplantaciones))
+        partes.append(f"El enlace se parece a {nombres}.")
+    return partes
 
 
 def _explicar(
     veredicto: Veredicto,
     enlaces: tuple[Enlace, ...],
     suplantaciones: tuple[Coincidencia, ...],
+    reclamadas: tuple[str, ...],
     dice_ser_del_estado: bool,
 ) -> str:
     """La respuesta en castellano, para reenviar tal cual."""
+    advertencia = (
+        " Eso dice del enlace, no del mensaje: si le piden su clave o sus datos personales,"
+        " no los entregue."
+    )
+
+    if veredicto is Veredicto.COINCIDE:
+        dominios = ", ".join(e.registrable for e in enlaces)
+        return f"El enlace {dominios} es el sitio de {', '.join(reclamadas)}.{advertencia}"
+
+    if veredicto is Veredicto.NO_COINCIDE:
+        quienes = ", ".join(reclamadas)
+        ajenos = ", ".join(e.registrable for e in enlaces if e.institucion not in reclamadas)
+        partes = [f"El mensaje dice ser de {quienes} y el enlace {ajenos} no es de {quienes}."]
+        return " ".join(partes + _sospechas(enlaces, suplantaciones))
+
     if veredicto is Veredicto.OFICIAL:
         encabezado = (
             "El enlace es del Estado"
@@ -213,14 +286,7 @@ def _explicar(
         # no decir nada.
         if not e.es_del_estado
     ]
-    if any(not e.ascii for e in enlaces):
-        partes.append(
-            "Además usa letras que no son latinas: es un truco para que se vea igual al dominio "
-            "verdadero."
-        )
-    if suplantaciones:
-        nombres = ", ".join(dict.fromkeys(s.etiqueta or s.marca for s in suplantaciones))
-        partes.append(f"El enlace se parece a {nombres}.")
+    partes.extend(_sospechas(enlaces, suplantaciones))
     if dice_ser_del_estado:
         partes.append("El mensaje dice ser del Estado y el enlace no lo es.")
     return " ".join(partes)
@@ -239,10 +305,17 @@ def evaluar(texto: str, marcas: Sequence[Marca] = MARCAS) -> Evaluacion:
         if not enlace.es_oficial
         and (coincidencia := detectar(enlace.registrable, marcas)) is not None
     )
+    mencionadas = _mencionadas(_sin_enlaces(texto, enlaces), marcas)
+    reclamadas = tuple(marca.etiqueta or marca.nombre for marca in mencionadas)
     dice_ser_del_estado = _dice_ser_del_estado(texto, marcas)
 
     if not enlaces:
         veredicto = Veredicto.SIN_ENLACES
+    elif reclamadas:
+        # La pregunta de T1.9: ¿todos los enlaces son de la institución que el mensaje dice ser?
+        # Basta uno que no lo sea para romper la coincidencia: es el ataque mezclado.
+        coincide = all(enlace.institucion in reclamadas for enlace in enlaces)
+        veredicto = Veredicto.COINCIDE if coincide else Veredicto.NO_COINCIDE
     elif all(e.es_oficial for e in enlaces):
         veredicto = Veredicto.OFICIAL
     else:
@@ -252,6 +325,7 @@ def evaluar(texto: str, marcas: Sequence[Marca] = MARCAS) -> Evaluacion:
         veredicto=veredicto,
         enlaces=enlaces,
         suplantaciones=suplantaciones,
+        reclamadas=reclamadas,
         dice_ser_del_estado=dice_ser_del_estado,
-        explicacion=_explicar(veredicto, enlaces, suplantaciones, dice_ser_del_estado),
+        explicacion=_explicar(veredicto, enlaces, suplantaciones, reclamadas, dice_ser_del_estado),
     )

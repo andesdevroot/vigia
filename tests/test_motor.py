@@ -1,17 +1,41 @@
-"""Tests del motor de respuesta (T1.1). Rojo primero.
+"""Tests del motor de respuesta.
 
-El motor contesta una sola cosa, y la contesta bien: **si el enlace del mensaje es del Estado**.
-Todo lo demás —si el mensaje convence, si pide datos, si el sitio es bonito— no se puede saber
-leyendo un texto, y por eso no se afirma.
+La pregunta cambió en `T1.9`, y la cambió el corpus de `T1.7`: **«¿este enlace es el sitio de la
+institución que el mensaje dice ser?»**, y no «¿es del Estado?».
+
+El motivo está medido: en 45 estafas reales del CSIRT, **el 47 % suplanta a Banco Ripley**, un banco
+privado. A esa persona, «el enlace NO es del Estado» le dice algo cierto y le deja la duda intacta.
+
+Lo que **no** cambia es la línea roja: se afirma sobre el enlace y sobre la coherencia entre lo
+que el mensaje dice y lo que enlaza. Nunca sobre el mensaje.
 """
 
 from vigia.motor import Veredicto, evaluar, extraer_enlaces
 from vigia.suplantacion import Marca, TipoSuplantacion
 
 MARCAS = (
-    Marca(nombre="bancoestado", oficiales=frozenset({"bancoestado.cl"})),
-    Marca(nombre="claveunica", oficiales=frozenset({"claveunica.gob.cl"})),
+    Marca(
+        nombre="bancoestado",
+        etiqueta="BancoEstado",
+        alias=("banco estado", "banco de estado"),
+        oficiales=frozenset({"bancoestado.cl"}),
+    ),
+    Marca(
+        nombre="claveunica",
+        etiqueta="ClaveÚnica",
+        alias=("clave unica",),
+        oficiales=frozenset({"claveunica.gob.cl"}),
+    ),
+    Marca(
+        nombre="bancoripley",
+        etiqueta="Banco Ripley",
+        alias=("banco ripley", "ripley"),
+        oficiales=frozenset({"bancoripley.cl"}),
+    ),
 )
+
+CON_PROBLEMA = (Veredicto.AJENO, Veredicto.NO_COINCIDE)
+"""Los dos veredictos que le dicen a la persona que hay algo mal. Nunca `COINCIDE` ni `OFICIAL`."""
 
 
 def test_sin_enlaces_da_sin_enlaces() -> None:
@@ -20,36 +44,74 @@ def test_sin_enlaces_da_sin_enlaces() -> None:
     assert resultado.enlaces == ()
 
 
-def test_enlace_del_estado_da_oficial() -> None:
-    resultado = evaluar("Renueve en https://claveunica.gob.cl/portal antes del viernes")
-    assert resultado.veredicto is Veredicto.OFICIAL
+def test_dice_ser_de_claveunica_y_enlaza_a_claveunica_da_coincide() -> None:
+    resultado = evaluar("ClaveUnica le informa: renueve en https://claveunica.gob.cl/portal")
+    assert resultado.veredicto is Veredicto.COINCIDE
+    assert resultado.reclamadas == ("ClaveÚnica",)
     assert [e.registrable for e in resultado.enlaces] == ["claveunica.gob.cl"]
-    assert resultado.enlaces[0].es_del_estado
 
 
-def test_enlace_ajeno_da_ajeno() -> None:
-    resultado = evaluar("Renueve en https://claveunica-gob-cl.xyz antes del viernes")
-    assert resultado.veredicto is Veredicto.AJENO
-    assert resultado.enlaces[0].registrable == "claveunica-gob-cl.xyz"
+def test_dice_ser_de_claveunica_y_enlaza_a_otro_da_no_coincide() -> None:
+    """El caso que la pregunta nueva hace visible, y que la vieja no podía nombrar."""
+    resultado = evaluar("Renueve su ClaveUnica en https://claveunica-gob-cl.xyz")
+    assert resultado.veredicto is Veredicto.NO_COINCIDE
+    assert "ClaveÚnica" in resultado.explicacion
+    assert "claveunica-gob-cl.xyz" in resultado.explicacion
 
 
-def test_un_enlace_ajeno_basta_para_no_ser_oficial() -> None:
-    """El invariante del motor.
+def test_dice_ser_de_un_banco_y_enlaza_al_banco_da_coincide() -> None:
+    resultado = evaluar("Banco Ripley: su cuenta fue bloqueada. Ingrese a bancoripley.cl",
+                        marcas=MARCAS)
+    assert resultado.veredicto is Veredicto.COINCIDE
+    assert resultado.reclamadas == ("Banco Ripley",)
+
+
+def test_dice_ser_de_un_banco_y_enlaza_a_otro_lado_da_no_coincide() -> None:
+    """El caso del corpus: «Banco Ripley» con un enlace que no es del banco."""
+    resultado = evaluar(
+        "Banco Ripley, detectamos una actividad inusual. Ingrese a bancoripley-cl.xyz",
+        marcas=MARCAS,
+    )
+    assert resultado.veredicto is Veredicto.NO_COINCIDE
+    assert "Banco Ripley" in resultado.explicacion
+
+
+def test_el_alias_con_espacio_tambien_cuenta_como_reclamo() -> None:
+    """El corpus escribe «Banco Ripley» y «bancoripley»; las dos formas tienen que contar."""
+    for texto in ("Banco Ripley le informa", "bancoripley le informa"):
+        assert evaluar(f"{texto}, ingrese a otro-lado.xyz", marcas=MARCAS).reclamadas == (
+            "Banco Ripley",
+        )
+
+
+def test_un_enlace_ajeno_rompe_la_coincidencia() -> None:
+    """El invariante del motor, ahora sobre la coherencia.
 
     Un ataque real pone el enlace bueno **y** el malo en el mismo mensaje: el bueno da confianza y
-    el malo es el que se aprieta. Si bastara un enlace del Estado, el motor entregaría su visto
-    bueno justo al mensaje mejor construido.
+    el malo es el que se aprieta. Si bastara un enlace legítimo, el motor entregaría su visto bueno
+    justo al mensaje mejor construido.
     """
-    resultado = evaluar("Verifique en claveunica.gob.cl y luego entre a bit.ly/renovar")
-    assert "claveunica.gob.cl" in [e.registrable for e in resultado.enlaces]
-    assert resultado.veredicto is Veredicto.AJENO
+    resultado = evaluar("Banco Ripley: verifique en bancoripley.cl y entre a bit.ly/renovar",
+                        marcas=MARCAS)
+    assert "bancoripley.cl" in [e.registrable for e in resultado.enlaces]
+    assert resultado.veredicto is Veredicto.NO_COINCIDE
 
-    for texto in (
-        "claveunica.gob.cl y bit.ly/x",
-        "www.sii.cl y www.sii-cl.xyz",
-        "http://claveunica.gob.cl y http://claveunica.gob.cl.xyz",
-    ):
-        assert evaluar(texto).veredicto is Veredicto.AJENO
+
+def test_un_enlace_del_estado_ajeno_al_reclamo_da_no_coincide() -> None:
+    """Un enlace del Estado no salva a un mensaje que dice ser de otra institución."""
+    resultado = evaluar("Banco Ripley le informa: ingrese a claveunica.gob.cl", marcas=MARCAS)
+    assert resultado.veredicto is Veredicto.NO_COINCIDE
+
+
+def test_sin_reclamo_reconocido_cae_al_veredicto_del_enlace() -> None:
+    """Cuando no se sabe de quién dice ser, queda la respuesta vieja, que sigue siendo cierta."""
+    del_estado = evaluar("Ingrese a https://www.gob.cl/atencion")
+    assert del_estado.veredicto is Veredicto.OFICIAL
+    assert del_estado.reclamadas == ()
+
+    ajeno = evaluar("Ingrese a https://un-sitio-cualquiera.xyz")
+    assert ajeno.veredicto is Veredicto.AJENO
+    assert "NO es del Estado" in ajeno.explicacion
 
 
 def test_enlace_sin_esquema_se_detecta() -> None:
@@ -63,21 +125,20 @@ def test_correo_electronico_no_es_enlace() -> None:
     assert resultado.veredicto is Veredicto.SIN_ENLACES
 
 
-def test_homoglifo_cirilico_no_pasa_por_oficial() -> None:
-    """`claveunica.gоb.cl` con la `o` cirílica se ve igual y no es el dominio del Estado.
+def test_homoglifo_cirilico_no_da_coincide() -> None:
+    """`claveunica.gоb.cl` con la `o` cirílica se ve igual y no es el dominio de ClaveÚnica.
 
     Es el ataque que la vista no puede ganar y el programa sí, que es la razón de existir del
     proyecto.
     """
-    resultado = evaluar("Ingrese a claveunica.g\u043eb.cl")
-    assert resultado.veredicto is Veredicto.AJENO
+    resultado = evaluar("ClaveUnica le informa: ingrese a claveunica.g\u043eb.cl")
+    assert resultado.veredicto is Veredicto.NO_COINCIDE
     assert resultado.enlaces[0].ascii is False
 
 
-def test_terminar_parecido_a_gob_cl_no_es_ser_del_estado() -> None:
+def test_terminar_parecido_a_gob_cl_no_da_coincide() -> None:
     for host in ("claveunica.gob.cl.xyz", "claveunicagob.cl", "gob-cl.xyz", "claveunica.gob.com"):
-        resultado = evaluar(f"ingrese a {host}")
-        assert resultado.veredicto is Veredicto.AJENO, host
+        assert evaluar(f"ingrese a {host}").veredicto in CON_PROBLEMA, host
 
 
 def test_punteo_final_no_ensucia_el_enlace() -> None:
@@ -86,8 +147,9 @@ def test_punteo_final_no_ensucia_el_enlace() -> None:
 
 
 def test_mayusculas_no_importan() -> None:
-    resultado = evaluar("INGRESE A CLAVEUNICA.GOB.CL")
-    assert resultado.veredicto is Veredicto.OFICIAL
+    assert evaluar("CLAVEUNICA LE INFORMA, INGRESE A CLAVEUNICA.GOB.CL").veredicto is (
+        Veredicto.COINCIDE
+    )
 
 
 def test_enlaces_repetidos_aparecen_una_vez() -> None:
@@ -101,17 +163,25 @@ def test_se_reporta_la_marca_suplantada() -> None:
     assert resultado.suplantaciones[0].tipo is TipoSuplantacion.PUNTO_A_GUION
 
 
-def test_la_explicacion_de_oficial_no_promete_seguridad() -> None:
-    """La línea roja del producto: se afirma sobre el enlace, nunca sobre el mensaje.
+def test_ninguna_respuesta_promete_seguridad() -> None:
+    """La línea roja, sobre **todos** los veredictos y no solo sobre el amable.
 
-    Decir «es seguro» es lo único que este programa no puede hacer, porque un enlace del Estado
-    dentro de un mensaje falso es exactamente el ataque mejor construido.
+    Decir «es seguro» es lo único que este programa no puede hacer: un enlace legítimo dentro de un
+    mensaje falso existe, y es exactamente el ataque mejor construido.
     """
-    resultado = evaluar("Ingrese a https://claveunica.gob.cl")
-    explicacion = resultado.explicacion.lower()
-    assert "claveunica.gob.cl" in explicacion
-    assert "seguro" not in explicacion
-    assert "confiar" not in explicacion
+    textos = (
+        "Ingrese a https://claveunica.gob.cl",
+        "Ingrese a https://www.gob.cl",
+        "Banco Ripley: ingrese a bancoripley.cl",
+        "Banco Ripley: ingrese a otro-lado.xyz",
+        "Ingrese a https://un-sitio-cualquiera.xyz",
+        "Su ClaveUnica sera bloqueada",
+    )
+    for texto in textos:
+        explicacion = evaluar(texto).explicacion.lower()
+        assert "seguro" not in explicacion, texto
+        assert "confiar" not in explicacion, texto
+        assert "confiable" not in explicacion, texto
 
 
 def test_sin_enlaces_pero_dice_ser_del_estado_queda_marcado() -> None:
@@ -133,22 +203,31 @@ def test_el_dominio_propio_de_una_institucion_no_se_acusa() -> None:
     assert "SERNAC" in resultado.explicacion
 
 
-def test_un_parecido_del_dominio_de_una_institucion_si_se_acusa() -> None:
+def test_un_parecido_del_dominio_de_una_institucion_no_coincide() -> None:
     for host in ("sernac-cl.xyz", "sernac.gob.cl.xyz", "sernaccl.com"):
-        assert evaluar(f"reclame en {host}").veredicto is Veredicto.AJENO, host
+        assert evaluar(f"reclame en {host}").veredicto in CON_PROBLEMA, host
 
 
 def test_un_enlace_conocido_no_lava_a_uno_desconocido() -> None:
-    """El invariante de T1.1 sigue en pie ahora que el catálogo amplía lo que se acepta."""
     resultado = evaluar("Reclame en sernac.cl y confirme en bit.ly/reclamo")
     assert resultado.veredicto is Veredicto.AJENO
 
 
-def test_una_institucion_nombrada_en_el_texto_cuenta_como_decir_ser_del_estado() -> None:
-    """El hueco que quedó a la vista al cerrar T1.4: `BANCOESTADO` no se reconocía."""
+def test_una_institucion_nombrada_en_el_texto_cuenta_como_reclamo() -> None:
     resultado = evaluar("SERVEL: tiene una multa. Pague en bit.ly/multa")
     assert resultado.dice_ser_del_estado
-    assert resultado.veredicto is Veredicto.AJENO
+    assert resultado.reclamadas == ("Servel",)
+    assert resultado.veredicto is Veredicto.NO_COINCIDE
+
+
+def test_el_mensaje_mezclado_nombra_las_dos_partes() -> None:
+    """El mensaje mezclado es el ataque: un enlace legítimo de adorno y uno falso para apretar.
+
+    La respuesta tiene que nombrar de quién dice ser y cuál es el enlace que no le corresponde.
+    """
+    resultado = evaluar("Reclame en sernac.cl y confirme en bit.ly/reclamo")
+    assert "SERNAC" in resultado.explicacion
+    assert "bit.ly" in resultado.explicacion
 
 
 def test_el_nombre_tiene_que_aparecer_como_palabra_completa() -> None:
@@ -167,19 +246,6 @@ def test_una_palabra_ambigua_como_metro_se_marca_de_mas_y_se_acepta() -> None:
     assert evaluar("El paño mide un metro cuadrado, vea bit.ly/paño").dice_ser_del_estado
 
 
-def test_un_enlace_conocido_no_se_acusa_dentro_de_un_mensaje_ajeno() -> None:
-    """El mensaje mezclado es el ataque: un enlace real de adorno y uno falso para apretar.
-
-    Acusar al real sería, además de falso, lo más confuso posible: la respuesta tiene que separar
-    «esto es del SERNAC» de «esto no es del Estado».
-    """
-    resultado = evaluar("Reclame en sernac.cl y confirme en bit.ly/reclamo")
-    assert resultado.veredicto is Veredicto.AJENO
-    assert "sernac.cl es de SERNAC" in resultado.explicacion
-    assert "bit.ly NO es del Estado" in resultado.explicacion
-
-
 def test_la_marca_imitada_se_nombra_como_se_escribe() -> None:
     """La respuesta la lee una persona: «ClaveÚnica», no el nombre con el que se compara."""
-    resultado = evaluar("entre a claveunica-gob-cl.xyz")
-    assert "ClaveÚnica" in resultado.explicacion
+    assert "ClaveÚnica" in evaluar("entre a claveunica-gob-cl.xyz").explicacion

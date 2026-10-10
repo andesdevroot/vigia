@@ -7,19 +7,20 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **`T1.9` — reformular la pregunta del producto.** El corpus midió que el 47 % de lo suplantado es Banco Ripley, un banco privado: «¿es del Estado?» no le sirve |
-| Después | `T1.8` extender el catálogo a lo suplantado · `T0.7` (clave de urlscan.io) · `T0.8` (API de ANCI) |
-| Medido | **45 estafas reales del CSIRT**, con fuente citable: **0 `GRAVE`**, y **0 de 45** nombran la marca imitada. Ver `doc/12-MEDICION.md` |
+| Tarea en curso | **`T1.8` — extender el catálogo a lo suplantado.** `T1.9` ya cambió la pregunta, y la medición dice que sin los datos no cambia nada |
+| Después | `T0.7` (clave de urlscan.io) · `T0.8` (API de ANCI) |
+| Medido | **45 estafas reales del CSIRT**: **0 `GRAVE`**, **0 reconocen de quién dice ser**, y el insumo se cae en el 98 % si solo se reenvía la cita. Ver `doc/12-MEDICION.md` |
+| Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Datos | `corpus/alertas_csirt.json` (45) · `scripts/cosechar_alertas.py` · `scripts/medir_motor.py` |
-| Tests | **91 verdes, 1 de integración**, sin red, en menos de un segundo |
+| Tests | **93 verdes, 1 de integración**, sin red, en menos de un segundo |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
 ## Último commit
 
-`[T1.6]` El arreglo del catálogo confirmado en producción.
+`[T1.7]` La medición contra 45 estafas reales del CSIRT.
 
 ## Blockers
 
@@ -37,6 +38,8 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 | Fecha | Decisión |
 |---|---|
 | 2026-10-10 | **La pregunta del producto está mal planteada, y lo dijo el corpus.** El motor contesta «¿el enlace es del Estado?», pero **el 47 % de lo suplantado en 45 alertas reales es Banco Ripley**, un banco privado. A esa persona «NO es del Estado» le dice algo cierto y le deja la duda intacta. La pregunta que el corpus pide es **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** |
+| 2026-10-10 | **La pregunta del motor pasó a «¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`T1.9`). Dos veredictos nuevos —`COINCIDE` y `NO_COINCIDE`— y los dos viejos como respaldo. **Y la medición no cambió ni un número: `nombra` sigue en 0**, porque el catálogo no tiene a los suplantados. **Cambiar la pregunta era necesario y no es suficiente**: sin `T1.8`, el motor no puede decir «el mensaje dice ser de Banco Ripley» porque no sabe quién es |
+| 2026-10-10 | **Enlazar a alguien no es decir ser él.** La URL contaba como reclamo: `Banco Ripley le informa: ingrese a claveunica.gob.cl` reclamaba ClaveÚnica por enlazarla, y el veredicto daba `COINCIDE` — escondiendo la incoherencia que el motor existe para encontrar. **El reclamo se busca en el texto con los enlaces borrados** |
 | 2026-10-10 | **El motor nombra la marca imitada en 0 de 45 casos.** No es un fallo del detector: es que el catálogo solo tiene instituciones estatales bajo `.gob.cl`, y lo que se suplanta son bancos. Medido: Banco Ripley 21 veces, BancoEstado 16, Copec, Santander y Soprole una cada uno |
 | 2026-10-10 | **La medición no puede ser tautológica, y hay que decirlo.** Agregarle al mensaje la URL que el informe declara maliciosa garantiza que el veredicto sea `AJENO`: eso confirma la regla y **no mide ningún acierto**. El único número que vale de esa columna es **`GRAVE = 0`**: en 45 estafas reales el motor nunca dio por bueno el enlace malo |
 | 2026-10-10 | **El insumo del CSIRT es un fragmento, no el mensaje.** En **44 de 45** citas el enlace no está dentro del texto citado. Si alguien reenviara exactamente lo publicado por el Estado, no le serviríamos en el 98 % de los casos. La medición dice más sobre el insumo que sobre el motor |

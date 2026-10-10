@@ -87,7 +87,39 @@ Los dominios de los suplantados, leídos de su certificado:
 
 Los tres últimos quedan **fuera** por el mismo blocker de DNS que ya declaró `T1.3`. No se adivinan.
 
-## Cómo se reproduce
+## T1.9 — Cambiar la pregunta, y lo que costó
+
+La pregunta pasó de «¿el enlace es del Estado?» a **«¿este enlace es el sitio de la institución que el
+mensaje dice ser?»**. Veredictos nuevos: `COINCIDE` y `NO_COINCIDE`.
+
+**Una trampa que apareció al implementarlo:** la URL contaba como «dice ser». Un mensaje
+`Banco Ripley le informa: ingrese a claveunica.gob.cl` reclamaba ClaveÚnica por el solo hecho de
+enlazarla, así que la lista de reclamadas incluía a las dos y el veredicto daba `COINCIDE` —
+escondiendo justo la incoherencia que el motor existe para encontrar. **Enlazar a alguien no es decir
+ser él.** Ahora el reclamo se busca en el texto **con los enlaces borrados**.
+
+### La medición con la pregunta nueva no cambió ni un número
+
+```
+                         la cita del CSIRT   cita + enlace del informe
+  nombra                       0   (0%)             0    (0%)
+  avisa                        1   (2%)            45  (100%)
+  mudo                        44  (98%)             0    (0%)
+  GRAVE                        0   (0%)             0    (0%)
+  reconoció de quién dice ser  0                   0
+```
+
+**Cero reconocimientos.** No es un fallo de `T1.9`: es que **el catálogo no tiene a los
+suplantados**. `nombra` solo se alcanza reconociendo la institución, y el catálogo de `T1.3` son
+instituciones estatales bajo `.gob.cl` — mientras que el corpus suplanta bancos.
+
+> **Cambiar la pregunta era necesario, y no es suficiente.** Sin `T1.8` el motor no puede decir «el
+> mensaje dice ser de Banco Ripley», porque no sabe quién es Banco Ripley.
+
+Es el orden correcto igual: si el catálogo hubiera crecido primero, el motor habría dicho «el enlace
+es de una institución oficial: bancoripley.cl (Banco Ripley)», que no es lo que hay que leer.
+
+## Cómo se reproduce, y con qué se mide
 
 ```bash
 python3 scripts/cosechar_alertas.py 45   # cosecha; ~2 minutos, con pausa entre consultas

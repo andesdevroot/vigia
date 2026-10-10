@@ -62,7 +62,7 @@ def test_un_mensaje_con_enlace_ajeno_se_responde() -> None:
     id_numero, destinatario, texto = enviador.enviados[0]
     assert id_numero == ID_NUMERO
     assert destinatario == "56912345678"
-    assert "NO es del Estado" in texto
+    assert "no es de ClaveÚnica" in texto
 
 
 def test_un_acuse_de_entrega_no_responde() -> None:

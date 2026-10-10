@@ -8,6 +8,7 @@ falso negativo — el motor daría por bueno el enlace del atacante.
 from __future__ import annotations
 
 import socket
+import unicodedata
 import urllib.error
 import urllib.request
 
@@ -53,6 +54,20 @@ def test_los_dominios_ya_son_etiquetas_registrables() -> None:
     """
     for dominio in DOMINIOS:
         assert etiqueta_registrable(dominio) == dominio, dominio
+
+
+def test_los_alias_estan_plegados_y_pueden_teñir_espacios() -> None:
+    """Los alias sí llevan espacios —«banco ripley»— pero tienen que venir plegados.
+
+    El texto del mensaje se pliega antes de comparar: minúsculas y sin tildes. Un alias guardado con
+    mayúsculas o con tilde no calzaría nunca, y el reclamo de esa institución se perdería en
+    silencio.
+    """
+    for marca in MARCAS:
+        for forma in (marca.nombre, *marca.alias):
+            assert forma == forma.lower(), forma
+            descompuesta = unicodedata.normalize("NFD", forma)
+            assert not any(unicodedata.combining(c) for c in descompuesta), forma
 
 
 def test_los_nombres_estan_en_minusculas_y_sin_separadores() -> None:
