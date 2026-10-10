@@ -1,14 +1,15 @@
 #!/usr/bin/env bash
 # Prueba de punta a punta: el motor, el webhook y WhatsApp, en un solo comando.
 #
-# Levanta el servidor, le abre un túnel con ngrok y dice exactamente qué URL pegar en Kapso.
-# No imprime ni copia ningún secreto.
+# Abre el túnel, registra o actualiza el webhook en Kapso, levanta el servidor, y al salir apaga el
+# webhook para no dejarlo apuntando a un túnel muerto. No imprime ni copia secretos: los escribe en
+# `.env`.
 set -euo pipefail
 
 cd "$(dirname "$0")/.."
 
 if [ ! -f .env ]; then
-  echo "Falta .env. Copia el ejemplo y pega ahí los valores:"
+  echo "Falta .env. Copia el ejemplo y pega la API key:"
   echo
   echo "    cp .env.example .env"
   exit 1
@@ -20,15 +21,10 @@ set -a
 set +a
 
 : "${KAPSO_API_KEY:?falta KAPSO_API_KEY en .env}"
-: "${VIGIA_WEBHOOK_SECRET:?falta VIGIA_WEBHOOK_SECRET en .env}"
 
 PUERTO="${VIGIA_PUERTO:-8000}"
 export UV_CACHE_DIR="${UV_CACHE_DIR:-$PWD/.uv-cache}"
 export VIGIA_PUERTO="$PUERTO"
-
-echo "Levantando el webhook en el puerto $PUERTO..."
-uv run python -m vigia.servidor &
-SERVIDOR=$!
 
 YA_LIMPIE=0
 limpiar() {
@@ -38,6 +34,7 @@ limpiar() {
   if [ -n "${TUNEL:-}" ]; then
     kill "$TUNEL" 2>/dev/null || true
   fi
+  python3 scripts/registrar_webhook.py --apagar 2>/dev/null || true
   return 0
 }
 trap limpiar EXIT INT TERM
@@ -62,21 +59,28 @@ if [ -z "$URL" ]; then
   exit 1
 fi
 
+echo "Registrando el webhook en Kapso..."
+python3 scripts/registrar_webhook.py "$URL"
+
+# El servidor arranca DESPUÉS, a propósito: necesita el secreto que acaba de quedar en `.env`.
+set -a
+. ./.env
+set +a
+: "${VIGIA_WEBHOOK_SECRET:?no quedó VIGIA_WEBHOOK_SECRET en .env}"
+
+echo "Levantando el servidor en el puerto $PUERTO..."
+uv run python -m vigia.servidor &
+SERVIDOR=$!
+
 cat <<FIN
 
-  Webhook listo.
+  Listo.
 
-    1. En Kapso, crea el webhook contra esta URL, con el evento
-       whatsapp.message.received y payload_version v2:
+    1. Si es la primera vez: en Kapso, WhatsApp -> Sandbox -> Add Test Number,
+       registra tu número y manda el código de 6 caracteres (vence en 15 min).
+    2. Escríbele al sandbox desde tu WhatsApp y mira la respuesta.
 
-         $URL/webhook
-
-    2. Copia el secret_key que Kapso muestra UNA SOLA VEZ y pégalo en .env
-       como VIGIA_WEBHOOK_SECRET. Si ya lo tenías, no hay nada que hacer.
-
-    3. Escríbele desde tu WhatsApp al número del robot y mira la respuesta.
-
-  Ctrl-C corta el servidor y el túnel.
+  Ctrl-C corta el servidor, el túnel y apaga el webhook.
 
 FIN
 
