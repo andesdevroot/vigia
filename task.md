@@ -8,7 +8,7 @@
 | T0.2 | Spike: medir el volumen real de CT | ✅ **el canal no tiene volumen** |
 | T0.3 | Estado del arte | ✅ |
 | T0.4 | Leer la tesis chilena 202581 | ✅ **el espacio está abierto** |
-| T0.5 | ¿Es obtenible la lista de dominios del Estado? | ⬜ |
+| T0.5 | ¿Es obtenible la lista de dominios del Estado? | ✅ **es completa por política** |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
 decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
@@ -100,3 +100,40 @@ Si no es obtenible ni completa, esa vía muere como las demás — y conviene sa
   podría faltar (lo que produciría un falso negativo en la certificación).
 - **Riesgo:** que la lista no exista publicada y haya que construirla por rastreo, con lo que la
   completitud pasa a ser indemostrable.
+
+## ✅ T0.5 — La lista de dominios del Estado
+
+**Respuesta: es obtenible, y mejor que obtenible — es completa por POLÍTICA, no por enumeración.**
+
+`gob.cl` **no es un TLD: es un segundo nivel administrado por el Estado** (ANCI / CSIRT Nacional, con
+registro en `nic.gob.cl`). Solo pueden inscribir órganos de la Administración del Estado. **Para
+certificar que un sitio es del Estado no hace falta una lista: basta preguntar si termina en
+`.gob.cl`.** La completitud depende de una restricción de registro, no de tener el listado entero.
+
+Medido por CT: **221 dominios** `.gob.cl` registrables.
+
+**Y el hallazgo que cambia el proyecto: la ANCI ya escribió la tesis.** Declara la
+*identificabilidad* como objetivo, dice que *"todos los engaños de ingeniería social dependen de la
+falta de identificabilidad"*, bloquea la jerarquía `gov.cl`, obliga a registrar el `.cl` solo para
+redirigir, y creó una **barra azul** de sitio oficial.
+
+**Lo malo:** la idea de la lista blanca no es nuestra. El Estado la implementó.
+**Lo bueno, y es mejor:** **nadie publicó una medición de si funciona.**
+
+Detalle en [`doc/04-LISTA-GOB-CL.md`](doc/04-LISTA-GOB-CL.md).
+
+## ⬜ T0.6 — El paper de medición
+
+> *Measuring a national trust anchor: does `.gob.cl` give the Chilean State identifiability online?*
+
+Tres preguntas medibles, en orden de costo:
+
+1. **¿La barra azul es falsificable?** Es un control **visual**: el PNG y el CSS se copian. Es la
+   hipótesis más atacable y la más barata de medir.
+2. **¿El ancla se sostiene?** Censo de `.gob.cl` contra las reglas de ANCI (nombres de empresa,
+   genéricos reservados, un subdominio por institución).
+3. **¿Dónde queda el ataque?** Homoglifo **en el propio TLD** (`gob.cl` con cirílica), `.cl` que
+   parece oficial, y la barra copiada sobre un dominio ajeno.
+
+**Bloqueo de acceso, no de datos:** la lista de inscripciones de ANCI no se publica. Se puede pedir
+por Ley de Transparencia, y eso es una gestión.

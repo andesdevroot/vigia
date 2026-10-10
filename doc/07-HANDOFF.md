@@ -7,7 +7,7 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | ninguna. Siguiente: **T0.5** (¿es obtenible la lista de dominios del Estado?) |
+| Tarea en curso | ninguna. Siguiente: **T0.6** (el paper de medición) |
 | Código | `suplantacion.py` (detector, 30 tests) · `scripts/medir_ct.py` (spike) |
 | Tests | **30 verdes** |
 | Gate | **`./gate.sh`** en verde |
@@ -15,7 +15,7 @@ decide si el proyecto existe.
 
 ## Último commit
 
-`[T0.4]` Leída la tesis chilena: el espacio está abierto.
+`[T0.5]` `.gob.cl` es un ancla completa por política; la ANCI ya escribió la tesis y nadie la midió.
 
 ## Blockers
 
@@ -23,7 +23,8 @@ decide si el proyecto existe.
 sostiene el proyecto: 2–3 dominios de 1.521. La vía muerta es **buscar la marca en el nombre del
 dominio**; el phishing pone la marca en el **contenido**.
 
-**Ninguno.** La tesis chilena se leyó (T0.4) y **deja el espacio abierto**: es un sistema de captura
+**De acceso, no técnico.** La lista de inscripciones de ANCI no se publica; se pide por Ley de
+Transparencia. Y el resto quedó cerrado: la tesis chilena se leyó (T0.4) y **deja el espacio abierto**: es un sistema de captura
 física con Random Forest, sin corpus público, sin ClaveÚnica, sin lista blanca y sin calibración. Se
 posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
@@ -31,6 +32,7 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-04 | **`.gob.cl` es un ancla de confianza completa por política de registro.** No hace falta una lista: solo el Estado puede inscribir bajo `gob.cl`. Y la **ANCI ya declaró la teoría** de la identificabilidad — lo que falta es **medir si funciona** |
 | 2026-10-04 | **La tesis chilena deja el espacio abierto.** Es captura física + Random Forest; sus limitaciones son de hardware. Se cita como precursora, no como competidora |
 | 2026-10-04 | **El espacio no está vacío, y en Chile tampoco.** Hay una tesis de la U. de Chile sobre mensajes fraudulentos, y la lista blanca ya está publicada (APWG). Lo que queda limpio es la **calibración por segmento** |
 | 2026-10-04 | **El canal CT queda cerrado.** No por un defecto del detector —hay dos, y son corregibles— sino porque la suplantación no vive en el nombre del dominio. Ver `doc/02-MEDICION-CT.md` |
