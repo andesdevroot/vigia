@@ -10,7 +10,7 @@
 | T0.4 | Leer la tesis chilena 202581 | ✅ **el espacio está abierto** |
 | T0.5 | ¿Es obtenible la lista de dominios del Estado? | ✅ **es completa por política** |
 | T0.6 | ¿La barra azul verifica algo? | ✅ **no verifica nada** |
-| T0.7 | Medir cuánto se usa mal la barra | ⬜ |
+| T0.7 | Medir cuánto se usa mal la barra | 🚧 **diseño listo, bloqueada por acceso** |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
 decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
@@ -174,3 +174,22 @@ argumento.
   interactuar con usuarios ni recoger datos personales. Lo que se encuentre va primero a la ANCI.
 - **Riesgo:** que casi nadie la use mal, en cuyo caso la barra es inofensiva y el hallazgo pierde
   fuerza — pero **eso también es un resultado**.
+
+## 🚧 T0.7 — Medir el mal uso de la barra
+
+**El diseño está hecho y el número no se pudo obtener: blocker de acceso, declarado.**
+
+Hace falta un índice de **subrecursos** —qué página cargó qué archivo— y no hay uno abierto.
+urlscan.io lo tiene pero **su API de búsqueda necesita clave**; Common Crawl no sirve porque registra
+los enlaces de la página y **no los subrecursos**, y la barra es una imagen.
+
+**No se inventó un número.** Un método malo que devuelve una cifra es peor que un blocker declarado:
+daría algo que parece un resultado y no lo es.
+
+Detalle y método en [`doc/06-MEDIR-BARRA.md`](doc/06-MEDIR-BARRA.md).
+
+**Salida recomendada: una clave de urlscan.io** (gratis, con registro). Es una gestión, no un problema
+técnico.
+
+**Y lo importante:** el hallazgo de T0.6 **se sostiene sin este número**. El número agrega magnitud,
+no existencia.
