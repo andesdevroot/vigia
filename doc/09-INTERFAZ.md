@@ -47,17 +47,28 @@ mes. Con eso el arranque es de costo cero de verdad.
 **El motor es nuestro y es Python. Kapso es la boca.** La división es limpia: a Kapso le llega un
 mensaje y le devolvemos un texto.
 
-## El número chileno: sí se puede
+## El número: tres caminos, y el más caro no es el mejor
 
-«Bring your own SIM»: se conecta un número propio, verificado por SMS o llamada.
+**Para probar no hace falta nada.** «Instant setup» da un número **gratis, ya verificado, de Estados
+Unidos**, sin SIM y sin cuenta de Twilio. Y —esto es lo que hay que decir claro— **el teléfono
+personal de quien prueba no se toca**: se le escribe al robot desde el WhatsApp propio, y el número
+dedicado es el del robot. Que sea +56 importa para producción, no para probar.
 
-- Tiene que ser un número **dedicado**: no puede seguir activo en la app de WhatsApp.
-- Chip nuevo, **nunca registrado en WhatsApp**. «El número ya está vinculado» es el fallo típico.
-- El plan gratis trae un número de **EE.UU.** pre-verificado, pero permite **1 número conectado**, y
-  con eso alcanza para conectar un +56 propio.
+| Camino | País | Costo | Plan |
+|---|---|---|---|
+| «Instant setup» | **EE.UU.**, por defecto | **$0** | Gratis, ya disponible |
+| «Bring your own SIM» | el que sea, **+56 incluido** | un chip prepago | Gratis en adelante |
+| «Provide local numbers» | el que sea | **USD 400/mes** de add-on, más Twilio y Telnyx propios | Pro o superior; **no existe en el plan gratis** |
 
-**Y esto no es un detalle:** una herramienta chilena contra la estafa, con número de Estados Unidos,
-es ella misma sospechosa. El número tiene que ser **+56**.
+**Requisitos de «Bring your own SIM»**, que es el camino bueno para Chile:
+
+- El número es **dedicado al robot**: no puede seguir activo en la app de WhatsApp.
+- Chip **nuevo, nunca registrado en WhatsApp**. «El número ya está vinculado» es el fallo típico.
+- El plan gratis permite **1 número conectado**, y con eso alcanza.
+
+**Y esto no es un detalle de prolijidad:** una herramienta chilena contra la estafa, con número de
+Estados Unidos, es ella misma sospechosa. Para salir a la calle el número tiene que ser **+56**. Para
+probar hoy, no.
 
 ## Lo que falta verificar, declarado
 

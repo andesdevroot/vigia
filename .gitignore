@@ -6,3 +6,6 @@ __pycache__/
 .uv-cache/
 cache/
 *.parcial
+
+# Secretos. Ver `.env.example`.
+.env

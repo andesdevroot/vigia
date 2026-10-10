@@ -33,23 +33,35 @@ Tres cosas que este servidor **no** hace: no escribe en disco, no registra el cu
 aunque falle. Lo primero y lo segundo son la promesa de privacidad; lo tercero evita que Kapso
 reintente un mensaje que no supimos leer.
 
-## Enganchar Kapso
+## En un solo comando
 
-1. **Conectar el número.** `kapso setup`, o «Bring your own SIM» con un chip chileno nuevo, nunca
-   registrado antes en WhatsApp. El número tiene que ser **+56**: una herramienta chilena antiestafa
-   con número de Estados Unidos es ella misma sospechosa.
-2. **Exponer el servidor.** Para probar desde tu casa alcanza un túnel (`cloudflared`, `ngrok`) que
-   apunte al puerto 8000.
-3. **Crear el webhook**, contra el número:
-   ```bash
-   node scripts/create.js \
-     --phone-number-id <PHONE_NUMBER_ID> \
-     --url https://<tu-host>/webhook \
-     --events whatsapp.message.received \
-     --payload-version v2
-   ```
+```bash
+cp .env.example .env     # y pega los valores ahí
+./scripts/probar_local.sh
+```
+
+El script levanta el webhook, abre un túnel con `ngrok` y **dice qué URL pegar en Kapso**. No imprime
+ni copia ningún secreto.
+
+## Enganchar Kapso, paso a paso
+
+1. **El número.** Para probar, el número que Kapso da **gratis y ya verificado** en «Instant
+   setup» alcanza, y su país por defecto es **Estados Unidos**. **Tu teléfono personal no se toca:**
+   tú le escribes al robot desde tu WhatsApp, y el número dedicado es el del robot, no el tuyo.
+
+   Que sea **+56** importa para producción, no para probar. Y sale barato: un chip prepago chileno
+   nuevo —nunca registrado antes en WhatsApp— se conecta con «Bring your own SIM». Traer un número
+   local por Kapso cuesta **USD 400 al mes** de add-on, así que no es el camino.
+2. **Exponer el servidor.** Lo hace `probar_local.sh` con `ngrok`.
+3. **Crear el webhook** contra el número, desde el panel de Kapso: el evento
+   `whatsapp.message.received`, `payload_version` **v2**, y la URL `<túnel>/webhook`.
 4. **Guardar el `secret_key`.** Kapso lo muestra **una sola vez**, y es `VIGIA_WEBHOOK_SECRET`.
-5. **Escribirle al número** y ver la respuesta.
+5. **Escribirle al número** desde tu WhatsApp y ver la respuesta.
+
+## Probar sin Kapso
+
+El webhook se puede probar entero sin cuenta y sin túnel: firma el cuerpo a mano y mándalo al
+servidor local. El comando está más abajo.
 
 ## Probar la firma a mano
 
