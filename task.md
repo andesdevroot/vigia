@@ -40,7 +40,30 @@ dominio.** El phishing usa dominios desechables y pone la marca en el **contenid
 
 **El spike funcionó**: una hora de medición mató la hipótesis antes de tres semanas de construcción.
 
-## ⬜ T0.3 — ¿Quién más está trabajando esto?
+## ✅ T0.3 — Estado del arte
 
-Antes de pivotar hay que saber si el espacio está ocupado y por quién. Python + IA sobre
-suplantación de identidad digital estatal, en Chile y fuera.
+**Cerrada con un resultado incómodo: el espacio NO está vacío, y en Chile tampoco.**
+[`doc/03-ESTADO-DEL-ARTE.md`](doc/03-ESTADO-DEL-ARTE.md).
+
+- **Existe una tesis de la U. de Chile** sobre recolección y análisis de mensajes fraudulentos
+  (202581). Es el prior art nacional más cercano y **no se pudo leer**: el repositorio está detrás
+  de un muro anti-scraping.
+- **La lista blanca ya está publicada** como técnica (APWG eCrime 2023), y el triaje por checklist
+  también (TraceScope, arXiv 2604.21840).
+- **Lo que queda limpio:** español de Chile con etiqueta no paga, **calibración medida por
+  segmento** (nadie mide si el umbral deja pasar más estafas contra un grupo), y **la medición
+  negativa del canal de dominio**.
+
+**Primera acción de la tarea siguiente: conseguir la tesis 202581.** Sin leerla no se puede afirmar
+novedad frente a Chile.
+
+## ⬜ T0.4 — Conseguir y leer la tesis 202581
+
+**Bloquea cualquier afirmación de novedad.** Vías: el repositorio con un navegador real, el autor, o
+la escuela de ingeniería. Su autor probable es Javier Bustos, que habla públicamente de IA y análisis
+de Internet.
+
+## ⬜ T0.5 — ¿Es obtenible la lista de dominios del Estado?
+
+Para la vía de certificación por lista blanca hace falta la lista completa de dominios oficiales.
+Si no es obtenible ni completa, esa vía muere como las demás — y conviene saberlo antes de construir.
