@@ -56,3 +56,33 @@ los hashes se listan solo para commits **anteriores**, que ya son inmutables.
 3. `./gate.sh` en verde.
 4. REFACTOR hecho; la suite sigue verde.
 5. `task.md` y `doc/07-HANDOFF.md` actualizados **en el mismo commit**.
+
+## Un título no es una fuente
+
+**La regla:** antes de afirmar algo sobre un documento, un dato o un sistema, **abrirlo y leerlo**.
+Un título, un resumen, un fragmento de buscador o el recuerdo de algo leído antes **no alcanzan**.
+
+**Por qué está escrita acá.** En este proyecto pasó cuatro veces, y las cuatro la conclusión cambió
+al mirar la fuente:
+
+| se dijo | la fuente decía |
+|---|---|
+| "el canal de CT tiene volumen" | 2–3 dominios de 1.521 |
+| "el espacio está ocupado por una tesis chilena" | la tesis hace captura física con Random Forest; no ocupa nada nuestro |
+| "la lista blanca es una idea nuestra" | el Estado chileno la implementó hace años (ANCI controla `.gob.cl`) |
+| "la estimación de costo es X" | el costo real era otro, y solo se supo corriendo el código |
+
+**Lo que cuesta:** una tarea entera de más (T0.3 → T0.4) y una alarma que resultó falsa. Lo que
+habría costado leer primero: minutos.
+
+**Corolario:** cuando la fuente no se puede leer —un PDF con muro, un dato que no está— eso **se
+declara como blocker y se dice por qué**, no se reemplaza por una suposición. En T0.3 se declaró, y
+por eso T0.4 existió.
+
+## Cómo se escribe acá
+
+- **Simple y directo.** La respuesta empieza por lo que importa, no por el proceso.
+- **Sin jerga propia.** Si un término solo lo entiende quien escribió el código, no sirve.
+- **Los números antes que los adjetivos.** "2 de 1.521" y no "el volumen es bajo".
+- **Lo que no se sabe, se dice.** Y lo que se supone, se marca como suposición.
+- **Sin relleno.** Si la respuesta son tres líneas, son tres líneas.
