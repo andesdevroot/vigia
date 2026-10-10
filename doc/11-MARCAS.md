@@ -38,6 +38,29 @@ certificado.
 | Banco Falabella | `bancofalabella.cl` | certificado `CN=bancofalabella.cl` |
 | Copec | `copec.cl` | certificado `CN=copec.cl` |
 | Soprole | `soprole.cl` | certificado `CN=www.soprole.cl` |
+| **BancoEstado** | `bancoestado.cl` | **1.825 certificados**: `*.bancoestado.cl`, `*.auth.vibe.bancoestado.cl`, `*.open-banking-mtls-prod.bancoestado.cl`; `www` en Akamai |
+| Santander | `santander.cl` | **1.865 certificados**: `*.dev.wp.banco.santander.cl`, `*.author.prod.wp.banco.santander.cl`; `www` en Akamai |
+| Scotiabank | `scotiabank.cl` | **572 certificados**: `Portal-ScotiaEmpresas.scotiabank.cl`, `Origenmty-banco.scotiabank.cl`; `www` en Akamai |
+
+### Los tres últimos, y el blocker que no era (`T1.8b`)
+
+**`bancoestado.cl` es el 36 % del corpus** y era el hueco más grande que quedaba. Los tres estaban
+declarados como imposibles de verificar porque **su DNS no resolvía desde esta máquina**.
+
+**El blocker no era el sitio: era la sonda.** Dos hallazgos:
+
+1. **La raíz de los tres no tiene registro A.** Solo `www.` resuelve — el mismo patrón que ya había
+   aparecido con `fonasa.gob.cl`. Preguntar por la raíz y concluir «no existe» era el error.
+2. **El DNS local se puede rodear.** `dns.google` resuelve por HTTPS, y `crt.sh` da los certificados
+   **emitidos** para un dominio: eso prueba que existe y quién lo pidió, sin necesidad de DNS.
+
+Los certificados son concluyentes porque **nombran subsistemas internos de un banco** —`open-banking
+mtls-prod`, `Portal-ScotiaEmpresas`, `wp.banco`— que nadie más tendría. Y los tres `www` están detrás
+de Akamai, que es lo que usan los bancos chilenos.
+
+> **Consecuencia para el método:** un dominio que «no resuelve» **no es un dominio que no existe**.
+> Antes de declararlo hueco hay que probar `www.`, preguntar por HTTPS y mirar los certificados
+> emitidos.
 
 ### Las ocho últimas entraron por una medición, no por gusto (`T1.8`)
 

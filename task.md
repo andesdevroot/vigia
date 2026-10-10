@@ -19,7 +19,8 @@
 | T1.5 | Regla de privacidad del mensaje reenviado | ⬜ **escrita y cumplida; falta el test** |
 | T1.6 | Prueba de punta a punta por WhatsApp | ✅ **funcionó, y encontró un bug** |
 | T1.7 | Medir si acierta contra estafas reales | ✅ **45 del CSIRT; 0 graves** |
-| T1.8 | Extender el catálogo a lo suplantado | ✅ **22 instituciones; `nombra` 0 → 24 de 45** |
+| T1.8 | Extender el catálogo a lo suplantado | ✅ **25 instituciones; `nombra` 0 → 39 de 45 (87 %)** |
+| T3.1 | Medir si la gente reenvía el enlace | ⬜ **el riesgo que decide el paper** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
 
@@ -466,9 +467,25 @@ Falabella, Copec y Soprole. Catálogo: **22 instituciones**.
   GRAVE                        0   (0%)             0    (0%)
 ```
 
-**`nombra` pasó de 0 a 24 de 45 (53 %).** Es el pago exacto de haber cambiado la pregunta *antes* de
-tener los datos: ahora el motor dice **«el mensaje dice ser de Banco Ripley y el enlace bit.ly no es
-de Banco Ripley»**, que es lo que la persona necesita leer.
+**`nombra` pasó de 0 a 24 de 45 (53 %).** Y con `T1.8b` —BancoEstado, Santander y Scotiabank— llegó
+a **39 de 45 (87 %)**. **De 0 a 87 % cambiando datos, no código.** `GRAVE` siguió en **0**.
+
+### `T1.8b` — el blocker no era el sitio, era la sonda
+
+BancoEstado es el **36 % del corpus** y estaba declarado imposible de verificar porque su DNS no
+resolvía desde esta máquina. **Dos hallazgos lo desarmaron:**
+
+1. **La raíz de los tres no tiene registro A.** Solo `www.` resuelve — el mismo patrón de
+   `fonasa.gob.cl`. Preguntar por la raíz y concluir «no existe» era el error.
+2. **El DNS local se puede rodear.** `dns.google` resuelve por HTTPS, y `crt.sh` da los certificados
+   **emitidos**, que prueban que el dominio existe y quién lo pidió.
+
+Los certificados son concluyentes porque nombran **subsistemas internos de un banco**:
+`*.open-banking-mtls-prod.bancoestado.cl`, `*.dev.wp.banco.santander.cl`,
+`Portal-ScotiaEmpresas.scotiabank.cl`. Nadie más tendría esos nombres.
+
+> **Un dominio que «no resuelve» no es un dominio que no existe.** Antes de declararlo hueco hay que
+> probar `www.`, preguntar por HTTPS y mirar los certificados emitidos.
 
 **Un detalle del mundo real que sale en los datos:** buena parte de esos mensajes enlazan a
 **`bit.ly`**. El atajo de URL es la norma, no la excepción.

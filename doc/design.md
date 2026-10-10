@@ -145,10 +145,10 @@ adivinar — y la medición de cuánto se abstiene.**
 
 | | Estado |
 |---|---|
-| El motor y sus cinco veredictos | ✅ 93 tests |
+| El motor y sus cinco veredictos | ✅ 95 tests |
 | El webhook y la respuesta por WhatsApp | ✅ **probado con un teléfono real, 1 segundo** |
-| El catálogo | ✅ **22 instituciones**: 14 estatales y 8 suplantadas, verificadas por certificado |
-| El corpus y la medición | ✅ **45 estafas reales del CSIRT** |
+| El catálogo | ✅ **25 instituciones**: 14 estatales y 11 suplantadas, verificadas por certificado |
+| El corpus y la medición | ✅ **45 estafas reales del CSIRT**, y **`nombra` en 39 (87 %)** |
 | Costo | ✅ **≈$19 por verificación; las primeras 1.000 del mes, gratis** |
 
 ## 8. Lo que falta
@@ -178,6 +178,7 @@ adivinar — y la medición de cuánto se abstiene.**
 
 | Fecha | Qué cambió en el diseño |
 |---|---|
+| 2026-10-10 | **`T1.8b`: entran BancoEstado, Santander y Scotiabank, y `nombra` llega a 39 de 45 (87 %)**. Estaban declarados imposibles de verificar por DNS; **el blocker no era el sitio sino la sonda**: la raíz de los tres no tiene registro A, solo `www.`, y el DNS local se rodea con `dns.google` y con los certificados emitidos de `crt.sh` |
 | 2026-10-10 | **`T1.8`: el catálogo creció a 22 instituciones**, y `nombra` pasó de **0 a 24 de 45 (53 %)**. La medición destapó además un bug: `.../SantaIsabelws/tb.php` contaba `tb.php` como dominio propio — una acusación sobre un dato inventado. **Lo encontró el corpus, no un test unitario** |
 | 2026-10-10 | **Nace este documento.** Se fija la arquitectura de siete piezas, los siete invariantes, y la regla «la IA propone, el determinismo decide» |
 | 2026-10-10 | **La pregunta cambió** de «¿es del Estado?» a «¿es el sitio de quien dice ser?» (`T1.9`), y la medición mostró que **sin catálogo no cambia nada** |

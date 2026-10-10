@@ -2,16 +2,16 @@
 
 ## Estado actual
 
-**T0 — validación de la hipótesis.** Nada construido salvo el esqueleto, y es a propósito: `[T0.2]`
-decide si el proyecto existe.
+**Construido y funcionando.** Un ciudadano reenvía un mensaje por WhatsApp y recibe, en un segundo,
+un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 estafas del CSIRT.
 
 | | |
 |---|---|
-| Tarea en curso | **El paper**, o `T1.5` (guardián de privacidad) · **el diseño vivo está en `doc/design.md`** |
-| Después | `T0.7` (clave de urlscan.io) · `T0.8` (API de ANCI) |
-| Medido | **45 estafas reales del CSIRT**: `nombra` **24 (53 %)**, `GRAVE` **0**, y el insumo se cae en el 98 % si solo se reenvía la cita. Ver `doc/12-MEDICION.md` |
+| Tarea en curso | **`T3.1` — medir si la gente reenvía el enlace.** Es el riesgo que decide el paper. El diseño vivo está en `doc/design.md` |
+| Después | El paper · `T1.5` (guardián de privacidad) · `T0.7` · `T0.8` |
+| Medido | **45 estafas reales del CSIRT**: `nombra` **39 (87 %)**, `GRAVE` **0**, y el insumo se cae en el 98 % si solo se reenvía la cita. Ver `doc/12-MEDICION.md` |
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
-| Catálogo | **22 instituciones**: 14 estatales y 8 suplantadas, todas verificadas por certificado |
+| Catálogo | **25 instituciones**: 14 estatales y 11 suplantadas, todas verificadas por certificado |
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Datos | `corpus/alertas_csirt.json` (45) · `scripts/cosechar_alertas.py` · `scripts/medir_motor.py` |
@@ -21,7 +21,7 @@ decide si el proyecto existe.
 
 ## Último commit
 
-`[T1.7]` La medición contra 45 estafas reales del CSIRT.
+`[T1.8b]` BancoEstado, Santander y Scotiabank entran al catálogo.
 
 ## Blockers
 

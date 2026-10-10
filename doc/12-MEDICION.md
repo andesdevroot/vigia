@@ -119,6 +119,32 @@ instituciones estatales bajo `.gob.cl` — mientras que el corpus suplanta banco
 Es el orden correcto igual: si el catálogo hubiera crecido primero, el motor habría dicho «el enlace
 es de una institución oficial: bancoripley.cl (Banco Ripley)», que no es lo que hay que leer.
 
+## T1.8 / T1.8b — El catálogo crece, y el número se mueve
+
+Las instituciones entraron **porque el corpus las midió**, y solo las que se pudieron **verificar por
+certificado**. La progresión, sobre los mismos 45 casos:
+
+| Catálogo | `nombra` | `GRAVE` |
+|---|---|---|
+| 14 instituciones, todas estatales | **0 (0 %)** | 0 |
+| +8 suplantadas (Banco Ripley, BCI, Itaú, Copec, Soprole…) | **24 (53 %)** | 0 |
+| +3 bancos (BancoEstado, Santander, Scotiabank) | **39 (87 %)** | 0 |
+
+```
+                         la cita del CSIRT   cita + enlace del informe
+  nombra                       1   (2%)            39  (87%)
+  avisa                        0   (0%)             6  (13%)
+  mudo                        44  (98%)             0    (0%)
+  GRAVE                        0   (0%)             0    (0%)
+  reconoció de quién dice ser  38                   39
+```
+
+**De 0 a 87 % cambiando datos, no código.** El motor es el mismo: lo que cambió fue que ahora sabe
+quiénes son Banco Ripley y BancoEstado.
+
+Lo que **no** se movió, y es lo tranquilizador: **`GRAVE` sigue en 0.** En 45 estafas reales, y con
+un catálogo once veces más grande que al principio, el motor nunca dio por bueno el enlace malo.
+
 ## Cómo se reproduce, y con qué se mide
 
 ```bash

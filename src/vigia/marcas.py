@@ -96,6 +96,32 @@ MARCAS: tuple[Marca, ...] = (
     ),
     Marca(nombre="copec", etiqueta="Copec", oficiales=frozenset({"copec.cl"})),
     Marca(nombre="soprole", etiqueta="Soprole", oficiales=frozenset({"soprole.cl"})),
+    # --- T1.8b: los tres que el DNS local no dejaba verificar ---
+    #
+    # `bancoestado.cl` es el 36 % del corpus y era el hueco más grande que quedaba. Los tres se
+    # verificaron **sin DNS local**, que es lo que antes lo impedía: `crt.sh` para los certificados
+    # emitidos y `dns.google` para la resolución.
+    #
+    # Y apareció la causa del blocker anterior: **la raíz de los tres no tiene registro A**, solo
+    # `www.` — el mismo patrón de `fonasa.gob.cl`. No era el sitio, era la sonda.
+    Marca(
+        nombre="bancoestado",
+        etiqueta="BancoEstado",
+        alias=("banco de estado", "banco estado"),
+        oficiales=frozenset({"bancoestado.cl"}),
+    ),
+    Marca(
+        nombre="santander",
+        etiqueta="Santander",
+        alias=("banco santander",),
+        oficiales=frozenset({"santander.cl"}),
+    ),
+    Marca(
+        nombre="scotiabank",
+        etiqueta="Scotiabank",
+        alias=("banco scotiabank",),
+        oficiales=frozenset({"scotiabank.cl"}),
+    ),
 )
 
 _POR_DOMINIO: dict[str, str] = {
