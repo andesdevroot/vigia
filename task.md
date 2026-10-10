@@ -5,81 +5,98 @@
 | # | Tarea | Estado |
 |---|---|---|
 | T0.1 | Esqueleto, gate y guardián de arquitectura | ✅ |
-| T0.2 | Spike: medir el volumen real de CT | ✅ **cerrada: el canal no tiene volumen** |
-| T0.3 | Doc: taxonomía de la suplantación de marcas chilenas | ⬜ |
+| T0.2 | Spike: medir el volumen real de CT | ✅ **el canal no tiene volumen** |
+| T0.3 | Estado del arte | ✅ |
+| T0.4 | Leer la tesis chilena 202581 | ✅ **el espacio está abierto** |
+| T0.5 | ¿Es obtenible la lista de dominios del Estado? | ⬜ |
 
-## T0.1 — Esqueleto, gate y guardián de arquitectura ✅
+**T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
+decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
+construir sin validar el insumo.
 
-`pyproject.toml` (uv, Python 3.13, cero dependencias), `gate.sh` (pytest + ruff + mypy con
-`set -euo pipefail`), y `tests/test_arquitectura.py` con dos invariantes reales: **importar `vigia`
-no arrastra la librería de red** (comprobado en un proceso limpio, porque en el de pytest ya podría
-estar importada), y **T0.1 no agrega dependencias** — si aparece una, que sea una decisión.
+---
 
-## ⬜ T0.2 — Spike: medir el volumen real de CT
+## ✅ T0.1 — Esqueleto, gate y guardián de arquitectura
 
-**Es la tarea que decide si el proyecto existe.** Sin ella no se diseña nada más.
+`pyproject.toml` (uv, Python 3.13, **cero dependencias**), `gate.sh` (pytest + ruff + mypy con
+`set -euo pipefail`) y `tests/test_arquitectura.py` con dos invariantes reales:
 
-- **Entregable:** un script que consume los logs de Certificate Transparency, filtra `.cl`, y calcula
-  similitud contra la lista de dominios del Estado y de la banca chilena. Más el número.
-- **Criterio de aceptación:** el conteo de dominios de suplantación, la tasa de falsos positivos
-  sobre dominios legítimos, y una decisión escrita: **sigue o no sigue**.
-- **Por qué no es una tarea de aplicación:** no hay interfaz ni CLI. Es un número y un documento.
-- **Riesgo:** el stream de CT es grande. Si el costo de filtrarlo supera el valor del resultado, eso
-  también es una respuesta.
+- **Importar `vigia` no arrastra la librería de red**, comprobado en un proceso limpio — en el de
+  pytest ya podría estar importada y la comprobación no probaría nada.
+- **T0.1 no agrega dependencias.** Si aparece una, que sea una decisión y no un accidente.
 
+## ✅ T0.2 — Spike: el volumen real de Certificate Transparency
 
-## ✅ T0.2 — Spike: el volumen real de CT
+**Cerrada con una decisión negativa, que es un resultado.** 28 consultas, 1.521 dominios vistos,
+**76 coincidencias de las cuales 74 son basura**.
 
-**Cerrada con una decisión negativa, que es un resultado.** 28 consultas, 1.521 dominios, **76
-coincidencias de las cuales 74 son basura** (`sii` con 3 letras y umbral 2 matchea medio internet, y
-`.si` es Eslovenia). La señal real son **2–3 dominios**.
+El ruido tiene causa identificable, y son **dos defectos del detector**, los dos corregibles y
+ninguno decisivo:
+
+1. **El umbral de edición no escala con el largo de la marca.** `sii` tiene tres letras y con umbral 2
+   se parece al 66 % de la palabra: `kis.si`, `cci.fr`, `asi.is`, `hki.si`.
+2. **No hay filtro de TLD relevante.** `.si` es el ccTLD de **Eslovenia**: entra el mundo entero.
+
+**La señal real: 2–3 dominios** (`bancoestado--cl.xyz`, `derivacionbancoestado.cl`, un homoglifo).
+`bancochile`: 0. `claveunica`: 0.
 
 **La conclusión no es "el detector está mal": es que la suplantación no vive en el nombre del
-dominio.** El phishing usa dominios desechables y pone la marca en el **contenido**. Detalle en
-[`doc/02-MEDICION-CT.md`](doc/02-MEDICION-CT.md).
+dominio.** El phishing usa dominios desechables con nombre neutro y pone la marca en el **contenido**;
+además usa hosting gratuito, donde el certificado lo emite el host.
 
-**El spike funcionó**: una hora de medición mató la hipótesis antes de tres semanas de construcción.
+Detalle en [`doc/02-MEDICION-CT.md`](doc/02-MEDICION-CT.md). **Un spike de una hora mató la hipótesis
+antes de tres semanas de construcción.**
 
 ## ✅ T0.3 — Estado del arte
 
-**Cerrada con un resultado incómodo: el espacio NO está vacío, y en Chile tampoco.**
-[`doc/03-ESTADO-DEL-ARTE.md`](doc/03-ESTADO-DEL-ARTE.md).
+Primera pasada, con un resultado incómodo: **el espacio no está vacío, y en Chile tampoco.** Existe
+una tesis de la U. de Chile sobre mensajes fraudulentos; la lista blanca ya está publicada como
+técnica ([APWG eCrime 2023](https://docs.apwg.org/ecrimeresearch/2023/20240080211286378.pdf)) y el
+triaje por checklist también ([TraceScope](https://arxiv-org.ezproxy.obspm.fr/html/2604.21840v1)).
 
-- **Existe una tesis de la U. de Chile** sobre recolección y análisis de mensajes fraudulentos
-  (202581). Es el prior art nacional más cercano y **no se pudo leer**: el repositorio está detrás
-  de un muro anti-scraping.
-- **La lista blanca ya está publicada** como técnica (APWG eCrime 2023), y el triaje por checklist
-  también (TraceScope, arXiv 2604.21840).
-- **Lo que queda limpio:** español de Chile con etiqueta no paga, **calibración medida por
-  segmento** (nadie mide si el umbral deja pasar más estafas contra un grupo), y **la medición
-  negativa del canal de dominio**.
+**Lo que queda limpio, y sigue en pie después de T0.4:**
 
-**Primera acción de la tarea siguiente: conseguir la tesis 202581.** Sin leerla no se puede afirmar
-novedad frente a Chile.
+1. Español de Chile con etiqueta que **no** puso un anotador pagado.
+2. **Calibración medida por segmento.** Ninguno de los revisados lo hace: todos miden precisión,
+   nadie mide si el umbral deja pasar más estafas contra un grupo.
+3. **La medición negativa del canal de dominio**, que no está publicada.
 
-## ✅ T0.4 — Leer la tesis 202581
+Detalle en [`doc/03-ESTADO-DEL-ARTE.md`](doc/03-ESTADO-DEL-ARTE.md).
+
+## ✅ T0.4 — Leer la tesis chilena 202581
 
 **Leída, y cambia la conclusión: el espacio está abierto.**
 
-Trincado Muñoz, U. de Chile 2024, `sha256:f773f636`. Es un **electrodoméstico de captura**: Raspberry
-Pi 5 con módems USB, clasificador **Random Forest**, reportes automáticos. Datos del CSIRT y
-recolección manual, en decenas de mensajes.
+Trincado Muñoz, *Diseño e implementación de sistema automatizado de recolección y análisis de mensajes
+de texto fraudulentos*, Ingeniería Civil en Computación, **U. de Chile, 2024**, 61 páginas,
+`sha256:f773f636`.
 
-**Lo que deja intacto:** corpus público, ClaveÚnica y suplantación de marca (cero menciones), lista
-blanca (cero), calibración (la palabra "precisión" no aparece), modelos de lenguaje (ninguno). Y sus
-limitaciones son **de hardware**, no de método.
+**Qué es:** un **electrodoméstico de captura**. Raspberry Pi 5 con módems USB que recogen SMS del
+aire, clasificador **Random Forest**, base local, backend, frontend y reportes automáticos.
 
-**Se posiciona sola como precursora:** *"da el primer paso para futuros estudios"*. Es la cita que
-más ayuda — el paper se escribe encima de ella, no contra ella.
+**Qué deja intacto:**
 
-**La alarma anterior fue mía, por haber leído solo el título.**
+| | |
+|---|---|
+| Corpus público | **No.** Datos del **CSIRT** (con aplazamiento) y recolección **manual**: decenas de mensajes (79, 29, 108, 170) |
+| ClaveÚnica y suplantación de marca | **Cero menciones** |
+| Lista blanca | **Cero menciones** |
+| Calibración | La palabra *"precisión"* **no aparece** |
+| Modelos de lenguaje | Ninguno |
+| Sus limitaciones | **De hardware.** El capítulo se llama *Limitaciones de Equipamiento* |
 
+**Se posiciona sola:** *"da el primer paso para futuros estudios"*. Es un **precursor**, no un
+competidor — la cita que más ayuda, porque el paper se escribe **encima** de ella.
 
-**Bloquea cualquier afirmación de novedad.** Vías: el repositorio con un navegador real, el autor, o
-la escuela de ingeniería. Su autor probable es Javier Bustos, que habla públicamente de IA y análisis
-de Internet.
+**La alarma de T0.3 fue mía, por haber leído solo el título.** T0.4 existía para eso.
 
 ## ⬜ T0.5 — ¿Es obtenible la lista de dominios del Estado?
 
-Para la vía de certificación por lista blanca hace falta la lista completa de dominios oficiales.
+Para la vía de certificación por lista blanca hace falta la lista **completa** de dominios oficiales.
 Si no es obtenible ni completa, esa vía muere como las demás — y conviene saberlo antes de construir.
+
+- **Entregable:** la lista, su origen, y si es completa o parcial. Más una decisión escrita.
+- **Criterio de aceptación:** cuántos dominios `.gob.cl` hay, de dónde salen, y si un dominio oficial
+  podría faltar (lo que produciría un falso negativo en la certificación).
+- **Riesgo:** que la lista no exista publicada y haya que construirla por rastreo, con lo que la
+  completitud pasa a ser indemostrable.
