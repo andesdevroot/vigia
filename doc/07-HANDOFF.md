@@ -7,10 +7,10 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **T1 — forma 1: reenviar a un número.** Canal decidido; falta el costo por conversación |
-| Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) |
-| Código | `suplantacion.py` (detector, 30 tests) · `scripts/medir_ct.py` (spike) |
-| Tests | **30 verdes** |
+| Tarea en curso | **T1.2 — costo real por conversación de WhatsApp**, que es una gestión y no código |
+| Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) · **T0.8**: qué expone la API de ANCI |
+| Código | `motor.py` (veredicto sobre el enlace) · `suplantacion.py` (detector) · `scripts/medir_ct.py` |
+| Tests | **44 verdes** |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio |
 
@@ -33,6 +33,8 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-10 | **El motor contesta sobre el enlace, nunca sobre el mensaje.** Tres veredictos: `OFICIAL` (todos los enlaces son `.gob.cl`), `AJENO` (alguno no lo es) y `SIN_ENLACES` (no hay qué revisar). **Un enlace bueno no lava a uno malo**, y hay un test que lo fija con varios textos: si bastara uno del Estado, el motor premiaría el ataque mejor construido. **No existe la palabra «seguro» en la respuesta, y hay un test que la prohíbe.** Ver `task.md` `[T1.1]` |
+| 2026-10-10 | **La primera versión no depende de un corpus.** La regla «¿termina en `.gob.cl`?» es completa por política de registro (`T0.5`), así que el motor arranca sin el insumo que mató al proyecto anterior. El catálogo de marcas chilenas queda como tarea aparte: sin él se sabe igual si el enlace es del Estado, solo se pierde el nombre de la marca imitada |
 | 2026-10-10 | **El canal es el mensaje, no el navegador.** Chrome de Android no acepta extensiones y el fraude de ClaveÚnica llega por SMS y WhatsApp al teléfono: la extensión solo cubriría escritorio, donde el ataque no ocurre. **La forma principal es reenviar el mensaje a un número** (0 instalaciones, 1 gesto); la app de trámites queda como alternativa y la extensión como accesorio. **El detector no cambia: cambia la boca.** Ver `doc/08-CANAL.md` |
 | 2026-10-10 | **El Estado cubre el después, no el antes.** CiberLupa dice si tus datos **ya** se filtraron; Reporte Ciudadano sirve para denunciar **después**; el 1510 tiene humano. **Nadie contesta «¿aprieto este link?».** Queda como tarea `T0.8` averiguar qué expone la API pública de ANCI: si da alertas, el proyecto se construye **encima del Estado** |
 | 2026-10-04 | **T0.7 bloqueada, y se declara en vez de rodearse.** Medir el mal uso de la barra necesita un índice de subrecursos; urlscan lo tiene pero su API pide clave, y Common Crawl no registra subrecursos. **No se inventó un número** |

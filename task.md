@@ -12,7 +12,7 @@
 | T0.6 | ¿La barra azul verifica algo? | ✅ **no verifica nada** |
 | T0.7 | Medir cuánto se usa mal la barra | 🚧 **diseño listo, bloqueada por acceso** |
 | T0.8 | ¿Qué expone la API pública de ANCI? | ⬜ |
-| T1.1 | El motor de respuesta: texto → veredicto | ⬜ |
+| T1.1 | El motor de respuesta: texto → veredicto | ✅ **44 tests verdes** |
 | T1.2 | Costo real por conversación de WhatsApp | ⬜ |
 | T2.1 | El paper de medición | ⬜ |
 
@@ -186,6 +186,45 @@ argumento.
 La forma del producto cambió: **la extensión de navegador queda como accesorio y el canal principal
 es el reenvío de un mensaje.** Chrome de Android no acepta extensiones, y el fraude de ClaveÚnica
 llega por SMS y WhatsApp al teléfono. Detalle en [`doc/08-CANAL.md`](doc/08-CANAL.md).
+
+## ✅ T1.1 — El motor de respuesta
+
+`src/vigia/motor.py`, stdlib pura, 14 tests nuevos (**44 verdes**).
+
+**Contesta una sola pregunta: ¿el enlace del mensaje es del Estado?** No contesta si el mensaje
+convence, y esa abstención **es** el producto.
+
+| Veredicto | Cuándo |
+|---|---|
+| `OFICIAL` | **todos** los enlaces son de `.gob.cl`, y hay al menos uno |
+| `AJENO` | hay al menos un enlace que no lo es |
+| `SIN_ENLACES` | no hay enlaces que revisar |
+
+**El invariante, y el test que lo fija: un enlace bueno no lava a uno malo.** Si bastara uno del
+Estado, el motor daría su visto bueno justo al mensaje mejor construido — el que pone
+`claveunica.gob.cl` de adorno al lado de `bit.ly/x`.
+
+**Se ve así:**
+
+```
+AJENO        El enlace claveunica-gob-cl.xyz NO es del Estado. El enlace se parece a claveunica.
+             El mensaje dice ser del Estado y el enlace no lo es.
+OFICIAL      El enlace es del Estado: claveunica.gob.cl. Eso dice del enlace, no del mensaje: si
+             le piden su ClaveUnica, su clave o sus datos personales, no los entregue.
+SIN_ENLACES  El mensaje no trae ningún enlace, así que no se puede verificar. Dice ser del Estado,
+             y decirlo no lo hace cierto.
+```
+
+**No dice «es seguro», y hay un test que lo prohíbe.** Es la línea roja: un enlace del Estado dentro
+de un mensaje falso existe, y una herramienta que lo declare seguro es peor que no tener
+herramienta.
+
+**Lo que no necesita: ni corpus ni modelo.** La regla «¿termina en `.gob.cl`?» es completa por
+política de registro (`T0.5`), así que la primera versión no depende de un insumo que podría no
+existir — que es exactamente lo que mató al proyecto anterior.
+
+**Y sí cubre el ataque que el ojo pierde:** `claveunica.gоb.cl` con la `o` cirílica da `AJENO`, con
+el aviso de que usa letras que no son latinas.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 
