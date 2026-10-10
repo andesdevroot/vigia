@@ -7,7 +7,7 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | ninguna. Siguiente: **T0.4** (leer la tesis 202581) |
+| Tarea en curso | ninguna. Siguiente: **T0.5** (¿es obtenible la lista de dominios del Estado?) |
 | Código | `suplantacion.py` (detector, 30 tests) · `scripts/medir_ct.py` (spike) |
 | Tests | **30 verdes** |
 | Gate | **`./gate.sh`** en verde |
@@ -15,7 +15,7 @@ decide si el proyecto existe.
 
 ## Último commit
 
-`[T0.3]` Estado del arte: el espacio no está vacío, y en Chile tampoco.
+`[T0.4]` Leída la tesis chilena: el espacio está abierto.
 
 ## Blockers
 
@@ -23,14 +23,15 @@ decide si el proyecto existe.
 sostiene el proyecto: 2–3 dominios de 1.521. La vía muerta es **buscar la marca en el nombre del
 dominio**; el phishing pone la marca en el **contenido**.
 
-**El espacio no está vacío.** Existe una tesis de la U. de Chile sobre mensajes fraudulentos y **no
-se pudo leer** (muro anti-scraping). Sin leerla no se puede afirmar novedad frente a Chile, y eso
-bloquea el pivote. Ver `doc/03-ESTADO-DEL-ARTE.md`.
+**Ninguno.** La tesis chilena se leyó (T0.4) y **deja el espacio abierto**: es un sistema de captura
+física con Random Forest, sin corpus público, sin ClaveÚnica, sin lista blanca y sin calibración. Se
+posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 ## Decisiones recientes
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-04 | **La tesis chilena deja el espacio abierto.** Es captura física + Random Forest; sus limitaciones son de hardware. Se cita como precursora, no como competidora |
 | 2026-10-04 | **El espacio no está vacío, y en Chile tampoco.** Hay una tesis de la U. de Chile sobre mensajes fraudulentos, y la lista blanca ya está publicada (APWG). Lo que queda limpio es la **calibración por segmento** |
 | 2026-10-04 | **El canal CT queda cerrado.** No por un defecto del detector —hay dos, y son corregibles— sino porque la suplantación no vive en el nombre del dominio. Ver `doc/02-MEDICION-CT.md` |
 | 2026-10-04 | **El detector no se borra, se deja de usar.** La taxonomía es correcta y los dos defectos quedan documentados |

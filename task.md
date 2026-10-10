@@ -57,7 +57,23 @@ dominio.** El phishing usa dominios desechables y pone la marca en el **contenid
 **Primera acción de la tarea siguiente: conseguir la tesis 202581.** Sin leerla no se puede afirmar
 novedad frente a Chile.
 
-## ⬜ T0.4 — Conseguir y leer la tesis 202581
+## ✅ T0.4 — Leer la tesis 202581
+
+**Leída, y cambia la conclusión: el espacio está abierto.**
+
+Trincado Muñoz, U. de Chile 2024, `sha256:f773f636`. Es un **electrodoméstico de captura**: Raspberry
+Pi 5 con módems USB, clasificador **Random Forest**, reportes automáticos. Datos del CSIRT y
+recolección manual, en decenas de mensajes.
+
+**Lo que deja intacto:** corpus público, ClaveÚnica y suplantación de marca (cero menciones), lista
+blanca (cero), calibración (la palabra "precisión" no aparece), modelos de lenguaje (ninguno). Y sus
+limitaciones son **de hardware**, no de método.
+
+**Se posiciona sola como precursora:** *"da el primer paso para futuros estudios"*. Es la cita que
+más ayuda — el paper se escribe encima de ella, no contra ella.
+
+**La alarma anterior fue mía, por haber leído solo el título.**
+
 
 **Bloquea cualquier afirmación de novedad.** Vías: el repositorio con un navegador real, el autor, o
 la escuela de ingeniería. Su autor probable es Javier Bustos, que habla públicamente de IA y análisis
