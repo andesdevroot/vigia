@@ -5,7 +5,7 @@
 | # | Tarea | Estado |
 |---|---|---|
 | T0.1 | Esqueleto, gate y guardián de arquitectura | ✅ |
-| T0.2 | **Spike: medir el volumen real de CT** (decide si el proyecto sigue) | ⬜ |
+| T0.2 | Spike: medir el volumen real de CT | ✅ **cerrada: el canal no tiene volumen** |
 | T0.3 | Doc: taxonomía de la suplantación de marcas chilenas | ⬜ |
 
 ## T0.1 — Esqueleto, gate y guardián de arquitectura ✅
@@ -26,3 +26,21 @@ estar importada), y **T0.1 no agrega dependencias** — si aparece una, que sea 
 - **Por qué no es una tarea de aplicación:** no hay interfaz ni CLI. Es un número y un documento.
 - **Riesgo:** el stream de CT es grande. Si el costo de filtrarlo supera el valor del resultado, eso
   también es una respuesta.
+
+
+## ✅ T0.2 — Spike: el volumen real de CT
+
+**Cerrada con una decisión negativa, que es un resultado.** 28 consultas, 1.521 dominios, **76
+coincidencias de las cuales 74 son basura** (`sii` con 3 letras y umbral 2 matchea medio internet, y
+`.si` es Eslovenia). La señal real son **2–3 dominios**.
+
+**La conclusión no es "el detector está mal": es que la suplantación no vive en el nombre del
+dominio.** El phishing usa dominios desechables y pone la marca en el **contenido**. Detalle en
+[`doc/02-MEDICION-CT.md`](doc/02-MEDICION-CT.md).
+
+**El spike funcionó**: una hora de medición mató la hipótesis antes de tres semanas de construcción.
+
+## ⬜ T0.3 — ¿Quién más está trabajando esto?
+
+Antes de pivotar hay que saber si el espacio está ocupado y por quién. Python + IA sobre
+suplantación de identidad digital estatal, en Chile y fuera.
