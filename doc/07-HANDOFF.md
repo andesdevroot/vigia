@@ -7,17 +7,17 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **T1.3 — catálogo de marcas chilenas**: sin él, `BANCOESTADO` en el texto no cuenta como «dice ser del Estado» |
+| Tarea en curso | **Prueba real por WhatsApp.** Todo el código está; falta conectar el número y las credenciales |
 | Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) · **T0.8**: qué expone la API de ANCI |
 | Falta confirmar | Un envío real por la API de Kapso, y el `secret_key` del webhook (lo da Kapso una sola vez) |
-| Código | `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
-| Tests | **74 verdes**, sin red, en menos de un segundo |
+| Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
+| Tests | **90 verdes, 1 de integración**, sin red, en menos de un segundo |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio |
 
 ## Último commit
 
-`[T1.4a]` Lee el webhook de Kapso, verifica la firma y compone la respuesta.
+`[T1.4b]` El webhook que contesta por WhatsApp.
 
 ## Blockers
 
@@ -34,6 +34,10 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-10 | **El catálogo es el único dato que amplía el camino permisivo, así que se verifica abriendo el sitio.** 14 instituciones, cada una con su certificado leído y su evidencia fechada en `doc/11-MARCAS.md`. **Cuatro de catorce entradas de un borrador escrito de memoria estaban mal** — `servel.gob.cl` no existe, `fonasa.cl` es un redirector, `sii.gob.cl` manda a `homer.sii.cl`, `codelco.cl` a `codelco.com`. Un test marcado `integracion` vuelve a medir la lista entera: es el único dato del proyecto que empeora solo con el tiempo |
+| 2026-10-10 | **Un dominio que no se pudo verificar no se adivina.** BancoEstado, Banco de Chile, Registro Civil, MINSAL y JUNAEB quedaron fuera porque su DNS no resuelve desde esta máquina. **Consecuencia declarada:** hoy un mensaje legítimo de BancoEstado se leería como ajeno, que es el error que el catálogo existe para evitar |
+| 2026-10-10 | **El umbral de edición escala con el largo de la marca.** Era el defecto que midió `T0.2` y volvió a aparecer al enchufar el catálogo: **`bit.ly` entraba como suplantación del SII**. Tres letras toleran una errata; seis, dos |
+| 2026-10-10 | **Un enlace conocido no se acusa, ni siquiera en un mensaje que sí es falso.** En un mensaje mezclado —uno real de adorno, uno falso para apretar— la respuesta dice «`sernac.cl` es de SERNAC» y «`bit.ly` NO es del Estado». Acusar al real sería falso y confuso a la vez |
 | 2026-10-10 | **El webhook nunca contesta 500 y nunca procesa un mensaje saliente.** Lo primero porque un 500 hace que Kapso reintente lo que no supimos leer; lo segundo porque contestarle a nuestra propia respuesta generaría respuestas infinitas, pagando cada una. Los dos tienen test |
 | 2026-10-10 | **La firma se verifica sobre los bytes crudos.** Parsear y re-serializar cambia el espaciado y rompe el HMAC; el arreglo natural —aflojar la comparación— es el que abre la puerta. La comparación es de tiempo constante, y el largo se comprueba antes |
 | 2026-10-10 | **El servidor no guarda ni registra el mensaje, y no sigue redirecciones.** `urlopen` sigue las redirecciones por defecto y **reenvía las cabeceras**, incluida la clave de API, al host de destino: bastaría un 302 para llevársela |

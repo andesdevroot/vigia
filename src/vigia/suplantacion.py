@@ -65,20 +65,30 @@ class Marca:
 
     `oficiales` es lo que impide marcar al banco por llamarse como el banco: sin esa lista, el
     detector marcaría el dominio legítimo, que es el peor falso positivo posible.
+
+    `etiqueta` es el nombre para mostrar en la respuesta —«SERNAC»— y no el `nombre`, que va
+    normalizado porque es con el que se compara. Es opcional para que una marca de prueba no tenga
+    que inventar uno.
     """
 
     nombre: str
     oficiales: frozenset[str]
+    etiqueta: str = ""
 
 
 @dataclass(frozen=True, slots=True)
 class Coincidencia:
-    """Un candidato que se parece a una marca. **No afirma que sea malicioso.**"""
+    """Un candidato que se parece a una marca. **No afirma que sea malicioso.**
+
+    `etiqueta` es el nombre con el que se nombra la marca en la respuesta. Se copia acá y no se
+    busca después porque el catálogo con el que se comparó puede no ser el de por defecto.
+    """
 
     marca: str
     candidato: str
     tipo: TipoSuplantacion
     distancia: int
+    etiqueta: str = ""
 
 
 def normalizar(texto: str) -> str:
@@ -131,6 +141,20 @@ def partir(registrable: str) -> tuple[str, str]:
     return nucleo, tld
 
 
+def _umbral_efectivo(nombre_normalizado: str, umbral: int) -> int:
+    """Cuántas erratas se le toleran a una marca, según su largo.
+
+    Es el arreglo del defecto que midió `T0.2`: `sii` tiene tres letras y con umbral 2 se parece al
+    66 % de la palabra. Volvió a aparecer al enchufar el catálogo, y de la peor forma: **`bit.ly`
+    entraba como suplantación del SII**. Una marca de tres letras tolera una errata; una de seis,
+    dos.
+
+    `max(1, ...)` deja siempre lugar a la errata de tecleo, que es el caso que la regla existe para
+    atrapar.
+    """
+    return min(umbral, max(1, len(nombre_normalizado) // 3))
+
+
 def _clasificar(
     marca: Marca, candidato: str, umbral: int, extra_max: int
 ) -> Coincidencia | None:
@@ -152,12 +176,16 @@ def _clasificar(
         tipo = TipoSuplantacion.PUNTO_A_GUION
     elif marca_norm in nucleo_norm and len(nucleo_norm) - len(marca_norm) <= extra_max:
         tipo = TipoSuplantacion.SUBCADENA
-    elif separacion <= umbral:
+    elif separacion <= _umbral_efectivo(marca_norm, umbral):
         tipo = TipoSuplantacion.EDICION
     else:
         return None
     return Coincidencia(
-        marca=marca.nombre, candidato=candidato, tipo=tipo, distancia=separacion
+        marca=marca.nombre,
+        candidato=candidato,
+        tipo=tipo,
+        distancia=separacion,
+        etiqueta=marca.etiqueta or marca.nombre,
     )
 
 

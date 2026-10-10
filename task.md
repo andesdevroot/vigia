@@ -14,7 +14,7 @@
 | T0.8 | ¿Qué expone la API pública de ANCI? | ⬜ |
 | T1.1 | El motor de respuesta: texto → veredicto | ✅ **44 tests verdes** |
 | T1.2 | Costo real por verificación | ✅ **≈$19, y las primeras 1.000 gratis** |
-| T1.3 | Catálogo de marcas chilenas | ⬜ |
+| T1.3 | Catálogo de instituciones chilenas | ✅ **14 verificadas abriendo el sitio** |
 | T1.4 | Endpoint que une el motor con Kapso | ✅ **74 tests verdes** |
 | T1.5 | Regla de privacidad del mensaje reenviado | ⬜ |
 | T2.1 | El paper de medición | ⬜ |
@@ -294,6 +294,37 @@ redirecciones —`urlopen` las sigue por defecto y **reenvía la clave de API** 
 **El hueco que queda a la vista:** `BANCOESTADO` en el texto no se reconoce como «dice ser del
 Estado», porque el catálogo de marcas es `T1.3`. El enlace igual se marca; lo que falta es el
 nombre.
+
+## ✅ T1.3 — El catálogo de instituciones
+
+`src/vigia/marcas.py`: 14 instituciones, **cada una verificada abriendo el sitio y leyendo su
+certificado**. 90 tests verdes.
+
+**Este es el único dato del proyecto que amplía el camino permisivo.** Todo lo demás es conservador:
+ante la duda, no concluye. Un dominio de más acá no produce una falsa alarma — produce un **falso
+negativo**: el motor daría por bueno el enlace del atacante. Por eso nada se escribió de memoria.
+
+**Por qué hacía falta, y es un caso medido:** `gob.cl` es exclusivo del Estado (`T0.5`), pero no
+todas sus instituciones lo usan. **`servel.gob.cl` no existe y `servel.cl` sí.** Sin catálogo, un
+mensaje legítimo del Servel se leía como falso — el peor error posible, porque enseña a desconfiar de
+lo verdadero.
+
+| | |
+|---|---|
+| Verificadas | ClaveÚnica, SII, ChileAtiende, SUBTEL, FONASA, Servel, SERNAC, Carabineros, PDI, Correos, Metro, TVN, Codelco, TGR |
+| Fuera, declarado | BancoEstado, Banco de Chile, Registro Civil, MINSAL, JUNAEB: **su DNS no resuelve desde esta máquina**. No se adivinó el dominio |
+
+**Cuatro de catorce entradas del borrador escrito de memoria estaban mal.** Ninguna se habría notado
+sin abrir el sitio. Detalle y evidencia en [`doc/11-MARCAS.md`](doc/11-MARCAS.md).
+
+**Y el mecanismo contra la pudrición:** `test_los_dominios_del_catalogo_siguen_vivos`, marcado
+`integracion`, vuelve a medir la lista entera. Una lista de confianza es el único dato de este
+proyecto que empeora solo con el tiempo.
+
+**Defecto de `T0.2` que se arregló de paso:** al enchufar el catálogo, **`bit.ly` entraba como
+suplantación del SII**. Era el umbral de edición que no escalaba con el largo de la marca — `sii`
+tiene tres letras y con umbral 2 se parece al 66 % de la palabra. Ahora una marca de tres letras
+tolera una errata y una de seis, dos.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

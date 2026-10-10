@@ -1,0 +1,67 @@
+# 11 — El catálogo de instituciones
+
+## Por qué esto es lo más peligroso del proyecto
+
+Todo lo demás que hace el motor es **conservador**: ante la duda, no concluye. Un dominio en este
+catálogo hace lo contrario — convierte un enlace ajeno en un enlace oficial.
+
+Un error acá **no produce una falsa alarma: produce un falso negativo.** El motor daría por bueno el
+enlace del atacante. Por eso cada entrada se verificó **abriendo el sitio y leyendo su certificado**,
+y acá está la evidencia. Ningún dominio se escribió de memoria.
+
+## La medición
+
+Fecha: **2026-10-10**. Herramientas: `curl -L` con agente de navegador, y `openssl s_client` para el
+certificado.
+
+| Institución | Dominio | Evidencia |
+|---|---|---|
+| ClaveÚnica | `claveunica.gob.cl`, `claveunica.cl` | 200 «Portal ciudadano ClaveÚnica»; certificado `CN=claveunica.gob.cl`, SAN `*.claveunica.cl` |
+| SII | `sii.gob.cl` | 200 → `homer.sii.cl`; certificado `O=SERVICIO DE IMPUESTOS INTERNOS` |
+| ChileAtiende | `chileatiende.gob.cl` | 200; certificado `CN=*.chileatiende.gob.cl` |
+| SUBTEL | `subtel.gob.cl` | 200; certificado `CN=subtel.gob.cl` |
+| FONASA | `fonasa.gob.cl` | `fonasa.cl` 200 → `www.fonasa.gob.cl`, «Fondo Nacional de Salud \| Fonasa» |
+| Servel | `servel.cl` | 200 «Servicio Electoral de Chile»; certificado `O=SERVICIO ELECTORAL` |
+| SERNAC | `sernac.cl` | 200; certificado `CN=*.sernac.cl` |
+| Carabineros | `carabineros.cl` | 200; certificado `O=DIRECCION DE LOGISTICA DE CARABINEROS` |
+| PDI | `pdichile.cl` | 200 «Policía De Investigaciones De Chile»; certificado `CN=pdichile.cl` |
+| Correos de Chile | `correos.cl` | 200; certificado `O=Empresa de Correos de Chile` |
+| Metro | `metro.cl` | 200 «Metro de Santiago»; certificado SAN `metro.cl`, `*.metro.cl` |
+| TVN | `tvn.cl` | 200; certificado `CN=tvn.cl`, SAN `*.tvn.cl` |
+| Codelco | `codelco.cl`, `codelco.com` | `codelco.cl` → `www.codelco.com`; certificado `O=Corporacion Nacional del Cobre de Chile` |
+| TGR | `tgr.cl` | 200; certificado `CN=*.tgr.cl`, SAN `tgr.cl` |
+
+## Lo que la medición corrigió, y por eso se mide
+
+| Hallazgo | Consecuencia |
+|---|---|
+| **`servel.gob.cl` no existe y `servel.cl` sí** | Sin catálogo, un mensaje legítimo del Servel se leería como falso. **Es el caso que justifica todo el módulo** |
+| `fonasa.cl` es un redirector hacia `fonasa.gob.cl` | Se guarda el destino, no el que se escribe |
+| `sii.gob.cl` redirige a `homer.sii.cl` | La entrada guarda la **etiqueta registrable**, que es lo que se compara |
+| `codelco.cl` redirige a `codelco.com` | Se guardan los dos |
+| `fonasa.gob.cl` **no tiene registro DNS** en la raíz; `www.fonasa.gob.cl` sí | La sonda de vida prueba los dos hosts |
+| `sii.gob.cl` sirve una cadena de certificado que Python no puede validar | La sonda cuenta un fallo de certificado como «vivo»: el servidor contesta |
+
+**Cuatro de catorce entradas estaban mal en el borrador escrito de memoria.** Ninguna de las cuatro
+se habría notado sin abrir el sitio.
+
+## Lo que queda afuera, y por qué no se adivina
+
+**BancoEstado, Banco de Chile, Registro Civil, MINSAL y JUNAEB** quedaron fuera: **su DNS no resuelve
+desde la máquina donde se hizo la verificación** (`curl: (6) Could not resolve host`).
+
+No se inventó el dominio para completar la lista. Queda **declarado** como hueco conocido, y significa
+que hoy un mensaje legítimo de BancoEstado con su enlace real **se leería como ajeno** — el error que
+el catálogo existe para evitar. Cerrarlo requiere verificar esos dominios desde otra red.
+
+## Cómo crece
+
+1. Abrir el sitio y leer su **certificado**: el `O=` o el `CN=` tienen que nombrar a la institución.
+2. Anotar la evidencia acá, con la fecha.
+3. Agregar la entrada en `src/vigia/marcas.py` —`nombre` normalizado en minúsculas, `etiqueta` con
+   la grafía que se le muestra a una persona, `oficiales` ya reducido a etiqueta registrable—.
+4. Correr `VIGIA_INTEGRACION=1 uv run pytest tests/test_marcas.py -m integracion`, que vuelve a medir
+   la lista entera.
+
+**El paso 4 es lo que impide que una lista de confianza se pudra en silencio.** Es el único tipo de
+dato de este proyecto que empeora solo con el tiempo.

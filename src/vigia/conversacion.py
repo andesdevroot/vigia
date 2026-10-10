@@ -14,6 +14,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from vigia.entrante import MensajeRecibido
+from vigia.marcas import MARCAS
 from vigia.motor import Veredicto, evaluar
 from vigia.suplantacion import Marca
 
@@ -27,7 +28,7 @@ PEDIR_TEXTO = (
 ACLARAR_IMAGEN = "Ojo: las imágenes no las puedo leer, esto lo digo por el texto que venía abajo."
 
 
-def componer(mensaje: MensajeRecibido, marcas: Sequence[Marca] = ()) -> str:
+def componer(mensaje: MensajeRecibido, marcas: Sequence[Marca] = MARCAS) -> str:
     """El texto que se le manda de vuelta, listo para enviar."""
     if mensaje.tiene_media and not mensaje.texto:
         return PEDIR_TEXTO

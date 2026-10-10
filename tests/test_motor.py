@@ -118,3 +118,68 @@ def test_sin_enlaces_pero_dice_ser_del_estado_queda_marcado() -> None:
     resultado = evaluar("Su ClaveUnica sera bloqueada, llame al 1510")
     assert resultado.dice_ser_del_estado
     assert resultado.veredicto is Veredicto.SIN_ENLACES
+
+
+def test_el_dominio_propio_de_una_institucion_no_se_acusa() -> None:
+    """El peor error posible sería decirle falso a un mensaje verdadero.
+
+    `sernac.cl` no termina en `.gob.cl`, así que sin catálogo un mensaje legítimo del SERNAC se
+    leería como suplantación — y eso enseña a desconfiar de lo verdadero, que es lo contrario de lo
+    que este programa tiene que lograr.
+    """
+    resultado = evaluar("Ingrese su reclamo en https://www.sernac.cl/reclamo")
+    assert resultado.veredicto is Veredicto.OFICIAL
+    assert resultado.enlaces[0].institucion == "SERNAC"
+    assert "SERNAC" in resultado.explicacion
+
+
+def test_un_parecido_del_dominio_de_una_institucion_si_se_acusa() -> None:
+    for host in ("sernac-cl.xyz", "sernac.gob.cl.xyz", "sernaccl.com"):
+        assert evaluar(f"reclame en {host}").veredicto is Veredicto.AJENO, host
+
+
+def test_un_enlace_conocido_no_lava_a_uno_desconocido() -> None:
+    """El invariante de T1.1 sigue en pie ahora que el catálogo amplía lo que se acepta."""
+    resultado = evaluar("Reclame en sernac.cl y confirme en bit.ly/reclamo")
+    assert resultado.veredicto is Veredicto.AJENO
+
+
+def test_una_institucion_nombrada_en_el_texto_cuenta_como_decir_ser_del_estado() -> None:
+    """El hueco que quedó a la vista al cerrar T1.4: `BANCOESTADO` no se reconocía."""
+    resultado = evaluar("SERVEL: tiene una multa. Pague en bit.ly/multa")
+    assert resultado.dice_ser_del_estado
+    assert resultado.veredicto is Veredicto.AJENO
+
+
+def test_el_nombre_tiene_que_aparecer_como_palabra_completa() -> None:
+    """`sii` está en el catálogo con tres letras: no puede dispararse dentro de otra palabra."""
+    assert not evaluar("Escriba asii mismo, vea bit.ly/x").dice_ser_del_estado
+
+
+def test_una_palabra_ambigua_como_metro_se_marca_de_mas_y_se_acepta() -> None:
+    """`metro` es el nombre del Metro y también una unidad de largo.
+
+    La comparación es por palabra completa, así que «un metro cuadrado» cuenta como mención y la
+    respuesta agrega una frase de más. **Se acepta y se declara:** la alternativa —una lista de
+    excepciones por palabra— es más código del que este problema merece, y el error va en la
+    dirección segura: dice de más, no calla de menos.
+    """
+    assert evaluar("El paño mide un metro cuadrado, vea bit.ly/paño").dice_ser_del_estado
+
+
+def test_un_enlace_conocido_no_se_acusa_dentro_de_un_mensaje_ajeno() -> None:
+    """El mensaje mezclado es el ataque: un enlace real de adorno y uno falso para apretar.
+
+    Acusar al real sería, además de falso, lo más confuso posible: la respuesta tiene que separar
+    «esto es del SERNAC» de «esto no es del Estado».
+    """
+    resultado = evaluar("Reclame en sernac.cl y confirme en bit.ly/reclamo")
+    assert resultado.veredicto is Veredicto.AJENO
+    assert "sernac.cl es de SERNAC" in resultado.explicacion
+    assert "bit.ly NO es del Estado" in resultado.explicacion
+
+
+def test_la_marca_imitada_se_nombra_como_se_escribe() -> None:
+    """La respuesta la lee una persona: «ClaveÚnica», no el nombre con el que se compara."""
+    resultado = evaluar("entre a claveunica-gob-cl.xyz")
+    assert "ClaveÚnica" in resultado.explicacion
