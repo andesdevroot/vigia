@@ -113,6 +113,38 @@ def test_el_envio_arma_la_peticion_que_documenta_kapso() -> None:
     }
 
 
+def test_el_servidor_usa_el_catalogo_por_defecto() -> None:
+    """El catálogo tiene que llegar hasta producción.
+
+    `atender` y `construir_servidor` traían la lista **vacía** por defecto y `main` no pasaba
+    ninguna, así que el servidor corría el motor sin catálogo: un mensaje legítimo del SERNAC se
+    habría leído como ajeno, que es justo el error que `T1.3` vino a evitar.
+
+    Se descubrió comparando la respuesta que llegó a un teléfono real con la que daba el mismo
+    texto en local. Los tests unitarios no lo veían porque **todos** pasaban el catálogo a mano.
+    """
+    enviador = EnviadorFalso()
+    bruto = json.dumps(
+        {
+            "event": "whatsapp.message.received",
+            "phone_number_id": ID_NUMERO,
+            "message": {
+                "id": "wamid.CAT",
+                "kapso": {
+                    "direction": "inbound",
+                    "has_media": False,
+                    "content": "SERNAC le devuelve dinero. Reclame en https://www.sernac.cl/reclamo",
+                },
+            },
+            "conversation": {"id": "conv-cat", "phone_number": "56912345678"},
+        }
+    ).encode()
+    assert atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador)
+    # Con el catálogo vacío el texto diría «El enlace sernac.cl NO es del Estado», que es
+    # exactamente la acusación falsa que se estaba colando en producción.
+    assert "SERNAC" in enviador.enviados[0][2]
+
+
 def test_el_servidor_contesta_200_aunque_la_firma_sea_mala() -> None:
     """Un error nuestro no puede hacer que Kapso reintente: siempre 200."""
     enviador = EnviadorFalso()

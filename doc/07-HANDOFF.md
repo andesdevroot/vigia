@@ -7,11 +7,11 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **Probar el sandbox de punta a punta.** El webhook está creado y el servidor escuchando; falta activar una sesión de prueba |
-| Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) · **T0.8**: qué expone la API de ANCI |
-| Montado | Webhook `4ace2423-263a-44d4-86d1-086592030bf6` contra el sandbox `597907523413541`, `whatsapp.message.received`, `payload_version v2`, secreto en `.env` |
+| Tarea en curso | **Repetir la prueba** con el catálogo arreglado, y decidir qué sigue: `T1.5` (test de privacidad) o `T0.8` (la API de ANCI) |
+| Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) |
+| Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo**. Sandbox `597907523413541`, webhook `4ace2423-…`, túnel de ngrok |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
-| Tests | **90 verdes, 1 de integración**, sin red, en menos de un segundo |
+| Tests | **91 verdes, 1 de integración**, sin red, en menos de un segundo |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
@@ -34,6 +34,9 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-10 | **El servidor corría el motor SIN catálogo, y ningún test lo veía.** `atender` y `construir_servidor` traían la lista vacía por defecto y `main` no pasaba ninguna, así que en producción un mensaje legítimo del SERNAC se leía como ajeno. Los 90 tests estaban verdes porque **todos pasaban el catálogo a mano**: un test unitario no dice nada sobre con qué argumentos se llama a la función en producción. Se descubrió **comparando la respuesta que llegó a un teléfono real con la que daba el mismo texto en local** |
+| 2026-10-10 | **Probado de punta a punta, con un teléfono real.** 2026-10-10 17:17: un mensaje de phishing entrante y el veredicto saliente **un segundo después**, ambos `delivered`. Cierra la pregunta de `doc/08-CANAL.md`: el canal funciona sin instalar nada. **No dice nada sobre si el veredicto es correcto en general** — eso es calibración, y sigue pendiente |
+| 2026-10-10 | **Para comparar hay que tener las dos salidas.** El bug del catálogo no salió de leer el código ni de correr los tests: salió de **poner la respuesta que llegó al teléfono al lado de la que daba el mismo texto en local** y ver que no coincidían |
 | 2026-10-10 | **El webhook se crea por proyecto, no por número.** `POST /platform/v1/whatsapp/phone_numbers/{id}/webhooks` devuelve `400 Secret key can't be blank` —por número hay que aportar el secreto—, mientras que `POST /platform/v1/whatsapp/webhooks` con `phone_number_id` en el cuerpo devuelve `201` y **el `secret_key` en la respuesta, una sola vez**. Se midió, no se dedujo |
 | 2026-10-10 | **El número que hay conectado es el Sandbox**, que Kapso crea solo y admite **un único destinatario**: el número que se registre como sesión de prueba. Sirve para probar sin comprar nada y **sin ceder el teléfono personal** —registrarlo ahí es ser remitente autorizado, no dueño del número— |
 | 2026-10-10 | **Un fallo al responder dejaba menos rastro que un mensaje sin nada que responder.** El manejador se tragaba la excepción y contestaba 200 igual, así que el `403` del sandbox no dejó rastro en el primer intento. Ahora **se registra el motivo** —el código HTTP o el tipo de excepción, nunca el contenido ni el destinatario— y la respuesta pública sigue siendo mínima |

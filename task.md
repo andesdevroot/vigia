@@ -16,7 +16,8 @@
 | T1.2 | Costo real por verificación | ✅ **≈$19, y las primeras 1.000 gratis** |
 | T1.3 | Catálogo de instituciones chilenas | ✅ **14 verificadas abriendo el sitio** |
 | T1.4 | Endpoint que une el motor con Kapso | ✅ **74 tests verdes** |
-| T1.5 | Regla de privacidad del mensaje reenviado | ⬜ |
+| T1.5 | Regla de privacidad del mensaje reenviado | ⬜ **escrita y cumplida; falta el test** |
+| T1.6 | Prueba de punta a punta por WhatsApp | ✅ **funcionó, y encontró un bug** |
 | T2.1 | El paper de medición | ⬜ |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
@@ -325,6 +326,51 @@ proyecto que empeora solo con el tiempo.
 suplantación del SII**. Era el umbral de edición que no escalaba con el largo de la marca — `sii`
 tiene tres letras y con umbral 2 se parece al 66 % de la palabra. Ahora una marca de tres letras
 tolera una errata y una de seis, dos.
+
+## ✅ T1.6 — La primera prueba de punta a punta, y el bug que encontró
+
+**Un teléfono real, un mensaje real, una respuesta real.** 2026-10-10, 17:17. Registrado por Kapso:
+
+| Cuándo | Dirección | Estado | Contenido |
+|---|---|---|---|
+| 17:17:18 | entrante | entregado | «Estimado usuario: su ClaveUnica sera BLOQUEADA. Regularice en http://claveunica-gob-cl.xyz/renovar» |
+| 17:17:19 | saliente | entregado | «El enlace claveunica-gob-cl.xyz NO es del Estado. El mensaje dice ser del Estado y el enlace no lo es.» |
+
+**Un segundo** entre el mensaje y la respuesta. La entrega del webhook: `delivered`, `HTTP 200`, un
+solo intento.
+
+**El montaje:** número **Sandbox** de Kapso (`597907523413541`) · webhook `4ace2423-…` contra el túnel
+de ngrok · `whatsapp.message.received`, `payload_version v2`.
+
+**Lo que cierra:** el canal elegido en `doc/08-CANAL.md` funciona de verdad, con un teléfono común,
+**sin instalar nada**. Era la pregunta que quedaba abierta.
+
+### Y comparar la respuesta real con la local encontró un bug grave
+
+En local, el mismo texto agregaba **«El enlace se parece a ClaveÚnica.»** Por el teléfono, no. La
+causa: **`atender` y `construir_servidor` traían el catálogo vacío por defecto, y `main` no pasaba
+ninguno.**
+
+O sea: **el servidor corría el motor sin catálogo.** Un mensaje legítimo del SERNAC se habría leído
+como ajeno — el error exacto que `T1.3` existía para evitar. En local no aparecía porque **todos los
+tests pasaban el catálogo a mano**.
+
+Medido, con el mismo mensaje:
+
+```
+sin catálogo        El enlace sernac.cl NO es del Estado.
+con catálogo        El enlace es de una institución oficial: sernac.cl (SERNAC).
+```
+
+Ahora el default es `MARCAS` en los tres puntos y hay un test que lo fija **donde se rompió**.
+
+**Lo que esto enseña:** un test unitario en verde no dice nada sobre *con qué argumentos* se llama a
+la función en producción. Se descubrió **comparando la salida real con la local**, no leyendo el
+código.
+
+**Lo que la prueba NO dice:** que el veredicto sea correcto en general. Dice que el camino funciona.
+La calibración sigue pendiente, y para medirla haría falta un corpus — que este proyecto decidió no
+guardar.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

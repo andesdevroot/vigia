@@ -36,6 +36,7 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 from vigia.conversacion import componer
 from vigia.entrante import interpretar
 from vigia.firma import es_valida
+from vigia.marcas import MARCAS
 from vigia.suplantacion import Marca
 
 TIEMPO_LIMITE_S = 10
@@ -118,7 +119,7 @@ def atender(
     firma: str | None,
     secreto: str,
     enviar: Respondedor,
-    marcas: Sequence[Marca] = (),
+    marcas: Sequence[Marca] = MARCAS,
 ) -> bool:
     """Atiende un webhook y devuelve si se alcanzó a responder.
 
@@ -198,7 +199,7 @@ def construir_servidor(
     direccion: tuple[str, int],
     secreto: str,
     enviar: Respondedor,
-    marcas: Sequence[Marca] = (),
+    marcas: Sequence[Marca] = MARCAS,
 ) -> ThreadingHTTPServer:
     return ThreadingHTTPServer(direccion, _manejador(secreto, enviar, tuple(marcas)))
 
