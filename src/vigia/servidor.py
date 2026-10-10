@@ -30,6 +30,7 @@ from collections.abc import Callable, Sequence
 from http.client import HTTPMessage
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from typing import IO, Any, Protocol
+from urllib.error import HTTPError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from vigia.conversacion import componer
@@ -143,6 +144,17 @@ def atender(
     return True
 
 
+def _motivo(error: BaseException) -> str:
+    """Cómo se nombra un fallo en el registro.
+
+    El código HTTP y no el mensaje completo: la respuesta de Kapso puede nombrar al destinatario, y
+    el registro de este servidor no es lugar para datos de nadie.
+    """
+    if isinstance(error, HTTPError):
+        return f"HTTP {error.code}"
+    return type(error).__name__
+
+
 class _Manejador(BaseHTTPRequestHandler):
     secreto: str
     enviar: Respondedor
@@ -159,7 +171,11 @@ class _Manejador(BaseHTTPRequestHandler):
                 self.enviar,
                 self.marcas,
             )
-        except Exception:  # noqa: BLE001 - un webhook nunca contesta 500
+        except Exception as error:  # noqa: BLE001 - un webhook nunca contesta 500
+            # Se registra el **motivo**, nunca el contenido. Sin esto, un envío que falla se ve
+            # exactamente igual que un mensaje sin nada que responder, y depurar es adivinar: pasó
+            # la primera vez que se probó contra el sandbox, con un 403 que no dejó rastro.
+            self.log_error("no se pudo responder: %s", _motivo(error))
             respondido = False
 
         respuesta = json.dumps({"ok": True, "respondido": respondido}).encode()

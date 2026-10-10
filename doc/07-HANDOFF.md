@@ -7,17 +7,17 @@ decide si el proyecto existe.
 
 | | |
 |---|---|
-| Tarea en curso | **Prueba real por WhatsApp.** Todo el código está; falta conectar el número y las credenciales |
+| Tarea en curso | **Probar el sandbox de punta a punta.** El webhook está creado y el servidor escuchando; falta activar una sesión de prueba |
 | Bloqueada aparte | **T0.7**: falta una clave de urlscan.io (gratis) · **T0.8**: qué expone la API de ANCI |
-| Falta confirmar | Un envío real por la API de Kapso, y el `secret_key` del webhook (lo da Kapso una sola vez) |
+| Montado | Webhook `4ace2423-263a-44d4-86d1-086592030bf6` contra el sandbox `597907523413541`, `whatsapp.message.received`, `payload_version v2`, secreto en `.env` |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Tests | **90 verdes, 1 de integración**, sin red, en menos de un segundo |
 | Gate | **`./gate.sh`** en verde |
-| Árbol git | limpio |
+| Árbol git | limpio, y `.env` fuera del control de versiones |
 
 ## Último commit
 
-`[T1.4b]` El webhook que contesta por WhatsApp.
+`[T1.3]` Catálogo de instituciones, verificado abriendo el sitio.
 
 ## Blockers
 
@@ -34,6 +34,10 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-10 | **El webhook se crea por proyecto, no por número.** `POST /platform/v1/whatsapp/phone_numbers/{id}/webhooks` devuelve `400 Secret key can't be blank` —por número hay que aportar el secreto—, mientras que `POST /platform/v1/whatsapp/webhooks` con `phone_number_id` en el cuerpo devuelve `201` y **el `secret_key` en la respuesta, una sola vez**. Se midió, no se dedujo |
+| 2026-10-10 | **El número que hay conectado es el Sandbox**, que Kapso crea solo y admite **un único destinatario**: el número que se registre como sesión de prueba. Sirve para probar sin comprar nada y **sin ceder el teléfono personal** —registrarlo ahí es ser remitente autorizado, no dueño del número— |
+| 2026-10-10 | **Un fallo al responder dejaba menos rastro que un mensaje sin nada que responder.** El manejador se tragaba la excepción y contestaba 200 igual, así que el `403` del sandbox no dejó rastro en el primer intento. Ahora **se registra el motivo** —el código HTTP o el tipo de excepción, nunca el contenido ni el destinatario— y la respuesta pública sigue siendo mínima |
+| 2026-10-10 | **El `secret_key` que se imprime, se rota.** El primer webhook se creó con un comando que mostró el secreto en la salida; se borró el webhook y se creó otro, de modo que el expuesto quedara inservible. **Un secreto que se ve una vez y se filtra no se protege: se reemplaza** |
 | 2026-10-10 | **Un número local por Kapso cuesta USD 400 al mes, así que no es el camino.** «Provide local numbers» es un add-on de Pro o superior y **no existe en el plan gratis**; «Instant setup» da un número de EE.UU. gratis y ya verificado, y «Bring your own SIM» conecta un +56 propio con un chip prepago. **La consecuencia práctica: probar no requiere comprar nada, ni tocar el teléfono personal de nadie** —se le escribe al robot desde el WhatsApp propio—. El +56 es una condición para salir a la calle, no para probar |
 | 2026-10-10 | **El catálogo es el único dato que amplía el camino permisivo, así que se verifica abriendo el sitio.** 14 instituciones, cada una con su certificado leído y su evidencia fechada en `doc/11-MARCAS.md`. **Cuatro de catorce entradas de un borrador escrito de memoria estaban mal** — `servel.gob.cl` no existe, `fonasa.cl` es un redirector, `sii.gob.cl` manda a `homer.sii.cl`, `codelco.cl` a `codelco.com`. Un test marcado `integracion` vuelve a medir la lista entera: es el único dato del proyecto que empeora solo con el tiempo |
 | 2026-10-10 | **Un dominio que no se pudo verificar no se adivina.** BancoEstado, Banco de Chile, Registro Civil, MINSAL y JUNAEB quedaron fuera porque su DNS no resuelve desde esta máquina. **Consecuencia declarada:** hoy un mensaje legítimo de BancoEstado se leería como ajeno, que es el error que el catálogo existe para evitar |
