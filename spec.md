@@ -200,7 +200,23 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-179 | **Las falsas alarmas del baseline están declaradas** una por una | `test_las_falsas_alarmas_del_extractor_de_referencia_estan_declaradas` |
 | REQ-180 | La respuesta por petición no promete seguridad | `test_la_respuesta_por_peticion_no_promete_seguridad` |
 
-## 15. La arquitectura
+## 15. La redacción y el extractor con modelo
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-190 | La redacción tapa el correo, el enlace y el RUT | `test_la_redaccion_tapa_el_correo_el_enlace_y_el_rut` |
+| REQ-191 | Tapa teléfonos y números de cuenta | `test_la_redaccion_tapa_telefonos_y_numeros_de_cuenta` |
+| REQ-192 | **Conserva lo que la extracción necesita** | `test_la_redaccion_conserva_lo_que_la_extraccion_necesita` |
+| REQ-193 | **Ningún mensaje del corpus sale con números largos ni correos** | `test_ningun_mensaje_del_corpus_sale_con_numeros_largos` |
+| REQ-194 | El extractor manda el texto **redactado** | `test_el_extractor_manda_el_texto_redactado` |
+| REQ-195 | El modelo **no puede inventar una categoría** | `test_el_modelo_no_puede_inventar_una_categoria` |
+| REQ-196 | El prompt enumera el vocabulario y avisa de la negación | `test_el_extractor_pide_json_y_enumera_el_vocabulario` |
+| REQ-197 | Un fallo del proveedor **no acusa a nadie** | `test_un_fallo_del_proveedor_no_acusa_a_nadie` |
+| REQ-198 | **La caché no guarda el texto**: hashes y etiquetas | `test_la_cache_no_guarda_el_texto` |
+| REQ-199 | La caché evita mandar dos veces el mismo mensaje | `test_la_cache_evita_mandar_dos_veces_el_mismo_mensaje` |
+| REQ-200 | Una respuesta ilegible no revienta | `test_una_respuesta_ilegible_no_revienta` |
+
+## 16. La arquitectura
 
 | # | Requisito | Test |
 |---|---|---|

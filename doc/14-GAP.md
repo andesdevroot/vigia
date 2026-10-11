@@ -61,6 +61,48 @@ su forma, no por su historia.
 
 Eso es gratis, determinista, y **cita al Estado como evidencia** en vez de predecir nada.
 
+## ¿Sirve «que quede en caché y después se borre»? **No alcanza** (`T4.5`)
+
+Es la pregunta correcta, y la respuesta es incómoda: **el problema no es nuestra copia.**
+
+Cuando el texto sale hacia un proveedor de modelos, **la transmisión ya ocurrió**. Lo que ese
+proveedor retenga —de horas a semanas, según su política, y a veces para entrenar— **no lo
+controlamos**. Borrar nuestra caché no borra la suya.
+
+### Lo que sí sirve: **no mandar el dato**
+
+Y resulta que **el modelo no necesita el mensaje: necesita la petición.** Para saber si un texto pide
+la clave no hacen falta el RUT, el teléfono, el número de cuenta ni el enlace.
+
+Así que se redacta **acá**, en el servidor, y afuera sale un texto sin datos personales:
+
+```
+entra:  "Su RUT 12.345.678-9, llame al +56 9 1234 5678 o entre a https://malo.xyz/a"
+sale:   "Su [RUT], llame al [TELEFONO] o entre a [ENLACE]"
+```
+
+**Y el enlace también se tapa**, que no es un detalle: así el dominio malicioso no sale del servidor.
+El motor ya lo juzgó antes, con sus propias reglas.
+
+### Y ahí sí la caché tiene sentido — la del **resultado**
+
+La campaña del CSIRT se manda masivamente: el mismo texto llega miles de veces. Se guarda
+`hash(texto redactado) → extracción`.
+
+- **No se guarda el texto**, ni siquiera redactado: un hash y seis etiquetas.
+- **Un mensaje repetido no se vuelve a mandar**: una campaña de diez mil se transmite **una vez**.
+- En memoria, sin persistencia: dura lo que dura el proceso.
+
+### Lo que **no** resuelve, y hay que decirlo en la bienvenida
+
+- **No protege del proveedor en general**: sigue viendo un texto. Garantiza que **no ve datos
+  personales**, no que no lo retenga.
+- **No quita el nombre de la institución ni el asunto**, porque son justo lo que hay que extraer. Un
+  mensaje redactado sigue diciendo «BancoEstado» y «bloqueada».
+
+Por eso hay que **decirlo**: *«para analizarlo se lo pasamos a un modelo, sin sus datos; no lo
+guardamos»*. Y la alternativa que no depende de nadie es un **modelo local**, con su costo.
+
 ## ¿Alcanzan 342? ¿Entrenar? ¿Algoritmos avanzados?
 
 ### ¿Alcanzan 342?

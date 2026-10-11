@@ -11,8 +11,8 @@ código.
 
 | | |
 |---|---|
-| Requisitos en `spec.md` | **118** |
-| Tests | **173 casos** (164 funciones; dos están parametrizadas) |
+| Requisitos en `spec.md` | **129** |
+| Tests | **188 casos** (179 funciones; dos están parametrizadas) |
 | Guardián de la especificación | `tests/test_spec.py` falla si un requisito queda sin test |
 
 | # | Tarea | Estado |
@@ -39,6 +39,7 @@ código.
 | T4.3 | Control invertido (enlace real, mismo texto) | ✅ **0 falsas acusaciones de 211** |
 | T4.7 | Cosechar hasta 1.500 | ✅ **no se puede: el techo es ~400, y está medido** |
 | T4.4 | Extractor de la petición + regla (opción C) | ✅ **regla lista; el baseline no sirve, y está medido** |
+| T4.5 | Extractor con modelo, redacción y caché | ✅ **sin red en los tests; la privacidad, resuelta a medias** |
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
@@ -760,6 +761,50 @@ también — porque eso significa que llegó un extractor mejor.
 **La cobertura que gana la regla es 0 sobre este corpus**: las 342 estafas del CSIRT ya traen enlace,
 así que solo una queda muda. **La precisión tampoco se puede medir**: hace falta un corpus de mensajes
 legítimos, y no existe. **Es el mismo hueco, por segunda vez.**
+
+## ✅ T4.5 — El extractor con modelo, la redacción y la caché
+
+**El modelo llena el formulario; la regla decide.** `src/vigia/extractor.py`: una sola implementación
+compatible con la API de OpenAI —**sirve para DeepSeek y para JEV**, y enfrentarlos es cambiar dos
+valores— con el `abrir` inyectado, igual que el respondedor de Kapso. **Los 24 tests nuevos corren sin
+red.**
+
+### La privacidad: «que quede en caché y se borre» **no alcanza**
+
+**El problema no es nuestra copia.** Cuando el texto sale hacia un proveedor, **la transmisión ya
+ocurrió**, y lo que él retenga no lo controlamos. Borrar nuestra caché no borra la suya.
+
+**Lo que sí sirve: no mandar el dato.** Y el modelo **no necesita el mensaje, necesita la petición**:
+para saber si un texto pide la clave no hacen falta el RUT, el teléfono ni el enlace.
+
+```
+entra:  "Su RUT 12.345.678-9, llame al +56 9 1234 5678 o entre a https://malo.xyz/a"
+sale:   "Su [RUT], llame al [TELEFONO] o entre a [ENLACE]"
+```
+
+El enlace también se tapa: **el dominio malicioso no sale del servidor.** El motor ya lo juzgó antes.
+
+**Y ahí sí la caché tiene sentido, la del resultado:** `hash(texto redactado) → extracción`. Una
+campaña de diez mil mensajes **se transmite una vez**, y lo guardado son hashes y seis etiquetas.
+Nunca el texto.
+
+### El test de privacidad encontró 3 fugas en las 342
+
+Recorriendo el corpus entero, tres mensajes salían con códigos dentro de alfanuméricos
+(`D541472056CL`, `BCE001547-56`) que `\b` no atrapaba. No son datos personales, pero son
+identificables y **no aportan nada a la extracción**. El patrón se arregló y quedó sin fronteras de
+palabra, a propósito.
+
+### Y el vocabulario sigue cerrado
+
+El modelo **no puede inventar una categoría**: lo que no esté en la lista se descarta. Es lo que
+mantiene auditable un extractor llenado por un modelo.
+
+### Lo que falta para cerrarlo
+
+**Medir si el modelo le gana al baseline.** Tiene que superar las 6 sondas de `peticion.SONDAS`, y hoy
+el extractor de referencia marca 3 mal —las tres con negación—. Eso necesita credenciales de DeepSeek
+o de JEV, y hay que decidir cuál se usa **midiendo**, no por gusto.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 
