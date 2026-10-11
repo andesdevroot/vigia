@@ -10,6 +10,7 @@ Lo que **no** cambia es la línea roja: se afirma sobre el enlace y sobre la coh
 que el mensaje dice y lo que enlaza. Nunca sobre el mensaje.
 """
 
+from vigia.indicadores import Indice
 from vigia.motor import Veredicto, evaluar, extraer_enlaces
 from vigia.suplantacion import Marca, TipoSuplantacion
 
@@ -299,6 +300,64 @@ def test_no_se_nombran_dos_veces_la_misma_institucion() -> None:
     )
     assert resultado.reclamadas == ("Banco Ripley",)
     assert resultado.veredicto is Veredicto.NO_COINCIDE
+
+
+def test_un_enlace_reportado_por_el_estado_da_confirmado() -> None:
+    """`CONFIRMADO` es el veredicto más fuerte: **no es una inferencia, es un hecho con fuente**.
+
+    Los demás veredictos juzgan el enlace por su forma. Este lo juzga por su historia: el Estado ya
+    publicó que ese dominio es fraudulento.
+    """
+    indice = Indice({"nhmwcotitostado.info": ["8fph22-00664-01"]})
+    resultado = evaluar(
+        "Banco de Estado le comunica: ingrese a nhmwcotitostado.info/activacion/", indice=indice
+    )
+    assert resultado.veredicto is Veredicto.CONFIRMADO
+    assert resultado.confirmados == ("nhmwcotitostado.info",)
+
+
+def test_lo_confirmado_manda_sobre_los_demas_veredictos() -> None:
+    """Un enlace confirmado es lo más fuerte que se puede decir, aunque el otro enlace coincida."""
+    indice = Indice({"malo.xyz": ["X-01"]})
+    resultado = evaluar(
+        "SERNAC le informa: reclame en sernac.cl y confirme en malo.xyz", indice=indice
+    )
+    assert resultado.veredicto is Veredicto.CONFIRMADO
+    assert resultado.enlaces  # los dos enlaces se siguen viendo
+
+
+def test_la_respuesta_cita_la_alerta_del_csirt() -> None:
+    """El ciudadano tiene que poder ir a leer la fuente. Citar es la mitad del valor."""
+    indice = Indice({"malo.xyz": ["8fph22-00664-01"]})
+    resultado = evaluar("ingrese a malo.xyz", indice=indice)
+    assert "csirt.gob.cl/alertas/8fph22-00664-01/" in resultado.explicacion
+    assert "malo.xyz" in resultado.explicacion
+
+
+def test_sin_indice_no_se_confirma_nada() -> None:
+    """Sin índice el motor degrada a lo que era antes. **No arranca mal: arranca sin confirmar.**"""
+    resultado = evaluar("ingrese a malo.xyz", indice=Indice({}))
+    assert resultado.veredicto is Veredicto.AJENO
+    assert resultado.confirmados == ()
+
+
+def test_un_dominio_real_del_corpus_da_confirmado() -> None:
+    """La prueba de aceptación: con el índice que se construye desde el CSIRT, un dominio real del
+    corpus tiene que quedar confirmado."""
+    resultado = evaluar(
+        "Banco de Estado le comunica: ingrese a "
+        "https://nhmwcotitostado.info/activacion/cuenta-ulen/"
+    )
+    assert resultado.veredicto is Veredicto.CONFIRMADO
+    assert resultado.confirmados == ("nhmwcotitostado.info",)
+
+
+def test_un_dominio_confirmado_no_promete_seguridad_por_el_resto() -> None:
+    """Citar la alerta no autoriza a decir que el mensaje es seguro: el resto sigue sin validar."""
+    indice = Indice({"malo.xyz": ["X-01"]})
+    explicacion = evaluar("ingrese a malo.xyz", indice=indice).explicacion.lower()
+    assert "seguro" not in explicacion
+    assert "confiar" not in explicacion
 
 
 def test_la_marca_imitada_se_nombra_como_se_escribe() -> None:

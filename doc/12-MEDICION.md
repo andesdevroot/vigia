@@ -119,6 +119,40 @@ instituciones estatales bajo `.gob.cl` — mientras que el corpus suplanta banco
 Es el orden correcto igual: si el catálogo hubiera crecido primero, el motor habría dicho «el enlace
 es de una institución oficial: bancoripley.cl (Banco Ripley)», que no es lo que hay que leer.
 
+## T4.2 — El índice del Estado, y el número que faltaba
+
+**738 dominios** que el CSIRT ya publicó como fraudulentos, consultados como historia y no como
+forma. Detalle en `doc/15-INDICE.md`.
+
+```
+                         la cita del CSIRT   cita + enlace del informe
+  confirmado                   0   (0%)           239  (70%)
+  nombra                       0   (0%)            74  (22%)
+  avisa                        9   (3%)            28   (8%)
+  mudo                       330  (96%)             1   (0%)
+  GRAVE                        3   (1%)             0   (0%)
+```
+
+**El 97 % de las estafas recibe una respuesta útil** sobre el mensaje completo, y **el 70 % con la
+alerta del Estado citada**. Una queda muda. Ninguna grave.
+
+Y `nombra` bajó de 210 a 74 porque `CONFIRMADO` **manda**: cuando el Estado ya determinó que un
+dominio es fraude, decir además de quién decía ser el mensaje es secundario.
+
+### Lo que los tests encontraron al romperse
+
+El índice traía **`bit.ly`** —reportado por **70 alertas**— y **`com.br`, `com.au` y `com.np`**.
+
+Lo primero porque un acortador aloja los enlaces de todo el mundo. Lo segundo porque **`com.br` no
+es un dominio: es un sufijo de registro**, y `etiqueta_registrable` reduce por etiquetas contadas sin
+conocer la lista de sufijos públicos, así que `algo.com.br` se volvía `com.br`.
+
+Confirmar cualquiera de los dos habría condenado a medio internet y a todo Brasil. **Los dos filtros
+viven en la consulta, no solo en el archivo.**
+
+> Es la misma lección de `T0.2` y de `T4.1`, por tercera vez: **el fraude vive en el contenido, no en
+> el contenedor.** El dominio del acortador no es el ataque; la ruta que aloja sí.
+
 ## T4.1 — El corpus crece a 342, y aparecen dos cosas
 
 Con el sitemap del CSIRT (**5.179 alertas**) en vez del repositorio de indicadores —que solo cubre

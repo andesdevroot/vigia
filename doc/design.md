@@ -70,6 +70,7 @@ intacta**.
 | `entrante.py` | lee el sobre de Kapso | no |
 | `motor.py` | **el veredicto** | no |
 | `marcas.py` | el catálogo de instituciones y sus dominios | no |
+| `indicadores.py` | **el índice del Estado**: dominios ya publicados como fraudulentos | no |
 | `suplantacion.py` | detector de marcas parecidas | no |
 | `conversacion.py` | lo que se contesta | no |
 | `servidor.py` | HTTP y envío | **sí, y es el único** |
@@ -104,7 +105,7 @@ Eso **no** significa renunciar a la IA. Significa ponerla donde no pueda romper 
 | Dónde | ¿IA? | Por qué |
 |---|---|---|
 | Decidir si un enlace es oficial | **No** | Es una comparación contra un catálogo verificado |
-| Buscar el enlace en los indicadores del Estado | **No** | Es una búsqueda en 785 informes del CSIRT |
+| Buscar el enlace en los indicadores del Estado | **No** | Es una búsqueda en 738 dominios ya publicados |
 | Extraer **de quién dice ser** el mensaje | **Sí, es el lugar natural** | El corpus escribe «Banco Ripley», «bancoripley» y «banco de estado» |
 | Extraer **qué pide** el mensaje | **Sí, y es el núcleo nuevo** | De un mensaje sin enlace solo se puede extraer **la petición** |
 | Leer una **captura de pantalla** | **Sí, con un límite duro** | De la imagen sale **texto**, y el texto pasa por el motor. Nunca el veredicto |
@@ -188,6 +189,7 @@ adivinar — y la medición de cuánto se abstiene.**
 
 | Fecha | Qué cambió en el diseño |
 |---|---|
+| 2026-10-11 | **`T4.2`: el motor gana un sexto veredicto, y es el más fuerte.** `CONFIRMADO` no juzga el enlace por su forma sino por su **historia**: 738 dominios que el Estado ya publicó como fraudulentos, con la alerta citada. **70 % del corpus queda confirmado, y el 97 % recibe respuesta útil.** Y los tests rompieron cuatro veces al construirlo, con razón: el índice traía **`bit.ly`** —70 alertas— y **`com.br`** (un sufijo público, no un dominio). Confirmarlos habría condenado a medio internet y a todo Brasil. **El filtro vive en la consulta, no solo en el archivo** |
 | 2026-10-10 | **Aparece `spec.md`, y con él el SDD de verdad.** 78 requisitos numerados, cada uno con el test que lo verifica, y **`tests/test_spec.py` falla si un requisito no tiene test o apunta a uno que no existe** — verificado rompiéndolo a propósito. Escribirlo encontró un requisito sin cobertura (**`REQ-12`**, el envío no sigue redirecciones), que es exactamente para lo que sirve. Y queda como regla que **todos los `.md` se actualizan en el mismo commit que cierra la tarea** |
 | 2026-10-10 | **La brecha son tres, y la grande es que la mayoría del fraude no trae enlace.** Medido: **1 de cada 4 chilenos cayó** en smishing y **+30 % en un año**. Se abre `doc/14-GAP.md` con las cinco opciones y la decisión: **el LLM extrae la petición en campos cerrados y una regla escrita decide** — «ninguna institución pide su clave ni sus datos por mensaje». El LLM **propone**, la regla **decide**, y la abstención sigue siendo un veredicto |
 | 2026-10-10 | **`T3.1` armado: tres mensajes de prueba con tres formas de enlace distintas** (acortador, dominio con ruta, empresa del Estado), y **el armado encontró un bug en la frase que más importa**: decía «dice ser de Banco Ripley, Ripley», porque «Ripley» es nombre propio y además alias de «Banco Ripley». Ahora se nombra una sola vez |

@@ -9,14 +9,15 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 |---|---|
 | Tarea en curso | **`T4.1` — cosechar 300+ alertas del CSIRT**, y después la opción A (índice de IoC). El análisis de la brecha está en `doc/14-GAP.md` |
 | Después | `T4.2` índice de IoC · `T4.3` control invertido · `T4.4` extractor de la petición + regla |
-| Medido | **45 estafas reales del CSIRT**: `nombra` **39 (87 %)**, `GRAVE` **0**, y el insumo se cae en el 98 % si solo se reenvía la cita. Ver `doc/12-MEDICION.md` |
+| Medido | **342 estafas reales del CSIRT**: `confirmado` **239 (70 %)**, respuesta útil **97 %**, `GRAVE` **0**. Ver `doc/12-MEDICION.md` |
+| Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
 | Catálogo | **25 instituciones**: 14 estatales y 11 suplantadas, todas verificadas por certificado |
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Datos | `corpus/alertas_csirt.json` (45) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
-| Tests | **123 casos verdes** (114 funciones), 1 de integración, sin red, en menos de un segundo |
-| Requisitos | **78 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
+| Tests | **142 casos verdes** (133 funciones), 1 de integración, sin red, en menos de un segundo |
+| Requisitos | **92 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
@@ -39,7 +40,9 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
-| 2026-10-10 | **`spec.md` es el contrato, y se hace cumplir solo.** 78 requisitos numerados, cada uno con el test que lo verifica; `tests/test_spec.py` falla si un requisito no nombra test **o si nombra uno que no existe** — comprobado rompiéndolo a propósito. Un requisito que no se puede verificar no es un requisito: **es un deseo, y va a `task.md`**. Escribirlo encontró un requisito sin cobertura (`REQ-12`, el envío no sigue redirecciones) |
+| 2026-10-11 | **El motor gana `CONFIRMADO`, y es el veredicto más fuerte.** 738 dominios que el Estado ya publicó como fraudulentos, con la alerta citada: **70 % del corpus**, y el 97 % recibe respuesta útil. **No predice: cita** — «el CSIRT publicó que este dominio es fraudulento, en esta alerta» — y por eso manda sobre los demás |
+| 2026-10-11 | **El índice del Estado traía `bit.ly` y `com.br`, y confirmarlos habría condenado a medio internet y a todo Brasil.** `bit.ly` lo reportan **70 alertas**, pero un acortador aloja los enlaces de todo el mundo; `com.br` no es un dominio sino un **sufijo público**, y `etiqueta_registrable` no conoce esa lista. **Los dos filtros viven en la consulta, no solo al construir el archivo**: un dato que no se puede defender en la consulta no se defiende en ninguna parte |
+| 2026-10-11 | **`spec.md` es el contrato, y se hace cumplir solo.** 78 requisitos numerados, cada uno con el test que lo verifica; `tests/test_spec.py` falla si un requisito no nombra test **o si nombra uno que no existe** — comprobado rompiéndolo a propósito. Un requisito que no se puede verificar no es un requisito: **es un deseo, y va a `task.md`**. Escribirlo encontró un requisito sin cobertura (`REQ-12`, el envío no sigue redirecciones) |
 | 2026-10-10 | **Todos los `.md` se actualizan en el mismo commit que cierra la tarea** (`spec.md`, `task.md`, `doc/07-HANDOFF.md`, `doc/design.md`, y el numerado que corresponda). La razón: este proyecto **mide y vuelve a medir** —`nombra` pasó de 0 a 24 a 39; el corpus de 45 a 342—, así que un documento sin actualizar deja de ser fuente de verdad y pasa a ser un archivo viejo que contradice al código |
 | 2026-10-10 | **La brecha son tres y la grande no es la que parecía** (`doc/14-GAP.md`). Medido: **1 de cada 4 chilenos cayó** en smishing, **+30 % en un año**. La brecha 1 —el enlace está y no sabemos de quién dice ser— es 6 de 45 y se cierra con catálogo. **La brecha 2 es que buena parte del fraude no trae enlace, y ahí el motor no dice nada.** Y la brecha 3: hay **785 informes de IoC del Estado** sin usar |
 | 2026-10-10 | **El LLM extrae; la regla decide.** La opción descartada es la que ya existe —un LLM que dictamina si es fraude, como WhatsPhish, el chatbot colombiano y ScanMessage—: no es auditable, no puede decir «no sé», y **es peor que lo que ya tenemos**. La que se adopta: el modelo llena un formulario de campos cerrados —`dice_ser`, `pide`, `urgencia`— y decide **una regla escrita y citable**: **«ninguna institución pide su clave ni sus datos por mensaje»** |

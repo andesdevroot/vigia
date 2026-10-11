@@ -11,8 +11,8 @@ código.
 
 | | |
 |---|---|
-| Requisitos en `spec.md` | **78** |
-| Tests | **123 casos** (114 funciones; dos están parametrizadas) |
+| Requisitos en `spec.md` | **92** |
+| Tests | **142 casos** (133 funciones; dos están parametrizadas) |
 | Guardián de la especificación | `tests/test_spec.py` falla si un requisito queda sin test |
 
 | # | Tarea | Estado |
@@ -35,7 +35,7 @@ código.
 | T1.8 | Extender el catálogo a lo suplantado | ✅ **25 instituciones; `nombra` 0 → 39 de 45 (87 %)** |
 | T3.1 | Medir si la gente reenvía el enlace | ⏸️ **sin las 20 personas; se reemplaza por T4.1** |
 | T4.1 | Cosechar 300+ alertas del CSIRT | ✅ **342, y encontró dos cosas** |
-| T4.2 | Índice de IoC del Estado (opción A) | ⬜ **determinista, y cita al Estado** |
+| T4.2 | Índice de IoC del Estado (opción A) | ✅ **738 dominios; `confirmado` en 239 de 342** |
 | T4.3 | Control invertido (enlace real, mismo texto) | ⬜ **el denominador que falta** |
 | T4.4 | Extractor de la petición + regla (opción C) | ⬜ **el núcleo nuevo** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
@@ -587,6 +587,41 @@ cita recortada, donde el enlace malo no está y lo único que queda es el señue
 **Y no se arregla con una regla más:** `operativos.Sin` y `claveunica.gob.cl.xyz` son lexicalmente
 idénticos. Lo que los distingue es **qué pide el mensaje**. Es la justificación medida de la opción C
 (`T4.4`): **la ambigüedad del dominio suelto no se resuelve mirando el dominio.**
+
+## ✅ T4.2 — El índice de indicadores del Estado
+
+**738 dominios que el Estado ya publicó como fraudulentos**, con las alertas que lo dicen. Detalle en
+[`doc/15-INDICE.md`](doc/15-INDICE.md).
+
+```
+                         la cita del CSIRT   cita + enlace del informe
+  confirmado                   0   (0%)           239  (70%)   ← nuevo
+  nombra                       0   (0%)            74  (22%)
+  avisa                        9   (3%)            28   (8%)
+  mudo                       330  (96%)             1   (0%)
+  GRAVE                        3   (1%)             0   (0%)
+```
+
+**El 97 % de las estafas recibe una respuesta útil** sobre el mensaje completo: 239 confirmadas con
+la alerta citada, 74 con la institución nombrada, 28 avisadas. Una queda muda. Ninguna grave.
+
+**Y no predice: cita.** `CONFIRMADO` no dice «creo que esto es malo», dice **«el CSIRT publicó que
+este dominio es fraudulento, en esta alerta»**, y el ciudadano puede ir a leerla. Por eso manda
+sobre todos los demás veredictos.
+
+### Los tests rompieron cuatro veces, y tenían razón
+
+`bit.ly` **está en el índice del Estado** —70 alertas lo reportan—. Confirmarlo habría condenado a
+medio internet: una URL maliciosa en un acortador no vuelve fraudulento al acortador.
+
+Buscando por dato y no por memoria apareció algo peor: el índice guardaba **`com.br` (14 alertas),
+`com.au` (10) y `com.np` (8)**. Eso no son dominios, son **sufijos de registro**
+(`etiqueta_registrable` reduce por etiquetas contadas y no conoce los sufijos públicos), así que
+`algo.com.br` se volvía `com.br` y confirmarlo condenaba a **todo Brasil**.
+
+Ambas cosas se filtran **en la consulta, no solo al construir el índice**: aunque el archivo traiga
+un `bit.ly`, la respuesta nunca puede confirmarlo. **Un dato que no se puede defender en la consulta
+no se defiende en ninguna parte.**
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

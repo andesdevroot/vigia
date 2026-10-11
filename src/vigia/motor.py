@@ -52,6 +52,7 @@ from collections.abc import Sequence
 from dataclasses import dataclass
 from enum import StrEnum
 
+from vigia.indicadores import INDICE, Indice
 from vigia.marcas import MARCAS, institucion_de
 from vigia.suplantacion import (
     SEGUNDO_NIVEL_ESTADO,
@@ -109,6 +110,7 @@ class Veredicto(StrEnum):
 
     COINCIDE = "coincide"
     NO_COINCIDE = "no_coincide"
+    CONFIRMADO = "confirmado"
     OFICIAL = "oficial"
     AJENO = "ajeno"
     SIN_ENLACES = "sin_enlaces"
@@ -123,6 +125,12 @@ class Enlace:
     es_del_estado: bool
     ascii: bool
     institucion: str | None = None
+    confirmado: bool = False
+    """El Estado ya publicó que este dominio es fraudulento (`T4.2`).
+
+    No es una inferencia sobre la forma del enlace: es un hecho con fuente, y por eso su veredicto
+    manda sobre todos los demás.
+    """
 
     @property
     def es_oficial(self) -> bool:
@@ -143,6 +151,7 @@ class Evaluacion:
     enlaces: tuple[Enlace, ...]
     suplantaciones: tuple[Coincidencia, ...]
     reclamadas: tuple[str, ...]
+    confirmados: tuple[str, ...]
     dice_ser_del_estado: bool
     explicacion: str
 
@@ -153,7 +162,9 @@ def _plegar(texto: str) -> str:
     return "".join(c for c in descompuesto if not unicodedata.combining(c))
 
 
-def extraer_enlaces(texto: str, marcas: Sequence[Marca] = MARCAS) -> tuple[Enlace, ...]:
+def extraer_enlaces(
+    texto: str, marcas: Sequence[Marca] = MARCAS, indice: Indice = INDICE
+) -> tuple[Enlace, ...]:
     """Los enlaces del texto, sin repetir, en orden de aparición y ya reducidos a lo registrable."""
     vistos: dict[str, Enlace] = {}
     candidatos: list[str] = []
@@ -182,6 +193,7 @@ def extraer_enlaces(texto: str, marcas: Sequence[Marca] = MARCAS) -> tuple[Enlac
             es_del_estado=host.isascii() and registrable.endswith(SUFIJO_ESTADO),
             ascii=host.isascii(),
             institucion=institucion_de(registrable, marcas),
+            confirmado=bool(indice.reportado(registrable)),
         )
     return tuple(vistos.values())
 
@@ -300,12 +312,24 @@ def _explicar(
     suplantaciones: tuple[Coincidencia, ...],
     reclamadas: tuple[str, ...],
     dice_ser_del_estado: bool,
+    indice: Indice,
 ) -> str:
     """La respuesta en castellano, para reenviar tal cual."""
     advertencia = (
         " Eso dice del enlace, no del mensaje: si le piden su clave o sus datos personales,"
         " no los entregue."
     )
+
+    if veredicto is Veredicto.CONFIRMADO:
+        partes = []
+        for enlace in enlaces:
+            codigos = indice.reportado(enlace.registrable)
+            if codigos:
+                partes.append(
+                    f"El enlace {enlace.registrable} está reportado como fraudulento por el CSIRT:"
+                    f" {indice.alerta(codigos[0])}."
+                )
+        return " ".join(partes + _sospechas(enlaces, suplantaciones))
 
     if veredicto is Veredicto.COINCIDE:
         dominios = ", ".join(e.registrable for e in enlaces)
@@ -353,13 +377,16 @@ def _explicar(
     return " ".join(partes)
 
 
-def evaluar(texto: str, marcas: Sequence[Marca] = MARCAS) -> Evaluacion:
+def evaluar(
+    texto: str, marcas: Sequence[Marca] = MARCAS, indice: Indice = INDICE
+) -> Evaluacion:
     """Evalúa un mensaje reenviado y devuelve el veredicto sobre sus enlaces.
 
     El catálogo viene por defecto: sin él, un mensaje legítimo del Servel o del SERNAC se leería
     como falso. Se puede pasar otro, y entonces el catálogo de acá no se usa en ninguna parte.
     """
-    enlaces = extraer_enlaces(texto, marcas)
+    enlaces = extraer_enlaces(texto, marcas, indice)
+    confirmados = tuple(enlace.registrable for enlace in enlaces if enlace.confirmado)
     suplantaciones = tuple(
         coincidencia
         for enlace in enlaces
@@ -372,6 +399,10 @@ def evaluar(texto: str, marcas: Sequence[Marca] = MARCAS) -> Evaluacion:
 
     if not enlaces:
         veredicto = Veredicto.SIN_ENLACES
+    elif confirmados:
+        # Lo más fuerte que se puede decir, y por eso va primero: el Estado ya publicó que ese
+        # dominio es fraudulento. No es una inferencia sobre la forma del enlace.
+        veredicto = Veredicto.CONFIRMADO
     elif reclamadas:
         # La pregunta de T1.9: ¿todos los enlaces son de la institución que el mensaje dice ser?
         # Basta uno que no lo sea para romper la coincidencia: es el ataque mezclado.
@@ -387,6 +418,9 @@ def evaluar(texto: str, marcas: Sequence[Marca] = MARCAS) -> Evaluacion:
         enlaces=enlaces,
         suplantaciones=suplantaciones,
         reclamadas=reclamadas,
+        confirmados=confirmados,
         dice_ser_del_estado=dice_ser_del_estado,
-        explicacion=_explicar(veredicto, enlaces, suplantaciones, reclamadas, dice_ser_del_estado),
+        explicacion=_explicar(
+            veredicto, enlaces, suplantaciones, reclamadas, dice_ser_del_estado, indice
+        ),
     )

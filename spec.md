@@ -135,7 +135,26 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-100 | **Ninguno puede resolver**: solo se cambió el TLD por `.example` | `test_ningun_mensaje_de_prueba_puede_resolver` |
 | REQ-101 | Los tres dan el mejor veredicto posible | `test_los_tres_dan_el_mejor_veredicto` |
 
-## 10. La arquitectura
+## 10. El índice de indicadores del Estado
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-120 | Un enlace que el Estado reportó da `CONFIRMADO` | `test_un_enlace_reportado_por_el_estado_da_confirmado` |
+| REQ-121 | Lo confirmado manda sobre los demás veredictos | `test_lo_confirmado_manda_sobre_los_demas_veredictos` |
+| REQ-122 | **La respuesta cita la alerta del CSIRT** | `test_la_respuesta_cita_la_alerta_del_csirt` |
+| REQ-123 | Sin índice no se confirma nada | `test_sin_indice_no_se_confirma_nada` |
+| REQ-124 | Un archivo de índice roto da un índice **vacío**, no una excepción | `test_un_archivo_corrupto_da_un_indice_vacio` |
+| REQ-125 | La consulta usa el dominio **registrable** | `test_la_consulta_usa_el_dominio_registrable` |
+| REQ-126 | El índice del paquete trae datos | `test_el_indice_del_paquete_tiene_dominios` |
+| REQ-127 | Un dominio real del corpus queda confirmado | `test_un_dominio_real_del_corpus_da_confirmado` |
+| REQ-128 | Citar la alerta no autoriza a prometer seguridad | `test_un_dominio_confirmado_no_promete_seguridad_por_el_resto` |
+| REQ-129 | **Una plataforma compartida nunca se confirma**, aunque el índice la traiga | `test_una_plataforma_compartida_nunca_se_confirma` |
+| REQ-130 | **Un sufijo público nunca se confirma**: `com.br` no es un dominio | `test_un_sufijo_publico_nunca_se_confirma` |
+| REQ-131 | Un dominio normal **sí** se confirma: el filtro no se pasa de listo | `test_un_dominio_normal_si_se_confirma` |
+| REQ-132 | Un índice sin la clave `dominios` da un índice vacío | `test_un_archivo_sin_la_clave_dominios_da_un_indice_vacio` |
+| REQ-133 | Un índice inexistente da un índice vacío | `test_un_archivo_inexistente_da_un_indice_vacio` |
+
+## 11. La arquitectura
 
 | # | Requisito | Test |
 |---|---|---|

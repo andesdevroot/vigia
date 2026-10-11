@@ -10,7 +10,8 @@ Cuatro resultados posibles sobre un mensaje de estafa, y **no valen lo mismo**:
 
 | | Qué significa |
 |---|---|
-| **nombra** | `NO_COINCIDE`: dice de quién dice ser y que el enlace no es suyo. **El mejor** |
+| **confirmado** | `CONFIRMADO`: el Estado ya publicó que ese dominio es fraude |
+| **nombra** | `NO_COINCIDE`: dice de quién dice ser y que el enlace no es suyo |
 | **avisa** | `AJENO`: nombra el enlace que no es del Estado, sin saber de quién dice ser |
 | **mudo** | `SIN_ENLACES`: no hay enlace que revisar. Honesto, pero no recibe nada |
 | **GRAVE** | `COINCIDE` u `OFICIAL`: le dijo que el enlace es el correcto. **Tiene que ser cero** |
@@ -34,13 +35,14 @@ from vigia.motor import Veredicto, evaluar  # noqa: E402
 CORPUS = RAIZ / "corpus" / "alertas_csirt.json"
 
 CATEGORIA = {
+    Veredicto.CONFIRMADO: "confirmado",
     Veredicto.NO_COINCIDE: "nombra",
     Veredicto.AJENO: "avisa",
     Veredicto.SIN_ENLACES: "mudo",
     Veredicto.COINCIDE: "GRAVE",
     Veredicto.OFICIAL: "GRAVE",
 }
-ORDEN = ("nombra", "avisa", "mudo", "GRAVE")
+ORDEN = ("confirmado", "nombra", "avisa", "mudo", "GRAVE")
 
 
 def clasificar(texto: str) -> tuple[str, str, bool]:
