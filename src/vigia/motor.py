@@ -207,6 +207,24 @@ def _sin_enlaces(texto: str, enlaces: tuple[Enlace, ...]) -> str:
     return limpio
 
 
+def _sin_redundantes(mencionadas: Sequence[Marca]) -> tuple[Marca, ...]:
+    """Quita las instituciones cuyo nombre ya está contenido en el de otra reclamada.
+
+    «Banco Ripley» y «Ripley» son la misma cosa para quien lee, y nombrar las dos produce
+    **«El mensaje dice ser de Banco Ripley, Ripley»** — la frase que más importa, mal escrita. Lo
+    encontró el armado de los mensajes de `T3.1`, no un test unitario.
+    """
+    resultado: list[Marca] = []
+    for marca in mencionadas:
+        formas_ajenas = " ".join(
+            f"{otra.nombre} {' '.join(otra.alias)}" for otra in mencionadas if otra is not marca
+        )
+        if re.search(rf"\b{re.escape(marca.nombre)}\b", formas_ajenas):
+            continue
+        resultado.append(marca)
+    return tuple(resultado)
+
+
 def _mencionadas(texto: str, marcas: Sequence[Marca]) -> tuple[Marca, ...]:
     """Las instituciones del catálogo que el mensaje **dice ser**, en orden del catálogo.
 
@@ -326,7 +344,7 @@ def evaluar(texto: str, marcas: Sequence[Marca] = MARCAS) -> Evaluacion:
         if not enlace.es_oficial
         and (coincidencia := detectar(enlace.registrable, marcas)) is not None
     )
-    mencionadas = _mencionadas(_sin_enlaces(texto, enlaces), marcas)
+    mencionadas = _sin_redundantes(_mencionadas(_sin_enlaces(texto, enlaces), marcas))
     reclamadas = tuple(marca.etiqueta or marca.nombre for marca in mencionadas)
     dice_ser_del_estado = _dice_ser_del_estado(texto, marcas)
 

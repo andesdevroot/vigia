@@ -1,0 +1,41 @@
+[
+  {
+    "letra": "A",
+    "codigo_csirt": "8fph22-00663-01",
+    "institucion": "Banco Ripley",
+    "por_que": "acortador con codigo opaco",
+    "texto_citado": "Banco Ripley, le informamos que nuestro sistema de seguridad detecto una actividad inusual en su tarjeta Ripley. Le pedimos que actualice sus datos de seguridad como email y telefono esto es importante para mantener nuestro Banco Ripley protegido y que su cuenta no este expuesta a terceros. Procedimos al Bloqueo de su Tarjeta Ripley, hasta que no termine el proceso de actualizacion de sus datos.",
+    "url_original": "https://bit.ly/3Ub4EKA?l=www.bancoripley.cl",
+    "url_de_prueba": "https://bit.example/3Ub4EKA?l=www.bancoripley.cl",
+    "consulta_recortada": false,
+    "mensaje_para_enviar": "Banco Ripley, le informamos que nuestro sistema de seguridad detecto una actividad inusual en su tarjeta Ripley. Le pedimos que actualice sus datos de seguridad como email y telefono esto es importante para mantener nuestro Banco Ripley protegido y que su cuenta no este expuesta a terceros. Procedimos al Bloqueo de su Tarjeta Ripley, hasta que no termine el proceso de actualizacion de sus datos. https://bit.example/3Ub4EKA?l=www.bancoripley.cl",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00663-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00663-01.txt"
+  },
+  {
+    "letra": "B",
+    "codigo_csirt": "8fph22-00680-01",
+    "institucion": "BancoEstado",
+    "por_que": "dominio directo con ruta larga",
+    "texto_citado": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad.",
+    "url_original": "https://avengerpati.com/activacion/cuenta-lkok/",
+    "url_de_prueba": "https://avengerpati.example/activacion/cuenta-lkok/",
+    "consulta_recortada": false,
+    "mensaje_para_enviar": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. https://avengerpati.example/activacion/cuenta-lkok/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00680-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH22-00680-01.txt"
+  },
+  {
+    "letra": "C",
+    "codigo_csirt": "8fph23-00734-01",
+    "institucion": "CorreosChile",
+    "por_que": "empresa del Estado, con dominio propio",
+    "texto_citado": "MENSAJE DE LA OFICINA DE CORREOS: Su pedido se guarda en el centro de importación. Solucione el problema aquí:",
+    "url_original": "https://smartgift.live/ips_cl/?cep=ADpcvY4BIMnvUrAW9fx58sqTbjRe25a7RiuOiwXC_-2Y2fTYOJmDp42E-8Htv8msrXSiDuN0bmLZZ5ZWDcUpZCeDOka_1cVJ7OpbjLvjP0UtEFc7bd71_Dhsbw-xY61uHCyLqTHq-zeqR6mUD0VfgX4b38enLC1YHiwW008epixUtQfSnEx6FvbYOTVC_miypOqhiaCoUbhLDqVUUsEQIao8IK_cS3Qy98gWLwtgINzFs2irz1qHz-oXXeTHfgSxhosxbT37OxtT-ViuXGUoYRIQe_6B2UbGjYCCsXni3mijBdhc2NdzNyt8qok7Isfw670FxHsfBDa-9i9XG4uDofRPVP_v-MuXCpEoEraN9SLZ1_eQJs6u5hQZfcehSKHb&lptoken=165974c584b3519f647c",
+    "url_de_prueba": "https://smartgift.example/ips_cl/",
+    "consulta_recortada": true,
+    "mensaje_para_enviar": "MENSAJE DE LA OFICINA DE CORREOS: Su pedido se guarda en el centro de importación. Solucione el problema aquí: https://smartgift.example/ips_cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00734-01/",
+    "fuente_ioc": "https://raw.githubusercontent.com/csirtcl/Fraude/main/Phishing_8FPH23-00734-01.txt"
+  }
+]

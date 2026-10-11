@@ -178,6 +178,7 @@ adivinar — y la medición de cuánto se abstiene.**
 
 | Fecha | Qué cambió en el diseño |
 |---|---|
+| 2026-10-10 | **`T3.1` armado: tres mensajes de prueba con tres formas de enlace distintas** (acortador, dominio con ruta, empresa del Estado), y **el armado encontró un bug en la frase que más importa**: decía «dice ser de Banco Ripley, Ripley», porque «Ripley» es nombre propio y además alias de «Banco Ripley». Ahora se nombra una sola vez |
 | 2026-10-10 | **`T3.1`: el experimento que decide el paper, y un contador que no puede filtrar.** El «98 % mudo» de `T1.7` **es del formato del CSIRT y no de la gente**, así que hay que medirlo con personas: 20 × 3 mensajes reales con el host saneado a `.example`, sin decir la palabra enlace. Y el instrumento (`medicion.py`) escribe **agregados de tres etiquetas**: no tiene dónde guardar el contenido |
 | 2026-10-10 | **`T1.8b`: entran BancoEstado, Santander y Scotiabank, y `nombra` llega a 39 de 45 (87 %)**. Estaban declarados imposibles de verificar por DNS; **el blocker no era el sitio sino la sonda**: la raíz de los tres no tiene registro A, solo `www.`, y el DNS local se rodea con `dns.google` y con los certificados emitidos de `crt.sh` |
 | 2026-10-10 | **`T1.8`: el catálogo creció a 22 instituciones**, y `nombra` pasó de **0 a 24 de 45 (53 %)**. La medición destapó además un bug: `.../SantaIsabelws/tb.php` contaba `tb.php` como dominio propio — una acusación sobre un dato inventado. **Lo encontró el corpus, no un test unitario** |

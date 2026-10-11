@@ -14,7 +14,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 | Catálogo | **25 instituciones**: 14 estatales y 11 suplantadas, todas verificadas por certificado |
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
-| Datos | `corpus/alertas_csirt.json` (45) · `scripts/cosechar_alertas.py` · `scripts/medir_motor.py` |
+| Datos | `corpus/alertas_csirt.json` (45) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
 | Tests | **109 verdes, 1 de integración**, sin red, en menos de un segundo |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |

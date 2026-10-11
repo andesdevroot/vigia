@@ -261,6 +261,20 @@ def test_una_palabra_ambigua_como_metro_se_marca_de_mas_y_se_acepta() -> None:
     assert evaluar("El paño mide un metro cuadrado, vea bit.ly/paño").dice_ser_del_estado
 
 
+def test_no_se_nombran_dos_veces_la_misma_institucion() -> None:
+    """«Banco Ripley» y «Ripley» son la misma cosa para quien lee.
+
+    Sin esto, la frase que más importa quedaba como «El mensaje dice ser de Banco Ripley, Ripley»,
+    y **lo encontró el armado de los mensajes de `T3.1`**, no un test unitario.
+    """
+    resultado = evaluar(
+        "Banco Ripley, detecto una actividad inusual en su tarjeta Ripley. "
+        "Actualice sus datos en bit.example/3Ub4EKA"
+    )
+    assert resultado.reclamadas == ("Banco Ripley",)
+    assert resultado.veredicto is Veredicto.NO_COINCIDE
+
+
 def test_la_marca_imitada_se_nombra_como_se_escribe() -> None:
     """La respuesta la lee una persona: «ClaveÚnica», no el nombre con el que se compara."""
     assert "ClaveÚnica" in evaluar("entre a claveunica-gob-cl.xyz").explicacion

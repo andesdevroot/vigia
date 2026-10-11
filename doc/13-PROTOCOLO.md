@@ -81,8 +81,36 @@ Prueba:     ... Regularice en http://sitio-falso.example/SantaIsabelws/tb.php?ea
    medición sigue siendo válida.
 3. El veredicto del robot no cambia: sigue siendo `NO_COINCIDE` si el mensaje dice ser de un banco.
 
-**No se inventan mensajes.** Los tres salen del corpus de `doc/12-MEDICION.md`, y cada uno tiene su
-fuente citable.
+**No se inventan mensajes.** Los tres salen del corpus de `doc/12-MEDICION.md` y de una alerta más
+del CSIRT, cada uno con su fuente citable. Están armados por `scripts/mensajes_prueba.py` y quedan en
+`corpus/prueba_t31.json`.
+
+**No son los tres más frecuentes: son tres formas distintas de enlace**, que es lo que el experimento
+mide.
+
+| | Institución | Forma del enlace | Fuente |
+|---|---|---|---|
+| **A** | Banco Ripley | **acortador** con código opaco (`bit.example/3Ub4EKA`) | `8fph22-00663-01` |
+| **B** | BancoEstado | dominio directo con ruta larga (`avengerpati.example/activacion/...`) | `8fph22-00680-01` |
+| **C** | **CorreosChile** | empresa del Estado, con dominio propio (`smartgift.example/ips_cl/`) | `8fph23-00734-01` |
+
+**Y los tres reciben hoy la mejor respuesta posible:**
+
+```
+A  El mensaje dice ser de Banco Ripley y el enlace bit.example no es de Banco Ripley.
+B  El mensaje dice ser de BancoEstado y el enlace avengerpati.example no es de BancoEstado.
+C  El mensaje dice ser de Correos de Chile y el enlace smartgift.example no es de Correos de Chile.
+```
+
+Un test lo fija: si un mensaje de prueba recibiera una respuesta mala, **el experimento mediría la
+modalidad sobre una respuesta que no sirve**, y el resultado no diría nada. Y otro test comprueba que
+**ninguno pueda resolver**.
+
+### Un hallazgo del propio corpus
+
+**Ninguna de las 45 alertas suplanta a un organismo del Estado.** Todas son bancos y empresas. No
+invalida el ancla `.gob.cl` —dice que **el fraude ciudadano que el Estado alcanzó a documentar es
+bancario**— y refuerza por qué la pregunta del motor cambió en `T1.9`.
 
 ## 7. Qué se registra
 
