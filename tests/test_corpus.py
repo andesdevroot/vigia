@@ -1,12 +1,12 @@
-"""Invariantes del motor sobre el corpus real: un guardián, no solo una medición (`T4.2`).
+"""Invariantes del motor sobre el corpus real: un guardián, no solo una medición (`T4.2`, `T4.6`).
 
-El corpus de **342 estafas que el CSIRT publicó** no sirve solo para sacar un número. Sirve para que
+El corpus de estafas que el CSIRT publicó no sirve solo para sacar un número. Sirve para que
 **cualquier cambio en el motor que haga que una estafa real reciba un veredicto favorable se caiga
 acá**, antes de llegar a un teléfono.
 
 Esto es la parte de «algoritmo avanzado» que este proyecto necesita de verdad: **invariantes sobre
-datos reales**, no un clasificador. Un modelo entrenado con 342 ejemplos **de una sola clase** no se
-puede entrenar — y no haría falta: el **99,7 %** ya recibe una respuesta útil.
+datos reales**, no un clasificador. Un modelo entrenado con ejemplos **de una sola clase** no se
+puede entrenar — y no haría falta: la cobertura ya es del 99,7 %.
 
 Estos tests no tocan la red: el corpus y el índice están versionados en el repositorio.
 """
@@ -30,15 +30,29 @@ GRAVES_CONOCIDOS = {
     "8fph23-00745-01": "el enlace malo no está en la cita: lo único que queda es el señuelo",
     "8fph23-00755-01": "el enlace malo no está en la cita: lo único que queda es el señuelo",
 }
-"""Los tres casos donde juzgar **la cita recortada** da un veredicto favorable, y por qué.
+"""Los casos donde juzgar **la cita recortada** da un veredicto favorable, y por qué.
 
 Se declaran a propósito: **un fallo conocido y escrito es un fallo vigilado; uno sin escribir parece
-nuevo cada vez.** Si aparece un cuarto, este test falla.
+nuevo cada vez.** Si aparece uno nuevo, el test falla.
 """
 
 SUELO_DE_RESPUESTA_UTIL = 0.99
-"""El 99,7 % de hoy, con un punto de holgura. Es un **trinquete**: si un cambio baja la cobertura,
-falla acá y no en la cara de alguien."""
+"""Con un punto de holgura sobre lo medido. Es un **trinquete**: si un cambio la baja, falla acá y
+no en la cara de alguien."""
+
+
+def _veredictos(campo: str) -> dict[str, Veredicto]:
+    """Un veredicto por mensaje, calculado **una sola vez** para todo el módulo.
+
+    Con 342 mensajes y cuatro recorridos el gate tardaba un segundo de más; con 1.500 serían veinte.
+    **Un gate lento es un gate que se deja de correr**, y ahí se pierde la disciplina entera. Se
+    paga una vez al importar y no una vez por test.
+    """
+    return {str(ejemplo["codigo"]): evaluar(str(ejemplo[campo])).veredicto for ejemplo in CORPUS}
+
+
+VEREDICTOS_COMPLETO = _veredictos("texto_reconstruido")
+VEREDICTOS_CITA = _veredictos("texto_citado")
 
 
 def test_el_corpus_esta_completo() -> None:
@@ -58,48 +72,40 @@ def test_ninguna_estafa_del_corpus_recibe_un_veredicto_favorable() -> None:
     """**El invariante.** Sobre el mensaje completo —lo que un ciudadano reenviaría— el motor no
     puede decir nunca que el enlace está bien.
 
-    Es el test que más vale de todo el proyecto: recorre 342 estafas reales, publicadas por el
-    Estado, y exige cero indulgencias.
+    Es el test que más vale de todo el proyecto: recorre las estafas reales que publicó el Estado y
+    exige **cero indulgencias**.
     """
-    indulgentes = [
-        ejemplo["codigo"]
-        for ejemplo in CORPUS
-        if evaluar(str(ejemplo["texto_reconstruido"])).veredicto in FAVORABLES
-    ]
+    indulgentes = sorted(
+        codigo for codigo, veredicto in VEREDICTOS_COMPLETO.items() if veredicto in FAVORABLES
+    )
     assert not indulgentes, f"estafas reales con veredicto favorable: {indulgentes}"
 
 
 def test_los_graves_sobre_la_cita_estan_declarados() -> None:
     """Sobre la cita recortada sí hay indulgencias, y están escritas una por una.
 
-    Los tres casos nombran un dominio legítimo y el enlace malo está en otra parte; en la cita
-    recortada el malo no está y lo único que queda es el señuelo. **Un cuarto caso sin declarar hace
-    fallar este test**, que es exactamente lo que se quiere.
+    Esos casos nombran un dominio legítimo y el enlace malo está en otra parte; en la cita recortada
+    el malo no está y lo único que queda es el señuelo. **Uno nuevo sin declarar hace fallar este
+    test**, que es exactamente lo que se quiere.
     """
-    graves = {
-        str(ejemplo["codigo"])
-        for ejemplo in CORPUS
-        if evaluar(str(ejemplo["texto_citado"])).veredicto in FAVORABLES
-    }
-    assert graves == set(GRAVES_CONOCIDOS), (
-        f"graves nuevos sin declarar: {sorted(graves - set(GRAVES_CONOCIDOS))} | "
-        f"declarados que ya no ocurren: {sorted(set(GRAVES_CONOCIDOS) - graves)}"
-    )
+    graves = {codigo for codigo, v in VEREDICTOS_CITA.items() if v in FAVORABLES}
+    nuevos = sorted(graves - set(GRAVES_CONOCIDOS))
+    resueltos = sorted(set(GRAVES_CONOCIDOS) - graves)
+    assert not nuevos, f"graves nuevos sin declarar: {nuevos}"
+    assert not resueltos, f"declarados que ya no ocurren (se pueden sacar de la lista): {resueltos}"
 
 
 def test_la_respuesta_util_no_baja_del_suelo() -> None:
     """El trinquete: la cobertura de hoy es el piso de mañana."""
     utiles = sum(
-        1
-        for ejemplo in CORPUS
-        if evaluar(str(ejemplo["texto_reconstruido"])).veredicto is not Veredicto.SIN_ENLACES
+        1 for veredicto in VEREDICTOS_COMPLETO.values() if veredicto is not Veredicto.SIN_ENLACES
     )
     proporcion = utiles / len(CORPUS)
     assert proporcion >= SUELO_DE_RESPUESTA_UTIL, f"la respuesta útil cayó a {proporcion:.1%}"
 
 
 def test_el_corpus_solo_tiene_una_clase_y_por_eso_no_se_entrena() -> None:
-    """Los 342 son **todos** fraudulentos: no hay un solo mensaje legítimo.
+    """Todos los mensajes son fraudulentos: **no hay un solo legítimo**.
 
     Con una sola clase no se entrena un clasificador, y sin legítimos no se puede medir una falsa
     acusación. Está escrito como test para que el día que alguien agregue negativos, se entere de

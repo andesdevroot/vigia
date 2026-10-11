@@ -112,6 +112,45 @@ Un clasificador acá **empeoraría** las tres cosas que hacen útil al motor:
 > es un algoritmo: es la **petición** del mensaje, el **corpus legítimo**, y **citar** cada vez que se
 > afirma algo.
 
+## ¿Se puede cosechar hasta 1.500? **No, y está medido** (`T4.7`)
+
+Se intentó. El resultado:
+
+| | |
+|---|---|
+| Intentos sobre alertas sin cosechar | **350** |
+| Mensajes nuevos | **0** |
+| Rendimiento medido del prefijo `acf` | **~1 %** |
+
+**El techo no es nuestro esfuerzo: es lo que el Estado publica.** De las 5.179 alertas del sitemap,
+la enorme mayoría son de vulnerabilidades y campañas **sin mensaje citado**. Muestra de diez códigos
+`acf` reales: **todas tienen URL, ninguna cita un mensaje**.
+
+**El corpus se queda en 342, y su techo ronda los 400.** No hay un corpus chileno público más
+grande, y eso es un hallazgo que el paper tiene que decir en voz alta en vez de disimular.
+
+### Y en el camino apareció la API (`T0.8`, cerrada)
+
+`csirt.gob.cl/api/v1/openapi.json` responde **200**: es la API Pública de Ciberseguridad que la
+documentación escondía detrás de JavaScript. Expone `GET /api/v1/alerts/` con **1.052 alertas** y sus
+IoC ya separados: `url`, `dominio`, `sha256`, `ipv4`, `mitre-attck`.
+
+**Es mucho mejor ingeniería** que leer HTML —sin celdas que se cortan, sin URLs con separadores de
+ancho cero— y ahora es la fuente principal del índice.
+
+**Pero no trae más datos.** El índice reconstruido por la API tiene **los mismos 738 dominios** que el
+leído de las páginas: la API y el repositorio de informes cubren el mismo conjunto. Mejor método,
+mismo alcance. Y **no trae el mensaje citado**: cero de cincuenta alertas lo incluyen.
+
+### Un bug real que sí se encontró
+
+`traer` no tenía reintentos: un fallo transitorio de red descartaba el código **en silencio**, sin
+distinguir «no cita mensaje» de «no se pudo bajar». Se agregaron.
+
+**Y la sospecha que llevó hasta ahí era falsa.** Al ver 303 `8fph` y solo 3 `acf` habiendo 381, supuse
+que se habían perdido ~378 por red. **La medición dijo que no:** el rendimiento de `acf` es de ~1 %.
+La sospecha era mía y el número la corrigió — la segunda vez en el día, después de los «124 tests».
+
 ## 3. Las opciones
 
 ### Opción A — Buscar el enlace en los indicadores del Estado

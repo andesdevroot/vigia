@@ -24,7 +24,7 @@ código.
 | T0.5 | ¿Es obtenible la lista de dominios del Estado? | ✅ **es completa por política** |
 | T0.6 | ¿La barra azul verifica algo? | ✅ **no verifica nada** |
 | T0.7 | Medir cuánto se usa mal la barra | 🚧 **diseño listo, bloqueada por acceso** |
-| T0.8 | ¿Qué expone la API pública de ANCI? | ⬜ |
+| T0.8 | ¿Qué expone la API pública de ANCI? | ✅ **1.052 alertas con IoC estructurados** |
 | T1.1 | El motor de respuesta: texto → veredicto | ✅ **44 tests verdes** |
 | T1.2 | Costo real por verificación | ✅ **≈$19, y las primeras 1.000 gratis** |
 | T1.3 | Catálogo de instituciones chilenas | ✅ **14 verificadas abriendo el sitio** |
@@ -37,6 +37,7 @@ código.
 | T4.1 | Cosechar 300+ alertas del CSIRT | ✅ **342, y encontró dos cosas** |
 | T4.2 | Índice de IoC del Estado (opción A) | ✅ **738 dominios; `confirmado` en 239 de 342** |
 | T4.3 | Control invertido (enlace real, mismo texto) | ⬜ **el denominador que falta** |
+| T4.7 | Cosechar hasta 1.500 | ✅ **no se puede: el techo es ~400, y está medido** |
 | T4.4 | Extractor de la petición + regla (opción C) | ⬜ **el núcleo nuevo** |
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
@@ -648,6 +649,37 @@ cambio que la baje falla acá y no en la cara de alguien.
 se puede entrenar nada, y hay un test que lo deja escrito para que el día que aparezcan negativos,
 alguien se entere de que la limitación cambió. El razonamiento completo, en
 [`doc/14-GAP.md`](doc/14-GAP.md).
+
+## ✅ T4.7 — ¿Se puede cosechar hasta 1.500? **No, y está medido**
+
+Se intentó: **350 intentos sobre alertas sin cosechar, 0 mensajes nuevos.** El rendimiento del
+prefijo `acf` es de **~1 %** — de diez códigos revisados, **todos tienen URL y ninguno cita un
+mensaje**.
+
+**El techo no es el esfuerzo: es lo que el Estado publica.** De las 5.179 alertas del sitemap, la
+mayoría son de vulnerabilidades y campañas **sin mensaje citado**. El corpus se queda en **342**, con
+techo ~400.
+
+> **No hay un corpus chileno público más grande**, y el paper tiene que decirlo en voz alta en vez de
+> disimularlo. Cualquier trabajo que afirme entrenar con fraude chileno está usando esto o algo
+> privado.
+
+### Y en el camino: la API (`T0.8`, cerrada)
+
+`csirt.gob.cl/api/v1/openapi.json` responde **200** — la API Pública de Ciberseguridad que la
+documentación escondía detrás de JavaScript. `GET /api/v1/alerts/` da **1.052 alertas** con IoC ya
+separados: `url`, `dominio`, `sha256`, `ipv4`, `mitre-attck`.
+
+**Mejor ingeniería, mismo alcance:** el índice reconstruido por la API tiene **los mismos 738
+dominios**. Ni más datos, ni el mensaje citado (cero de cincuenta).
+
+### Un bug real, y una sospecha mía que el número refutó
+
+`traer` no tenía reintentos: un fallo de red descartaba el código **en silencio**. Se agregaron.
+
+Y al ver 303 `8fph` contra 3 `acf` habiendo 381, **supuse** que se habían perdido ~378 por red. **La
+medición dijo que no.** La sospecha era mía; el número la corrigió. **Segunda vez en el día**,
+después de los «124 tests».
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

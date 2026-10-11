@@ -104,13 +104,28 @@ class _Pagina(HTMLParser):
         return re.sub(r"\s+", " ", " ".join(self.partes))
 
 
-def traer(url: str) -> str:
+def traer(url: str, intentos: int = 3) -> str:
+    """Trae una página, **con reintentos**.
+
+    Sin reintentos, un fallo transitorio de red hace que `interpretar` devuelva `None` y el código
+    se pierda **en silencio**: no se distingue «esta alerta no cita un mensaje» de «no la pude
+    bajar».
+
+    El reintento se agregó en `T4.7` persiguiendo una sospecha que **resultó falsa**: que las ~378
+    alertas `acf` sin cosechar fueran pérdidas por red. Medido después sobre diez códigos `acf`
+    reales, **la mayoría tiene URL pero no cita ningún mensaje**, y el rendimiento de ese prefijo es
+    de alrededor del 1 %. La sospecha era mía; el número la corrigió. El reintento se queda igual,
+    porque la pérdida silenciosa es un riesgo real aunque no fuera la causa.
+    """
     peticion = urllib.request.Request(url, headers={"User-Agent": AGENTE})
-    try:
-        with urllib.request.urlopen(peticion, timeout=30) as respuesta:
-            return respuesta.read().decode("utf-8", errors="replace")
-    except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, ValueError):
-        return ""
+    for intento in range(intentos):
+        try:
+            with urllib.request.urlopen(peticion, timeout=30) as respuesta:
+                return respuesta.read().decode("utf-8", errors="replace")
+        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, ValueError):
+            if intento < intentos - 1:
+                time.sleep(2 * (intento + 1))
+    return ""
 
 
 def desarmar(cruda: str) -> str:

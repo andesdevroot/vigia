@@ -7,7 +7,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **`T4.4` — el extractor de la petición y la regla.** El análisis de la brecha y del "¿alcanzan 342?", en `doc/14-GAP.md` |
+| Tarea en curso | **`T4.4` — el extractor de la petición y la regla**, y después `T4.3` (el control invertido). Lo que se midió sobre el corpus y la API, en `doc/14-GAP.md` |
 | Después | `T4.2` índice de IoC · `T4.3` control invertido · `T4.4` extractor de la petición + regla |
 | Medido | **342 estafas reales del CSIRT**: `confirmado` **239 (70 %)**, respuesta útil **97 %**, `GRAVE` **0**. Ver `doc/12-MEDICION.md` |
 | Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |
