@@ -59,6 +59,7 @@ from vigia.suplantacion import (
     Coincidencia,
     Marca,
     detectar,
+    es_tld_valido,
     etiqueta_registrable,
 )
 
@@ -180,6 +181,11 @@ def extraer_enlaces(
         if "." not in host:
             continue
         if not _RE_ETIQUETA_FINAL.fullmatch(host.rsplit(".", 1)[-1]):
+            continue
+        # La última etiqueta tiene que ser un TLD de la IANA. Es lo que distingue `paquete.por` —una
+        # oración sin espacio— de `claveunica.cl`. `_cortar_en_la_oracion` atrapa el caso en
+        # mayúscula; esto atrapa el resto.
+        if not es_tld_valido(host.rsplit(".", 1)[-1]):
             continue
         registrable = etiqueta_registrable(host)
         if registrable in vistos:

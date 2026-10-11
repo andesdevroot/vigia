@@ -141,6 +141,49 @@ def test_una_oracion_pegada_a_un_dominio_no_se_come_el_dominio() -> None:
     assert [e.registrable for e in extraer_enlaces("visite www.sii.cl.Gracias")] == ["sii.cl"]
 
 
+def test_un_punto_sin_espacio_en_minuscula_no_inventa_un_dominio() -> None:
+    """`paquete.por` no es un dominio: `por` no es un TLD.
+
+    La regla de «punto seguido de mayúscula» no lo atrapa, porque acá va en minúscula. Lo que lo
+    atrapa es preguntarle a la **lista de la IANA** si la última etiqueta es un TLD de verdad.
+
+    Lo encontró el control invertido de `T4.3`: era la **única falsa acusación** de 210, y el motor
+    nombraba `paquete.por` como si fuera el sitio del atacante. Es la segunda vez que este error
+    aparece —la primera fue `operativos.Sin`— y por eso ahora la regla es la autoridad, no una
+    heurística.
+    """
+    for texto in (
+        "falta un numero de calle en el paquete.por favor actualice",
+        "su cuenta esta en regla.sin embargo debe verificar",
+        "el proceso sigue en curso.para mayor informacion llame",
+    ):
+        assert extraer_enlaces(texto) == (), texto
+
+
+def test_una_etiqueta_final_que_no_es_tld_no_es_un_dominio() -> None:
+    """`abc` **sí** es un TLD —la lista tiene 1.437 entradas y hay de todo—, así se usa `por`."""
+    assert [e.registrable for e in extraer_enlaces("vea documento.por y real.cl")] == [
+        "real.cl"
+    ]
+
+
+def test_los_mensajes_de_prueba_con_example_siguen_siendo_enlaces() -> None:
+    """`.example` no está en la lista de la IANA porque **no se delega**, pero es un TLD reservado.
+
+    Y tiene que seguir contando: los mensajes de prueba de `T3.1` lo usan justamente porque no puede
+    resolver. Sin esto, el motor dejaría de leer sus propios mensajes de prueba.
+    """
+    assert [e.registrable for e in extraer_enlaces("ingrese a sitio-falso.example")] == [
+        "sitio-falso.example"
+    ]
+
+
+def test_los_tld_reales_de_phishing_si_cuentan() -> None:
+    """La lista no puede ser tan estricta que deje pasar el phishing: usa TLD reales."""
+    for host in ("sitio.xyz", "sitio.sbs", "sitio.live", "sitio.top", "sitio.cn", "sitio.info"):
+        assert [e.registrable for e in extraer_enlaces(f"ingrese a {host}")] == [host], host
+
+
 def test_enlace_sin_esquema_se_detecta() -> None:
     assert [e.registrable for e in extraer_enlaces("visite www.sii.cl/personas")] == ["sii.cl"]
 

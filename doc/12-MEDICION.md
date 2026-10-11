@@ -119,6 +119,44 @@ instituciones estatales bajo `.gob.cl` — mientras que el corpus suplanta banco
 Es el orden correcto igual: si el catálogo hubiera crecido primero, el motor habría dicho «el enlace
 es de una institución oficial: bancoripley.cl (Banco Ripley)», que no es lo que hay que leer.
 
+## T4.3 — El control invertido, y la precisión
+
+**El mismo texto de la estafa, con el enlace de la institución real.** Eso aísla una sola variable:
+si el motor acusa, la causa no puede ser el texto.
+
+```
+CONTROL INVERTIDO: 211 mensajes de 342
+  coincide  190  (90%)
+  oficial    21  (10%)
+  mudo        0   (0%)
+  acusa       0   (0%)
+```
+
+**0 falsas acusaciones de 211.** Y con eso el paper tiene los dos números que necesita:
+
+| | |
+|---|---|
+| **Cobertura** | **99,7 %** de las estafas recibe respuesta útil sobre el mensaje completo |
+| **Precisión** | **0 falsas acusaciones de 211** sobre mensajes con enlace correcto |
+
+**Es un control construido, no un corpus recogido.** El texto es idéntico al de una estafa real y solo
+cambia el enlace, así que mide la acusación que induce **el texto** — no la que induciría un mensaje
+legítimo de verdad, cuya redacción y petición son distintas. La limitación se declara.
+
+### Y encontró un bug que ninguna otra medición vio
+
+La única falsa acusación decía `paquete.por`. El SMS real: «falta un número de calle en el
+**paquete.por** favor actualice» — **sin espacio y en minúscula**, así que la regla de «punto seguido
+de mayúscula» no lo cortaba.
+
+**La regla correcta no es una heurística: es la lista de la IANA.** Se incorporaron sus **1.437 TLD**
+al paquete; ahora un host cuenta solo si su última etiqueta es un TLD de verdad. `por` y `sin` no lo
+son. `cl`, `xyz`, `sbs` y `live` sí — **el phishing usa TLD reales**, así que el filtro no deja pasar
+nada.
+
+> **Tercera vez la misma lección:** la heurística falla y la fuente no. `operativos.Sin`, `paquete.por`
+> y `tb.php` son el mismo error con tres caras.
+
 ## T4.2 — El índice del Estado, y el número que faltaba
 
 **738 dominios** que el CSIRT ya publicó como fraudulentos, consultados como historia y no como

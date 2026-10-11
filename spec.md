@@ -164,7 +164,27 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-143 | El corpus está completo: 300 o más, con todos sus campos | `test_el_corpus_esta_completo` |
 | REQ-144 | El corpus tiene **una sola clase**, y por eso no se entrena | `test_el_corpus_solo_tiene_una_clase_y_por_eso_no_se_entrena` |
 
-## 12. La arquitectura
+## 12. El control invertido
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-150 | **Ningún mensaje de control es acusado**: dice ser de X y enlaza a X | `test_ningun_mensaje_de_control_es_acusado` |
+| REQ-151 | El control **solo cambia el enlace**: el texto queda idéntico | `test_el_control_solo_cambia_el_enlace` |
+| REQ-152 | Los enlaces de control son los **oficiales del catálogo** | `test_los_enlaces_de_control_son_los_oficiales_del_catalogo` |
+| REQ-153 | La coincidencia no baja del suelo: es un **trinquete** | `test_la_coincidencia_no_baja_del_suelo` |
+| REQ-154 | Los acusados declarados siguen ocurriendo, o se sacan de la lista | `test_los_acusados_declarados_siguen_ocurriendo` |
+| REQ-155 | El control tiene suficientes casos | `test_el_control_tiene_suficientes_casos` |
+
+## 13. Los TLD de verdad
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-160 | Un punto sin espacio **en minúscula** no inventa un dominio | `test_un_punto_sin_espacio_en_minuscula_no_inventa_un_dominio` |
+| REQ-161 | Una etiqueta final que no es un TLD no es un dominio | `test_una_etiqueta_final_que_no_es_tld_no_es_un_dominio` |
+| REQ-162 | Los TLD reales del phishing **sí** cuentan | `test_los_tld_reales_de_phishing_si_cuentan` |
+| REQ-163 | `.example` sigue siendo un enlace: es reservado, y los mensajes de prueba lo usan | `test_los_mensajes_de_prueba_con_example_siguen_siendo_enlaces` |
+
+## 14. La arquitectura
 
 | # | Requisito | Test |
 |---|---|---|

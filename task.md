@@ -11,8 +11,8 @@ código.
 
 | | |
 |---|---|
-| Requisitos en `spec.md` | **97** |
-| Tests | **147 casos** (138 funciones; dos están parametrizadas) |
+| Requisitos en `spec.md` | **107** |
+| Tests | **157 casos** (148 funciones; dos están parametrizadas) |
 | Guardián de la especificación | `tests/test_spec.py` falla si un requisito queda sin test |
 
 | # | Tarea | Estado |
@@ -36,7 +36,7 @@ código.
 | T3.1 | Medir si la gente reenvía el enlace | ⏸️ **sin las 20 personas; se reemplaza por T4.1** |
 | T4.1 | Cosechar 300+ alertas del CSIRT | ✅ **342, y encontró dos cosas** |
 | T4.2 | Índice de IoC del Estado (opción A) | ✅ **738 dominios; `confirmado` en 239 de 342** |
-| T4.3 | Control invertido (enlace real, mismo texto) | ⬜ **el denominador que falta** |
+| T4.3 | Control invertido (enlace real, mismo texto) | ✅ **0 falsas acusaciones de 211** |
 | T4.7 | Cosechar hasta 1.500 | ✅ **no se puede: el techo es ~400, y está medido** |
 | T4.4 | Extractor de la petición + regla (opción C) | ⬜ **el núcleo nuevo** |
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
@@ -680,6 +680,46 @@ dominios**. Ni más datos, ni el mensaje citado (cero de cincuenta).
 Y al ver 303 `8fph` contra 3 `acf` habiendo 381, **supuse** que se habían perdido ~378 por red. **La
 medición dijo que no.** La sospecha era mía; el número la corrigió. **Segunda vez en el día**,
 después de los «124 tests».
+
+## ✅ T4.3 — El control invertido, y el denominador que faltaba
+
+**El mismo texto de la estafa, con el enlace de la institución real.** Aísla una sola variable: si el
+motor acusa, la causa no puede ser el texto.
+
+```
+CONTROL INVERTIDO: 211 mensajes de 342
+  coincide  190  (90%)
+  oficial    21  (10%)
+  mudo        0   (0%)
+  acusa       0   (0%)
+
+  FALSAS ACUSACIONES: 0 de 211 = 0.0%
+```
+
+**Y con esto el paper ya tiene los dos números:** cobertura **99,7 %** sobre el mensaje completo, y
+precisión **0 falsas acusaciones de 211**.
+
+**Es un control construido, no un corpus recogido**, y se declara: mide la acusación que induce el
+**texto**. No mide la falsa acusación sobre mensajes legítimos de verdad, cuya redacción y petición
+son distintas.
+
+### Y encontró el bug que faltaba: **el motor inventaba dominios en minúscula**
+
+La única falsa acusación decía:
+
+> «El enlace correos.cl es de Correos de Chile. El enlace **paquete.por** NO es del Estado.»
+
+El SMS dice «falta un número de calle en el **paquete.por** favor actualice». Mi regla anterior —«un
+punto seguido de mayúscula es una oración»— **atrapaba `operativos.Sin` pero no `paquete.por`**.
+
+**La regla correcta no es una heurística: es preguntarle a la IANA.** Se incorporó su lista de
+**1.437 TLD** al paquete, y ahora un host cuenta solo si su última etiqueta es un TLD de verdad.
+`por` y `sin` no lo son; `cl`, `xyz`, `sbs` y `live` sí — el phishing usa TLD reales, así que el
+filtro no deja pasar nada.
+
+**Los reservados de RFC 2606 se aceptan a propósito** (`.example`, `.test`, `.invalid`): los mensajes
+de prueba de `T3.1` los usan **porque no pueden resolver**, y sin eso el motor dejaría de leer sus
+propios mensajes de prueba. Un test lo fija.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

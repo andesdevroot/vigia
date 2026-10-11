@@ -7,17 +7,17 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **`T4.4` — el extractor de la petición y la regla**, y después `T4.3` (el control invertido). Lo que se midió sobre el corpus y la API, en `doc/14-GAP.md` |
+| Tarea en curso | **`T4.4` — el extractor de la petición y la regla.** Con `T4.3` cerrado, el conjunto de evaluación está completo: cobertura y precisión |
 | Después | `T4.2` índice de IoC · `T4.3` control invertido · `T4.4` extractor de la petición + regla |
-| Medido | **342 estafas reales del CSIRT**: `confirmado` **239 (70 %)**, respuesta útil **97 %**, `GRAVE` **0**. Ver `doc/12-MEDICION.md` |
+| Medido | **Cobertura 99,7 %** (342 estafas: 239 confirmadas, 70 %) y **precisión: 0 falsas acusaciones de 211** (`T4.3`). Ver `doc/12-MEDICION.md` |
 | Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
 | Catálogo | **25 instituciones**: 14 estatales y 11 suplantadas, todas verificadas por certificado |
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Datos | `corpus/alertas_csirt.json` (45) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
-| Tests | **147 casos verdes** (138 funciones), 1 de integración, sin red, en menos de un segundo |
-| Requisitos | **97 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
+| Tests | **157 casos verdes** (148 funciones), 1 de integración, sin red, en un segundo |
+| Requisitos | **107 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
@@ -39,7 +39,9 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 ## Decisiones recientes
 
 | Fecha | Decisión |
-|---|---|
+|---|---|---|
+| 2026-10-11 | **El control invertido da la precisión: 0 falsas acusaciones de 211.** Mismo texto de la estafa, enlace de la institución real: aísla una variable. **Es un control construido y se declara** — mide la acusación que induce el texto, no la de un mensaje legítimo de verdad |
+| 2026-10-11 | **El motor inventaba dominios en minúscula, y la regla ahora es la autoridad.** `paquete.por` (SMS sin espacio tras el punto) pasaba el filtro porque la heurística solo cortaba en mayúscula. **Se incorporó la lista de 1.437 TLD de la IANA**: un host cuenta solo si su última etiqueta es un TLD de verdad. Los reservados de RFC 2606 se aceptan porque los mensajes de prueba de `T3.1` los usan **para que no puedan resolver** |
 | 2026-10-11 | **El motor gana `CONFIRMADO`, y es el veredicto más fuerte.** 738 dominios que el Estado ya publicó como fraudulentos, con la alerta citada: **70 % del corpus**, y el 97 % recibe respuesta útil. **No predice: cita** — «el CSIRT publicó que este dominio es fraudulento, en esta alerta» — y por eso manda sobre los demás |
 | 2026-10-11 | **El índice del Estado traía `bit.ly` y `com.br`, y confirmarlos habría condenado a medio internet y a todo Brasil.** `bit.ly` lo reportan **70 alertas**, pero un acortador aloja los enlaces de todo el mundo; `com.br` no es un dominio sino un **sufijo público**, y `etiqueta_registrable` no conoce esa lista. **Los dos filtros viven en la consulta, no solo al construir el archivo**: un dato que no se puede defender en la consulta no se defiende en ninguna parte |
 | 2026-10-11 | **`spec.md` es el contrato, y se hace cumplir solo.** 78 requisitos numerados, cada uno con el test que lo verifica; `tests/test_spec.py` falla si un requisito no nombra test **o si nombra uno que no existe** — comprobado rompiéndolo a propósito. Un requisito que no se puede verificar no es un requisito: **es un deseo, y va a `task.md`**. Escribirlo encontró un requisito sin cobertura (`REQ-12`, el envío no sigue redirecciones) |

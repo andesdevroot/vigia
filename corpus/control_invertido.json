@@ -1,0 +1,1690 @@
+[
+  {
+    "codigo": "8fph22-00663-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3Ub4EKA?l=www.bancoripley.cl",
+    "texto_de_control": "Banco Ripley, le informamos que nuestro sistema de seguridad detecto una actividad inusual en su tarjeta Ripley. Le pedimos que actualice sus datos de seguridad como email y telefono esto es importante para mantener nuestro Banco Ripley protegido y que su cuenta no este expuesta a terceros. Procedimos al Bloqueo de su Tarjeta Ripley, hasta que no termine el proceso de actualizacion de sus datos. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00663-01/"
+  },
+  {
+    "codigo": "8fph22-00664-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00664-01/"
+  },
+  {
+    "codigo": "8fph22-00666-01",
+    "institucion": "Copec",
+    "dominio_oficial": "copec.cl",
+    "url_maliciosa": "https://8yue22.cn/J4gzk8b6/empresascopeccl/?_t=1669680590470#1669680592761",
+    "texto_de_control": "Subsidio del Gobierno Copec 88 Aniversario! ¡Haga clic en el enlace para solicitar los subsidios del gobierno nacional! https://copec.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00666-01/"
+  },
+  {
+    "codigo": "8fph22-00667-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya están operativos. Sin embargo, debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligación de Bloquearla Temporalmente https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00667-01/"
+  },
+  {
+    "codigo": "8fph22-00668-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3VE72e1?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.350.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00668-01/"
+  },
+  {
+    "codigo": "8fph22-00671-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3UPthNv?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00671-01/"
+  },
+  {
+    "codigo": "8fph22-00672-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-zlsn/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00672-01/"
+  },
+  {
+    "codigo": "8fph22-00673-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3BaZlEr?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00673-01/"
+  },
+  {
+    "codigo": "8fph22-00674-01",
+    "institucion": "Soprole",
+    "dominio_oficial": "soprole.cl",
+    "url_maliciosa": "https://subtletyjudicial.cn/soprole/tb.php?at=ok1670587908799",
+    "texto_de_control": "🐄️Soprole 73 aniversario Fondo de subvenciones! 🧈🎊 https://soprole.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00674-01/"
+  },
+  {
+    "codigo": "8fph22-00675-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3iTAYES?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00675-01/"
+  },
+  {
+    "codigo": "8fph22-00676-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00676-01/"
+  },
+  {
+    "codigo": "8fph22-00677-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3hgrIug?l=www.bancoripley.cl",
+    "texto_de_control": "Le Informamos que Banco Ripley detecto una compra fraudalente que lograron acceder a tu cuenta usando un software malicioso en uno de tus dispositivos(APP).Para proteger tu cuenta hemos decidido Bloquear temporalmente tu acceso a internet y Tarjeta Crebito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00677-01/"
+  },
+  {
+    "codigo": "8fph22-00679-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3FsyhSe?l=www.bancoripley.cl",
+    "texto_de_control": "Le Informamos que Banco Ripley detecto una compra fraudalente que lograron acceder a tu cuenta usando un software malicioso en uno de tus dispositivos(APP). Para proteger tu cuenta hemos decidido Bloquear temporalmente tu acceso a internet y Tarjeta Crebito. Esto se debe a la exigencia de la nueva ley de Fraudes N°21.234 https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00679-01/"
+  },
+  {
+    "codigo": "8fph22-00680-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://avengerpati.com/activacion/cuenta-lkok/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00680-01/"
+  },
+  {
+    "codigo": "8fph22-00682-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00682-01/"
+  },
+  {
+    "codigo": "8fph22-00683-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://avengerpati.com/activacion/cuenta-veqo/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00683-01/"
+  },
+  {
+    "codigo": "8fph22-00684-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3G5nHSG?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley, le comunica que su tarjeta de credito se encuentra Bloqueada, porque no tiene afiliado a la APP en nuestro banco,el departamento de seguridad detecto una actividad inusual en sus compras realizadas en nuestras tiendas ripley https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00684-01/"
+  },
+  {
+    "codigo": "8fph22-00687-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3ChUzFR?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00687-01/"
+  },
+  {
+    "codigo": "8fph22-00688-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00688-01/"
+  },
+  {
+    "codigo": "8fph22-00690-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3WMxent?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00690-01/"
+  },
+  {
+    "codigo": "8fph22-00691-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3WMxent?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00691-01/"
+  },
+  {
+    "codigo": "8fph22-00692-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://t.co/Wg8ni2PMei",
+    "texto_de_control": "Por motivos ‘de’ seguridad, no podrá realizar ninguna operación mediante la App Santander o banca por internet hasta que realice la verificación, de su SuperClave https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00692-01/"
+  },
+  {
+    "codigo": "8fph22-00693-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos.Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00693-01/"
+  },
+  {
+    "codigo": "8fph22-00694-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ibkpatatan.com/activacion/cuenta-kbqe/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00694-01/"
+  },
+  {
+    "codigo": "8fph22-00695-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://balarockpop.com/activacion/cuenta-vfhh/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00695-01/"
+  },
+  {
+    "codigo": "8fph22-00696-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3FWRqvY?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00696-01/"
+  },
+  {
+    "codigo": "8fph22-00698-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3Z8OkOn?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00698-01/"
+  },
+  {
+    "codigo": "8fph23-00710-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://xtraillconver.com/activacion/cuenta-hedd/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00710-01/"
+  },
+  {
+    "codigo": "8fph23-00711-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3k85YBR?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley, Porque estamos preocupados de la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N-21.234 sobre Prevencion de Fraudes, le informamos que de acuerdo a nuestros registros, su Tarjeta de Credito terminada en XXXX, detectamos uso inusual en los ultimos meses,algunas de tus compras que realizaste en lugares no seguros de pago,por lo que hemos procedido a bloquearla temporalmente de tu tarjeta de credito para desbloquearla https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00711-01/"
+  },
+  {
+    "codigo": "8fph23-00713-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3XgwtDN?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley, Porque estamos preocupados de la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N-21.234 sobre Prevencion de Fraudes, le informamos que de acuerdo a nuestros registros, su Tarjeta de Credito terminada en XXXX, detectamos uso inusual en los ultimos meses,algunas de tus compras que realizaste en lugares no seguros de pago,por lo que hemos procedido a bloquearla temporalmente de tu tarjeta de credito para desbloquearla https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00713-01/"
+  },
+  {
+    "codigo": "8fph23-00720-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3iHv9uH?l=www.bancoripley.cl",
+    "texto_de_control": "Lamentamos Informarle que su cuenta ha sido suspendida temporalmente Por su seguridad le rogamos que complete inmediatamente la siguiente actualizacion de la cuenta https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00720-01/"
+  },
+  {
+    "codigo": "8fph23-00721-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://bit.ly/3BohsH2",
+    "texto_de_control": "! Tiene un Bono IFE disponible en su Banca en Linea, a traves de su correo registrado en nuestro sistema BancoEstado, ahora puede activar su ayuda Estatal Familiar o Laboral con un solo Click a su Cuenta de Preferencia https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00721-01/"
+  },
+  {
+    "codigo": "8fph23-00722-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3BohsH2",
+    "texto_de_control": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla haz click aquí https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00722-01/"
+  },
+  {
+    "codigo": "8fph23-00724-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3HfNI2m?l=www.bancoripley.cl",
+    "texto_de_control": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00724-01/"
+  },
+  {
+    "codigo": "8fph23-00725-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://t.co/wkUrLb38TS",
+    "texto_de_control": "Lamentamos Informarle que su tarjeta Ripley ha sido bloqueada. Por su seguridad le rogamos que complete inmediatamente la siguiente actualización de su cuenta para desbloquear el servicio https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00725-01/"
+  },
+  {
+    "codigo": "8fph23-00726-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3kzUC9N?l=www.bancoripley.cl",
+    "texto_de_control": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00726-01/"
+  },
+  {
+    "codigo": "8fph23-00728-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3ZVlO3b?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley, detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00728-01/"
+  },
+  {
+    "codigo": "8fph23-00729-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://cartoonpuzzl3s.com/activacion/cuenta-vtvq/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado actividad inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00729-01/"
+  },
+  {
+    "codigo": "8fph23-00730-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3Jl5gLU?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,detecto una actividad inusual en su cuenta por lo hemos procedido a bloquearla temporalmente. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta, su TarjetaRipley terminada en XXXX fue bloqueada por medidas de seguridad a sus datos privados,para desbloquearla HAZ CLICK AQUÍ https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00730-01/"
+  },
+  {
+    "codigo": "fph24-00944",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://public-b0nstado.com/1712064459/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph24-00944/"
+  },
+  {
+    "codigo": "fph24-00947",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://invitad0smnhomstado.com/1712345279/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph24-00947/"
+  },
+  {
+    "codigo": "fph24-00948",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://online.evaluater.rest/international.html?mode={Email}",
+    "texto_de_control": "Debido a nuevas actualizaciones de seguridad en nuestro servidor su Email: {Correo electronico} dejará de enviar y recibir correos electrónicos si no se verifica dentro de 48hrs Si desea seguir utilizando su correo electrónico, por favor verifíquelo a continuación. https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph24-00948/"
+  },
+  {
+    "codigo": "fph24-00950",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://fogape.larissakovalchuk.com/1713187838/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. Evite el bloqueo desde aqui. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph24-00950/"
+  },
+  {
+    "codigo": "fph24-00953",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://fogape.larissakovalchuk.com/1713799490/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. Evite el bloqueo desde aqui. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph24-00953/"
+  },
+  {
+    "codigo": "fph24-00985",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://paquete-retenedido-seguimiento.promosbancachile.sbs/correos?https://www.correos.cl/documents/20123/33943275/",
+    "texto_de_control": "Hola Envió no entregado Por favor actualice su información de direccion dentro de 24 horas o perderemos su articulo: Confirma tu paquete su paquete no pudo ser entregado a tiempo. Siga las instrucciones para completar la entrega. https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph24-00985/"
+  },
+  {
+    "codigo": "fph25-01040",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "http://correoschile.chile-cl.site/seguimiento/seguimiento/datos.html",
+    "texto_de_control": "Paquete Express Retenido Hasta el 15 Enero 2025 Envios a sucursales de Correos Chile de todo el país, de la forma mas rapida, con seguimiento punto a punto. Tiempo permanencia en sucursal para retiro 5 dias, se debe presentar Cedula Identidad o tercero con poder simple. https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph25-01040/"
+  },
+  {
+    "codigo": "fph25-01043",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://webzimbra-3681ac.webflow.io/",
+    "texto_de_control": "Estimado usuario, Debido a los recientes correos electrónicos no deseados, debe actualizar su cuenta a la nueva interfaz de correo web Zimbra para explorar todas las nuevas funciones de correo web Zimbra. Esto se hace para mejorar la seguridad y la eficiencia. Haga clic en el siguiente enlace para actualizar su cuenta de correo web, migrar y bloquear más correos electrónicos no deseados. https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph25-01043/"
+  },
+  {
+    "codigo": "fph25-01046",
+    "institucion": "Copec",
+    "dominio_oficial": "copec.cl",
+    "url_maliciosa": "https://fullcepoc.xyz/#/phone",
+    "texto_de_control": "Full copec: Tus puntos (3782 pts)estan por caducar . Puedes canjearlo por regalos:{URL} https://copec.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph25-01046/"
+  },
+  {
+    "codigo": "fph25-01052",
+    "institucion": "Copec",
+    "dominio_oficial": "copec.cl",
+    "url_maliciosa": "https://fullcopecoms.click/cl#/phone",
+    "texto_de_control": "Full copec: Tus puntos (9826 pts)estan por caducar . Puedes canjearlo por regalos:{URL} https://copec.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph25-01052/"
+  },
+  {
+    "codigo": "fph25-01054",
+    "institucion": "Copec",
+    "dominio_oficial": "copec.cl",
+    "url_maliciosa": "https://fullcopces.vip/gob/home.html",
+    "texto_de_control": "Full copec: El total de tu cuenta (20381 pts) esta a punto de caducar, por favor canjea tu regalo favorito: {URL} https://copec.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph25-01054/"
+  },
+  {
+    "codigo": "fph26-01057",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://fogape.larissakovalchuk.com/1711977674/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido, su cuenta se encuentra SUSPENDIDA hasta la correcta validación de sus datos. Realizada la validación su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas después de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendrá que acercarse a la sucursal mas cercana para su verificación respectiva. Evite el bloqueo desde aquí. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph26-01057/"
+  },
+  {
+    "codigo": "fph26-01058",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://comnicenterhomestado.com/activacion/cuenta-jeql/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. Evite el bloqueo desde aqui. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/fph26-01058/"
+  },
+  {
+    "codigo": "acf25-00036",
+    "institucion": "Copec",
+    "dominio_oficial": "copec.cl",
+    "url_maliciosa": "https://fullcopec.shop/cl",
+    "texto_de_control": "Full copec: Tus puntos(6018 pts)estan por caducar . Puedes canjearlo por regalos:{URL} https://copec.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/acf25-00036/"
+  },
+  {
+    "codigo": "8fph22-00594-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3xFaBqX?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,le informa que se detecto actividad sospechosa en su cuenta, esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00594-01/"
+  },
+  {
+    "codigo": "8fph22-00595-01",
+    "institucion": "Banco de Chile",
+    "dominio_oficial": "bancochile.cl",
+    "url_maliciosa": "https://is.gd/7Y250s",
+    "texto_de_control": "BANCO DE CHILE – Informa que su canal digital ha sido SUSPENDIDO por movimiento inusual https://bancochile.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00595-01/"
+  },
+  {
+    "codigo": "8fph22-00596-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://depart.digitalnoticias.com.mx/activacion/cuenta-fizb/",
+    "texto_de_control": "BancoEstado le comunica que su acceso a la banca en linea por internet expiró de manera temporal, por lo que su cuenta procedió a estar DESHABILITADO hasta la correcta verificación de sus datos como medida de seguridad https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00596-01/"
+  },
+  {
+    "codigo": "8fph22-00598-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://valpa.digitalnoticias.com.mx/activacion/cuenta-tnbl/",
+    "texto_de_control": "Santander le informa que ha detectado actividad inusual en su cuenta por lo que precedimos a DESHABILITAR el servicio de su banca en linea por internet y App Santader hasta la correcta actualizacion de sus datos como medida de seguridad. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00598-01/"
+  },
+  {
+    "codigo": "8fph22-00599-01",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "http://w1.nimh.gov.vn/zrr/fx/?email=(correo)",
+    "texto_de_control": "Fallo en la sincronización de los correos pendientes de su buzón. El servidor de correo ha bloqueado 7 mensajes entrantes. A partir del 20 de septiembre de 2022 (UTC), tiene 7 mensajes entrantes pendientes https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00599-01/"
+  },
+  {
+    "codigo": "8fph22-00600-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://valpa.digitalnoticias.com.mx/activacion/cuenta-tnbl/",
+    "texto_de_control": "Santander le informa que ha detectado actividad inusual en su cuenta por lo que precedimos a DESHABILITAR el servicio de su banca en linea por internet y App Santader hasta la correcta actualizacion de sus datos como medida de seguridad. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00600-01/"
+  },
+  {
+    "codigo": "8fph22-00601-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://www.skybrands.com.np/Recuperalo_Aqui/cuenta-sqft/",
+    "texto_de_control": "Santander, Por motivo de seguridad le informamos que durante la comprobacion de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00601-01/"
+  },
+  {
+    "codigo": "8fph22-00603-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://www.skybrands.com.np/Recuperalo_Aqui/cuenta-sqft/",
+    "texto_de_control": "Santander, Por motivo de seguridad le informamos que durante la comprobación de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00603-01/"
+  },
+  {
+    "codigo": "8fph22-00604-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3LTrkwh?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.350.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00604-01/"
+  },
+  {
+    "codigo": "8fph22-00606-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://nostracontrical.com/promociones/cuenta-uinn/",
+    "texto_de_control": "Santander le informa que ha detectado actividad inusual en su cuenta por lo que precedimos a DESHABILITAR el servicio de su banca en linea por internet y App Santader hasta la correcta actualizacion de sus datos como medida de seguridad. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00606-01/"
+  },
+  {
+    "codigo": "8fph22-00609-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://www.skybrands.com.np/Recuperalo_Aqui/cuenta-sqft/",
+    "texto_de_control": "Santander, Por motivo de seguridad le informamos que durante la comprobacion de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00609-01/"
+  },
+  {
+    "codigo": "8fph22-00611-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://www.skybrands.com.np/Recuperalo_Aqui/cuenta-sqft/",
+    "texto_de_control": "Santander, Por motivo de seguridad le informamos que durante la comprobacion de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00611-01/"
+  },
+  {
+    "codigo": "8fph22-00612-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://nostracontrical.com/promociones/cuenta-ktoe/",
+    "texto_de_control": "Santander le informa que ha detectado actividad inusual en su cuenta por lo que precedimos a DESHABILITAR el servicio de su banca en linea por internet y App Santader hasta la correcta actualizacion de sus datos como medida de seguridad. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00612-01/"
+  },
+  {
+    "codigo": "8fph22-00613-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://www.skybrands.com.np/Recuperalo_Aqui/cuenta-ausd/",
+    "texto_de_control": "Santander, Por motivo de seguridad le informamos que durante la comprobacion de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00613-01/"
+  },
+  {
+    "codigo": "8fph22-00614-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://www.skybrands.com.np/Recuperalo_Aqui/cuenta-ausd/",
+    "texto_de_control": "Santander, Por motivo de seguridad le informamos que durante la comprobacion de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00614-01/"
+  },
+  {
+    "codigo": "8fph22-00615-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://www.skybrands.com.np/Recuperalo_Aqui/cuenta-ausd/",
+    "texto_de_control": "Santander, Por motivo de seguridad le informamos que durante la comprobacion de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00615-01/"
+  },
+  {
+    "codigo": "8fph22-00616-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://superavance-cl.top/santander.php",
+    "texto_de_control": "La SuperClave es una tarjeta de coordenadas que debes llevar contigo cada vez que quieras hacer un movimiento de fondos desde tus productos https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00616-01/"
+  },
+  {
+    "codigo": "8fph22-00618-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://superavances-chile.top/santander.php",
+    "texto_de_control": "La SuperClave es una tarjeta de coordenadas que debes llevar contigo cada vez que quieras hacer un movimiento de fondos desde tus productos. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00618-01/"
+  },
+  {
+    "codigo": "8fph22-00620-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://bit.ly/3EQCe4z?l=www.santander.cl",
+    "texto_de_control": "Banco Santander,Te queremos informar que segun nuestros registros, llevas 6 dias sin pagar tu producto Tarjeta de credito, cuyo numero es XXXX, Por tu seguridad, se ha procedido a Bloquear el acceso de su clave de internet y APP. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00620-01/"
+  },
+  {
+    "codigo": "8fph22-00622-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://surfsantnder.info/activacion/cuenta-kand/",
+    "texto_de_control": "Santander, Por motivo de seguridad le informamos que durante la comprobacion de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00622-01/"
+  },
+  {
+    "codigo": "8fph22-00624-01",
+    "institucion": "Banco Itaú",
+    "dominio_oficial": "itau.cl",
+    "url_maliciosa": "https://www.igramarmorrojable.com/wp-content/languages/–/https:/bancoitau.cl/emailprotected",
+    "texto_de_control": "hola tienes TARJETAS DE PUNTOS ITAU disponibles para canje que están a punto de caducar, tu cliente Las TARJETAS ITAU tienen puntos dobles. https://itau.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00624-01/"
+  },
+  {
+    "codigo": "8fph22-00626-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://surfsantnder.info/activacion/cuenta-kand/",
+    "texto_de_control": "Santander , Por motivo de seguridad le informamos que durante la comprobacion de nuestra seguridad del presente mes 2022, su cuenta corriente ha sido bloqueada https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00626-01/"
+  },
+  {
+    "codigo": "8fph22-00630-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.skybrands.com.np/Recuperalo_Aqui/cuenta-dgao/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00630-01/"
+  },
+  {
+    "codigo": "8fph22-00631-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://servistado.info/Solicitud_Aprobada/cuenta-kicl/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00631-01/"
+  },
+  {
+    "codigo": "8fph22-00633-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3WuBfxe?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.350.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00633-01/"
+  },
+  {
+    "codigo": "8fph22-00636-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://nostracontrical.com/promociones/cuenta-avhh/",
+    "texto_de_control": "Banco Santander le informa que nuestro sistema detectó cierta actividad inusual en su cuenta por lo que procedimos a SUSPENDER el servicio de su banco en línea por internet y App Santander. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00636-01/"
+  },
+  {
+    "codigo": "8fph22-00639-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://servistado.info/Solicitud_Aprobada/cuenta-kicl/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya están operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligación de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00639-01/"
+  },
+  {
+    "codigo": "8fph22-00640-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://portal-gestiones.click/inicio/gestor",
+    "texto_de_control": "Si eres cliente Santander revisa si tienes tu Crédito Personal de Consumo APROBADO de hasta $10.000.000 y comienza a pagar en enero del 2023. Promoción solo para Clientes Santander. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00640-01/"
+  },
+  {
+    "codigo": "8fph22-00642-01-csirt-alerta-de-campana-de-phishing-que-suplanta-al-bancoestado",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://grandbwis.com/activacion/cuenta-rgqo/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validación de sus datos. realizada la validación su cuenta será activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00642-01-csirt-alerta-de-campana-de-phishing-que-suplanta-al-bancoestado/"
+  },
+  {
+    "codigo": "8fph22-00643-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "http://rdkf.me/Z9mGog",
+    "texto_de_control": "Si eres cliente Santander revisa si tienes tu Crédito Personal de Consumo APROBADO de hasta $10.000.000 y comienza a pagar en enero del 2023. Promoción solo para Clientes Santander. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00643-01/"
+  },
+  {
+    "codigo": "8fph22-00644-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://nmhpatito.info/Solicitud_Aprobada/cuenta-bini/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00644-01/"
+  },
+  {
+    "codigo": "8fph22-00645-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3G9NNEN?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.350.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00645-01/"
+  },
+  {
+    "codigo": "8fph22-00646-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://nostracontrical.com/promociones/cuenta-lvpc/",
+    "texto_de_control": "Banco Santander le informa que nuestro sistema detectó cierta actividad inusual en su cuenta por lo que procedimos a SUSPENDER el servicio de su banco en línea por internet y App Santander. Como medida de seguridad le sugerimos actualizar tus datos para la protección y el acceso a su cuenta. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00646-01/"
+  },
+  {
+    "codigo": "8fph22-00649-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00649-01/"
+  },
+  {
+    "codigo": "8fph22-00650-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://nostracontrical.com/promociones/cuenta-chzw/",
+    "texto_de_control": "Banco Santander le informa que nuestro sistema detectó cierta actividad inusual en su cuenta por lo que procedimos a SUSPENDER el servicio de su banco en línea por internet y App Santander. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00650-01/"
+  },
+  {
+    "codigo": "8fph22-00651-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00651-01/"
+  },
+  {
+    "codigo": "8fph22-00656-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3tQufO9?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.350.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00656-01/"
+  },
+  {
+    "codigo": "8fph22-00657-01",
+    "institucion": "Banco de Chile",
+    "dominio_oficial": "bancochile.cl",
+    "url_maliciosa": "http://cnct.us/64AR7h",
+    "texto_de_control": "Banco de Chile || ¡Alerta! BLOQUEO TEMPORAL por INGRESO DESCONOCIDO a Portal Online (Temuco, La Araucania) ACTUALIZA AQUÍ https://bancochile.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00657-01/"
+  },
+  {
+    "codigo": "8fph22-00659-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://razapotenew.com/activacion/cuenta-wdsh/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00659-01/"
+  },
+  {
+    "codigo": "8fph22-00660-01",
+    "institucion": "Banco Falabella",
+    "dominio_oficial": "bancofalabella.cl",
+    "url_maliciosa": "https://wedsys.com.br/falabella/cuenta-jpvz/",
+    "texto_de_control": "BancoFalabella,le informa que en nuestro ultimo mantenimiento su cuenta muestra un mensaje de Error: FALA-0786-84, mismo que se define como TARJETA BLOQUEADA, este codigo se ah generado porque usted no culmino con el proceso de verificacion de Identidad. https://bancofalabella.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00660-01/"
+  },
+  {
+    "codigo": "8fph22-00661-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://t.co/uTLaHmjAxO",
+    "texto_de_control": "Santander – Hay un intento de ingreso a tu cuenta desde un dispositivo no autorizado. Si no fuiste tu, actualize sus datos https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00661-01/"
+  },
+  {
+    "codigo": "8fph22-00662-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://nhmwcotitostado.info/activacion/cuenta-ulen/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente, nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00662-01/"
+  },
+  {
+    "codigo": "8fph22-00669-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3VFe425?l=www.bancoripley.cl",
+    "texto_de_control": "Banco Ripley, le informa que se detecto actividad sospechosa en su cuenta, esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta. Por tu Seguridad su cuenta y tarjeta fue bloqueada temporalmente y necesitamos realizar que la verificacion de identidad.ParaVerifica su identidad https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00669-01/"
+  },
+  {
+    "codigo": "8fph22-00689-01",
+    "institucion": "BCI",
+    "dominio_oficial": "bci.cl",
+    "url_maliciosa": "https://bit.ly/3B7IhCL",
+    "texto_de_control": "TARJETA LIDER BCI Tenemos problemas con tu cuenta, verifica tus datos para evitar bloqueo https://bci.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00689-01/"
+  },
+  {
+    "codigo": "8fph22-00699-0",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3Qazxyo?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley,Te informamos que tienes un Super Avance Aprobado de $1.000.000 ,Es necesario que ingrese a nuestra web para poder Abonar su Credito https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph22-00699-0/"
+  },
+  {
+    "codigo": "8fph23-00700-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00700-01/"
+  },
+  {
+    "codigo": "8fph23-00701-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://xtraillconver.com/activacion/cuenta-hkgr/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado algo inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificaciÃ³n de sus datos como medida de seguridad https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00701-01/"
+  },
+  {
+    "codigo": "8fph23-00703-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3CruO5Z?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley.Le informamos que tienes un Super Avance Aprobado de $1.000.000. Es necesario que ingrese a nuestra web para activar el super avance y hacer el abono de forma inmediata a su cuenta https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00703-01/"
+  },
+  {
+    "codigo": "8fph23-00704-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3WXEYn5?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley.Le informamos que tienes un Super Avance Aprobado de $1.000.000. Es necesario que ingrese a nuestra web para activar el super avance y hacer el abono de forma inmediata a su cuenta https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00704-01/"
+  },
+  {
+    "codigo": "8fph23-00705-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-qvqk/",
+    "texto_de_control": "Banco Estado, Informa que su Clave de Internet caduco, se bloqueo o la olvidaste, recuperala aqui desde la opcion Problemas con tu Clave y sigue estos simples pasos https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00705-01/"
+  },
+  {
+    "codigo": "8fph23-00706-01",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://firebasestorage.googleapis.com/v0/b/uuieywueuriw.appspot.com/o/index.html?alt=media&token=0f3dc7fa-f323-4696-bab9-65769b53f723",
+    "texto_de_control": "tiene 55 correos electrónicos sin recibir desde el 20/12/2022 a las 10:52:27 p. m. Esto se debió a un retraso en el sistema Rectifique a continuación https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00706-01/"
+  },
+  {
+    "codigo": "8fph23-00708-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-qvqk/",
+    "texto_de_control": "Banco Estado, Informa que su Clave de Internet caduco, se bloqueo o la olvidaste, recuperala aqui desde la opcion Problemas con tu Clave y sigue estos simples pasos https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00708-01/"
+  },
+  {
+    "codigo": "8fph23-00712-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3W3lbRL?l=www.bancoripley.cl",
+    "texto_de_control": "BancoRipley, Porque estamos preocupados de la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N-21.234 sobre Prevencion de Fraudes, le informamos que de acuerdo a nuestros registros, su Tarjeta de Credito terminada en XXXX, detectamos uso inusual en los ultimos meses,algunas de tus compras que realizaste en lugares no seguros de pago,por lo que hemos procedido a bloquearla temporalmente de tu tarjeta de credito para desbloquearla https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00712-01/"
+  },
+  {
+    "codigo": "8fph23-00714-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3GKdr1C?l=www.bancoripley.cl",
+    "texto_de_control": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta.Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00714-01/"
+  },
+  {
+    "codigo": "8fph23-00716-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.alpavillanew.top/activacion/cuenta-fdow/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado actividad inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. Le recomendamos realizar este proceso de verificación con el objetivo de garantizar su seguridad y el acceso correcto a la banca en linea por internet y de nuestra App BancoEstado. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00716-01/"
+  },
+  {
+    "codigo": "8fph23-00717-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3iHv9uH?l=www.bancoripley.cl",
+    "texto_de_control": "El departamento de seguridad de BancoRipley detecto una actividad sospechosa en su cuenta. Esto es debido a su ultima consulta que realizo por cajero o banca en linea no finalizo de manera correcta,preocupados por la seguridad de todos nuestros clientes, y atendiendo a la exigencia de la Ley N. 21.234 sobre PrevenciÃ³n de Fraudes, le informamos que de acuerdo a nuestros registros su TarjetaRipley terminada en XXXX, tuvo que ser bloqueada por medidas de seguridad a sus datos privados,para desbloquearla https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00717-01/"
+  },
+  {
+    "codigo": "8fph23-00718-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00718-01/"
+  },
+  {
+    "codigo": "8fph23-00733-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://cartoonpuzzl3s.com/activacion/cuenta-bpwz/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado actividad inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. VERIFICAR DATOS . https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00733-01/"
+  },
+  {
+    "codigo": "8fph23-00734-01",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://smartgift.live/ips_cl/?cep=ADpcvY4BIMnvUrAW9fx58sqTbjRe25a7RiuOiwXC_-2Y2fTYOJmDp42E-8Htv8msrXSiDuN0bmLZZ5ZWDcUpZCeDOka_1cVJ7OpbjLvjP0UtEFc7bd71_Dhsbw-xY61uHCyLqTHq-zeqR6mUD0VfgX4b38enLC1YHiwW008epixUtQfSnEx6FvbYOTVC_miypOqhiaCoUbhLDqVUUsEQIao8IK_cS3Qy98gWLwtgINzFs2irz1qHz-oXXeTHfgSxhosxbT37OxtT-ViuXGUoYRIQe_6B2UbGjYCCsXni3mijBdhc2NdzNyt8qok7Isfw670FxHsfBDa-9i9XG4uDofRPVP_v-MuXCpEoEraN9SLZ1_eQJs6u5hQZfcehSKHb&lptoken=165974c584b3519f647c",
+    "texto_de_control": "MENSAJE DE LA OFICINA DE CORREOS: Su pedido se guarda en el centro de importación. Solucione el problema aquí: https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00734-01/"
+  },
+  {
+    "codigo": "8fph23-00736-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-aotq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos.Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00736-01/"
+  },
+  {
+    "codigo": "8fph23-00737-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://cartoonpuzzl3s.com/activacion/cuenta-htna/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado actividad inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. Verificar datos https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00737-01/"
+  },
+  {
+    "codigo": "8fph23-00738-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://nwmmayorsa.com/activacion/cuenta-igzs/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado actividad inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00738-01/"
+  },
+  {
+    "codigo": "8fph23-00739-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-vbvq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00739-01/"
+  },
+  {
+    "codigo": "8fph23-00740-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-vbvq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00740-01/"
+  },
+  {
+    "codigo": "8fph23-00742-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-vbvq/",
+    "texto_de_control": "Banco de Estado, le comunica que nuestros servidores de procesos bancarios han sido actualizados y ya estan operativos. Sin embargo debido que su cuenta no se encuentra registrada correctamente,nos vemos en la obligacion de Bloquearla Temporalmente. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00742-01/"
+  },
+  {
+    "codigo": "8fph23-00743-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3HNSJhA?l=www.bancoripley.cl",
+    "texto_de_control": "lLe informamos que su aumento de cupo se hara efectivo de forma inmediato en su cuenta, para aceptar el aumento de cupo HAZ CLICK AQUÍ https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00743-01/"
+  },
+  {
+    "codigo": "8fph23-00744-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucmstudio.info/activacion/cuenta-kzho/",
+    "texto_de_control": "Banco de Estado le comunica una nueva medida de apoyo economico cque es FOGAPE Reactiva, incluye financiamiento para Capital de Trabajo, Inversion y Refinanciamientos para Micro, y Grandes Empresas. Te informamos que hoy se ah realizado la aprobacion del credito FOGAPE, por lo cual lo tendra que activar por medio de este e-mail. Asi no tendra que salir de casa. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00744-01/"
+  },
+  {
+    "codigo": "8fph23-00748-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://cartoonpuzzl3s.com/activacion/cuenta-buqj/",
+    "texto_de_control": "BancoEstado le informa que hemos detectado actividad inusual en su acceso a la banca en linea por internet, por lo que procederemos a SUSPENDER el servicio hasta la correcta verificación de sus datos como medida de seguridad.Le recomendamos realizar este proceso de verificación con el objetivo de garantizar su seguridad y el acceso correcto a la banca en linea por internet y de nuestra App BancoEstado https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00748-01/"
+  },
+  {
+    "codigo": "8fph23-00749-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://t.co/0EUMFOBG06",
+    "texto_de_control": "Lamentamos Informarle que su tarjeta Ripley ha sido bloqueada. Por su seguridad le rogamos que complete inmediatamente la siguiente actualización de su cuenta para desbloquear el servicio. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00749-01/"
+  },
+  {
+    "codigo": "8fph23-00750-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3xvQB9q?l=www.bancoripley.cl",
+    "texto_de_control": "Le informamos que su aumento de cupo se hara efectivo de forma inmediato en su cuenta, para aceptar el aumento de cupo . https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00750-01/"
+  },
+  {
+    "codigo": "8fph23-00756-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/41iwtWd?l=www.bancoripley.cl",
+    "texto_de_control": "Le informamos que su aumento de cupo se hara efectivo de forma inmediato en su cuenta, para aceptar el aumento de cupo. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00756-01/"
+  },
+  {
+    "codigo": "8fph23-00777-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://mapacontact.com/activacion/cuenta-vnrp/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00777-01/"
+  },
+  {
+    "codigo": "8fph23-00785-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3KWZi4k?l=www.bancoripley.cl",
+    "texto_de_control": "hola, La contraseña de su cuenta de correo electrónico caducará hoy para seguir utilizando la misma contraseña, verifique la solicitud a continuación. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00785-01/"
+  },
+  {
+    "codigo": "8fph23-00788-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.ideaprisma.it/online/activacion/cuenta-kzho/",
+    "texto_de_control": "Este Mes de Abril del 2023 informamos a ud. que tienes un credito de consumo \"APROBADO\" BANCOESTADO SA ADMINISTRADORA GENERAL D, con una tasa especial de 0,85%, que fue Acreditado a su Cuenta Nro. Rut, no dude en Activar su Credito que necesite. Ademas puede acceder a la apertura de plan de cuenta costo $0.- https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00788-01/"
+  },
+  {
+    "codigo": "8fph23-00789-01",
+    "institucion": "Banco Itaú",
+    "dominio_oficial": "itau.cl",
+    "url_maliciosa": "https://www.wingedpeople.net/Photo/--/https:/banco.itau.cl/?cliente=test@csirt.gob.cl",
+    "texto_de_control": "El registro de la computadora que utiliza para realizar transacciones en nuestra Banca por Internet vence hoy. Para que pueda utilizar su cuenta en computadoras, tabletas y telefonos inteligentes, su equipo debe estar autorizado y valido. https://itau.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00789-01/"
+  },
+  {
+    "codigo": "8fph23-00790-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3KWZi4k?l=www.bancoripley.cl",
+    "texto_de_control": "lLe informamos que su aumento de cupo se hara efectivo de forma inmediato en su cuenta, para aceptar el aumento de cupo. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00790-01/"
+  },
+  {
+    "codigo": "8fph23-00791-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.ideaprisma.it/online/activacion/cuenta-kzho/",
+    "texto_de_control": "Este Mes de Abril del 2023 informamos a ud. que tienes un credito de consumo \"APROBADO\" BANCOESTADO SA ADMINISTRADORA GENERAL D, con una tasa especial de 0,85% ,que fue Acreditado a su Cuenta Nro. Rut, no dude en Activar su Credito que necesite. Ademas puede acceder a la apertura de plan de cuenta costo $0.- https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00791-01/"
+  },
+  {
+    "codigo": "8fph23-00794-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.ideaprisma.it/online/activacion/cuenta-kzho/",
+    "texto_de_control": "Este Mes de Abril del 2023 informamos a ud. que tienes un credito de consumo \"APROBADO\" BANCOESTADO SA ADMINISTRADORA GENERAL D, con una tasa especial de 0,85% ,que fue Acreditado a su Cuenta Nro. Rut, no dude en Activar su Credito que necesite. Ademas puede acceder a la apertura de plan de cuenta costo $0.- https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00794-01/"
+  },
+  {
+    "codigo": "8fph23-00798-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/40tvcd7?l=www.bancoripley.cl",
+    "texto_de_control": "Le informamos que su aumento de cupo se hara efectivo de forma inmediato en su cuenta, para aceptar el aumento de cupo. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00798-01/"
+  },
+  {
+    "codigo": "8fph23-00800-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/40B3Hyg?l=www.bancoripley.cl",
+    "texto_de_control": "Le informamos que su aumento de cupo se hara efectivo de forma inmediato en su cuenta, para aceptar el aumento de cupo. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00800-01/"
+  },
+  {
+    "codigo": "8fph23-00802-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://sam-tech.jp/ripley/activacion-ooph/",
+    "texto_de_control": "Le informamos que el proceso de actualizacion de datos esta a punto de expirar,si no realiza hoy se procedera con el bloqueo de su cuenta https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00802-01/"
+  },
+  {
+    "codigo": "8fph23-00804-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3ANY9pZ?l=www.bancoripley.cl",
+    "texto_de_control": "Le informamos que el proceso de actualizacion de datos esta a punto de expirar,si no realiza hoy se procedera con el bloqueo de su cuenta. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00804-01/"
+  },
+  {
+    "codigo": "8fph23-00805-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.ideaprisma.it/online/activacion/cuenta-kzho/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00805-01/"
+  },
+  {
+    "codigo": "8fph23-00810-01",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://cl-coreeosepostoe.com/icl",
+    "texto_de_control": "CORREOS: Su paquete ha sido retenido por aduanas. Para el envió pague las tasas de (1700 CLP) accediendo al enlace. https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00810-01/"
+  },
+  {
+    "codigo": "8fph23-00811-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://hopgia.vn/module/activacion/cuenta-kzho/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00811-01/"
+  },
+  {
+    "codigo": "8fph23-00813-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://hopgia.vn/module/activacion/cuenta-kzho/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00813-01/"
+  },
+  {
+    "codigo": "8fph23-00815-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://lidercolor.com.br/consulta/beneficio/",
+    "texto_de_control": "Santander le informa que ha detectado actividad inusual en su cuenta por lo que hemos Suspendido el servicio de su banca hasta actualizar sus datos. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00815-01/"
+  },
+  {
+    "codigo": "8fph23-00820-01",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://cl-coreeosepostoes.com/parcel/",
+    "texto_de_control": "CORREOS: Su paquete ha sido retenido por aduanas. Para el envío pague las tasas de (1700 CLP) accediendo al enlace https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00820-01/"
+  },
+  {
+    "codigo": "8fph23-00822-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://zoomcontactdoor.com/activacion/cuenta-dzqa/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00822-01/"
+  },
+  {
+    "codigo": "8fph23-00824-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://hopgia.vn/module/activacion/cuenta-kzho/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00824-01/"
+  },
+  {
+    "codigo": "8fph23-00825-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://reachercontact.com/activacion/cuenta-zksc/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00825-01/"
+  },
+  {
+    "codigo": "8fph23-00826-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://hopgia.vn/module/activacion/cuenta-kzho/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00826-01/"
+  },
+  {
+    "codigo": "8fph23-00827-01",
+    "institucion": "Banco Ripley",
+    "dominio_oficial": "bancoripley.cl",
+    "url_maliciosa": "https://bit.ly/3oMxl6V?l=www.bancoripley.cl",
+    "texto_de_control": "Le informamos que el proceso de actualizacion de datos esta a punto de expirar,si no realiza hoy se procedera con el bloqueo de su cuenta. https://bancoripley.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00827-01/"
+  },
+  {
+    "codigo": "8fph23-00828-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://bit.ly/3omdStp",
+    "texto_de_control": "Active su Bono IFE para Personas, Pymes, Empresas, Beneficios Exclusivo Clientes BancoEstado. ! Tiene un Bono IFE con abono automático a su Cuenta, Exclusivo para Clientes BancoEstado. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00828-01/"
+  },
+  {
+    "codigo": "8fph23-00829-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://reachercontact.com/activacion/cuenta-zksc/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00829-01/"
+  },
+  {
+    "codigo": "8fph23-00830-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://hopgia.vn/core/activacion/cuenta-kyhu/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00830-01/"
+  },
+  {
+    "codigo": "8fph23-00832-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://bit.ly/43roLty?l=www.bancoestado.cl",
+    "texto_de_control": "Tienes un Credito de Consumo aprobado con abono inmediato a tu Cuenta. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00832-01/"
+  },
+  {
+    "codigo": "8fph23-00833-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://bit.ly/3J45YfF?l=www.santander.cl",
+    "texto_de_control": "Por ser un cliente especial! Tienes un Credito de consumo aprobado con abono inmediato a tu Cuenta. Â¡No esperes mas!,tiene un credito de consumo $1.000.000 con abono inmediato. â€¢Â¡Tienes un 50% de Dscto. en la tasa de interes!. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00833-01/"
+  },
+  {
+    "codigo": "8fph23-00835-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://reachercontact.com/activacion/cuenta-zksc/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00835-01/"
+  },
+  {
+    "codigo": "8fph23-00836-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://trylocall.com/wp-content/activacion/cuenta-kyhu/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00836-01/"
+  },
+  {
+    "codigo": "8fph23-00837-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://reachercontact.com/activacion/cuenta-zksc/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00837-01/"
+  },
+  {
+    "codigo": "8fph23-00838-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.hopgia.vn/upload/news/activacion/cuenta-kzy/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00838-01/"
+  },
+  {
+    "codigo": "8fph23-00839-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://zoomcontactdoor.com/activacion/cuenta-dzqa/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00839-01/"
+  },
+  {
+    "codigo": "8fph23-00840-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://proracingsimuladores.com.br/plugins/activacion/cuenta-ky/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00840-01/"
+  },
+  {
+    "codigo": "8fph23-00841-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://zoomcontactdoor.com/activacion/cuenta-dzqa/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00841-01/"
+  },
+  {
+    "codigo": "8fph23-00843-01",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://s.gd/CorReos",
+    "texto_de_control": "La entrega de su paquete ha sido suspendida debido a que falta un numero de calle en el paquete.por favor actualice. https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00843-01/"
+  },
+  {
+    "codigo": "8fph23-00845-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://reachercontact.com/activacion/cuenta-zksc/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00845-01/"
+  },
+  {
+    "codigo": "8fph23-00853-01",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://webcenitravencia.wapka.co/",
+    "texto_de_control": "En nuestro intento por mejorar la seguridad y la calidad de nuestros servicios de correo electrónico, actualizaremos todas las cuentas de correo electrónico en nuestra base de datos. Esta actualización solo tomará unos minutos y durante la actualización es posible que experimente una ligera interrupción del servicio, lo que significa que el envío y la recepción de correos electrónicos pueden retrasarse o ser imposibles. https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00853-01/"
+  },
+  {
+    "codigo": "8fph23-00854-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.unik.mx/activacion/cuenta-bpib/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00854-01/"
+  },
+  {
+    "codigo": "8fph23-00855-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://reachercontact.com/activacion/cuenta-zksc/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet.. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00855-01/"
+  },
+  {
+    "codigo": "8fph23-00856-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://bit.ly/43wntwz?l=www.santander.cl",
+    "texto_de_control": "Por medio del presente,expresar nuestro saludo y tambien queremos informarte acerca de la cuenta que mantienes con nosotros.Hemos identificado que su cuenta no ha sido actualizada y verificada durante mucho tiempo,esto va en contra de nuestras politicas de seguridad. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00856-01/"
+  },
+  {
+    "codigo": "8fph23-00857-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://lolocontac.com/activacion/cuenta-qgah/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00857-01/"
+  },
+  {
+    "codigo": "8fph23-00859-01",
+    "institucion": "Banco Itaú",
+    "dominio_oficial": "itau.cl",
+    "url_maliciosa": "http://ec2-52-67-192-115.sa-east-1.compute.amazonaws.com/?hash=bXJvc3NlbGRAaW50ZXJpb3IuZ292LmNs",
+    "texto_de_control": "Tienes puntos acumulados disponibles para canjear que están muy cerca de expirar. Los clientes de Itaú tienen el doble de puntos, entre otras ventajas. Accede a continuación y c anjea ahora mismo. Al realizar una compra con una tarjeta Itaú o al usar tu token en nuestros canales digitales, ganarás puntos en Livelo. https://itau.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00859-01/"
+  },
+  {
+    "codigo": "8fph23-00860-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://bit.ly/3omdStp",
+    "texto_de_control": "Ingrese desde su Banca en Linea, a través del correo registrado en nuestro portal BancoEstado Seleccione Bono Bolsillo Familiar o Credito FOGAPE y solicite en un clic el abono inmediato a su Cuenta. Actualmente cuenta con un Bono Bolsillo Familiar pendiente de activación https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00860-01/"
+  },
+  {
+    "codigo": "8fph23-00862-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://avengerpatitos.com/activacion/cuenta-ezez/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00862-01/"
+  },
+  {
+    "codigo": "8fph23-00863-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://avengerpatitos.com/activacion/cuenta-ezez/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00863-01/"
+  },
+  {
+    "codigo": "8fph23-00867-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://bit.ly/3OE47RK?l=www.santander.cl",
+    "texto_de_control": "Por medio del presente,expresar nuestro saludo y tambien queremos informarte acerca de la cuenta que mantienes con nosotros.Hemos identificado que su cuenta no ha sido actualizada y verificada durante mucho tiempo,esto va en contra de nuestras politicas de seguridad. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00867-01/"
+  },
+  {
+    "codigo": "8fph23-00868-01",
+    "institucion": "Santander",
+    "dominio_oficial": "santander.cl",
+    "url_maliciosa": "https://homefogastadp.info/activacion/cuenta-gqgj/",
+    "texto_de_control": "Santander le informa que ha detectado actividad inusual en su cuenta por lo que hemos Suspendido el servicio de su banca hasta actualizar sus datos. https://santander.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00868-01/"
+  },
+  {
+    "codigo": "8fph23-00870-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://www.estadopersonas.site/loginon.php",
+    "texto_de_control": "BancoEstado tiene aprobado El Bolsillo Familiar Electrónico disponible en tu cuenta revisa aquí: https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00870-01/"
+  },
+  {
+    "codigo": "8fph23-00872-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.amirtato.ir/1691434182/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00872-01/"
+  },
+  {
+    "codigo": "8fph23-00876-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.medicoshub.net/1692192674/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00876-01/"
+  },
+  {
+    "codigo": "8fph23-00880-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://homefogastadp.info/1693234269/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00880-01/"
+  },
+  {
+    "codigo": "8fph23-00882-01",
+    "institucion": "Correos de Chile",
+    "dominio_oficial": "correos.cl",
+    "url_maliciosa": "https://clnew.corrc.top/bill",
+    "texto_de_control": "[Correos Chile] Por favor actualice la información de la dirección dentro de las 24 horas o abandonaremos el paquete. https://correos.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00882-01/"
+  },
+  {
+    "codigo": "8fph23-00883-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://senstadolinea.info/1693577583/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00883-01/"
+  },
+  {
+    "codigo": "8fph23-00884-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://senstadolinea.info/1693577583/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00884-01/"
+  },
+  {
+    "codigo": "8fph23-00890-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://senstadolinea.info/1694464941/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00890-01/"
+  },
+  {
+    "codigo": "8fph23-00891-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "http://prevemed.com.ar/1694523759/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00891-01/"
+  },
+  {
+    "codigo": "8fph23-00892-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "http://prevemed.com.ar/1695241888/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00892-01/"
+  },
+  {
+    "codigo": "8fph23-00893-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://prsonasantnder.bio/1695646434/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00893-01/"
+  },
+  {
+    "codigo": "8fph23-00894-01",
+    "institucion": "Banco de Chile",
+    "dominio_oficial": "bancochile.cl",
+    "url_maliciosa": "https://bancochile-cl-login-brancochile-web-cl.personas.sbs/1696254889/bancochile-web/persona/login/index.html/login",
+    "texto_de_control": "Aumenta tu cupo online, fácil y rápido Vive la simplicidad de tu banco en Línea. https://bancochile.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00894-01/"
+  },
+  {
+    "codigo": "8fph23-00895-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://prsonasantnder.bio/1696344931/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00895-01/"
+  },
+  {
+    "codigo": "8fph23-00896-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://prsonasantnder.bio/1696509264/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00896-01/"
+  },
+  {
+    "codigo": "8fph23-00897-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.jimwallermarketing.com/1696942336/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00897-01/"
+  },
+  {
+    "codigo": "8fph23-00898-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://smscodeundestado.info/1696943771/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00898-01/"
+  },
+  {
+    "codigo": "8fph23-00903-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://undercodesmstado.com/1698758461/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00903-01/"
+  },
+  {
+    "codigo": "8fph23-00904-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://supportesmstado.com/activacion/cuenta-odfp/",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00904-01/"
+  },
+  {
+    "codigo": "8fph23-00906-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://vcrawford2.com/1699535995/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00906-01/"
+  },
+  {
+    "codigo": "8fph23-00908-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://serviestadohome.info/1699967769/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00908-01/"
+  },
+  {
+    "codigo": "8fph23-00909-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://serviestadohome.info/1699967769/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00909-01/"
+  },
+  {
+    "codigo": "8fph23-00910-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.universalsantiveri.com/1700234370/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00910-01/"
+  },
+  {
+    "codigo": "8fph23-00911-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.jimwallermarketing.com/1700768973/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00911-01/"
+  },
+  {
+    "codigo": "8fph23-00913-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patitojouxstores.com/1701872777/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00913-01/"
+  },
+  {
+    "codigo": "8fph23-00914-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://consumo60cuotashome.com/1702299489/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00914-01/"
+  },
+  {
+    "codigo": "8fph23-00915-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.cdxblocker.ru.com/1702998746/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00915-01/"
+  },
+  {
+    "codigo": "8fph23-00918-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.khansouq.com/1703773404/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00918-01/"
+  },
+  {
+    "codigo": "8fph23-00919-01",
+    "institucion": "Banco de Chile",
+    "dominio_oficial": "bancochile.cl",
+    "url_maliciosa": "https://support-appmlbancochile.bovgn5.online/1704727026/bchile-web/persona/login/index.html/login",
+    "texto_de_control": "Banco de Chile: Se detecto un ingreso en la App Mi Banco Titular, el 08/01/2024. Si no fuiste tu VERIFICA AQUÍ. https://bancochile.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph23-00919-01/"
+  },
+  {
+    "codigo": "8fph24-00920-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ifepatito.khansouq.com/1704804454/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00920-01/"
+  },
+  {
+    "codigo": "8fph24-00921-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://ucerhometadoscl.com/1704982755/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00921-01/"
+  },
+  {
+    "codigo": "8fph24-00922-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.sesxpressx.sa.com/1705494947/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00922-01/"
+  },
+  {
+    "codigo": "8fph24-00923-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.theaerie.ca/1705514405/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00923-01/"
+  },
+  {
+    "codigo": "8fph24-00924-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://fogape.theaerie.ca/1706111130/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00924-01/"
+  },
+  {
+    "codigo": "8fph24-00925-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.shahanshasports.com/1706793216/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00925-01/"
+  },
+  {
+    "codigo": "8fph24-00926-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://looksoportelinea.com/1707317689/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00926-01/"
+  },
+  {
+    "codigo": "8fph24-00929-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://wwwbanc0chil3com.shahanshasports.com/1708090726/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido, su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. Realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00929-01/"
+  },
+  {
+    "codigo": "8fph24-00931-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://wwwbancoestadocl.theaerie.ca/1708528751/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido Su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00931-01/"
+  },
+  {
+    "codigo": "8fph24-00934-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://patito.larissakovalchuk.com/1709133127/imagenes/_personas/home/default.asp",
+    "texto_de_control": "BancoEstado su clave de internet a vencido, su cuenta se encuentra SUSPENDIDA hasta la correcta validacion de sus datos. Realizada la validacion su cuenta sera activada obteniendo los beneficios de banca por internet. Recuerde que solo tiene 48 horas despues de la fecha de vencimiento para realizar este proceso mediante el enlace que se le proporciona nuestra Banca por internet, de lo contrario su cuenta sera inhabilitada y tendra que acercarse a la sucursal mas cercana para su verificacion respectiva. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00934-01/"
+  },
+  {
+    "codigo": "8fph24-00935-01",
+    "institucion": "BancoEstado",
+    "dominio_oficial": "bancoestado.cl",
+    "url_maliciosa": "https://wwwstcursomasxfors.com/1709230736/imagenes/_personas/home/default.asp",
+    "texto_de_control": "Junto con saludarlo queremos informale que el 15/03/2024 vence el estado de actualizacion de contrato en nuestra cuentaRUT. Sobre la base de la posicion de contrato en terminos meramente de orientacion , indicar a los clientes de BancoEstado S.A que es obligatorio el proceso de activación. https://bancoestado.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/8fph24-00935-01/"
+  },
+  {
+    "codigo": "2cmv23-00408-01",
+    "institucion": "SII",
+    "dominio_oficial": "sii.gob.cl",
+    "url_maliciosa": "https://siii-chile.com/",
+    "texto_de_control": "Herramienta Seguridad SII.url https://sii.gob.cl/",
+    "fuente_alerta": "https://csirt.gob.cl/alertas/2cmv23-00408-01/"
+  }
+]

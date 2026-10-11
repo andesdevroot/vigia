@@ -26,9 +26,55 @@ la marca y no encontraría nada — y peor, marcaría dominios legítimos del Es
 
 from __future__ import annotations
 
+import pathlib
 from collections.abc import Sequence
 from dataclasses import dataclass
 from enum import StrEnum
+
+RUTA_TLDS = pathlib.Path(__file__).parent / "datos" / "tlds.txt"
+
+
+def _cargar_tlds(ruta: pathlib.Path = RUTA_TLDS) -> frozenset[str]:
+    """La lista de dominios de nivel superior de la **IANA**, que es la autoridad sobre el tema.
+
+    Sin esto, decidir si `paquete.por` es un dominio dependía de una heurística —«un punto seguido
+    de mayúscula es una oración»—, y **la heurística falla con la minúscula**: un SMS que dice
+    «falta un número de calle en el paquete.por favor actualice» producía el dominio inventado
+    `paquete.por`, y el motor lo nombraba en la respuesta al ciudadano.
+
+    Lo encontró el control invertido de `T4.3`, y es la **segunda vez** que este mismo error
+    aparece: la primera fue `operativos.Sin`.
+    """
+    if not ruta.exists():
+        return frozenset()
+    return frozenset(
+        linea.strip().lower()
+        for linea in ruta.read_text(encoding="utf-8").splitlines()
+        if linea.strip() and not linea.startswith("#")
+    )
+
+
+TLDS = _cargar_tlds()
+
+TLDS_RESERVADOS = frozenset({"example", "test", "invalid", "localhost", "local"})
+"""Los de uso reservado (RFC 2606 y RFC 6761), que la IANA **no delega** pero son TLD.
+
+Hacen falta por una razón concreta: los mensajes de prueba de `T3.1` usan `.example` justamente
+porque **no puede resolver**, y sin esto el motor dejaría de reconocer el enlace de sus propios
+mensajes de prueba. La propiedad que se gana —que un mensaje de prueba no lleve a ninguna parte— no
+se puede pagar con la que se pierde —que el motor no lo lea—.
+"""
+
+
+def es_tld_valido(etiqueta: str) -> bool:
+    """Si la última etiqueta de un host es un dominio de nivel superior de verdad.
+
+    **Sin la lista no se filtra nada**, a propósito: quedarse sin ella degrada el motor a como era
+    antes, que es mucho mejor que dejar de reconocer todos los enlaces y volverse mudo.
+    """
+    if not TLDS:
+        return True
+    return etiqueta.lower() in TLDS or etiqueta.lower() in TLDS_RESERVADOS
 
 # Grupos de caracteres que un ojo no distingue. **El primero es el representante.**
 #
