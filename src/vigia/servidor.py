@@ -29,6 +29,7 @@ import os
 from collections.abc import Callable, Sequence
 from http.client import HTTPMessage
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+from pathlib import Path
 from typing import IO, Any, Protocol
 from urllib.error import HTTPError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
@@ -37,6 +38,7 @@ from vigia.conversacion import componer
 from vigia.entrante import interpretar
 from vigia.firma import es_valida
 from vigia.marcas import MARCAS
+from vigia.medicion import Contador, Contar
 from vigia.suplantacion import Marca
 
 TIEMPO_LIMITE_S = 10
@@ -120,6 +122,7 @@ def atender(
     secreto: str,
     enviar: Respondedor,
     marcas: Sequence[Marca] = MARCAS,
+    contar: Contar | None = None,
 ) -> bool:
     """Atiende un webhook y devuelve si se alcanzó a responder.
 
@@ -137,13 +140,17 @@ def atender(
     if mensaje is None or mensaje.destinatario is None:
         return False
 
+    # Se cuenta **antes** de enviar, a propósito: si el envío falla, el mensaje igual llegó, y para
+    # medir modalidades lo que importa es cómo llegó, no si alcanzamos a contestar.
+    if contar is not None:
+        contar(mensaje)
+
     enviar.responder(
         mensaje.phone_number_id,
         mensaje.destinatario,
         componer(mensaje, marcas),
     )
     return True
-
 
 def _motivo(error: BaseException) -> str:
     """Cómo se nombra un fallo en el registro.
@@ -160,6 +167,7 @@ class _Manejador(BaseHTTPRequestHandler):
     secreto: str
     enviar: Respondedor
     marcas: tuple[Marca, ...]
+    contar: Contar | None
 
     def do_POST(self) -> None:  # noqa: N802 - lo impone la clase base
         respondido = False
@@ -171,6 +179,7 @@ class _Manejador(BaseHTTPRequestHandler):
                 self.secreto,
                 self.enviar,
                 self.marcas,
+                self.contar,
             )
         except Exception as error:  # noqa: BLE001 - un webhook nunca contesta 500
             # Se registra el **motivo**, nunca el contenido. Sin esto, un envío que falla se ve
@@ -188,10 +197,15 @@ class _Manejador(BaseHTTPRequestHandler):
 
 
 def _manejador(
-    secreto: str, enviar: Respondedor, marcas: tuple[Marca, ...]
+    secreto: str, enviar: Respondedor, marcas: tuple[Marca, ...], contar: Contar | None
 ) -> type[BaseHTTPRequestHandler]:
     """Una subclase con la configuración pegada, que es como `http.server` espera recibirla."""
-    campos: dict[str, Any] = {"secreto": secreto, "enviar": enviar, "marcas": marcas}
+    campos: dict[str, Any] = {
+        "secreto": secreto,
+        "enviar": enviar,
+        "marcas": marcas,
+        "contar": contar,
+    }
     return type("Manejador", (_Manejador,), campos)
 
 
@@ -200,8 +214,11 @@ def construir_servidor(
     secreto: str,
     enviar: Respondedor,
     marcas: Sequence[Marca] = MARCAS,
+    contar: Contar | None = None,
 ) -> ThreadingHTTPServer:
-    return ThreadingHTTPServer(direccion, _manejador(secreto, enviar, tuple(marcas)))
+    return ThreadingHTTPServer(
+        direccion, _manejador(secreto, enviar, tuple(marcas), contar)
+    )
 
 
 def main() -> None:
@@ -215,8 +232,13 @@ def main() -> None:
         base=os.environ.get("KAPSO_API_BASE_URL", "https://api.kapso.ai"),
         api_key=api_key,
     )
+    # El contador de `T3.1` está **apagado por defecto**: solo existe si alguien lo pide.
+    contar: Contar | None = None
+    if os.environ.get("VIGIA_CONTAR"):
+        contar = Contador(Path(os.environ.get("VIGIA_CONTADOR", "conteo.json")))
+
     puerto = int(os.environ.get("VIGIA_PUERTO", "8000"))
-    servidor = construir_servidor(("", puerto), secreto, enviar)
+    servidor = construir_servidor(("", puerto), secreto, enviar, contar=contar)
     print(f"Escuchando en el puerto {puerto}.")  # noqa: T201 - es la salida del programa
     servidor.serve_forever()
 

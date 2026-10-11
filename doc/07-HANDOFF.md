@@ -7,7 +7,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **`T3.1` — medir si la gente reenvía el enlace.** Es el riesgo que decide el paper. El diseño vivo está en `doc/design.md` |
+| Tarea en curso | **`T3.1` — correr el experimento.** El protocolo y el contador están listos; falta reclutar 20 personas. Ver `doc/13-PROTOCOLO.md` |
 | Después | El paper · `T1.5` (guardián de privacidad) · `T0.7` · `T0.8` |
 | Medido | **45 estafas reales del CSIRT**: `nombra` **39 (87 %)**, `GRAVE` **0**, y el insumo se cae en el 98 % si solo se reenvía la cita. Ver `doc/12-MEDICION.md` |
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
@@ -15,13 +15,13 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Datos | `corpus/alertas_csirt.json` (45) · `scripts/cosechar_alertas.py` · `scripts/medir_motor.py` |
-| Tests | **95 verdes, 1 de integración**, sin red, en menos de un segundo |
+| Tests | **109 verdes, 1 de integración**, sin red, en menos de un segundo |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
 ## Último commit
 
-`[T1.8b]` BancoEstado, Santander y Scotiabank entran al catálogo.
+`[T3.1]` El protocolo del experimento y un contador que no puede filtrar.
 
 ## Blockers
 

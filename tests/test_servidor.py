@@ -113,6 +113,24 @@ def test_el_envio_arma_la_peticion_que_documenta_kapso() -> None:
     }
 
 
+def test_el_servidor_cuenta_la_modalidad_cuando_se_le_pide() -> None:
+    """El contador de `T3.1`, enchufado. Sin él, nada se cuenta: está apagado por defecto."""
+    contadas: list[object] = []
+    enviador = EnviadorFalso()
+    bruto = cuerpo()
+    assert atender(
+        bruto, firmar(bruto, SECRETO), SECRETO, enviador, contar=contadas.append
+    )
+    assert len(contadas) == 1
+    assert "ClaveUnica" in str(contadas[0])
+
+
+def test_el_servidor_no_cuenta_nada_si_no_se_le_pide() -> None:
+    enviador = EnviadorFalso()
+    bruto = cuerpo()
+    assert atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador)
+
+
 def test_el_servidor_usa_el_catalogo_por_defecto() -> None:
     """El catálogo tiene que llegar hasta producción.
 

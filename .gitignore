@@ -9,3 +9,6 @@ cache/
 
 # Secretos. Ver `.env.example`.
 .env
+
+# El conteo de `T3.1`: agregados sin datos personales, pero cambia en cada corrida.
+conteo.json

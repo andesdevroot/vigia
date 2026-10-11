@@ -20,7 +20,7 @@
 | T1.6 | Prueba de punta a punta por WhatsApp | ✅ **funcionó, y encontró un bug** |
 | T1.7 | Medir si acierta contra estafas reales | ✅ **45 del CSIRT; 0 graves** |
 | T1.8 | Extender el catálogo a lo suplantado | ✅ **25 instituciones; `nombra` 0 → 39 de 45 (87 %)** |
-| T3.1 | Medir si la gente reenvía el enlace | ⬜ **el riesgo que decide el paper** |
+| T3.1 | Medir si la gente reenvía el enlace | 🚧 **protocolo y contador listos; falta correrlo** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
 
@@ -498,6 +498,42 @@ leer el host sin separar la ruta. Corregido, con dos tests, y el bug valía un c
 
 > **Los alias son parte del dato.** El corpus escribe «Banco Ripley», «bancoripley» y «banco
 > ripley» para lo mismo; comparar solo contra el nombre normalizado perdía dos de las tres.
+
+## 🚧 T3.1 — ¿La gente reenvía el enlace?
+
+**Es el único número sin medir, y el que decide el paper.** Si el ciudadano reenvía el texto sin el
+enlace, el motor se queda mudo. Protocolo completo en [`doc/13-PROTOCOLO.md`](doc/13-PROTOCOLO.md).
+
+**Una aclaración que cambia el diseño:** el «98 % mudo» de `T1.7` **es del formato del CSIRT, no de
+la gente**. La alerta publica el texto por un lado y la URL por otro; en el SMS original el enlace
+estaba. Así que no es una predicción: es un artefacto de la fuente. Eso convierte a `T3.1` en el
+experimento que decide entre dos lecturas opuestas, y **las dos son publicables**.
+
+**El diseño:** brazo controlado de **20 personas no técnicas × 3 mensajes reales** del corpus, dichos
+con una sola frase —*«mándale estos mensajes al robot y mira qué te dice»*— **sin mencionar la
+palabra enlace**. Más un brazo observacional de dos semanas con estafas reales.
+
+**Los mensajes son reales en su texto e inofensivos en su enlace:** el host se reemplaza por uno
+reservado (`.example`, RFC 2606) que **no existe y no puede existir**. La forma del enlace se
+conserva, el veredicto del robot no cambia, y nadie puede pinchar y llegar a algo.
+
+### Y el instrumento no puede filtrar
+
+`src/vigia/medicion.py`: un contador **apagado por defecto** (`VIGIA_CONTAR=1`) que escribe
+agregados.
+
+```json
+{"2026-10-11": {"con_adjunto": 1, "con_enlace": 1, "texto_sin_enlace": 1}}
+```
+
+**No hay ningún camino por el que el contenido llegue a ese archivo.** El contador recibe el mensaje
+y devuelve una de tres etiquetas: no tiene dónde poner el texto ni el número. Hay un test que cuenta
+un mensaje con una marca secreta y comprueba que la marca **no aparece**.
+
+> Un instrumento de medición **que no puede** guardar lo que mide es más fuerte que una promesa, y
+> para el paper es un argumento y no una nota al pie.
+
+Probado por HTTP de verdad: tres mensajes, tres modalidades, un archivo con tres números.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 
