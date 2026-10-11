@@ -20,7 +20,11 @@
 | T1.6 | Prueba de punta a punta por WhatsApp | ✅ **funcionó, y encontró un bug** |
 | T1.7 | Medir si acierta contra estafas reales | ✅ **45 del CSIRT; 0 graves** |
 | T1.8 | Extender el catálogo a lo suplantado | ✅ **25 instituciones; `nombra` 0 → 39 de 45 (87 %)** |
-| T3.1 | Medir si la gente reenvía el enlace | 🚧 **protocolo y contador listos; falta correrlo** |
+| T3.1 | Medir si la gente reenvía el enlace | ⏸️ **sin las 20 personas; se reemplaza por T4.1** |
+| T4.1 | Cosechar 300+ alertas del CSIRT | ⬜ **da el conjunto de evaluación de verdad** |
+| T4.2 | Índice de IoC del Estado (opción A) | ⬜ **determinista, y cita al Estado** |
+| T4.3 | Control invertido (enlace real, mismo texto) | ⬜ **el denominador que falta** |
+| T4.4 | Extractor de la petición + regla (opción C) | ⬜ **el núcleo nuevo** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
 

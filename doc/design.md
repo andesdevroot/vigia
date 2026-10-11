@@ -95,9 +95,10 @@ Eso **no** significa renunciar a la IA. Significa ponerla donde no pueda romper 
 | Dónde | ¿IA? | Por qué |
 |---|---|---|
 | Decidir si un enlace es oficial | **No** | Es una comparación contra un catálogo verificado |
-| Extraer **de quién dice ser** el mensaje | **Sí, es el lugar natural** | El corpus escribe «Banco Ripley», «bancoripley» y «banco de estado» para lo mismo |
-| Leer una **captura de pantalla** | **Sí** | Hoy el motor no lee imágenes, y la gente manda capturas |
-| Mensajes **sin enlace** | **Sí, con cuidado** | Es donde el veredicto hoy se queda mudo |
+| Buscar el enlace en los indicadores del Estado | **No** | Es una búsqueda en 785 informes del CSIRT |
+| Extraer **de quién dice ser** el mensaje | **Sí, es el lugar natural** | El corpus escribe «Banco Ripley», «bancoripley» y «banco de estado» |
+| Extraer **qué pide** el mensaje | **Sí, y es el núcleo nuevo** | De un mensaje sin enlace solo se puede extraer **la petición** |
+| Leer una **captura de pantalla** | **Sí, con un límite duro** | De la imagen sale **texto**, y el texto pasa por el motor. Nunca el veredicto |
 | El veredicto | **Nunca** | Un modelo en el veredicto destruye lo único que hace confiable a esto |
 
 La regla: **la IA propone, el determinismo decide.** Es la misma tesis de la capa calibrada del
@@ -178,6 +179,7 @@ adivinar — y la medición de cuánto se abstiene.**
 
 | Fecha | Qué cambió en el diseño |
 |---|---|
+| 2026-10-10 | **La brecha son tres, y la grande es que la mayoría del fraude no trae enlace.** Medido: **1 de cada 4 chilenos cayó** en smishing y **+30 % en un año**. Se abre `doc/14-GAP.md` con las cinco opciones y la decisión: **el LLM extrae la petición en campos cerrados y una regla escrita decide** — «ninguna institución pide su clave ni sus datos por mensaje». El LLM **propone**, la regla **decide**, y la abstención sigue siendo un veredicto |
 | 2026-10-10 | **`T3.1` armado: tres mensajes de prueba con tres formas de enlace distintas** (acortador, dominio con ruta, empresa del Estado), y **el armado encontró un bug en la frase que más importa**: decía «dice ser de Banco Ripley, Ripley», porque «Ripley» es nombre propio y además alias de «Banco Ripley». Ahora se nombra una sola vez |
 | 2026-10-10 | **`T3.1`: el experimento que decide el paper, y un contador que no puede filtrar.** El «98 % mudo» de `T1.7` **es del formato del CSIRT y no de la gente**, así que hay que medirlo con personas: 20 × 3 mensajes reales con el host saneado a `.example`, sin decir la palabra enlace. Y el instrumento (`medicion.py`) escribe **agregados de tres etiquetas**: no tiene dónde guardar el contenido |
 | 2026-10-10 | **`T1.8b`: entran BancoEstado, Santander y Scotiabank, y `nombra` llega a 39 de 45 (87 %)**. Estaban declarados imposibles de verificar por DNS; **el blocker no era el sitio sino la sonda**: la raíz de los tres no tiene registro A, solo `www.`, y el DNS local se rodea con `dns.google` y con los certificados emitidos de `crt.sh` |

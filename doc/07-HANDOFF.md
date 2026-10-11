@@ -7,8 +7,8 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **`T3.1` — correr el experimento.** El protocolo y el contador están listos; falta reclutar 20 personas. Ver `doc/13-PROTOCOLO.md` |
-| Después | El paper · `T1.5` (guardián de privacidad) · `T0.7` · `T0.8` |
+| Tarea en curso | **`T4.1` — cosechar 300+ alertas del CSIRT**, y después la opción A (índice de IoC). El análisis de la brecha está en `doc/14-GAP.md` |
+| Después | `T4.2` índice de IoC · `T4.3` control invertido · `T4.4` extractor de la petición + regla |
 | Medido | **45 estafas reales del CSIRT**: `nombra` **39 (87 %)**, `GRAVE` **0**, y el insumo se cae en el 98 % si solo se reenvía la cita. Ver `doc/12-MEDICION.md` |
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
 | Catálogo | **25 instituciones**: 14 estatales y 11 suplantadas, todas verificadas por certificado |
@@ -38,6 +38,11 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|
+| 2026-10-10 | **La brecha son tres y la grande no es la que parecía** (`doc/14-GAP.md`). Medido: **1 de cada 4 chilenos cayó** en smishing, **+30 % en un año**. La brecha 1 —el enlace está y no sabemos de quién dice ser— es 6 de 45 y se cierra con catálogo. **La brecha 2 es que buena parte del fraude no trae enlace, y ahí el motor no dice nada.** Y la brecha 3: hay **785 informes de IoC del Estado** sin usar |
+| 2026-10-10 | **El LLM extrae; la regla decide.** La opción descartada es la que ya existe —un LLM que dictamina si es fraude, como WhatsPhish, el chatbot colombiano y ScanMessage—: no es auditable, no puede decir «no sé», y **es peor que lo que ya tenemos**. La que se adopta: el modelo llena un formulario de campos cerrados —`dice_ser`, `pide`, `urgencia`— y decide **una regla escrita y citable**: **«ninguna institución pide su clave ni sus datos por mensaje»** |
+| 2026-10-10 | **La privacidad se rompe si el texto va a un LLM externo, y hay que declararlo.** La promesa es «el mensaje no se guarda»; transmitirlo a un tercero no es lo mismo. Hay que elegir antes de construir: decirlo en la bienvenida, correr un modelo local, o exigir no-retención al proveedor |
+| 2026-10-10 | **La medición del modelo no se hace por gusto, se hace midiendo.** JEV no tiene **ni una** medición en este proyecto. Elegir un modelo por preferencia sería el error que este proyecto evita en todo lo demás: se mide DeepSeek y JEV contra el corpus y gana el que acierte |
+| 2026-10-10 | **`T3.1` se pausa: no hay 20 personas.** El protocolo y el contador quedan escritos y probados. Se reemplaza por el **control invertido** (`T4.3`): cada mensaje del corpus con el enlace de la institución **real**, que aísla la variable y da el denominador que faltaba |
 | 2026-10-10 | **La pregunta del producto está mal planteada, y lo dijo el corpus.** El motor contesta «¿el enlace es del Estado?», pero **el 47 % de lo suplantado en 45 alertas reales es Banco Ripley**, un banco privado. A esa persona «NO es del Estado» le dice algo cierto y le deja la duda intacta. La pregunta que el corpus pide es **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** |
 | 2026-10-10 | **La pregunta del motor pasó a «¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`T1.9`). Dos veredictos nuevos —`COINCIDE` y `NO_COINCIDE`— y los dos viejos como respaldo. **Y la medición no cambió ni un número: `nombra` sigue en 0**, porque el catálogo no tiene a los suplantados. **Cambiar la pregunta era necesario y no es suficiente**: sin `T1.8`, el motor no puede decir «el mensaje dice ser de Banco Ripley» porque no sabe quién es |
 | 2026-10-10 | **Enlazar a alguien no es decir ser él.** La URL contaba como reclamo: `Banco Ripley le informa: ingrese a claveunica.gob.cl` reclamaba ClaveÚnica por enlazarla, y el veredicto daba `COINCIDE` — escondiendo la incoherencia que el motor existe para encontrar. **El reclamo se busca en el texto con los enlaces borrados** |
