@@ -21,7 +21,7 @@
 | T1.7 | Medir si acierta contra estafas reales | ✅ **45 del CSIRT; 0 graves** |
 | T1.8 | Extender el catálogo a lo suplantado | ✅ **25 instituciones; `nombra` 0 → 39 de 45 (87 %)** |
 | T3.1 | Medir si la gente reenvía el enlace | ⏸️ **sin las 20 personas; se reemplaza por T4.1** |
-| T4.1 | Cosechar 300+ alertas del CSIRT | ⬜ **da el conjunto de evaluación de verdad** |
+| T4.1 | Cosechar 300+ alertas del CSIRT | ✅ **342, y encontró dos cosas** |
 | T4.2 | Índice de IoC del Estado (opción A) | ⬜ **determinista, y cita al Estado** |
 | T4.3 | Control invertido (enlace real, mismo texto) | ⬜ **el denominador que falta** |
 | T4.4 | Extractor de la petición + regla (opción C) | ⬜ **el núcleo nuevo** |
@@ -538,6 +538,42 @@ un mensaje con una marca secreta y comprueba que la marca **no aparece**.
 > para el paper es un argumento y no una nota al pie.
 
 Probado por HTTP de verdad: tres mensajes, tres modalidades, un archivo con tres números.
+
+## ✅ T4.1 — El corpus crece a 342, y aparecen dos cosas
+
+Del **sitemap del CSIRT (5.179 alertas)** en vez del repositorio de indicadores, que solo cubre los
+códigos viejos. Corpus: **45 → 342 estafas**.
+
+```
+                         la cita del CSIRT   cita + enlace del informe
+  nombra                       0   (0%)           210  (61%)
+  avisa                        9   (3%)           131  (38%)
+  mudo                       330  (96%)             1   (0%)
+  GRAVE                        3   (1%)             0   (0%)
+```
+
+### 1. El motor inventaba dominios, y se los decía al ciudadano
+
+El SMS dice, sin espacio tras el punto: «...ya estan operativos**.**Sin embargo...». **El motor leyó
+`operativos.Sin` como un dominio**, y la respuesta decía «el enlace **operativos.sin** no es de
+BancoEstado» — **un dominio que no existe**, nombrado como el sitio del atacante.
+
+Arreglado cortando el host donde empieza una oración, respetando los dominios en mayúsculas.
+**`nombra` pasó de 5 a 0 y `avisa` de 19 a 9**: esos veredictos los producía el ruido.
+
+> **Lo encontró el corpus de 342, no un test unitario.** Cuarta vez.
+
+### 2. Los 3 `GRAVE` son la carnada
+
+Los tres nombran **un dominio legítimo** (`interior.gob.cl`, `www.bancoestado.cl`) mientras el enlace
+malo está en otra parte. **En el mensaje completo no hay ninguno: `GRAVE = 0`.** Solo aparecen en la
+cita recortada, donde el enlace malo no está y lo único que queda es el señuelo.
+
+> **Un mensaje incompleto puede recibir una respuesta demasiado confiada.**
+
+**Y no se arregla con una regla más:** `operativos.Sin` y `claveunica.gob.cl.xyz` son lexicalmente
+idénticos. Lo que los distingue es **qué pide el mensaje**. Es la justificación medida de la opción C
+(`T4.4`): **la ambigüedad del dominio suelto no se resuelve mirando el dominio.**
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

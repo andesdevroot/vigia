@@ -119,6 +119,67 @@ instituciones estatales bajo `.gob.cl` — mientras que el corpus suplanta banco
 Es el orden correcto igual: si el catálogo hubiera crecido primero, el motor habría dicho «el enlace
 es de una institución oficial: bancoripley.cl (Banco Ripley)», que no es lo que hay que leer.
 
+## T4.1 — El corpus crece a 342, y aparecen dos cosas
+
+Con el sitemap del CSIRT (**5.179 alertas**) en vez del repositorio de indicadores —que solo cubre
+los códigos viejos— el corpus pasó de 45 a **342 estafas**.
+
+```
+                         la cita del CSIRT   cita + enlace del informe
+  nombra                       0   (0%)           210  (61%)
+  avisa                        9   (3%)           131  (38%)
+  mudo                       330  (96%)             1   (0%)
+  GRAVE                        3   (1%)             0   (0%)
+  reconoció de quién dice ser  189                 210
+```
+
+### Hallazgo 1 — El motor inventaba dominios, y se los decía al ciudadano
+
+El texto real de un SMS dice, sin espacio después del punto:
+
+> «...nuestros servidores ya estan operativos**.**Sin embargo...»
+
+**El motor leyó `operativos.Sin` como un dominio.** Igual con `seguridad.Le`, `cuenta.Esto` e
+`identidad.Paraverifica`. Y como no son de la institución reclamada, la respuesta al ciudadano decía:
+
+> «El mensaje dice ser de BancoEstado y el enlace **operativos.sin** no es de BancoEstado.»
+
+**Un dominio que no existe, nombrado como si fuera el sitio del atacante.** Es la peor clase de error
+que tiene este proyecto: una acusación sobre un dato inventado.
+
+Se arregla cortando el host donde empieza una oración (`.Mayúscula`), respetando los dominios
+escritos **todo en mayúsculas**, que sí son dominios. Y se nota en el número: **`nombra` pasó de 5 a
+0 y `avisa` de 19 a 9** en la columna del fragmento — esos veredictos los estaba produciendo el ruido.
+
+> **Lo encontró el corpus de 342, no un test unitario.** Es la cuarta vez en este proyecto.
+
+### Hallazgo 2 — Los 3 `GRAVE`, y son la carnada
+
+Los tres tienen la misma forma: **el mensaje nombra un dominio legítimo y el enlace malo está en otra
+parte.**
+
+| Caso | Dominio que nombra | Enlace malicioso real |
+|---|---|---|
+| `fph24-00951` | `interior.gob.cl` | `cloudflare-ipfs.com/ipfs/...` |
+| `8fph23-00745` | `www.bancoestado.cl` | `ucmstudio.info/...` |
+| `8fph23-00755` | `www.bancoestado.cl` | `ucmstudio.info/...` |
+
+**En el mensaje completo no hay ninguno: `GRAVE = 0`.** Los tres aparecen **solo en la cita
+recortada**, donde el enlace malo no está y lo único que queda es el señuelo.
+
+Dos conclusiones, y la segunda es la importante:
+
+1. El motor es seguro con mensajes completos, que es lo que un ciudadano reenviaría.
+2. **Un mensaje incompleto puede recibir una respuesta demasiado confiada.** Si alguien manda solo la
+   mitad, el motor puede decir «el enlace es del Estado» porque el único que quedó es el señuelo.
+
+**Y eso no se arregla con una regla más.** `operativos.Sin` y `claveunica.gob.cl.xyz` son
+lexicalmente idénticos: los dos son un punto y letras. Lo que los distingue es **qué pide el
+mensaje** — y por eso el camino es la extracción de la petición de `T4.4`, no otra expresión regular.
+
+> Es la justificación medida de la opción C: **la ambigüedad del dominio suelto no se resuelve
+> mirando el dominio.**
+
 ## T1.8 / T1.8b — El catálogo crece, y el número se mueve
 
 Las instituciones entraron **porque el corpus las midió**, y solo las que se pudieron **verificar por

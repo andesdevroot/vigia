@@ -114,6 +114,32 @@ def test_sin_reclamo_reconocido_cae_al_veredicto_del_enlace() -> None:
     assert "NO es del Estado" in ajeno.explicacion
 
 
+def test_un_punto_sin_espacio_no_inventa_un_dominio() -> None:
+    """`operativos.Sin` no es un dominio: es un punto sin espacio después.
+
+    Un SMS escrito así producía que el motor nombrara en la respuesta un dominio **que no existe**,
+    como si fuera el sitio del atacante. Lo encontró el corpus de 342 —casos `8fph22-00693-01`,
+    `8fph23-00714-01` y `8fph23-00748-01`—, no un test unitario.
+    """
+    for texto in (
+        "nuestros servidores ya estan operativos.Sin embargo su cuenta sera bloqueada",
+        "garantizar su seguridad.Le recomendamos verificar sus datos",
+        "detectamos un problema en su identidad.Para verificarla ingrese sus datos",
+    ):
+        assert extraer_enlaces(texto) == (), texto
+
+
+def test_un_dominio_en_mayusculas_sigue_siendo_un_dominio() -> None:
+    """`CLAVEUNICA.GOB.CL` es un dominio de verdad escrito a gritos, no una oración."""
+    assert [e.registrable for e in extraer_enlaces("INGRESE A CLAVEUNICA.GOB.CL")] == [
+        "claveunica.gob.cl"
+    ]
+
+
+def test_una_oracion_pegada_a_un_dominio_no_se_come_el_dominio() -> None:
+    assert [e.registrable for e in extraer_enlaces("visite www.sii.cl.Gracias")] == ["sii.cl"]
+
+
 def test_enlace_sin_esquema_se_detecta() -> None:
     assert [e.registrable for e in extraer_enlaces("visite www.sii.cl/personas")] == ["sii.cl"]
 

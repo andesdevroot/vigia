@@ -165,7 +165,9 @@ def extraer_enlaces(texto: str, marcas: Sequence[Marca] = MARCAS) -> tuple[Enlac
     candidatos.extend(_RE_HOST.findall(_RE_URL_COMPLETA.sub(" ", texto)))
 
     for bruto in candidatos:
-        host = bruto.strip(".-").lower()
+        host = _cortar_en_la_oracion(bruto).strip(".-").lower()
+        if "." not in host:
+            continue
         if not _RE_ETIQUETA_FINAL.fullmatch(host.rsplit(".", 1)[-1]):
             continue
         registrable = etiqueta_registrable(host)
@@ -189,6 +191,26 @@ def _detalle(enlaces: tuple[Enlace, ...]) -> str:
     return ", ".join(
         f"{e.registrable} ({e.institucion})" if e.institucion else e.registrable for e in enlaces
     )
+
+
+def _cortar_en_la_oracion(host: str) -> str:
+    """Corta el host donde empieza una oración: `operativos.Sin` → `operativos`.
+
+    Un SMS escrito sin espacio después del punto produce dominios que **no existen**:
+    `operativos.Sin`, `seguridad.Le`, `cuenta.Esto`. El motor los nombraba en la respuesta como si
+    fueran el sitio del atacante — **una acusación sobre un dato inventado**, que es la peor clase
+    de error que tiene este proyecto.
+
+    Un host en mayúsculas se respeta: `CLAVEUNICA.GOB.CL` es un dominio de verdad escrito a gritos,
+    y el punto seguido de mayúscula ahí no es una oración.
+
+    Lo encontró el corpus de 342 —los casos `8fph22-00693-01` y `8fph23-00748-01`—, no un test
+    unitario.
+    """
+    if host.isupper():
+        return host
+    corte = re.search(r"\.[A-ZÁÉÍÓÚÑ]", host)
+    return host[: corte.start()] if corte else host
 
 
 def _sin_enlaces(texto: str, enlaces: tuple[Enlace, ...]) -> str:

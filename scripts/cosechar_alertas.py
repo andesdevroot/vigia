@@ -1,4 +1,4 @@
-"""Cosecha alertas de fraude del CSIRT para medir el motor contra estafas reales (T1.7).
+"""Cosecha alertas de fraude del CSIRT para medir el motor contra estafas reales (`T1.7`, `T4.1`).
 
 ## De dónde salen los ejemplos
 
@@ -6,25 +6,33 @@ Del **propio Estado**, y de dos lugares que se complementan:
 
 | Fuente | Qué aporta |
 |---|---|
-| `github.com/csirtcl/Fraude` | 785 informes con la **URL maliciosa** y el dominio |
-| `csirt.gob.cl/alertas/{codigo}/` | el **texto del mensaje**, citado entre comillas tipográficas |
+| `csirt.gob.cl/sitemap.xml` | **5.179 alertas**, con su código |
+| `csirt.gob.cl/alertas/{codigo}/` | el **texto del mensaje** citado, y la URL en su tabla |
+| `github.com/csirtcl/Fraude` | respaldo: 785 informes con la URL en texto limpio |
 
-Un corpus **etiquetado por la autoridad**, con fuente citable y sin inventar nada. Es exactamente el
-insumo que el proyecto anterior no tenía, y por el que murió.
+## Por qué el sitemap y no el repositorio de indicadores
 
-## Dos decisiones de fidelidad
+El repositorio de IoC tiene 785 archivos, pero **solo cubre los códigos viejos** (`8fph*`, `8ffr*`).
+Las campañas recientes se publican como `fph*` y `acf*` y **no están ahí**. El sitemap las tiene
+todas.
 
-1. **El texto se toma tal cual lo citó el CSIRT**, sin retocar. Se guarda en `texto_citado`.
-2. Cuando la cita **no trae el enlace** —el CSIRT suele reportarlo aparte—, se agrega el enlace que
-   el propio informe declara, y la entrada queda marcada con `url_agregada: true`. Así la medición
-   puede informar **los dos números**: con la cita sola y con la reconstrucción. Inventar sin marcar
-   sería lo único imperdonable acá.
+## Por qué la URL se saca de las celdas de la tabla
+
+El CSIRT publica algunas URLs **con espacios adentro** —`https: //sitio. vip/gob/home. html`— y una
+expresión regular se corta en el primer espacio: la primera versión de esto devolvía
+`https://mnhsmstado` en vez del dominio completo. La tabla se lee **celda por celda** y se le quitan
+los espacios al contenido de cada una, que sí da la URL entera.
+
+## Fidelidad, otra vez
+
+El texto se toma **tal cual lo citó el CSIRT**. Cuando la cita no trae el enlace —lo normal: el
+CSIRT reporta la URL aparte—, se agrega el que el propio informe declara y la entrada queda marcada
+`url_agregada: true`, para que la medición pueda informar los dos números.
 
 ## Ética
 
-Solo se **lee** lo que el CSIRT publicó para el público, con TLP:CLEAR. Sin datos personales, sin
-interactuar con los sitios maliciosos —**la URL se guarda como texto y jamás se visita**— y con
-pausa entre consultas.
+Solo se **lee** lo publicado con TLP:CLEAR. Sin datos personales, sin interactuar con los sitios
+maliciosos —**la URL se guarda como texto y jamás se visita**— y con pausa entre consultas.
 """
 
 from __future__ import annotations
@@ -41,36 +49,56 @@ from html.parser import HTMLParser
 
 RAIZ = pathlib.Path(__file__).resolve().parents[1]
 SALIDA = RAIZ / "corpus" / "alertas_csirt.json"
+SITEMAP = "https://csirt.gob.cl/sitemap.xml"
 API_IOC = "https://api.github.com/repos/csirtcl/Fraude/contents/"
 CRUDO_IOC = "https://raw.githubusercontent.com/csirtcl/Fraude/main/"
 ALERTA = "https://csirt.gob.cl/alertas/{}/"
 AGENTE = "vigia/0.0.1 (medicion academica; lectura de alertas publicas TLP:CLEAR)"
-PAUSA_S = 0.4
-TOPE = int(sys.argv[1]) if len(sys.argv) > 1 else 80
+PAUSA_S = 0.3
+OBJETIVO = int(sys.argv[1]) if len(sys.argv) > 1 and sys.argv[1].isdigit() else 400
 
+PREFERENCIA = ("fph", "acf", "8fph")
+"""Los códigos que citan un mensaje, primero. `fph` y `acf` son los recientes; `8fph`, los viejos.
+
+Los de vulnerabilidades —`vsa`, `cmv`, `avc`— no citan ningún mensaje de estafa, y recorrerlos
+primero costaría cientos de consultas para nada. Ya pasó con los informes de «Falsificación de
+Registros»: **499 archivos para cero ejemplos**.
+"""
+
+DOMINIOS_PROPIOS = ("gob.cl", "github.com", "githubusercontent.com", "w3.org", "schema.org")
 CITA = re.compile(r"“([^”]{25,600})”", re.S)
 RUIDO_IOC = ("csirt-cl", "ioc", "informe", "tlp", "nivel", "urls y", "dominios")
 
 
-class _Texto(HTMLParser):
-    """El texto visible de la página, sin etiquetas."""
+class _Pagina(HTMLParser):
+    """El texto visible y las celdas de tabla de una página."""
 
     def __init__(self) -> None:
         super().__init__()
         self.partes: list[str] = []
+        self.celdas: list[str] = []
         self._saltar = 0
+        self._celda: list[str] | None = None
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag in ("script", "style"):
             self._saltar += 1
+        elif tag == "td":
+            self._celda = []
 
     def handle_endtag(self, tag: str) -> None:
         if tag in ("script", "style") and self._saltar:
             self._saltar -= 1
+        elif tag == "td" and self._celda is not None:
+            self.celdas.append(re.sub(r"\s+", " ", "".join(self._celda)).strip())
+            self._celda = None
 
     def handle_data(self, dato: str) -> None:
-        if not self._saltar:
-            self.partes.append(dato)
+        if self._saltar:
+            return
+        self.partes.append(dato)
+        if self._celda is not None:
+            self._celda.append(dato)
 
     def texto(self) -> str:
         return re.sub(r"\s+", " ", " ".join(self.partes))
@@ -86,99 +114,172 @@ def traer(url: str) -> str:
 
 
 def desarmar(cruda: str) -> str:
-    """El CSIRT publica los indicadores desactivados: `hxxp`, `[.]`, `[:]`."""
+    """El CSIRT publica los indicadores desactivados: `hxxp`, `[.]`, `[:]`, y con espacios."""
     limpia = cruda.replace("hxxp", "http").replace("[.]", ".").replace("[:]", ":")
     return re.sub(r"[\s\[\]]", "", limpia).rstrip(".,;:")
 
 
-def leer_ioc(contenido: str) -> tuple[list[str], list[str]]:
-    """Las URLs y los dominios que el informe declara maliciosos."""
+def urls_de_la_pagina(celdas: list[str]) -> list[str]:
+    """Las URLs de la tabla de indicadores, leídas celda por celda.
+
+    Leer la tabla y no el texto corrido es lo que evita el corte en el primer espacio de una URL
+    publicada con espacios adentro.
+    """
+    encontradas: list[str] = []
+    for celda in celdas:
+        limpia = desarmar(celda)
+        if not limpia.lower().startswith(("http", "hxxp")):
+            continue
+        host = limpia.split("/")[2] if "/" in limpia else ""
+        if any(propio in host for propio in DOMINIOS_PROPIOS):
+            continue
+        encontradas.append(limpia)
+    return encontradas
+
+
+def leer_ioc(contenido: str) -> list[str]:
+    """Respaldo para los códigos que sí están en el repositorio de indicadores."""
     urls: list[str] = []
-    dominios: list[str] = []
     seccion = ""
     for linea in contenido.splitlines():
         texto = linea.strip()
         if texto.lower().startswith("urls y direcciones"):
             seccion = "urls"
         elif texto.lower().startswith("dominios"):
-            seccion = "dominios"
-        elif texto and not texto.startswith("---") and not texto.lower().startswith(RUIDO_IOC):
-            if seccion == "urls" and texto.lower().startswith(("http", "hxxp")):
-                urls.append(desarmar(texto))
-            elif seccion == "dominios":
-                dominios.append(texto.split()[0].strip())
-    return urls, dominios
+            seccion = ""
+        elif seccion and texto.lower().startswith(("http", "hxxp")):
+            urls.append(desarmar(texto))
+    return urls
 
 
-def texto_del_mensaje(html: str) -> str | None:
-    """La cita más larga de la alerta: es el mensaje de la estafa, y el CSIRT lo cita literal."""
-    analizador = _Texto()
-    analizador.feed(html)
-    citas = [re.sub(r"\s+", " ", c).strip() for c in CITA.findall(analizador.texto())]
+def texto_del_mensaje(html: str, pagina: _Pagina) -> str | None:
+    citas = [re.sub(r"\s+", " ", c).strip() for c in CITA.findall(pagina.texto())]
     return max(citas, key=len) if citas else None
 
 
-def archivos_del_repositorio() -> list[dict[str, str]]:
+def codigos_del_sitemap() -> list[str]:
+    xml = traer(SITEMAP)
+    codigos = set(re.findall(r"csirt\.gob\.cl/alertas/([a-z0-9-]+)/", xml))
+
+    def peso(codigo: str) -> tuple[int, str]:
+        for i, prefijo in enumerate(PREFERENCIA):
+            if codigo.startswith(prefijo):
+                return (i, codigo)
+        return (len(PREFERENCIA), codigo)
+
+    return sorted(codigos, key=peso)
+
+
+def interpretar(codigo: str, html: str) -> dict[str, object] | None:
+    pagina = _Pagina()
+    pagina.feed(html)
+    cita = texto_del_mensaje(html, pagina)
+
+    # Cuando el informe está en el repositorio de indicadores, **manda el informe**: trae la URL en
+    # texto limpio. La tabla de la página publica algunas partidas en dos celdas y se leen cortadas
+    # —`operativos.sin` en vez del dominio entero—, y un dominio inventado produce una acusación
+    # falsa en la respuesta al ciudadano.
+    urls: list[str] = []
+    if codigo in _ARCHIVOS_IOC:
+        urls = leer_ioc(traer(CRUDO_IOC + urllib.parse.quote(_ARCHIVOS_IOC[codigo])))
+    if not urls:
+        urls = urls_de_la_pagina(pagina.celdas)
+    if not cita or not urls:
+        return None
+
+    enlace = urls[0]
+    agregada = enlace not in cita
+    return {
+        "codigo": codigo,
+        "texto_citado": cita,
+        "texto_reconstruido": f"{cita} {enlace}" if agregada else cita,
+        "url_agregada": agregada,
+        "url_maliciosa": enlace,
+        "dominios": [],
+        "fuente_alerta": ALERTA.format(codigo),
+        "fuente_ioc": CRUDO_IOC + urllib.parse.quote(_ARCHIVOS_IOC.get(codigo, "")),
+    }
+
+
+_ARCHIVOS_IOC: dict[str, str] = {}
+
+
+def cargar_indice_ioc() -> None:
     crudo = traer(API_IOC)
     try:
         lista = json.loads(crudo)
     except json.JSONDecodeError:
-        return []
+        return
     if not isinstance(lista, list):
-        return []
-    return [
-        {"nombre": str(a["name"]), "descarga": str(a["download_url"])}
-        for a in lista
-        if isinstance(a, dict) and str(a.get("name", "")).endswith(".txt")
-    ]
+        return
+    for archivo in lista:
+        nombre = str(archivo.get("name", ""))
+        if nombre.endswith(".txt") and "_" in nombre:
+            codigo = nombre.rsplit("_", 1)[-1].removesuffix(".txt").lower()
+            _ARCHIVOS_IOC[codigo] = nombre
+
+
+def reparar(ejemplos: list[dict[str, object]]) -> int:
+    """Vuelve a bajar la URL de los códigos que están en el repositorio de indicadores.
+
+    Existe porque una primera versión leyó la URL de la tabla de la página, y algunas páginas la
+    publican partida en dos celdas: quedó `operativos.sin` en vez del dominio entero, y el motor
+    **nombraba un dominio inventado**. El repositorio las tiene enteras.
+    """
+    cambiados = 0
+    for i, entrada in enumerate(ejemplos, start=1):
+        codigo = str(entrada["codigo"])
+        if codigo not in _ARCHIVOS_IOC:
+            continue
+        urls = leer_ioc(traer(CRUDO_IOC + urllib.parse.quote(_ARCHIVOS_IOC[codigo])))
+        if urls and urls[0] != entrada["url_maliciosa"]:
+            entrada["url_maliciosa"] = urls[0]
+            if entrada["url_agregada"]:
+                entrada["texto_reconstruido"] = f"{entrada['texto_citado']} {urls[0]}"
+            entrada["fuente_ioc"] = CRUDO_IOC + urllib.parse.quote(_ARCHIVOS_IOC[codigo])
+            cambiados += 1
+        if i % 50 == 0:
+            print(f"  {i} revisadas, {cambiados} corregidas")
+        time.sleep(PAUSA_S)
+    return cambiados
 
 
 def main() -> None:
-    # Solo los informes que citan un mensaje: de los 785 del repositorio, 499 son de
-    # «Falsificación de Registros o Identidad» y **no citan ninguno**. Ir por ellos primero fue el
-    # primer intento, y devolvió cero ejemplos después de cuarenta consultas.
-    archivos = [
-        archivo
-        for archivo in archivos_del_repositorio()
-        if any(t in archivo["nombre"] for t in ("Phishing", "Smishing", "Sextorsión"))
-    ]
-    print(f"informes de phishing o smishing disponibles: {len(archivos)}")
-    if not archivos:
-        raise SystemExit("No se pudo leer el repositorio de indicadores del CSIRT.")
+    ya: list[dict[str, object]] = []
+    if SALIDA.exists():
+        ya = json.loads(SALIDA.read_text(encoding="utf-8"))
 
-    ejemplos: list[dict[str, object]] = []
-    for archivo in archivos:
-        codigo = archivo["nombre"].rsplit("_", 1)[-1].removesuffix(".txt").lower()
-        # Primero la alerta: si no cita mensaje, bajar su IoC sería una consulta perdida.
-        cita = texto_del_mensaje(traer(ALERTA.format(codigo)))
-        if not cita:
-            continue
-        nombre_citado = urllib.parse.quote(archivo["nombre"])
-        urls, dominios = leer_ioc(traer(CRUDO_IOC + nombre_citado))
-        if not (urls or dominios):
-            continue
+    cargar_indice_ioc()
 
-        enlace = urls[0] if urls else f"https://{dominios[0]}/"
-        agregada = enlace not in cita
-        ejemplos.append(
-            {
-                "codigo": codigo,
-                "texto_citado": cita,
-                "texto_reconstruido": f"{cita} {enlace}" if agregada else cita,
-                "url_agregada": agregada,
-                "url_maliciosa": enlace,
-                "dominios": dominios,
-                "fuente_alerta": ALERTA.format(codigo),
-                "fuente_ioc": CRUDO_IOC + nombre_citado,
-            }
-        )
-        print(f"  [{len(ejemplos)}] {codigo}: {cita[:70]}...")
-        if len(ejemplos) >= TOPE:
+    if "--reparar" in sys.argv:
+        print(f"reparando URLs de {len(ya)} entradas...")
+        cambiados = reparar(ya)
+        SALIDA.write_text(json.dumps(ya, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"\n{cambiados} URLs corregidas")
+        return
+
+    hechos = {str(e["codigo"]) for e in ya}
+    print(f"ya cosechadas: {len(ya)}")
+    print(f"informes en el repositorio de indicadores: {len(_ARCHIVOS_IOC)}")
+    codigos = [c for c in codigos_del_sitemap() if c not in hechos]
+    print(f"alertas en el sitemap por revisar: {len(codigos)}")
+    print(f"objetivo: {OBJETIVO} en total\n")
+
+    ejemplos = list(ya)
+    for i, codigo in enumerate(codigos, start=1):
+        if len(ejemplos) >= OBJETIVO:
             break
+        entrada = interpretar(codigo, traer(ALERTA.format(codigo)))
+        if entrada:
+            ejemplos.append(entrada)
+            SALIDA.write_text(
+                json.dumps(ejemplos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+            )
+            print(f"  [{len(ejemplos)}] {codigo}: {str(entrada['texto_citado'])[:60]}...")
+        if i % 50 == 0:
+            print(f"  ... {i} revisadas, {len(ejemplos)} cosechadas")
         time.sleep(PAUSA_S)
 
-    SALIDA.parent.mkdir(parents=True, exist_ok=True)
-    SALIDA.write_text(json.dumps(ejemplos, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     con_enlace = sum(1 for e in ejemplos if not e["url_agregada"])
     print(f"\n{len(ejemplos)} ejemplos en {SALIDA.relative_to(RAIZ)}")
     print(f"  el enlace venía dentro de la cita: {con_enlace}")
