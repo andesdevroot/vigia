@@ -4,11 +4,18 @@ from __future__ import annotations
 
 import json
 import threading
+from http.client import HTTPMessage
+from io import BytesIO
 from typing import Any
 from urllib.request import Request, urlopen
 
 from vigia.firma import firmar
-from vigia.servidor import KapsoRespondedor, atender, construir_servidor
+from vigia.servidor import (
+    KapsoRespondedor,
+    _SinRedirecciones,
+    atender,
+    construir_servidor,
+)
 
 SECRETO = "s3cr3t0"
 ID_NUMERO = "109999999999999"
@@ -84,6 +91,21 @@ def test_un_cuerpo_ilegible_no_revienta() -> None:
     bruto = b"no soy json"
     assert not atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador)
     assert enviador.enviados == []
+
+
+def test_el_envio_no_sigue_redirecciones() -> None:
+    """`urlopen` sigue las redirecciones por defecto y **reenvía las cabeceras**, incluida la clave
+    de API, al host de destino: bastaría un 302 para llevársela. `REQ-12`."""
+    manejador = _SinRedirecciones()
+    respuesta = manejador.redirect_request(
+        Request("https://api.kapso.ai/x"),
+        BytesIO(b""),
+        302,
+        "Found",
+        HTTPMessage(),
+        "https://otro.example/",
+    )
+    assert respuesta is None
 
 
 def test_el_envio_arma_la_peticion_que_documenta_kapso() -> None:

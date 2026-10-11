@@ -1,13 +1,48 @@
 # 00 — Metodología de trabajo
 
-**v1.0 · 2026-10-04**
+**v1.1 · 2026-10-10**
 
 ## Spec-Driven Development
 
-- **`doc/` es la fuente de verdad**: qué se construye, por qué, y con qué criterios.
-- **`task.md` es la cola de trabajo**: pendientes y estado.
-- El código se escribe para cumplir la especificación. Si la spec cambia, se actualiza `doc/` en el
-  mismo commit o en uno previo.
+| Documento | Qué es |
+|---|---|
+| **`spec.md`** | **El contrato.** Qué tiene que hacer el sistema, en requisitos numerados, y **cada uno nombra el test que lo verifica** |
+| `doc/design.md` | El diseño vivo: arquitectura, invariantes y bitácora |
+| `doc/` | La fuente de verdad: qué se construye, por qué, y con qué criterios |
+| `task.md` | La cola de trabajo: pendientes y estado |
+
+El código se escribe para cumplir la especificación. Si la spec cambia, se actualiza en el mismo
+commit o en uno previo.
+
+### Un requisito que no se puede verificar no es un requisito
+
+Es un deseo. Va a `task.md` como tarea, **no a `spec.md`**. Cuando la tarea se cierra, el requisito
+entra a `spec.md` **con su test**, en el mismo commit.
+
+### El contrato se hace cumplir solo
+
+**`tests/test_spec.py` falla si un requisito no nombra ningún test, o si nombra uno que no existe.**
+Eso es lo que convierte la especificación en un contrato y no en un documento: no se puede agregar un
+requisito sin cubrirlo, ni renombrar un test sin que la especificación se entere.
+
+Es el mismo estilo de `test_arquitectura.py`: un invariante del **proyecto**, no del código.
+
+## Actualizar los documentos en cada iteración
+
+**Al cerrar una tarea, en el mismo commit, se actualizan todos los documentos que la tarea toca.**
+
+| Documento | Cuándo |
+|---|---|
+| `spec.md` | si apareció o cambió un requisito |
+| `task.md` | **siempre**: la tarea sale de la cola y queda su resultado |
+| `doc/07-HANDOFF.md` | **siempre**: estado, decisiones y blockers |
+| `doc/design.md` | **siempre**: la bitácora, y la arquitectura si cambió |
+| El numerado que corresponda | si cambió un número o un método: `11-MARCAS.md`, `12-MEDICION.md`, `13-PROTOCOLO.md`, `14-GAP.md` |
+
+**Por qué está escrito.** Este proyecto **mide, y vuelve a medir**: los números cambian —`nombra` pasó
+de 0 a 24 a 39; el corpus de 45 a 342—. Un documento que no se actualiza deja de ser fuente de verdad
+y pasa a ser un archivo viejo que contradice al código. Entonces nadie sabe a cuál de los dos creer, y
+el que se leyó primero gana. Eso ya pasó en el proyecto anterior.
 
 ## TDD estricto: RED → GREEN → REFACTOR
 
@@ -55,7 +90,8 @@ los hashes se listan solo para commits **anteriores**, que ya son inmutables.
 2. `uv run pytest` en verde, sin tests saltados.
 3. `./gate.sh` en verde.
 4. REFACTOR hecho; la suite sigue verde.
-5. `task.md` y `doc/07-HANDOFF.md` actualizados **en el mismo commit**.
+5. **Si la tarea cierra un requisito, está en `spec.md` con su test** — y el guardián lo comprueba.
+6. **Todos los `.md` que la tarea toca, actualizados en el mismo commit** (ver la tabla de arriba).
 
 ## Un título no es una fuente
 

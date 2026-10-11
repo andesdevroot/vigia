@@ -1,6 +1,19 @@
 # task.md — cola de trabajo
 
-`doc/` es la fuente de verdad. Acá va **qué falta y en qué estado**.
+**`spec.md` es el contrato** (qué tiene que hacer el sistema, requisito por requisito, y cada uno
+nombra el test que lo verifica). **`doc/` es la fuente de verdad** (qué se construye, por qué, y con
+qué criterios). **`doc/design.md` es el diseño vivo.** Acá va **qué falta y en qué estado**.
+
+**Al cerrar una tarea se actualizan todos los `.md` que toca, en el mismo commit** — la tabla está en
+[`doc/00-METODOLOGIA.md`](doc/00-METODOLOGIA.md). La razón: este proyecto **mide, y vuelve a medir**,
+así que un documento que no se actualiza pasa de fuente de verdad a archivo viejo que contradice al
+código.
+
+| | |
+|---|---|
+| Requisitos en `spec.md` | **78** |
+| Tests | **123 casos** (114 funciones; dos están parametrizadas) |
+| Guardián de la especificación | `tests/test_spec.py` falla si un requisito queda sin test |
 
 | # | Tarea | Estado |
 |---|---|---|

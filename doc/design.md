@@ -5,6 +5,15 @@ de una sola página de qué estamos construyendo y por qué. El detalle vive en 
 `doc/`, y acá se enlazan.
 
 > Los otros documentos están numerados por orden de escritura. Este no, porque es el que se relee.
+>
+> **Los cuatro documentos del método**, y para qué sirve cada uno:
+>
+> | | |
+> |---|---|
+> | **`spec.md`** | **El contrato**: qué tiene que hacer el sistema, requisito por requisito, cada uno con su test. `tests/test_spec.py` lo hace cumplir |
+> | **`doc/design.md`** | Este archivo: **cómo** está construido, por qué, y la bitácora |
+> | **`task.md`** | La cola: qué falta y en qué estado |
+> | `doc/00-METODOLOGIA.md` | El método: SDD, TDD, y qué se actualiza en cada iteración |
 
 ---
 
@@ -179,6 +188,7 @@ adivinar — y la medición de cuánto se abstiene.**
 
 | Fecha | Qué cambió en el diseño |
 |---|---|
+| 2026-10-10 | **Aparece `spec.md`, y con él el SDD de verdad.** 78 requisitos numerados, cada uno con el test que lo verifica, y **`tests/test_spec.py` falla si un requisito no tiene test o apunta a uno que no existe** — verificado rompiéndolo a propósito. Escribirlo encontró un requisito sin cobertura (**`REQ-12`**, el envío no sigue redirecciones), que es exactamente para lo que sirve. Y queda como regla que **todos los `.md` se actualizan en el mismo commit que cierra la tarea** |
 | 2026-10-10 | **La brecha son tres, y la grande es que la mayoría del fraude no trae enlace.** Medido: **1 de cada 4 chilenos cayó** en smishing y **+30 % en un año**. Se abre `doc/14-GAP.md` con las cinco opciones y la decisión: **el LLM extrae la petición en campos cerrados y una regla escrita decide** — «ninguna institución pide su clave ni sus datos por mensaje». El LLM **propone**, la regla **decide**, y la abstención sigue siendo un veredicto |
 | 2026-10-10 | **`T3.1` armado: tres mensajes de prueba con tres formas de enlace distintas** (acortador, dominio con ruta, empresa del Estado), y **el armado encontró un bug en la frase que más importa**: decía «dice ser de Banco Ripley, Ripley», porque «Ripley» es nombre propio y además alias de «Banco Ripley». Ahora se nombra una sola vez |
 | 2026-10-10 | **`T3.1`: el experimento que decide el paper, y un contador que no puede filtrar.** El «98 % mudo» de `T1.7` **es del formato del CSIRT y no de la gente**, así que hay que medirlo con personas: 20 × 3 mensajes reales con el host saneado a `.example`, sin decir la palabra enlace. Y el instrumento (`medicion.py`) escribe **agregados de tres etiquetas**: no tiene dónde guardar el contenido |
