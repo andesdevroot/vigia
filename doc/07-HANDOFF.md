@@ -7,7 +7,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **`T4.4` — el extractor de la petición y la regla.** Con `T4.3` cerrado, el conjunto de evaluación está completo: cobertura y precisión |
+| Tarea en curso | **`T4.5` — un extractor con modelo que le gane al baseline**, y la decisión de privacidad que eso exige. O `T2.1` (el paper) |
 | Después | `T4.2` índice de IoC · `T4.3` control invertido · `T4.4` extractor de la petición + regla |
 | Medido | **Cobertura 99,7 %** (342 estafas: 239 confirmadas, 70 %) y **precisión: 0 falsas acusaciones de 211** (`T4.3`). Ver `doc/12-MEDICION.md` |
 | Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |
@@ -16,8 +16,8 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Datos | `corpus/alertas_csirt.json` (45) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
-| Tests | **157 casos verdes** (148 funciones), 1 de integración, sin red, en un segundo |
-| Requisitos | **107 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
+| Tests | **173 casos verdes** (164 funciones), 1 de integración, sin red, en un segundo |
+| Requisitos | **118 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
@@ -40,6 +40,9 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|---|
+| 2026-10-11 | **El extractor de la petición sin modelo no sirve, y está medido: marca 3 de 6 frases que una institución sí escribiría.** Las tres son **consejos contra el phishing** («nunca le pediremos su clave»), o sea que marca justamente lo que enseña a cuidarse. El fallo es no entender la **negación**, y eso convierte «¿hace falta un modelo?» en una **vara medible**: tiene que ganarle a 3 de 6, o no justifica su costo ni mandar el mensaje de un ciudadano a un tercero |
+| 2026-10-11 | **La regla de la petición es determinista y son dos condiciones**: dice ser de una institución **y** pide algo que ninguna pide. Sin el reclamo no se aplica — pedir la clave no es fraude si lo pide alguien que no dice ser un banco. Y pinchar un enlace o llamar **no** son indebidos: marcarlos convertiría la herramienta en una alarma |
+| 2026-10-11 | **La cobertura que gana la regla es 0 sobre este corpus, y la precisión no se puede medir.** Las 342 estafas del CSIRT ya traen enlace, así que solo una queda muda; y sin mensajes legítimos no hay denominador. **Es el mismo hueco que bloqueó la calibración, por segunda vez** |---|
 | 2026-10-11 | **El control invertido da la precisión: 0 falsas acusaciones de 211.** Mismo texto de la estafa, enlace de la institución real: aísla una variable. **Es un control construido y se declara** — mide la acusación que induce el texto, no la de un mensaje legítimo de verdad |
 | 2026-10-11 | **El motor inventaba dominios en minúscula, y la regla ahora es la autoridad.** `paquete.por` (SMS sin espacio tras el punto) pasaba el filtro porque la heurística solo cortaba en mayúscula. **Se incorporó la lista de 1.437 TLD de la IANA**: un host cuenta solo si su última etiqueta es un TLD de verdad. Los reservados de RFC 2606 se aceptan porque los mensajes de prueba de `T3.1` los usan **para que no puedan resolver** |
 | 2026-10-11 | **El motor gana `CONFIRMADO`, y es el veredicto más fuerte.** 738 dominios que el Estado ya publicó como fraudulentos, con la alerta citada: **70 % del corpus**, y el 97 % recibe respuesta útil. **No predice: cita** — «el CSIRT publicó que este dominio es fraudulento, en esta alerta» — y por eso manda sobre los demás |

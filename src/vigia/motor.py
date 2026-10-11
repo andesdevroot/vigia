@@ -54,6 +54,7 @@ from enum import StrEnum
 
 from vigia.indicadores import INDICE, Indice
 from vigia.marcas import MARCAS, institucion_de
+from vigia.peticion import Peticion, es_peticion_indebida
 from vigia.suplantacion import (
     SEGUNDO_NIVEL_ESTADO,
     Coincidencia,
@@ -112,6 +113,7 @@ class Veredicto(StrEnum):
     COINCIDE = "coincide"
     NO_COINCIDE = "no_coincide"
     CONFIRMADO = "confirmado"
+    PIDE_LO_INDEBIDO = "pide_lo_indebido"
     OFICIAL = "oficial"
     AJENO = "ajeno"
     SIN_ENLACES = "sin_enlaces"
@@ -153,6 +155,7 @@ class Evaluacion:
     suplantaciones: tuple[Coincidencia, ...]
     reclamadas: tuple[str, ...]
     confirmados: tuple[str, ...]
+    peticion: Peticion | None
     dice_ser_del_estado: bool
     explicacion: str
 
@@ -319,12 +322,22 @@ def _explicar(
     reclamadas: tuple[str, ...],
     dice_ser_del_estado: bool,
     indice: Indice,
+    peticion: Peticion | None = None,
 ) -> str:
     """La respuesta en castellano, para reenviar tal cual."""
     advertencia = (
         " Eso dice del enlace, no del mensaje: si le piden su clave o sus datos personales,"
         " no los entregue."
     )
+
+    if veredicto is Veredicto.PIDE_LO_INDEBIDO and peticion is not None:
+        quien = ", ".join(reclamadas) or (peticion.dice_ser or "una institución")
+        indebido = ", ".join(peticion.lo_indebido())
+        return (
+            f"Este mensaje dice ser de {quien} y pide {indebido}. "
+            "Ninguna institución pide su clave, sus datos personales ni una transferencia por "
+            "mensaje: lo dicen ellas mismas."
+        )
 
     if veredicto is Veredicto.CONFIRMADO:
         partes = []
@@ -384,7 +397,10 @@ def _explicar(
 
 
 def evaluar(
-    texto: str, marcas: Sequence[Marca] = MARCAS, indice: Indice = INDICE
+    texto: str,
+    marcas: Sequence[Marca] = MARCAS,
+    indice: Indice = INDICE,
+    peticion: Peticion | None = None,
 ) -> Evaluacion:
     """Evalúa un mensaje reenviado y devuelve el veredicto sobre sus enlaces.
 
@@ -403,12 +419,16 @@ def evaluar(
     reclamadas = tuple(marca.etiqueta or marca.nombre for marca in mencionadas)
     dice_ser_del_estado = _dice_ser_del_estado(texto, marcas)
 
-    if not enlaces:
-        veredicto = Veredicto.SIN_ENLACES
-    elif confirmados:
+    if confirmados:
         # Lo más fuerte que se puede decir, y por eso va primero: el Estado ya publicó que ese
         # dominio es fraudulento. No es una inferencia sobre la forma del enlace.
         veredicto = Veredicto.CONFIRMADO
+    elif es_peticion_indebida(peticion):
+        # Cubre lo que el enlace no puede cubrir: el mensaje **no trae enlace y pide la clave**.
+        # Antes eso era `SIN_ENCLACES` — el motor no decía nada.
+        veredicto = Veredicto.PIDE_LO_INDEBIDO
+    elif not enlaces:
+        veredicto = Veredicto.SIN_ENLACES
     elif reclamadas:
         # La pregunta de T1.9: ¿todos los enlaces son de la institución que el mensaje dice ser?
         # Basta uno que no lo sea para romper la coincidencia: es el ataque mezclado.
@@ -425,8 +445,9 @@ def evaluar(
         suplantaciones=suplantaciones,
         reclamadas=reclamadas,
         confirmados=confirmados,
+        peticion=peticion,
         dice_ser_del_estado=dice_ser_del_estado,
         explicacion=_explicar(
-            veredicto, enlaces, suplantaciones, reclamadas, dice_ser_del_estado, indice
+            veredicto, enlaces, suplantaciones, reclamadas, dice_ser_del_estado, indice, peticion
         ),
     )

@@ -107,7 +107,7 @@ Eso **no** significa renunciar a la IA. Significa ponerla donde no pueda romper 
 | Decidir si un enlace es oficial | **No** | Es una comparación contra un catálogo verificado |
 | Buscar el enlace en los indicadores del Estado | **No** | Es una búsqueda en 738 dominios ya publicados |
 | Extraer **de quién dice ser** el mensaje | **Sí, es el lugar natural** | El corpus escribe «Banco Ripley», «bancoripley» y «banco de estado» |
-| Extraer **qué pide** el mensaje | **Sí, y es el núcleo nuevo** | De un mensaje sin enlace solo se puede extraer **la petición** |
+| Extraer **qué pide** el mensaje | **Sí, y es el núcleo nuevo** | Medido: el extractor sin modelo **marca 3 de 6 frases legítimas**, y las tres son consejos contra el phishing. Entender la **negación** es lo que se le exige |
 | Leer una **captura de pantalla** | **Sí, con un límite duro** | De la imagen sale **texto**, y el texto pasa por el motor. Nunca el veredicto |
 | El veredicto | **Nunca** | Un modelo en el veredicto destruye lo único que hace confiable a esto |
 
@@ -189,6 +189,7 @@ adivinar — y la medición de cuánto se abstiene.**
 
 | Fecha | Qué cambió en el diseño |
 |---|---|---|
+| 2026-10-11 | **`T4.4`: la regla de la petición, y el baseline que no sirve.** Esquema cerrado + regla citable («ninguna institución pide su clave ni sus datos por mensaje»), y el veredicto `PIDE_LO_INDEBIDO` para el mensaje sin enlace. **Y el extractor de referencia marca 3 de 6 frases que una institución sí escribiría** — las tres con negación, y las tres son **consejos contra el phishing**. Eso convierte «¿hace falta un modelo?» en una **vara medible**: tiene que entender la negación, o no se justifica |---|
 | 2026-10-11 | **`T4.3`: aparece la precisión, y con ella el conjunto queda cerrado.** El control invertido —mismo texto, enlace real— da **0 falsas acusaciones de 211**. Y encontró el bug que ninguna otra medición vio: el motor inventaba dominios **en minúscula** (`paquete.por`), porque la regla era una heurística. **Ahora es la lista de 1.437 TLD de la IANA**, que es la autoridad. Tercera vez la misma lección: *la heurística falla y la fuente no* |
 | 2026-10-11 | **El corpus no puede crecer: el techo es lo que el Estado publica.** 350 intentos, **0 mensajes nuevos**; el rendimiento del prefijo `acf` es **~1 %**. Queda en 342 con techo ~400, y **no existe un corpus chileno público más grande** — el paper tiene que decirlo. En el camino se cerró `T0.8`: la **API Pública de Ciberseguridad** (`/api/v1/openapi.json`) da **1.052 alertas con IoC estructurados**, mejor ingeniería y **el mismo alcance**: los mismos 738 dominios. Y se corrigió un bug real (`traer` sin reintentos descartaba códigos en silencio) y **una sospecha mía que la medición refutó**: creí que se habían perdido ~378 alertas `acf`, y no |
 | 2026-10-11 | **El corpus pasa de medición a guardián.** `tests/test_corpus.py`: 342 estafas reales, **cero indulgencias** sobre el mensaje completo, y los fallos conocidos **declarados uno por uno** para que un fallo nuevo haga ruido. Con un trinquete: la cobertura de hoy es el piso de mañana. Y la conclusión sobre «entrenar», escrita: **una sola clase no se entrena, y el 99,7 % ya está cubierto por reglas** |

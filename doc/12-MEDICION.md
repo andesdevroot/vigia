@@ -119,6 +119,40 @@ instituciones estatales bajo `.gob.cl` — mientras que el corpus suplanta banco
 Es el orden correcto igual: si el catálogo hubiera crecido primero, el motor habría dicho «el enlace
 es de una institución oficial: bancoripley.cl (Banco Ripley)», que no es lo que hay que leer.
 
+## T4.4 — La regla de la petición, y la vara para el modelo
+
+**El modelo extrae; la regla decide.** Esquema cerrado y una regla citable: *ninguna institución pide
+su clave, sus datos personales ni una transferencia por mensaje*.
+
+### El extractor de referencia no sirve, y ahora se sabe cuánto
+
+```
+sondas (frases que una institución SÍ escribiría): 3 de 6 marcadas como fraude
+  MARCA  «Recuerde: nunca le pediremos su clave por mensaje ni por teléfono.»
+  MARCA  «Su clave es personal. No la comparta con nadie.»
+  MARCA  «Para su seguridad, no entregue sus datos personales por mensaje.»
+  ok     «Su trámite fue recibido. Revise el estado en nuestro sitio oficial.»
+  ok     «Le informamos que su solicitud fue aprobada. No es necesario hacer nada más.»
+  ok     «Este es un aviso informativo. No responda a este mensaje.»
+```
+
+**Las tres que falla son las tres con negación, y son consejos contra el phishing.** Marca
+precisamente los mensajes que enseñan a la gente a cuidarse.
+
+> Eso convierte «¿hace falta un modelo?» en una **vara medible**: tiene que entender la negación y
+> ganarle a 3 de 6, o no justifica su costo, su latencia, ni mandar el mensaje de un ciudadano a un
+> tercero.
+
+### Y dos cosas que este corpus no permite medir
+
+| | |
+|---|---|
+| **Cobertura de la regla** | **0.** Las 342 estafas ya traen enlace: solo una queda muda |
+| **Precisión de la regla** | **No medible.** Necesita mensajes legítimos, y no existen |
+
+**El mismo hueco, por segunda vez.** El corpus de mensajes legítimos dejó de ser una tarea de
+calibración y pasó a ser **el insumo que falta** para dos mediciones distintas.
+
 ## T4.3 — El control invertido, y la precisión
 
 **El mismo texto de la estafa, con el enlace de la institución real.** Eso aísla una sola variable:

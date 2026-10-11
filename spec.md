@@ -184,7 +184,23 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-162 | Los TLD reales del phishing **sí** cuentan | `test_los_tld_reales_de_phishing_si_cuentan` |
 | REQ-163 | `.example` sigue siendo un enlace: es reservado, y los mensajes de prueba lo usan | `test_los_mensajes_de_prueba_con_example_siguen_siendo_enlaces` |
 
-## 14. La arquitectura
+## 14. La petición del mensaje
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-170 | Pedir la clave a nombre de una institución es indebido | `test_pedir_la_clave_a_nombre_de_una_institucion_es_indebido` |
+| REQ-171 | Pedir una transferencia es indebido | `test_pedir_una_transferencia_es_indebido` |
+| REQ-172 | **Pinchar un enlace o llamar no es indebido**: son avisos normales | `test_pinchar_un_enlace_no_es_indebido` |
+| REQ-173 | **Sin reclamo no hay petición indebida**: hacen falta las dos condiciones | `test_sin_reclamo_no_hay_peticion_indebida` |
+| REQ-174 | Un mensaje sin enlace que pide la clave **ya no es mudo** | `test_un_mensaje_sin_enlace_que_pide_la_clave_ya_no_es_mudo` |
+| REQ-175 | Lo confirmado por el Estado manda sobre la petición | `test_lo_confirmado_sigue_mandando_sobre_la_peticion` |
+| REQ-176 | Sin extractor inyectado el veredicto no cambia | `test_sin_peticion_inyectada_el_veredicto_no_cambia` |
+| REQ-177 | El extractor de referencia es determinista | `test_el_extractor_de_referencia_es_determinista` |
+| REQ-178 | **El extractor de referencia confunde la negación**, y está declarado | `test_el_extractor_de_referencia_confunde_la_negacion_y_se_declara` |
+| REQ-179 | **Las falsas alarmas del baseline están declaradas** una por una | `test_las_falsas_alarmas_del_extractor_de_referencia_estan_declaradas` |
+| REQ-180 | La respuesta por petición no promete seguridad | `test_la_respuesta_por_peticion_no_promete_seguridad` |
+
+## 15. La arquitectura
 
 | # | Requisito | Test |
 |---|---|---|

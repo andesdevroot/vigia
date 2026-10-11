@@ -11,8 +11,8 @@ código.
 
 | | |
 |---|---|
-| Requisitos en `spec.md` | **107** |
-| Tests | **157 casos** (148 funciones; dos están parametrizadas) |
+| Requisitos en `spec.md` | **118** |
+| Tests | **173 casos** (164 funciones; dos están parametrizadas) |
 | Guardián de la especificación | `tests/test_spec.py` falla si un requisito queda sin test |
 
 | # | Tarea | Estado |
@@ -38,7 +38,7 @@ código.
 | T4.2 | Índice de IoC del Estado (opción A) | ✅ **738 dominios; `confirmado` en 239 de 342** |
 | T4.3 | Control invertido (enlace real, mismo texto) | ✅ **0 falsas acusaciones de 211** |
 | T4.7 | Cosechar hasta 1.500 | ✅ **no se puede: el techo es ~400, y está medido** |
-| T4.4 | Extractor de la petición + regla (opción C) | ⬜ **el núcleo nuevo** |
+| T4.4 | Extractor de la petición + regla (opción C) | ✅ **regla lista; el baseline no sirve, y está medido** |
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
@@ -720,6 +720,46 @@ filtro no deja pasar nada.
 **Los reservados de RFC 2606 se aceptan a propósito** (`.example`, `.test`, `.invalid`): los mensajes
 de prueba de `T3.1` los usan **porque no pueden resolver**, y sin eso el motor dejaría de leer sus
 propios mensajes de prueba. Un test lo fija.
+
+## ✅ T4.4 — La regla de la petición, y por qué el baseline no sirve
+
+**El modelo extrae; la regla decide.** `src/vigia/peticion.py`: esquema cerrado (`pide`: clave, datos,
+transferencia, llamar, pinchar, responder) y una regla citable:
+
+> **Ninguna institución pide su clave, sus datos personales ni una transferencia por mensaje.**
+> Hacen falta **las dos** condiciones: el reclamo y la petición indebida.
+
+Nuevo veredicto **`PIDE_LO_INDEBIDO`**, que cubre lo que el enlace no puede: el mensaje sin enlace que
+pide la clave.
+
+### Y el extractor de referencia **no sirve**, medido
+
+```
+sondas (frases que una institución SÍ escribiría): 3 de 6 marcadas como fraude
+  MARCA  «Recuerde: nunca le pediremos su clave por mensaje ni por teléfono.»
+  MARCA  «Su clave es personal. No la comparta con nadie.»
+  MARCA  «Para su seguridad, no entregue sus datos personales por mensaje.»
+  ok     «Su trámite fue recibido. Revise el estado en nuestro sitio oficial.»
+  ok     «Le informamos que su solicitud fue aprobada. No es necesario hacer nada más.»
+  ok     «Este es un aviso informativo. No responda a este mensaje.»
+```
+
+**Las tres que falla son las tres con negación, y son consejos contra el phishing.** El extractor de
+referencia marca precisamente los mensajes que enseñan a la gente a cuidarse.
+
+> **Ese es el argumento medido a favor de un extractor con modelo** — y le pone la vara: tiene que
+> entender la negación. Un modelo que no le gane a 3 de 6 no justifica su costo, su latencia, ni
+> mandar el mensaje de un ciudadano a un tercero.
+
+Las sondas quedan como **conjunto de conformidad** en `peticion.SONDAS`, y las tres falsas alarmas
+están **declaradas una por una** en el test: si aparece una cuarta falla, y si alguna se resuelve
+también — porque eso significa que llegó un extractor mejor.
+
+### Y lo que **no** se puede medir, otra vez
+
+**La cobertura que gana la regla es 0 sobre este corpus**: las 342 estafas del CSIRT ya traen enlace,
+así que solo una queda muda. **La precisión tampoco se puede medir**: hace falta un corpus de mensajes
+legítimos, y no existe. **Es el mismo hueco, por segunda vez.**
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 
