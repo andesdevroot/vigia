@@ -11,8 +11,8 @@ código.
 
 | | |
 |---|---|
-| Requisitos en `spec.md` | **92** |
-| Tests | **142 casos** (133 funciones; dos están parametrizadas) |
+| Requisitos en `spec.md` | **97** |
+| Tests | **147 casos** (138 funciones; dos están parametrizadas) |
 | Guardián de la especificación | `tests/test_spec.py` falla si un requisito queda sin test |
 
 | # | Tarea | Estado |
@@ -38,6 +38,7 @@ código.
 | T4.2 | Índice de IoC del Estado (opción A) | ✅ **738 dominios; `confirmado` en 239 de 342** |
 | T4.3 | Control invertido (enlace real, mismo texto) | ⬜ **el denominador que falta** |
 | T4.4 | Extractor de la petición + regla (opción C) | ⬜ **el núcleo nuevo** |
+| T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
 
@@ -622,6 +623,31 @@ Buscando por dato y no por memoria apareció algo peor: el índice guardaba **`c
 Ambas cosas se filtran **en la consulta, no solo al construir el índice**: aunque el archivo traiga
 un `bit.ly`, la respuesta nunca puede confirmarlo. **Un dato que no se puede defender en la consulta
 no se defiende en ninguna parte.**
+
+## ✅ T4.6 — El corpus como guardián, no solo como medición
+
+`tests/test_corpus.py`: **342 estafas reales, cero indulgencias**. Recorre el corpus y exige que
+ninguna reciba un veredicto favorable sobre el mensaje completo.
+
+**Y los fallos conocidos van declarados uno por uno**, con su razón:
+
+```python
+GRAVES_CONOCIDOS = {
+    "fph24-00951": "el enlace malo no está en la cita: lo único que queda es el señuelo",
+    ...
+}
+```
+
+> **Un fallo conocido y escrito es un fallo vigilado; uno sin escribir parece nuevo cada vez.** Si
+> aparece un cuarto, el test falla.
+
+Hay además un **trinquete**: la cobertura de respuesta útil de hoy (99,7 %) es el piso de mañana. Un
+cambio que la baje falla acá y no en la cara de alguien.
+
+**Sobre entrenar:** el corpus tiene **una sola clase** —342 fraudulentos, cero legítimos— así que no
+se puede entrenar nada, y hay un test que lo deja escrito para que el día que aparezcan negativos,
+alguien se entere de que la limitación cambió. El razonamiento completo, en
+[`doc/14-GAP.md`](doc/14-GAP.md).
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

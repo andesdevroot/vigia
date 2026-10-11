@@ -154,7 +154,17 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-132 | Un índice sin la clave `dominios` da un índice vacío | `test_un_archivo_sin_la_clave_dominios_da_un_indice_vacio` |
 | REQ-133 | Un índice inexistente da un índice vacío | `test_un_archivo_inexistente_da_un_indice_vacio` |
 
-## 11. La arquitectura
+## 11. Los invariantes sobre el corpus real
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-140 | **Ninguna estafa del corpus recibe un veredicto favorable** sobre el mensaje completo | `test_ninguna_estafa_del_corpus_recibe_un_veredicto_favorable` |
+| REQ-141 | Los fallos conocidos sobre la cita recortada están **declarados uno por uno** | `test_los_graves_sobre_la_cita_estan_declarados` |
+| REQ-142 | La respuesta útil no baja del suelo: es un **trinquete** | `test_la_respuesta_util_no_baja_del_suelo` |
+| REQ-143 | El corpus está completo: 300 o más, con todos sus campos | `test_el_corpus_esta_completo` |
+| REQ-144 | El corpus tiene **una sola clase**, y por eso no se entrena | `test_el_corpus_solo_tiene_una_clase_y_por_eso_no_se_entrena` |
+
+## 12. La arquitectura
 
 | # | Requisito | Test |
 |---|---|---|

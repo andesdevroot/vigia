@@ -61,6 +61,57 @@ su forma, no por su historia.
 
 Eso es gratis, determinista, y **cita al Estado como evidencia** en vez de predecir nada.
 
+## ¿Alcanzan 342? ¿Entrenar? ¿Algoritmos avanzados?
+
+### ¿Alcanzan 342?
+
+Depende para qué, y la respuesta es distinta en cada caso.
+
+| Para | ¿Alcanza? |
+|---|---|
+| Medir una **proporción** | **Sí.** 70 % con n=342 es ±4,9 puntos; 97 %, ±1,8 |
+| **Descubrir fallos** | **Sí, y ya pagó**: `tb.php`, `operativos.Sin`, la carnada, `bit.ly`, `com.br` |
+| Ser **guardián permanente** | **Sí.** `tests/test_corpus.py` lo usa así |
+| **Entrenar** algo | **No.** 342 ejemplos **de una sola clase**: cero legítimos |
+| Medir **falsas acusaciones** | **No.** Sin legítimos no hay denominador |
+| Afirmar algo sobre **el país** | **No.** Es lo que el CSIRT **decidió publicar**, no lo que la gente recibe |
+
+Esa última fila es la más importante y la más fácil de olvidar: **el corpus está sesgado por
+selección**. El 70 % es una propiedad de *esta* muestra, no del smishing chileno.
+
+### ¿Entrenar? No — y no por falta de ganas
+
+**No se puede:** una sola clase. **Y no hace falta:** el **99,7 %** ya recibe respuesta útil con reglas
+deterministas y datos del Estado.
+
+Un clasificador acá **empeoraría** las tres cosas que hacen útil al motor:
+
+1. No se puede auditar.
+2. No puede decir «no sé» — y la abstención es un veredicto de primera clase.
+3. **Sin negativos no se puede calibrar el umbral**, así que su tasa de falsas acusaciones sería
+   **desconocida**. Y una falsa acusación en una herramienta que le dice a alguien si el mensaje de
+   su banco es falso es el peor error posible.
+
+### Lo «avanzado» que sí vale, en orden
+
+1. **Invariantes sobre datos reales** — *hecho*: `tests/test_corpus.py`. Recorre las 342 estafas y
+   exige **cero indulgencias** sobre el mensaje completo; los fallos conocidos van declarados uno por
+   uno, **para que un fallo nuevo haga ruido en vez de parecer nuevo cada vez**. Es el mejor retorno
+   por línea de todo el proyecto.
+2. **La extracción de la petición** (`T4.4`). Es donde un modelo aporta, y **como extractor**: campos
+   cerrados, decisión determinista.
+3. **El control invertido** (`T4.3`). Da el denominador que falta para poder hablar de precisión.
+4. **Fuzzing de las reglas**: mutar los 342 —dominio, fraseo, ofuscación— y exigir que el veredicto no
+   se ablande. Encontraría el próximo `operativos.Sin` **sistemáticamente**, en vez de por suerte.
+5. **Crecer el corpus a ~1.500** (hay 5.179 alertas). Barato, y afina las tasas — pero con retornos
+   decrecientes para encontrar fallos.
+
+### En una frase
+
+> **El motor no necesita ser más listo. Necesita saber más cosas y decirlas mejor.** Lo que falta no
+> es un algoritmo: es la **petición** del mensaje, el **corpus legítimo**, y **citar** cada vez que se
+> afirma algo.
+
 ## 3. Las opciones
 
 ### Opción A — Buscar el enlace en los indicadores del Estado
