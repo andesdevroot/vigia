@@ -43,7 +43,7 @@ código.
 | T4.8 | Enfrentar DeepSeek y JEV contra la vara | ✅ **DeepSeek PASA; JEV descartado por costo opaco** |
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
-| T2.1 | El paper de medición | ⬜ |
+| T2.1 | El paper | 🚧 **borrador escrito, falta revisión y publicar el repo** |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
 decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
@@ -146,7 +146,7 @@ redirigir, y creó una **barra azul** de sitio oficial.
 
 Detalle en [`doc/04-LISTA-GOB-CL.md`](doc/04-LISTA-GOB-CL.md).
 
-## ⬜ T0.8 — ¿Qué expone la API pública de ANCI?
+## ✅ T0.8 — ¿Qué expone la API pública de ANCI?
 
 La ANCI publica una **API Pública de Ciberseguridad** (`https://anci.gob.cl/api/v1/docs`, espejo en
 `csirt.gob.cl/api/v1/docs`). La documentación **no carga sin JavaScript**, así que hoy no se sabe qué
@@ -241,18 +241,6 @@ dominio **sí** es sólido (T0.5): depende de una restricción de registro que e
 > **El ancla está bien puesta y el letrero está suelto.**
 
 Detalle en [`doc/05-BARRA-AZUL.md`](doc/05-BARRA-AZUL.md).
-
-## ⬜ T0.7 — Medir cuánto se usa mal la barra
-
-**Convierte "es falsificable en teoría" en "N sitios la usan sin ser del Estado".** Un número, no un
-argumento.
-
-- **Método:** rastrear la web chilena buscando el recurso de la barra incrustado, y contar por dominio.
-- **Criterio de aceptación:** el número, y la lista de dominios no oficiales que la muestran.
-- **Ética:** no se construye ningún sitio de phishing. Solo se observan sitios existentes, sin
-  interactuar con usuarios ni recoger datos personales. Lo que se encuentre va primero a la ANCI.
-- **Riesgo:** que casi nadie la use mal, en cuyo caso la barra es inofensiva y el hallazgo pierde
-  fuerza — pero **eso también es un resultado**.
 
 ## 📌 Decisión de canal — el mensaje, no el navegador
 
@@ -868,7 +856,7 @@ sirve **por OpenRouter**, y su identificador verificado es **`typesafe/jev-route
 modelo que marque «nunca le pediremos su clave» no se usa: marcaría los mensajes que enseñan a la
 gente a cuidarse.
 
-## 🚧 T4.8 — El primer enfrentamiento, y un falso aprobado
+## ✅ T4.8 — El primer enfrentamiento, y un falso aprobado
 
 ```
 extractor                          falsas alarmas  aciertos   veredicto
