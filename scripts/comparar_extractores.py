@@ -147,10 +147,16 @@ def main() -> None:
         envuelto = CacheDeExtraccion(extractor)
         falso, _ = probar_sondas(envuelto)
         aciertos, total = probar_corpus(envuelto, muestra)
-        juicio = "PASA" if falso == 0 else "no sirve"
+        fallos = getattr(extractor, "fallos", 0)
+        if fallos:
+            juicio = f"NO VERIFICABLE ({fallos} llamadas fallidas)"
+        elif falso == 0:
+            juicio = "PASA"
+        else:
+            juicio = "no sirve"
         print(f"{nombre:34} {falso} de {len(SONDAS):<12} {aciertos}/{total:<8} {juicio}")
         if falso:
-            for frase in probar_sondas(envuelto)[1]:
+            for frase in ([] if fallos else probar_sondas(envuelto)[1]):
                 print(f"    marca: {frase[:70]}")
         time.sleep(0.5)
 

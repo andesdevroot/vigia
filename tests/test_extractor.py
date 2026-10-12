@@ -188,3 +188,25 @@ def test_la_cache_no_guarda_el_texto() -> None:
         assert texto not in clave
         assert "clave" not in clave
         assert len(clave) == 64  # sha256 en hexadecimal
+
+
+def test_un_proveedor_caido_no_parece_un_modelo_perfecto() -> None:
+    """Sin el contador, un 401 daría **cero falsas alarmas** y el modelo parecería intachable.
+
+    Pasó de verdad: el comparador informó «JEV PASA» mientras todas sus llamadas devolvían 401. Una
+    petición vacía se ve igual que un modelo que no encontró nada.
+    """
+    def abrir(peticion: Any) -> Any:
+        raise TimeoutError
+
+    extractor = ExtractorLLM("https://x.invalid/v1", "k", "m", abrir=abrir)
+    assert extractor.fallos == 0
+    extractor.extraer("deposite en la cuenta 12345678", "BancoEstado")
+    extractor.extraer("otra cosa", "BancoEstado")
+    assert extractor.fallos == 2
+
+
+def test_una_respuesta_que_no_se_entiende_cuenta_como_fallo() -> None:
+    extractor = ExtractorLLM("https://x.invalid/v1", "k", "m", abrir=lambda p: b"no soy json")
+    extractor.extraer("hola", None)
+    assert extractor.fallos == 1

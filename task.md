@@ -40,7 +40,7 @@ código.
 | T4.7 | Cosechar hasta 1.500 | ✅ **no se puede: el techo es ~400, y está medido** |
 | T4.4 | Extractor de la petición + regla (opción C) | ✅ **regla lista; el baseline no sirve, y está medido** |
 | T4.5 | Extractor con modelo, redacción y caché | ✅ **sin red en los tests; la privacidad, resuelta a medias** |
-| T4.8 | Enfrentar DeepSeek y JEV contra la vara | ⬜ **espera las claves en `.env`** |
+| T4.8 | Enfrentar DeepSeek y JEV contra la vara | 🚧 **DeepSeek PASA; el key de JEV no sirve** |
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
@@ -823,6 +823,40 @@ sirve **por OpenRouter**, y su identificador verificado es **`typesafe/jev-route
 **Regla de aceptación: el modelo tiene que dejar las falsas alarmas en 0 sobre esas 6 frases.** Un
 modelo que marque «nunca le pediremos su clave» no se usa: marcaría los mensajes que enseñan a la
 gente a cuidarse.
+
+## 🚧 T4.8 — El primer enfrentamiento, y un falso aprobado
+
+```
+extractor                          falsas alarmas  aciertos   veredicto
+------------------------------------------------------------------------------
+referencia (sin modelo)            3 de 6            2/40       no sirve
+DeepSeek deepseek-chat             0 de 6            1/40       PASA
+JEV typesafe/jev-router            0 de 6            0/40       NO VERIFICABLE (31 fallidas)
+```
+
+**DeepSeek entiende la negación**: deja las 6 sondas en **0 falsas alarmas**, contra las 3 del
+extractor de referencia. Es el argumento medido a favor del modelo, cumplido.
+
+**JEV no es verificable**: su clave no es de OpenRouter —empieza con `apikey_` y las de OpenRouter
+empiezan con `sk-or-v1-`— así que 31 de 40 llamadas devolvieron 401. Su `0 de 6` **no significa nada**.
+
+### Y el instrumento tenía el mismo defecto que medía
+
+Informó **«JEV PASA»** mientras todas sus llamadas fallaban: **una petición vacía se ve igual que un
+modelo que no encontró nada.** Un proveedor caído daba cero falsas alarmas y parecía intachable.
+
+Se agregó un **contador de fallos**, y ahora un modelo con llamadas fallidas sale **«NO VERIFICABLE»**
+en vez de aprobado. Hay un test que lo fija con el caso exacto que ocurrió.
+
+> **Tercera vez hoy que un fallo se disfraza de éxito.** Las otras dos: los «124 tests» y las «378
+> alertas `acf` perdidas».
+
+### Y la sensibilidad está mal medida, declarado
+
+El `aciertos` mide el veredicto final, que exige que **además** se reconozca el reclamo. Y el corpus
+del CSIRT es mayormente de **pinchar un enlace** —que no es una petición indebida—, así que mide otra
+cosa. **La vara es la métrica válida; la sensibilidad hay que rediseñarla** midiendo la extracción
+contra etiquetas hechas a mano.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

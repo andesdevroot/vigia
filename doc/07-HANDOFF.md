@@ -7,7 +7,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **Medir si el modelo le gana al baseline**: necesita credenciales de DeepSeek o de JEV. Después, `T2.1` (el paper) |
+| Tarea en curso | **Arreglar la clave de OpenRouter para verificar JEV**, y rediseñar la métrica de sensibilidad. Después, `T2.1` (el paper) |
 | Después | `T4.2` índice de IoC · `T4.3` control invertido · `T4.4` extractor de la petición + regla |
 | Medido | **Cobertura 99,7 %** (342 estafas: 239 confirmadas, 70 %) y **precisión: 0 falsas acusaciones de 211** (`T4.3`). Ver `doc/12-MEDICION.md` |
 | Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |
@@ -16,7 +16,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
 | Datos | `corpus/alertas_csirt.json` (45) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
-| Tests | **188 casos verdes** (179 funciones), 1 de integración, sin red, en un segundo |
+| Tests | **190 casos verdes** (181 funciones), 1 de integración, sin red, en un segundo |
 | Requisitos | **129 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
@@ -40,6 +40,9 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|---|
+| 2026-10-11 | **DeepSeek entiende la negación y pasa la vara: 0 falsas alarmas de 6.** El extractor de referencia marca 3. Es el argumento medido a favor del modelo, cumplido |
+| 2026-10-11 | **Un proveedor caído parecía un modelo perfecto.** El comparador informó «JEV PASA» mientras **31 de 40 llamadas** devolvían 401: una petición vacía se ve igual que un modelo que no encontró nada. **Se agregó un contador de fallos** y ahora un modelo con llamadas fallidas sale «NO VERIFICABLE», con un test que fija el caso exacto. **Tercera vez hoy que un fallo se disfraza de éxito** |
+| 2026-10-11 | **La métrica de sensibilidad está mal diseñada, y se declara.** Mide el veredicto final, que exige además reconocer el reclamo, y el corpus del CSIRT es mayormente de pinchar un enlace —que **no** es una petición indebida—. **La vara es la métrica válida**; la sensibilidad hay que rediseñarla contra etiquetas a mano |---|
 | 2026-10-11 | **«Caché y se borra» no alcanza para la privacidad: el problema no es nuestra copia, es la transmisión.** Se resuelve **redactando antes de mandar** —el modelo necesita la petición, no el mensaje— y el enlace también se tapa, así el dominio malicioso no sale. **La caché guarda el resultado, no el texto**: `hash → extracción`, y una campaña de diez mil mensajes se transmite una vez |
 | 2026-10-11 | **El vocabulario del extractor es cerrado, y por eso un modelo puede llenarlo sin romper la auditabilidad.** Lo que no esté en la lista se descarta: el modelo **no puede inventar una categoría**. Y si el proveedor falla, la petición sale **vacía**: un error de red no acusa a nadie |
 | 2026-10-11 | **Los modelos se eligen midiendo, no por gusto.** Una sola implementación compatible con OpenAI sirve para DeepSeek y para JEV; enfrentarlos es cambiar dos valores. **La vara son las 6 sondas de `peticion.SONDAS`**, donde el extractor de referencia marca 3 mal |---|

@@ -120,6 +120,13 @@ class ExtractorLLM:
         self._api_key = api_key
         self._modelo = modelo
         self._abrir: Abridor = abrir or _abrir_con_limite
+        self.fallos = 0
+        """Cuántas veces no se pudo extraer. **Se cuenta a propósito.**
+
+        Una llamada que falla devuelve una petición vacía, y una petición vacía se ve igual que un
+        modelo que no encontró nada: **un proveedor caído daría cero falsas alarmas y parecería
+        perfecto**. Pasó, y por eso el contador existe.
+        """
 
     def construir_peticion(self, texto: str) -> urllib.request.Request:
         """La petición HTTP, con **el texto redactado**. Separada para poder comprobarla sin red."""
@@ -142,8 +149,13 @@ class ExtractorLLM:
         try:
             crudo = self._abrir(self.construir_peticion(texto))
         except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, ValueError):
+            self.fallos += 1
             return Peticion(dice_ser=dice_ser, pide=())
-        return self.leer(crudo, dice_ser) or Peticion(dice_ser=dice_ser, pide=())
+        leida = self.leer(crudo, dice_ser)
+        if leida is None:
+            self.fallos += 1
+            return Peticion(dice_ser=dice_ser, pide=())
+        return leida
 
     @staticmethod
     def leer(crudo: object, dice_ser: str | None) -> Peticion | None:
