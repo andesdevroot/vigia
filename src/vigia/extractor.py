@@ -39,7 +39,7 @@ from typing import Any, Protocol
 from vigia.peticion import Peticion, PeticionDe
 from vigia.redaccion import redactar
 
-TIEMPO_LIMITE_S = 20
+TIEMPO_LIMITE_S = 45
 
 INSTRUCCION = (
     "Eres un extractor de datos. Recibes el texto de un mensaje que alguien reenvió porque le "
@@ -121,6 +121,7 @@ class ExtractorLLM:
         self._modelo = modelo
         self._abrir: Abridor = abrir or _abrir_con_limite
         self.fallos = 0
+        self.ultimo_error: str | None = None
         """Cuántas veces no se pudo extraer. **Se cuenta a propósito.**
 
         Una llamada que falla devuelve una petición vacía, y una petición vacía se ve igual que un
@@ -148,12 +149,18 @@ class ExtractorLLM:
         """Extrae la petición. Si algo falla devuelve una **vacía**, que no acusa a nadie."""
         try:
             crudo = self._abrir(self.construir_peticion(texto))
-        except (urllib.error.HTTPError, urllib.error.URLError, TimeoutError, ValueError):
+        except urllib.error.HTTPError as error:
             self.fallos += 1
+            self.ultimo_error = f"HTTP {error.code}"
+            return Peticion(dice_ser=dice_ser, pide=())
+        except (urllib.error.URLError, TimeoutError, ValueError) as error:
+            self.fallos += 1
+            self.ultimo_error = type(error).__name__
             return Peticion(dice_ser=dice_ser, pide=())
         leida = self.leer(crudo, dice_ser)
         if leida is None:
             self.fallos += 1
+            self.ultimo_error = "respuesta ilegible"
             return Peticion(dice_ser=dice_ser, pide=())
         return leida
 

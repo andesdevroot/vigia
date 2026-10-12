@@ -48,6 +48,9 @@ from vigia.peticion import (  # noqa: E402
 )
 
 CORPUS = RAIZ / "corpus" / "alertas_csirt.json"
+PAUSA_ENTRE_LLAMADAS_S = 1.0
+"""Una pausa entre llamadas. Sin ella, **27 de 40 fallaron** contra OpenRouter: la primera
+corrida se hizo sin pausa y el resultado no era del modelo sino del ritmo."""
 
 
 class ExtractorDeReferencia:
@@ -125,6 +128,7 @@ def probar_corpus(extractor: Extractor, muestra: int) -> tuple[int, int]:
             Veredicto.PIDE_LO_INDEBIDO
         ):
             acertadas += 1
+        time.sleep(PAUSA_ENTRE_LLAMADAS_S)
     return acertadas, len(ejemplos)
 
 
@@ -149,7 +153,8 @@ def main() -> None:
         aciertos, total = probar_corpus(envuelto, muestra)
         fallos = getattr(extractor, "fallos", 0)
         if fallos:
-            juicio = f"NO VERIFICABLE ({fallos} llamadas fallidas)"
+            motivo = getattr(extractor, "ultimo_error", None)
+            juicio = f"NO VERIFICABLE ({fallos} fallidas: {motivo})"
         elif falso == 0:
             juicio = "PASA"
         else:
