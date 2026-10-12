@@ -285,6 +285,15 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-266 | El texto escrito **gana** sobre la imagen | `test_el_texto_escrito_gana_sobre_la_imagen` |
 | REQ-267 | La imagen trae el OCR, y con el idioma | `test_la_imagen_trae_el_ocr` |
 
+## 21. La integracion continua
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-270 | Hay CI | `test_hay_ci` |
+| REQ-271 | **La CI corre el mismo `gate.sh`**, no una copia de sus pasos | `test_la_ci_corre_el_mismo_gate_que_uno_a_mano` |
+| REQ-272 | Corre en cada push y en cada pull request | `test_la_ci_corre_en_cada_push_y_en_cada_pr` |
+| REQ-273 | **La CI construye la imagen y la levanta** | `test_la_ci_construye_la_imagen_y_la_levanta` |
+
 ## 17. La arquitectura
 
 | # | Requisito | Test |

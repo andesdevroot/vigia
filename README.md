@@ -1,5 +1,7 @@
 # vigia
 
+[![gate](https://github.com/andesdevroot/vigia/actions/workflows/gate.yml/badge.svg)](https://github.com/andesdevroot/vigia/actions/workflows/gate.yml)
+
 **Verificador ciudadano de mensajes reenviados, por WhatsApp.**
 
 El ciudadano reenvía un mensaje sospechoso y recibe, en **1–3 segundos**, un veredicto sobre su

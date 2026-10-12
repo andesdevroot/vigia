@@ -142,3 +142,49 @@ def test_la_imagen_trae_el_ocr() -> None:
     texto = _instrucciones()
     assert "tesseract-ocr" in texto, "sin OCR la captura vuelve a ser un callejón sin salida"
     assert "tesseract-ocr-spa" in texto, "sin el idioma, el OCR inventa palabras"
+
+
+def _flujo() -> str:
+    """El archivo de CI, sin comentarios. Igual que con el Dockerfile: se revisan las
+    instrucciones, no la prosa."""
+    ruta = RAIZ / ".github" / "workflows" / "gate.yml"
+    lineas = ruta.read_text(encoding="utf-8").splitlines()
+    return "\n".join(linea for linea in lineas if not linea.lstrip().startswith("#"))
+
+
+def test_hay_ci() -> None:
+    """**Un repositorio público sin CI no demuestra nada a quien llega.**
+
+    La insignia verde no existe, y la sección de reproducibilidad del paper queda en una promesa.
+    """
+    assert (RAIZ / ".github" / "workflows" / "gate.yml").is_file()
+
+
+def test_la_ci_corre_el_mismo_gate_que_uno_a_mano() -> None:
+    """**No una versión parecida: el mismo comando.**
+
+    Si la CI corriera los pasos por su cuenta, podría quedar en verde mientras `./gate.sh` está en
+    rojo — que es la peor clase de verde.
+    """
+    assert "./gate.sh" in _flujo()
+
+
+def test_la_ci_corre_en_cada_push_y_en_cada_pr() -> None:
+    flujo = _flujo()
+    assert "push" in flujo
+    assert "pull_request" in flujo
+
+
+def test_la_ci_construye_la_imagen_y_la_levanta() -> None:
+    """**Es el único modo de saber que la imagen construye.**
+
+    No hay docker en la máquina de desarrollo, así que el primer build real lo hace la CI. Si no lo
+    hace nadie, el primer despliegue es la sorpresa — y con `tesseract-ocr` recién agregado, hay
+    bastante que puede salir mal.
+
+    Y no alcanza con que construya: **tiene que levantar y contestar el chequeo de salud**.
+    """
+    flujo = _flujo()
+    assert "docker build" in flujo, "la CI tiene que construir la imagen"
+    assert "docker run" in flujo, "construir no basta: tiene que levantar"
+    assert "8000" in flujo, "y contestar en el puerto del servidor"

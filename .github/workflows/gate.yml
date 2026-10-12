@@ -1,0 +1,78 @@
+# El gate, en cada push y en cada pull request.
+#
+# **Corre el mismo `./gate.sh` que uno corre a mano**, no una copia de sus pasos. Si la CI tuviera su
+# propia lista, podría quedar en verde mientras el gate local está en rojo: la peor clase de verde.
+#
+# Y construye la imagen, porque **es el único lugar donde eso se puede probar**. No hay docker en la
+# máquina de desarrollo, y con `tesseract-ocr` recién agregado hay bastante que puede salir mal.
+
+name: gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  # Para poder lanzarlo a mano desde la interfaz, sin empujar nada.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  gate:
+    name: pytest, ruff y mypy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # `uv` es lo que usa `gate.sh`. Se instala la misma versión que en desarrollo para que el
+      # resultado no dependa de cuál traía la imagen de CI.
+      - uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: El gate
+        run: ./gate.sh
+
+  imagen:
+    name: la imagen construye y levanta
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Construir
+        run: docker build -t vigia .
+
+      # **Construir no basta.** Una imagen que compila pero no arranca pasa todos los tests y no
+      # sirve para nada. Acá se levanta de verdad y se le pregunta si está viva.
+      #
+      # Las claves son de mentira y alcanzan: el chequeo de salud no toca ni Kapso ni DeepSeek.
+      - name: Levantar y preguntarle si está viva
+        run: |
+          set -euo pipefail
+          docker run --detach --name vigia \
+            --env VIGIA_WEBHOOK_SECRET=de-prueba \
+            --env KAPSO_API_KEY=de-prueba \
+            --publish 8000:8000 \
+            vigia
+
+          for intento in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8000/ > /dev/null; then
+              break
+            fi
+            sleep 1
+          done
+
+          respuesta=$(curl --fail --silent http://127.0.0.1:8000/)
+          echo "el chequeo de salud dijo: $respuesta"
+          echo "$respuesta" | grep --quiet '"ok": true'
+
+      - name: Los registros, si algo salió mal
+        if: failure()
+        run: docker logs vigia || true
+
+      - name: Levantar el OCR, que es lo único que la imagen instala
+        run: |
+          set -euo pipefail
+          docker run --rm --entrypoint tesseract vigia --version
+          docker run --rm --entrypoint sh vigia -c 'tesseract --list-langs | grep --quiet spa'

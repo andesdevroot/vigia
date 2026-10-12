@@ -49,7 +49,7 @@ código.
 | T5.1 | Desplegar | ✅ **imagen, salud, puerto y guía; falta subirlo** |
 | T5.2 | Imágenes por OCR local | ✅ **lee capturas; los audios ya venían transcritos** |
 | T5.3 | Refresco del índice | ⬜ **se pudre en silencio** |
-| T5.4 | CI en GitHub Actions | ⬜ media hora |
+| T5.4 | CI en GitHub Actions | ✅ **gate + build de la imagen, y el OCR verificado** |
 | T5.5 | Saber si el robot está vivo | ⬜ |
 | T5.6 | El hueco de privacidad del transporte | ⬜ antes de arXiv |
 
@@ -1210,13 +1210,20 @@ demás.
 | Y una decisión | **Cada cuánto.** Sin medirlo, cualquier cadencia es una corazonada |
 | **Y es publicable** | **¿Cuál es la vida media de un índice de fraude publicado por el Estado?** Nadie lo ha medido. Es una medición nueva, y barata |
 
-### ⬜ T5.4 — No hay CI, y el repositorio es público
+### ✅ T5.4 — CI: el gate, y la imagen construyendo de verdad
 
-`gate.sh` corre en la máquina del autor. **Un repositorio público sin CI no demuestra nada** a quien
-llega: la insignia verde no existe.
+`.github/workflows/gate.yml`, con **dos trabajos** y una decisión en cada uno:
 
-Falta un workflow de GitHub Actions que corra pytest + ruff + mypy en cada push. **Es media hora**, y
-es lo que hace creíble la sección de reproducibilidad del paper.
+| Trabajo | Qué hace | Por qué así |
+|---|---|---|
+| **`gate`** | Corre **`./gate.sh`** | **No una copia de sus pasos.** Si la CI tuviera su propia lista, podría quedar en verde mientras el gate local está en rojo: la peor clase de verde |
+| **`imagen`** | `docker build`, **levantar el contenedor**, pedirle el chequeo de salud, y comprobar que el OCR trae el castellano | **Es el único lugar donde eso se puede probar.** No hay docker en la máquina de desarrollo |
+
+> **Construir no basta.** Una imagen que compila pero no arranca pasa todos los tests y no sirve para nada. El trabajo levanta el contenedor de verdad y le pregunta si está viva.
+
+**Y cierra el hueco del OCR:** yo lo probé con un ejecutor falso, porque Tesseract no está instalado acá. La CI corre `tesseract --version` **dentro de la imagen** y comprueba que el idioma `spa` esté. **Esa es la primera verificación real del OCR.**
+
+**4 requisitos nuevos** (REQ-270 a REQ-273).
 
 ### ⬜ T5.5 — No se sabe si el robot está vivo
 

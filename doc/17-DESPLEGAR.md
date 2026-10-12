@@ -127,6 +127,19 @@ sin el paquete `-spa`, el OCR de un mensaje chileno inventa palabras.
 
 **Y la captura no sale del contenedor.** Corre local, por la entrada estándar, y nunca toca el disco.
 
+## La CI construye la imagen antes de que la subas
+
+`.github/workflows/gate.yml` tiene un trabajo que hace `docker build`, **levanta el contenedor** y le pide el chequeo de salud. Es el único lugar donde eso se puede probar: no hay docker en la máquina de desarrollo.
+
+**Y comprueba el OCR**, que es lo único que la imagen instala:
+
+```bash
+docker run --rm --entrypoint tesseract vigia --version
+docker run --rm --entrypoint sh vigia -c 'tesseract --list-langs | grep -q spa'
+```
+
+Si algo de eso falla, **te enteras antes de desplegar**, no en el primer `fly deploy`.
+
 ## Lo que sigue faltando
 
 **`T5.5`: saber si está vivo de verdad.** El chequeo de salud dice que el proceso responde, no que los
