@@ -25,7 +25,7 @@ Código **Apache-2.0** · corpus, índice y documentación **CC BY 4.0**.
 
 | | |
 |---|---|
-| **Paper** | [`paper/vigia-draft.md`](paper/vigia-draft.md) — borrador, cs.SE |
+| **Paper** | *The scam is in the ask, not the link* — preprint en preparación, cs.SE. **No está en este repositorio a propósito**: el paper vive en arXiv, y acá va el artefacto |
 | **Requisitos** | [`spec.md`](spec.md) — 138 numerados, cada uno con el test que lo verifica |
 | **Medición** | [`doc/12-MEDICION.md`](doc/12-MEDICION.md) |
 | **Handoff** | [`doc/07-HANDOFF.md`](doc/07-HANDOFF.md) |

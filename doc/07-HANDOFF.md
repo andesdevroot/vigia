@@ -7,7 +7,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **`T2.1` — el paper. Borrador escrito** (`paper/vigia-draft.md`, 5.084 palabras, inglés). Falta revisión del autor y publicar el repo |
+| Tarea en curso | **`T2.1` — el paper. Borrador escrito** (el borrador (en `.privado/`, fuera del repositorio), 5.084 palabras, inglés). Falta revisión del autor y publicar el repo |
 | Después | Cerrar `T2.1`: revisión del autor, sensibilidad rediseñada, y **publicar el repositorio** (sin él no hay reproducibilidad) |
 | Medido | **Cobertura 99,7 %** (342 estafas: 239 confirmadas, 70 %) y **precisión: 0 falsas acusaciones de 211** (`T4.3`). Ver `doc/12-MEDICION.md` |
 | Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |

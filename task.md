@@ -174,9 +174,19 @@ nada que clasificar.*
 
 | | |
 |---|---|
-| **[`paper/vigia-draft.md`](paper/vigia-draft.md)** | El que se envía. **5.084 palabras**, inglés, cs.SE |
-| **[`paper/vigia-borrador-es.md`](paper/vigia-borrador-es.md)** | **5.427 palabras**, para leer y corregir. No es traducción literal: está escrito en el registro en que el proyecto piensa |
-| **[`paper/analisis-estilo.md`](paper/analisis-estilo.md)** | El patrón de escritura del autor, medido sobre 51 repos: 30.224 palabras, 16 archivos, **71 de 71 citas verificadas** |
+| **`vigia-draft.md`** | El que se envía. **5.084 palabras**, inglés, cs.SE |
+| **`vigia-borrador-es.md`** | **5.427 palabras**, para leer y corregir. No es traducción literal: está escrito en el registro en que el proyecto piensa |
+| **`analisis-estilo.md`** | El patrón de escritura del autor, medido sobre 51 repos: 30.224 palabras, 16 archivos, **71 de 71 citas verificadas** |
+
+> **Los tres viven en `.privado/`, fuera del control de versiones, y no en el repositorio público.**
+>
+> El paper **no va en el repositorio**, y es a propósito: hasta que esté en arXiv no hay versión
+> canónica, y un borrador público es citable y ambiguo. El lugar del paper es arXiv; el lugar del
+> repositorio es el artefacto. Cuando el preprint exista, el README apunta ahí.
+>
+> Y `analisis-estilo.md` **no puede ser público**: es un documento sobre el autor, no sobre el
+> proyecto, y una guía para escribir con su voz al lado de un paper se lee como un manual para que un
+> texto generado pase por humano. **Cero beneficio, riesgo reputacional real.**
 
 Escritos contra el molde de `doc/08-PAPER.md` de `rasante` —el borrador de paper del propio autor, con
 teoremas numerados y `∎`— y contra sus reglas medidas: **cero `sin embargo`**, **cero `en cambio`**,

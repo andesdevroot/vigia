@@ -15,3 +15,7 @@ conteo.json
 
 # Descargas crudas de los cosechadores.
 .tmp-*
+
+# Trabajo en curso: el paper, y notas que no van al repositorio publico.
+# El paper vive en arXiv; aca quedan los borradores mientras se escribe.
+.privado/
