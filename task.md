@@ -40,6 +40,7 @@ código.
 | T4.7 | Cosechar hasta 1.500 | ✅ **no se puede: el techo es ~400, y está medido** |
 | T4.4 | Extractor de la petición + regla (opción C) | ✅ **regla lista; el baseline no sirve, y está medido** |
 | T4.5 | Extractor con modelo, redacción y caché | ✅ **sin red en los tests; la privacidad, resuelta a medias** |
+| T4.8 | Enfrentar DeepSeek y JEV contra la vara | ⬜ **espera las claves en `.env`** |
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
@@ -805,6 +806,23 @@ mantiene auditable un extractor llenado por un modelo.
 **Medir si el modelo le gana al baseline.** Tiene que superar las 6 sondas de `peticion.SONDAS`, y hoy
 el extractor de referencia marca 3 mal —las tres con negación—. Eso necesita credenciales de DeepSeek
 o de JEV, y hay que decidir cuál se usa **midiendo**, no por gusto.
+
+## ⬜ T4.8 — Enfrentar DeepSeek y JEV contra la vara
+
+`scripts/comparar_extractores.py`: mide **falsas alarmas sobre las 6 sondas** y **sensibilidad sobre
+una muestra del corpus**, y dice cuál gana. **Sin claves corre igual**, y muestra el baseline solo.
+
+```bash
+cp .env.example .env      # y pega ahí las claves
+python3 -u scripts/comparar_extractores.py
+```
+
+Las variables están en `.env.example`: `DEEPSEEK_API_KEY` (API directa) y `OPENROUTER_API_KEY` (JEV se
+sirve **por OpenRouter**, y su identificador verificado es **`typesafe/jev-router`**, no `jev-1.13`).
+
+**Regla de aceptación: el modelo tiene que dejar las falsas alarmas en 0 sobre esas 6 frases.** Un
+modelo que marque «nunca le pediremos su clave» no se usa: marcaría los mensajes que enseñan a la
+gente a cuidarse.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 
