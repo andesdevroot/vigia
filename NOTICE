@@ -1,0 +1,17 @@
+vigia
+Copyright 2026 Cesar Rivas
+
+Este producto incluye software desarrollado por Cesar Rivas
+(https://github.com/andesdevroot).
+
+El código se distribuye bajo la Licencia Apache, Version 2.0 (ver LICENSE).
+El corpus, el índice y la documentación se distribuyen bajo Creative Commons
+Attribution 4.0 International (ver LICENSE-CORPUS).
+
+Los datos de alertas provienen del CSIRT Nacional de Chile
+(https://csirt.gob.cl), que los publica abiertamente. La lista de TLD proviene
+de la IANA (https://www.iana.org/domains/root/db). Los catálogos de
+instituciones se verificaron contra certificados TLS emitidos publicamente.
+
+This product includes software developed by Cesar Rivas
+(https://github.com/andesdevroot).
