@@ -223,6 +223,12 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-210 | Un mensaje sin enlace que pide la clave **ya no queda mudo** en el robot | `test_un_mensaje_sin_enlace_que_pide_la_clave_ya_no_queda_mudo` |
 | REQ-211 | **Sin extractor el motor se comporta como antes** | `test_sin_extractor_el_motor_se_comporta_como_antes` |
 | REQ-212 | El proveedor caído se declara y no parece perfecto | `test_un_proveedor_caido_no_parece_un_modelo_perfecto` |
+| REQ-213 | **La petición nunca tapa lo que dice el enlace** | `test_la_peticion_nunca_tapa_lo_que_dice_el_enlace` |
+| REQ-214 | La petición solo decide cuando **no hay enlace** que juzgar | `test_la_peticion_sigue_decidiendo_cuando_no_hay_enlace` |
+| REQ-215 | **Lo que pide se dice en castellano**, no en el vocabulario del modelo | `test_lo_que_pide_se_dice_en_castellano` |
+| REQ-216 | Con una sola cosa no se pone la conjunción | `test_con_una_sola_cosa_no_se_pone_la_conjuncion` |
+| REQ-217 | Con tres, la conjunción va antes de la última | `test_con_tres_cosas_la_conjuncion_va_antes_de_la_ultima` |
+| REQ-218 | Sin petición indebida no se agrega nada | `test_sin_peticion_indebida_no_dice_nada` |
 
 ## 17. La arquitectura
 

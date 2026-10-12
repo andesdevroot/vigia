@@ -16,8 +16,8 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` · `peticion` · `extractor` · `redaccion` · `indicadores` |
 | Datos | `corpus/alertas_csirt.json` (342) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
-| Tests | **192 casos verdes** (183 funciones), 1 de integración, sin red, en un segundo |
-| Requisitos | **132 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
+| Tests | **198 casos verdes** (189 funciones), 1 de integración, sin red, en un segundo |
+| Requisitos | **138 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 

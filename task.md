@@ -887,6 +887,39 @@ En las 342 estafas, **28 no traen enlace** (`avisa`) y una más queda muda. Hast
 `SIN_ENLACES`. Con el extractor conectado pasan a tener veredicto —**si piden algo indebido**—, que es
 exactamente la brecha que `T4.4` declaró y no podía cerrar sola.
 
+
+### Y el cableado destapó una regresión que ningún test unitario veía
+
+Al conectar el extractor, **74 de las 342 estafas del CSIRT** (el 22 % que **nombra** a la
+institución) cambiaron su veredicto de enlace por `PIDE_LO_INDEBIDO`. El ciudadano dejaba de
+enterarse de que **el enlace era falso** — el dato más accionable. La cascada ponía la petición antes
+que los enlaces.
+
+```
+antes del arreglo                antes  despues
+  no_coincide                       74        0     <- tapados
+  pide_lo_indebido                   0       74
+después del arreglo
+  no_coincide                       74       74     <- intactos
+  veredictos de enlace tapados:      0
+```
+
+**El arreglo es de una línea de diseño: la petición se *suma*, no reemplaza.** Y la regla queda
+escrita: *un enlace malo no se lava porque el mensaje además pida algo, y una petición indebida no se
+lava porque el enlace sea oficial*. El veredicto `PIDE_LO_INDEBIDO` queda para el mensaje **sin
+enlace**, que es exactamente lo que el enlace no puede cubrir.
+
+Lo encontró la medición, no un test: **los 198 tests estaban verdes con la regresión dentro**.
+
+### Y el texto que lee el ciudadano decía `datos_personales`
+
+El vocabulario cerrado es para el modelo; la respuesta la lee una persona. Ahora dice **«pide su clave
+y sus datos personales»**. La respuesta completa, medida contra DeepSeek:
+
+> El mensaje dice ser de BancoEstado y el enlace bancoestado-chile-login.xyz no es de BancoEstado. El
+> enlace se parece a BancoEstado. **Y además pide sus datos personales**: ninguna institución pide su
+> clave, sus datos personales ni una transferencia por mensaje.
+
 ### Verificado sin red
 
 `tests/test_servidor.py` usa un `ExtractorFalso` con la petición inyectada: **un test fija que el

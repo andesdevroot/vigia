@@ -53,6 +53,25 @@ normal en un aviso legítimo. **Marcarlas sería convertir la herramienta en una
 """
 
 
+COMO_SE_DICE: dict[PeticionDe, str] = {
+    PeticionDe.CLAVE: "su clave",
+    PeticionDe.DATOS_PERSONALES: "sus datos personales",
+    PeticionDe.TRANSFERENCIA: "una transferencia",
+    PeticionDe.LLAMAR: "que llame a un teléfono",
+    PeticionDe.PINCHAR: "que pinche un enlace",
+    PeticionDe.RESPONDER: "que responda el mensaje",
+}
+
+
+def _enumerar(cosas: list[str]) -> str:
+    """`[a]` → `a`; `[a, b]` → `a y b`; `[a, b, c]` → `a, b y c`. Sin coma de Oxford, en Chile."""
+    if not cosas:
+        return ""
+    if len(cosas) == 1:
+        return cosas[0]
+    return ", ".join(cosas[:-1]) + " y " + cosas[-1]
+
+
 @dataclass(frozen=True, slots=True)
 class Peticion:
     """Lo que el mensaje pide, extraído. **No es un veredicto**: es la entrada de la regla."""
@@ -64,6 +83,11 @@ class Peticion:
     def lo_indebido(self) -> tuple[PeticionDe, ...]:
         """De lo que pide, lo que ninguna institución pediría."""
         return tuple(que for que in self.pide if que in PIDE_LO_INDEBIDO)
+
+    def lo_indebido_en_castellano(self) -> str:
+        """Lo mismo, como se le dice a una persona. **El vocabulario es para el modelo, no para
+        el ciudadano**: `datos_personales` no es una frase que alguien lea."""
+        return _enumerar([COMO_SE_DICE[que] for que in self.lo_indebido()])
 
 
 def es_peticion_indebida(peticion: Peticion | None) -> bool:

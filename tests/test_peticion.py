@@ -164,3 +164,34 @@ def test_las_sondas_son_frases_que_una_institucion_escribiria() -> None:
     assert len(SONDAS) >= 6
     for frase in SONDAS:
         assert frase.endswith("."), frase
+
+
+def test_lo_que_pide_se_dice_en_castellano() -> None:
+    """La explicación la lee una persona, no un programa.
+
+    «su clave y sus datos personales» se lee; `datos_personales` es un token del vocabulario.
+    """
+    peticion = Peticion(
+        dice_ser="BancoEstado", pide=(PeticionDe.CLAVE, PeticionDe.DATOS_PERSONALES)
+    )
+    assert peticion.lo_indebido_en_castellano() == "su clave y sus datos personales"
+
+
+def test_con_una_sola_cosa_no_se_pone_la_conjuncion() -> None:
+    peticion = Peticion(dice_ser="ClaveÚnica", pide=(PeticionDe.CLAVE,))
+    assert peticion.lo_indebido_en_castellano() == "su clave"
+
+
+def test_con_tres_cosas_la_conjuncion_va_antes_de_la_ultima() -> None:
+    peticion = Peticion(
+        dice_ser="BancoEstado",
+        pide=(PeticionDe.CLAVE, PeticionDe.DATOS_PERSONALES, PeticionDe.TRANSFERENCIA),
+    )
+    assert peticion.lo_indebido_en_castellano() == (
+        "su clave, sus datos personales y una transferencia"
+    )
+
+
+def test_sin_peticion_indebida_no_dice_nada() -> None:
+    peticion = Peticion(dice_ser="BancoEstado", pide=(PeticionDe.PINCHAR,))
+    assert peticion.lo_indebido_en_castellano() == ""

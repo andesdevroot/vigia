@@ -315,7 +315,7 @@ def _sospechas(
     return partes
 
 
-def _explicar(
+def _explicar_base(
     veredicto: Veredicto,
     enlaces: tuple[Enlace, ...],
     suplantaciones: tuple[Coincidencia, ...],
@@ -332,7 +332,7 @@ def _explicar(
 
     if veredicto is Veredicto.PIDE_LO_INDEBIDO and peticion is not None:
         quien = ", ".join(reclamadas) or (peticion.dice_ser or "una institución")
-        indebido = ", ".join(peticion.lo_indebido())
+        indebido = peticion.lo_indebido_en_castellano()
         return (
             f"Este mensaje dice ser de {quien} y pide {indebido}. "
             "Ninguna institución pide su clave, sus datos personales ni una transferencia por "
@@ -423,12 +423,14 @@ def evaluar(
         # Lo más fuerte que se puede decir, y por eso va primero: el Estado ya publicó que ese
         # dominio es fraudulento. No es una inferencia sobre la forma del enlace.
         veredicto = Veredicto.CONFIRMADO
-    elif es_peticion_indebida(peticion):
-        # Cubre lo que el enlace no puede cubrir: el mensaje **no trae enlace y pide la clave**.
-        # Antes eso era `SIN_ENCLACES` — el motor no decía nada.
-        veredicto = Veredicto.PIDE_LO_INDEBIDO
     elif not enlaces:
-        veredicto = Veredicto.SIN_ENLACES
+        # La petición cubre **solo** lo que el enlace no puede cubrir. Si hay enlace, manda el
+        # enlace: la petición se suma a la explicación, nunca la reemplaza. Al revés, 74 de las 342
+        # estafas del CSIRT perdían su veredicto de enlace y el ciudadano no se enteraba de que el
+        # enlace era falso.
+        veredicto = (
+            Veredicto.PIDE_LO_INDEBIDO if es_peticion_indebida(peticion) else Veredicto.SIN_ENLACES
+        )
     elif reclamadas:
         # La pregunta de T1.9: ¿todos los enlaces son de la institución que el mensaje dice ser?
         # Basta uno que no lo sea para romper la coincidencia: es el ataque mezclado.
@@ -451,3 +453,36 @@ def evaluar(
             veredicto, enlaces, suplantaciones, reclamadas, dice_ser_del_estado, indice, peticion
         ),
     )
+
+
+def _lo_que_pide(peticion: Peticion | None) -> str:
+    """La frase de la petición indebida, o vacío.
+
+    **Se suma al veredicto del enlace, nunca lo reemplaza**: un enlace malo no se lava porque el
+    mensaje además pida algo, y una petición indebida no se lava porque el enlace sea oficial.
+    """
+    if not es_peticion_indebida(peticion) or peticion is None:
+        return ""
+    indebido = peticion.lo_indebido_en_castellano()
+    return (
+        f" Y además pide {indebido}: ninguna institución pide su clave, sus datos personales ni "
+        "una transferencia por mensaje."
+    )
+
+
+def _explicar(
+    veredicto: Veredicto,
+    enlaces: tuple[Enlace, ...],
+    suplantaciones: tuple[Coincidencia, ...],
+    reclamadas: tuple[str, ...],
+    dice_ser_del_estado: bool,
+    indice: Indice,
+    peticion: Peticion | None = None,
+) -> str:
+    """La respuesta en castellano, para reenviar tal cual."""
+    texto = _explicar_base(
+        veredicto, enlaces, suplantaciones, reclamadas, dice_ser_del_estado, indice, peticion
+    )
+    if veredicto is not Veredicto.PIDE_LO_INDEBIDO:
+        texto += _lo_que_pide(peticion)
+    return texto

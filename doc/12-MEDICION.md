@@ -198,6 +198,28 @@ juzgar.
 
 **Sin la clave el robot no se rompe: se degrada** al comportamiento anterior.
 
+
+### Y el cableado destapó una regresión que ningún test veía
+
+Conectar el extractor **cambió el veredicto de 74 de las 342 estafas**: las que **nombran** a la
+institución (`no_coincide`) pasaban a `pide_lo_indebido`, y la respuesta **dejaba de decir que el
+enlace era falso**. Peor: la medición se hizo con un extractor que **siempre** dice que pide datos,
+o sea el peor caso — y el peor caso es alcanzable, porque el nivel de falsa alarma del modelo es bajo
+pero no cero.
+
+```
+veredicto        antes  despues   despues del arreglo
+no_coincide         74        0                    74
+pide_lo_indebido     0       74                     0
+tapados              0       74                     0
+```
+
+**Los 196 tests estaban verdes con la regresión dentro.** Lo encontró la medición, no un test: es la
+cuarta vez en el proyecto que un número rompe algo que los tests no veían.
+
+**Y el vocabulario se filtraba a la respuesta:** decía `pide datos_personales`. El vocabulario cerrado
+es para el modelo; el ciudadano lee castellano.
+
 ## T4.3 — El control invertido, y la precisión
 
 **El mismo texto de la estafa, con el enlace de la institución real.** Eso aísla una sola variable:

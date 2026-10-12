@@ -12,6 +12,7 @@ que el mensaje dice y lo que enlaza. Nunca sobre el mensaje.
 
 from vigia.indicadores import Indice
 from vigia.motor import Veredicto, evaluar, extraer_enlaces
+from vigia.peticion import Peticion, PeticionDe
 from vigia.suplantacion import Marca, TipoSuplantacion
 
 MARCAS = (
@@ -406,3 +407,34 @@ def test_un_dominio_confirmado_no_promete_seguridad_por_el_resto() -> None:
 def test_la_marca_imitada_se_nombra_como_se_escribe() -> None:
     """La respuesta la lee una persona: «ClaveÚnica», no el nombre con el que se compara."""
     assert "ClaveÚnica" in evaluar("entre a claveunica-gob-cl.xyz").explicacion
+
+
+def test_la_peticion_nunca_tapa_lo_que_dice_el_enlace() -> None:
+    """**El enlace no se tapa con la petición.** El mensaje trae un enlace que no es de quien dice
+    ser **y** además pide los datos. La respuesta tiene que decir las dos cosas: si solo dijera la
+    petición, el ciudadano se quedaría sin saber que el enlace es falso."""
+    texto = (
+        "Su BancoEstado tiene un cargo no reconocido. "
+        "Ingrese a https://bancoestado-chile-login.xyz/verificar y confirme sus datos."
+    )
+    resultado = evaluar(
+        texto,
+        marcas=MARCAS,
+        indice=Indice({}),
+        peticion=Peticion(dice_ser="BancoEstado", pide=(PeticionDe.DATOS_PERSONALES,)),
+    )
+    assert resultado.veredicto is Veredicto.NO_COINCIDE
+    assert "bancoestado-chile-login.xyz" in resultado.explicacion
+    assert "no es de BancoEstado" in resultado.explicacion
+    assert "datos" in resultado.explicacion
+
+
+def test_la_peticion_sigue_decidiendo_cuando_no_hay_enlace() -> None:
+    """Sin enlace no hay nada que juzgar, y ahí la petición es lo único que queda."""
+    resultado = evaluar(
+        "Su ClaveUnica sera bloqueada. Responda con su clave y su RUT.",
+        marcas=MARCAS,
+        indice=Indice({}),
+        peticion=Peticion(dice_ser="ClaveÚnica", pide=(PeticionDe.CLAVE,)),
+    )
+    assert resultado.veredicto is Veredicto.PIDE_LO_INDEBIDO
