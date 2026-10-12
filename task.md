@@ -45,6 +45,7 @@ código.
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper | 🚧 **borrador escrito, falta revisión y publicar el repo** |
 | T2.2 | Límite, aviso de privacidad y registro | ✅ **los tres huecos operativos, cerrados** |
+| T2.3 | Publicar: DOI, preprint y lanzamiento | 🚧 **metadatos listos; falta activar Zenodo y cortar el release** |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
 decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
@@ -1061,6 +1062,49 @@ Al cablear los avisos, `componer` quedaba llamándose **dos veces**. Con el extr
 **paga DeepSeek dos veces por el mismo mensaje**. Ahora se llama una sola vez.
 
 **211 tests verdes** (202 funciones), **13 requisitos nuevos** (REQ-220 a REQ-232).
+
+## 🚧 T2.3 — Publicar el artefacto, y el paper
+
+**Guía completa, con el orden que no se puede invertir, en [`doc/16-PUBLICAR.md`](doc/16-PUBLICAR.md).**
+
+### Lo que está hecho
+
+| | |
+|---|---|
+| `CITATION.cff` | ✅ en la raíz, validado. GitHub ya muestra «Cite this repository» |
+| `.zenodo.json` | ✅ en la raíz, validado. Zenodo toma los metadatos de ahí, así que quedan versionados con el código |
+| `doc/RELEASE-0.1.0.md` | ✅ notas del release |
+| Repositorio | ✅ público, Apache-2.0, gate verde en un clon limpio |
+
+### Lo que falta, y por qué el orden importa
+
+> **Zenodo solo recoge los releases creados DESPUÉS de activar el repositorio.** Si se crea el
+> release primero, ese release **no recibe DOI**.
+
+```
+1. Activar andesdevroot/vigia en Zenodo    <- lo hace el autor, con su cuenta
+2. Crear el release v0.1.0
+3. Zenodo asigna el DOI solo
+```
+
+### Y la decisión sobre el correo del trabajo
+
+Usar el correo institucional **acelera el endorsement de arXiv**, pero **el paper quedaría asociado al
+empleador** — y este proyecto apunta a vender detección de suplantación a bancos, mientras el autor
+trabaja en uno.
+
+**Como Investigador Independiente la afiliación es limpia.** Vale la pena consultarlo antes de usar
+el correo, y no solo por permiso: por coherencia.
+
+### Mientras tanto, TechRxiv no pide aval
+
+<https://www.techrxiv.org> — repositorio de IEEE, abierto y moderado, para ciencias de la
+computación. **No pide endorsement.** El mismo contenido puede ir a arXiv después: no hay conflicto.
+
+### Y lo que de verdad desbloquea LinkedIn
+
+No es una publicación: son **usuarios**. El experimento de `T3.1` (20 personas × 3 mensajes) está
+diseñado y sin correr, y mide el número que decide la tesis del paper.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

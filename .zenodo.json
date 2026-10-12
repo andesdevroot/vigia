@@ -1,0 +1,34 @@
+{
+  "title": "vigia: verificador ciudadano de mensajes reenviados",
+  "description": "<p>Verificador de enlaces para mensajes reenviados por WhatsApp, en Chile. El ciudadano reenvía un mensaje sospechoso y recibe un veredicto sobre su enlace: si es o no el sitio de la institución que el mensaje dice ser.</p><p><strong>La IA propone, el determinismo decide.</strong> Un modelo de lenguaje llena un formulario de vocabulario cerrado —de quién dice ser el mensaje y qué pide— y una regla escrita decide. El modelo nunca emite un veredicto, y la abstención es un veredicto de primera clase.</p><p>Medido contra <strong>342 estafas reales</strong> publicadas por el CSIRT de Chile: <strong>99,7 % de cobertura</strong> sobre el mensaje completo, y <strong>0 falsas acusaciones</strong> sobre un control invertido de 211 mensajes.</p><p>El hallazgo central es negativo: <strong>el Estado publica indicadores, no mensajes.</strong> En el primer estudio de 45 alertas, el enlace malicioso estaba fuera del texto citado en 44 de 45 casos. Un ciudadano que reenvía exactamente lo que el Estado publicó no obtiene nada de un verificador de enlaces en el 98 % de los casos.</p>",
+  "creators": [
+    {
+      "name": "Rivas, Cesar",
+      "affiliation": "Investigador Independiente"
+    }
+  ],
+  "keywords": [
+    "phishing",
+    "smishing",
+    "Chile",
+    "WhatsApp",
+    "ClaveUnica",
+    "CSIRT",
+    "seguridad informatica",
+    "verificacion de enlaces"
+  ],
+  "license": {
+    "id": "Apache-2.0"
+  },
+  "upload_type": "software",
+  "access_right": "open",
+  "language": "spa",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/andesdevroot/vigia",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ],
+  "notes": "El corpus (corpus/, src/vigia/datos/) se distribuye bajo CC BY 4.0; ver LICENSE-CORPUS. Los datos de alertas provienen del CSIRT Nacional de Chile, que los publica abiertamente."
+}

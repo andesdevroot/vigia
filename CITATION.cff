@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "Si usas este software, cítalo como se indica abajo."
+title: "vigia: verificador ciudadano de mensajes reenviados"
+abstract: >-
+  Verificador de enlaces para mensajes reenviados por WhatsApp, en Chile. El ciudadano reenvía un
+  mensaje sospechoso y recibe un veredicto sobre su enlace: si es o no el sitio de la institución que
+  el mensaje dice ser. La IA propone, el determinismo decide: un modelo de lenguaje llena un
+  formulario de vocabulario cerrado —de quién dice ser el mensaje y qué pide— y una regla escrita
+  decide. El modelo nunca emite un veredicto, y la abstención es un veredicto de primera clase.
+  Medido contra 342 estafas reales publicadas por el CSIRT de Chile: 99,7 % de cobertura, y 0 falsas
+  acusaciones sobre un control invertido de 211 mensajes.
+type: software
+authors:
+  - family-names: "Rivas"
+    given-names: "Cesar"
+    email: "crivasdev@icloud.com"
+    website: "https://github.com/andesdevroot"
+    affiliation: "Investigador Independiente"
+contact:
+  - family-names: "Rivas"
+    given-names: "Cesar"
+    email: "crivasdev@icloud.com"
+repository-code: "https://github.com/andesdevroot/vigia"
+url: "https://github.com/andesdevroot/vigia"
+license: Apache-2.0
+license-url: "https://github.com/andesdevroot/vigia/blob/main/LICENSE"
+version: "0.1.0"
+date-released: "2026-10-11"
+keywords:
+  - phishing
+  - smishing
+  - Chile
+  - WhatsApp
+  - ClaveUnica
+  - CSIRT
+  - seguridad informatica
+  - verificacion de enlaces
+  - inteligencia artificial

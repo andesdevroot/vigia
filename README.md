@@ -19,9 +19,27 @@ cd vigia
 **211 tests, sin red, en un segundo.** El núcleo de decisión usa **solo la stdlib**, y un test lo
 impone.
 
+## Cómo citar
+
+Hay un [`CITATION.cff`](CITATION.cff) en la raíz, así que GitHub muestra el botón **Cite this
+repository**. El DOI de Zenodo se agrega acá cuando el primer release esté publicado.
+
+```bibtex
+@software{vigia,
+  author  = {Rivas, Cesar},
+  title   = {vigia: verificador ciudadano de mensajes reenviados},
+  year    = {2026},
+  version = {0.1.0},
+  license = {Apache-2.0},
+  url     = {https://github.com/andesdevroot/vigia}
+}
+```
+
 ## Licencia
 
 Código **Apache-2.0** · corpus, índice y documentación **CC BY 4.0**.
+
+Los datos de alertas provienen del CSIRT Nacional de Chile, que los publica abiertamente.
 
 | | |
 |---|---|
@@ -29,5 +47,6 @@ Código **Apache-2.0** · corpus, índice y documentación **CC BY 4.0**.
 | **Requisitos** | [`spec.md`](spec.md) — 138 numerados, cada uno con el test que lo verifica |
 | **Medición** | [`doc/12-MEDICION.md`](doc/12-MEDICION.md) |
 | **Handoff** | [`doc/07-HANDOFF.md`](doc/07-HANDOFF.md) |
+| **Publicar** | [`doc/16-PUBLICAR.md`](doc/16-PUBLICAR.md) — dónde vive cada cosa, y **el orden que no se puede invertir** |
 
 `doc/` es la fuente de verdad · `task.md` es la cola de trabajo · `./gate.sh` es el gate.
