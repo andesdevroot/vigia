@@ -51,6 +51,23 @@ class MensajeRecibido:
     phone_number_id: str
     destinatario: str | None
     tiene_media: bool
+    media_url: str | None = None
+    """Dónde bajar la imagen. `None` si no hay, o si lo que vino no es una URL.
+
+    **Sin esto no hay forma de leer una captura**, y el robot queda pidiendo el texto a mano — que
+    es
+    justo lo que casi nadie hace.
+    """
+
+    transcripcion: str | None = None
+    """El audio, ya transcrito **por Kapso**. No hay que hacer nada: viene en el sobre."""
+
+    de_adjunto: bool = False
+    """Si `texto` salió de leer el adjunto —la captura por OCR, o el audio por Kapso—.
+
+    **Existe para no contradecirse.** Si el robot leyó la imagen, avisar después que «no puede leer
+    imágenes» es decir dos cosas opuestas en la misma respuesta.
+    """
 
 
 def _diccionario(valor: object) -> dict[str, Any]:
@@ -92,6 +109,41 @@ def _destinatario(cuerpo: dict[str, Any]) -> str | None:
     return None
 
 
+CLAVES_MEDIA = (
+    ("media_url",),
+    ("media_data", "url"),
+    ("media_data", "link"),
+    ("message_type_data", "image", "url"),
+    ("message_type_data", "image", "link"),
+    ("message_type_data", "url"),
+    ("message_type_data", "link"),
+)
+"""Dónde puede estar la imagen, **en orden**.
+
+Kapso documenta tres ayudas de medios (`media_data`, `media_url`, `message_type_data`) y la forma
+exacta no está fijada en su documentación pública. Se buscan todas y se toma la primera que sea una
+URL: es más robusto que apostar a una sola y descubrir en producción que era otra.
+"""
+
+
+def _url_de_media(kapso: dict[str, Any]) -> str | None:
+    """La primera URL `http(s)` de las candidatas, o `None`.
+
+    Se exige `http` a propósito: un campo con basura —o peor, un `file://`— no puede convertirse en
+    una descarga.
+    """
+    for camino in CLAVES_MEDIA:
+        valor: Any = kapso
+        for paso in camino:
+            if not isinstance(valor, dict):
+                valor = None
+                break
+            valor = valor.get(paso)
+        if isinstance(valor, str) and valor.startswith(("http://", "https://")):
+            return valor
+    return None
+
+
 def interpretar(cuerpo: object) -> MensajeRecibido | None:
     """El mensaje entrante del webhook, o `None` si no hay nada que responder."""
     if not isinstance(cuerpo, dict):
@@ -119,10 +171,13 @@ def interpretar(cuerpo: object) -> MensajeRecibido | None:
     if not texto and not tiene_media:
         return None
 
+    kapso = _diccionario(mensaje.get("kapso"))
     identificador = _texto(cuerpo.get("phone_number_id")) or ""
     return MensajeRecibido(
         texto=texto,
         phone_number_id=identificador,
         destinatario=_destinatario(cuerpo),
         tiene_media=tiene_media,
+        media_url=_url_de_media(kapso) if tiene_media else None,
+        transcripcion=_texto(kapso.get("transcript")),
     )

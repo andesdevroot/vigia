@@ -262,6 +262,29 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-247 | **La imagen no instala dependencias**: el núcleo sigue siendo stdlib | `test_la_imagen_no_instala_dependencias` |
 | REQ-248 | **La imagen no se lleva los secretos**: entran por entorno, nunca por `COPY` | `test_la_imagen_no_se_lleva_los_secretos` |
 
+## 20. Las imágenes, los audios y la descarga
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-250 | **El OCR saca el texto de la imagen**, y el motor lo juzga | `test_saca_el_texto_de_la_imagen` |
+| REQ-251 | **La imagen entra por la entrada estándar**: nunca toca el disco | `test_la_imagen_entra_por_la_entrada_estandar` |
+| REQ-252 | El OCR lee en castellano | `test_lee_en_castellano` |
+| REQ-253 | **Un OCR que no está no tumba el webhook** | `test_si_el_binario_no_esta_devuelve_vacio` |
+| REQ-254 | Un OCR colgado o con error devuelve vacío | `test_si_el_ocr_se_cuelga_devuelve_vacio` |
+| REQ-255 | **`imagen.py` no toca la red**: el invariante de privacidad, sobre el código | `test_este_modulo_no_toca_la_red` |
+| REQ-256 | Una imagen trae su URL | `test_una_imagen_trae_su_url` |
+| REQ-257 | La URL se busca en varios lugares del sobre | `test_la_url_de_la_imagen_se_busca_en_varios_lugares` |
+| REQ-258 | **Lo que no es `http` no se descarga** | `test_una_url_que_no_es_http_no_cuenta` |
+| REQ-259 | **El audio ya viene transcrito por Kapso** | `test_el_audio_ya_viene_transcrito_por_kapso` |
+| REQ-260 | Un archivo gigante se corta **durante** la lectura | `test_un_archivo_gigante_se_corta_durante_la_lectura` |
+| REQ-261 | Un fallo de red devuelve vacío, nunca levanta | `test_un_fallo_de_red_devuelve_vacio` |
+| REQ-262 | **Una captura se lee y se juzga** | `test_una_captura_se_lee_y_se_juzga` |
+| REQ-263 | A la captura legible **no se le dice que no se puede leer** | `test_a_la_captura_legible_no_se_le_dice_que_no_se_puede_leer` |
+| REQ-264 | Una captura ilegible **pide el texto**: se degrada, no se inventa | `test_una_captura_ilegible_pide_el_texto` |
+| REQ-265 | Sin lector **no se baja la imagen** | `test_sin_lector_no_se_baja_la_imagen` |
+| REQ-266 | El texto escrito **gana** sobre la imagen | `test_el_texto_escrito_gana_sobre_la_imagen` |
+| REQ-267 | La imagen trae el OCR, y con el idioma | `test_la_imagen_trae_el_ocr` |
+
 ## 17. La arquitectura
 
 | # | Requisito | Test |

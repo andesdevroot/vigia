@@ -88,3 +88,34 @@ datos personales suyos o de terceros.
 Si se guarda algo, que sea el veredicto y el dominio — para medir — nunca el texto ni el número. La
 promesa «el robot no lee tus chats» se sostiene sola; la de «no guardamos lo que nos mandas» hay que
 cumplirla.
+
+
+## Las capturas y los audios (`T5.2`)
+
+**El caso que iba a pasar el primer día:** la gente manda capturas, no texto. Hasta `T5.2` el robot
+contestaba «cópialo a mano», y eso casi nadie lo hace.
+
+### Dos campos del sobre que no estaban usados
+
+| | |
+|---|---|
+| **`transcript`** | **Kapso ya transcribe los audios.** Viene en el sobre, listo. Los audios funcionan **sin escribir una línea** y sin bajar nada |
+| **La URL de la imagen** | Documenta tres ayudas: `media_data`, `media_url`, `message_type_data` |
+
+**Sobre la URL, y es una advertencia:** la documentación pública de Kapso **no fija la forma exacta**,
+y sus páginas se renderizan con JavaScript, así que no se puede leer la estructura desde fuera.
+
+Por eso `entrante.py` **busca en siete caminos** (`CLAVES_MEDIA`) y toma el primero que sea `http`.
+Es más robusto que apostar a uno solo y descubrirlo en producción.
+
+> **Lo que falta confirmar: un mensaje real con imagen**, para ver el sobre de verdad y dejar el
+> camino verdadero primero. Hasta entonces, el parseo defensivo cubre la duda.
+
+### El invariante de privacidad
+
+```
+imagen  ->  descarga (tope 8 MB)  ->  OCR LOCAL  ->  texto  ->  motor determinista
+```
+
+**La imagen nunca sale del servidor**, nunca toca el disco, y `imagen.py` **no puede importar red** —
+hay un test que lo revisa sobre el código fuente.

@@ -47,7 +47,7 @@ código.
 | T2.2 | Límite, aviso de privacidad y registro | ✅ **los tres huecos operativos, cerrados** |
 | T2.3 | Publicar: DOI, preprint y lanzamiento | ⏸️ **pausado por el autor** |
 | T5.1 | Desplegar | ✅ **imagen, salud, puerto y guía; falta subirlo** |
-| T5.2 | Imágenes por OCR local | ⬜ **el hueco de producto más grande** |
+| T5.2 | Imágenes por OCR local | ✅ **lee capturas; los audios ya venían transcritos** |
 | T5.3 | Refresco del índice | ⬜ **se pudre en silencio** |
 | T5.4 | CI en GitHub Actions | ⬜ media hora |
 | T5.5 | Saber si el robot está vivo | ⬜ |
@@ -1147,7 +1147,7 @@ nuevos** (REQ-240 a REQ-248).
 **Y una advertencia que quedó escrita:** el plan gratis de Render **duerme** el servicio. Para probar
 sirve; para un número público, no.
 
-### ⬜ T5.2 — Las imágenes son un callejón sin salida
+### ✅ T5.2 — Las capturas se leen, y no salen del servidor
 
 **El hueco de producto más grande.** Hoy, si llega una imagen:
 
@@ -1168,11 +1168,32 @@ imagen  ->  OCR local  ->  texto  ->  motor determinista (lo que ya existe)
 el teléfono de la persona, y mandarla a un proveedor de visión sería el peor intercambio del
 proyecto.
 
+**Hecho, y con dos sorpresas.**
+
 | | |
 |---|---|
-| Decisión pendiente | OCR local (Tesseract) contra modelo de visión. **Local es más lento y no filtra** |
-| Y hay que medir | **Cuántos de los mensajes que llegan son solo imagen.** Hoy no se sabe |
-| Ojo | Tesseract es dependencia externa. **No entra al núcleo de decisión**, así que el guardián de arquitectura no se rompe — pero hay que decidirlo a propósito |
+| `src/vigia/imagen.py` | **OCR local con Tesseract**, por la **entrada estándar**: la imagen nunca toca el disco |
+| `src/vigia/medios.py` | La descarga, con **tope de 8 MB** que se corta **durante** la lectura |
+| `imagen.py` no importa red | Un test lo revisa **sobre el código fuente**. Mandar la captura afuera exigiría cambiar la firma y romper un test que dice que no |
+| La imagen entra al Dockerfile | **El núcleo de decisión sigue siendo stdlib.** Tesseract es herramienta de entrada, como el servidor HTTP. Sin él, el robot pide el texto y todo lo demás funciona |
+
+**Las dos sorpresas, y la primera es la buena:**
+
+> **1. Kapso ya transcribe los audios.** El sobre trae un campo `transcript`. Los audios funcionan
+> **sin escribir una línea**, y sin bajar nada.
+>
+> **2. La forma exacta de la URL de la imagen no está fijada** en la documentación pública de Kapso
+> (documenta `media_data`, `media_url` y `message_type_data`). El parseo **busca en siete caminos** y
+> toma el primero que sea `http`.
+
+**Decisión que quedó tomada:** OCR local, **no** modelo de visión. Una captura de banco trae el
+nombre, el saldo y el teléfono de la persona; mandarla afuera sería cambiar el único activo que
+tenemos por comodidad.
+
+**Y un bug que encontró el propio test:** `descargar` declaraba `-> bytes` y devolvía `str` en dos
+caminos. **Tipo mezclado**, que es exactamente cómo se cuela un valor que no es.
+
+**17 requisitos nuevos** (REQ-250 a REQ-267).
 
 ### ⬜ T5.3 — El índice se pudre, y nadie se entera
 

@@ -96,7 +96,7 @@ mismo que todo lo demás.
 | | |
 |---|---|
 | **T5.1** Desplegar | ✅ código listo; **falta subirlo** |
-| **T5.2** Imágenes por OCR local | El hueco de producto más grande. Hoy contestan «copia el texto», y casi nadie lo hace |
+| **T5.2** Imágenes por OCR local | ✅ **hecho.** Y los audios ya venían transcritos por Kapso |
 | **T5.4** CI en GitHub Actions | Media hora, y es lo que hace creíble la reproducibilidad del paper |
 | **T5.5** Saber si está vivo | Un servicio caído se ve igual que nadie usándolo |
 | **T5.3** Refresco del índice | El 70 % de los `CONFIRMADO` sale de una foto que se genera a mano |

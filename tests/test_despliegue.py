@@ -130,3 +130,15 @@ def test_la_imagen_no_se_lleva_los_secretos() -> None:
     """Un `.env` copiado dentro de una imagen queda en las capas, para siempre."""
     texto = _instrucciones()
     assert ".env" not in texto, "los secretos entran por variables de entorno, nunca por COPY"
+
+
+def test_la_imagen_trae_el_ocr() -> None:
+    """**El OCR tiene que correr adentro.** Una captura de un banco trae el nombre, el saldo y el
+    teléfono de la persona: mandarla a un proveedor de visión sería cambiar el único activo que
+    tenemos por comodidad.
+
+    Y con el idioma: sin el paquete `-spa`, el OCR de un mensaje chileno inventa palabras.
+    """
+    texto = _instrucciones()
+    assert "tesseract-ocr" in texto, "sin OCR la captura vuelve a ser un callejón sin salida"
+    assert "tesseract-ocr-spa" in texto, "sin el idioma, el OCR inventa palabras"

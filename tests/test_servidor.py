@@ -332,3 +332,162 @@ def test_el_servidor_anota_por_que_no_respondio() -> None:
     bruto = cuerpo()
     atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador, anotar=anotaciones.append)
     assert anotaciones[-1].startswith("respondido")
+
+
+class LectorFalso:
+    """Un OCR de mentira: devuelve lo que se le diga, y anota qué imágenes vio."""
+
+    def __init__(self, texto: str = "") -> None:
+        self.texto = texto
+        self.vistas: list[bytes] = []
+
+    def leer(self, imagen: bytes) -> str:
+        self.vistas.append(imagen)
+        return self.texto
+
+
+class MediosFalsos:
+    """Un descargador de mentira: anota las URLs y devuelve bytes."""
+
+    def __init__(self, contenido: bytes = b"imagen") -> None:
+        self.contenido = contenido
+        self.pedidas: list[str] = []
+
+    def descargar(self, url: str) -> bytes:
+        self.pedidas.append(url)
+        return self.contenido
+
+
+def _sobre_imagen(url: str = "https://api.kapso.ai/media/abc", **extra: Any) -> bytes:
+    return json.dumps(
+        {
+            "event": "whatsapp.message.received",
+            "phone_number_id": ID_NUMERO,
+            "message": {
+                "id": "wamid.FOTO",
+                "kapso": {
+                    "direction": "inbound",
+                    "has_media": True,
+                    "content": "",
+                    "media_url": url,
+                    **extra,
+                },
+            },
+            "conversation": {"id": "c-foto", "phone_number": "56912345678"},
+        }
+    ).encode()
+
+
+def test_una_captura_se_lee_y_se_juzga() -> None:
+    """**El caso que va a pasar el primer día.** La gente manda capturas, no texto.
+
+    Con el OCR local, el enlace que está escrito en la imagen llega al motor y el veredicto sale.
+    """
+    lector = LectorFalso("Su BancoEstado tiene un cargo. Ingrese a bancoestado-chile-login.xyz")
+    medios = MediosFalsos(b"\x89PNG")
+    enviador = EnviadorFalso()
+    bruto = _sobre_imagen()
+    assert atender(
+        bruto, firmar(bruto, SECRETO), SECRETO, enviador, lector=lector, medios=medios
+    )
+    assert medios.pedidas == ["https://api.kapso.ai/media/abc"]
+    assert lector.vistas == [b"\x89PNG"]
+    respuesta = enviador.enviados[0][2]
+    assert "bancoestado-chile-login.xyz" in respuesta
+    assert "BancoEstado" in respuesta
+
+
+def test_a_la_captura_legible_no_se_le_dice_que_no_se_puede_leer() -> None:
+    """Leerla y después avisar que no se lee sería contradecirse en la misma respuesta."""
+    lector = LectorFalso("entre a bancoestado-chile-login.xyz")
+    enviador = EnviadorFalso()
+    bruto = _sobre_imagen()
+    atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador, lector=lector, medios=MediosFalsos())
+    assert "no las puedo leer" not in enviador.enviados[0][2]
+    assert "no puedo leer" not in enviador.enviados[0][2].lower()
+
+
+def test_una_captura_ilegible_pide_el_texto() -> None:
+    """Una foto de un paisaje no tiene letras.
+
+    **Se degrada a lo que hacía antes**, no se inventa.
+    """
+    lector = LectorFalso("")
+    enviador = EnviadorFalso()
+    bruto = _sobre_imagen()
+    assert atender(
+        bruto, firmar(bruto, SECRETO), SECRETO, enviador, lector=lector, medios=MediosFalsos()
+    )
+    assert "Copiar" in enviador.enviados[0][2]
+
+
+def test_sin_lector_no_se_baja_la_imagen() -> None:
+    """Sin OCR instalado no tiene sentido gastar una descarga: se pide el texto de una."""
+    medios = MediosFalsos()
+    enviador = EnviadorFalso()
+    bruto = _sobre_imagen()
+    atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador, medios=medios)
+    assert medios.pedidas == [], "sin lector no se baja nada"
+    assert "Copiar" in enviador.enviados[0][2]
+
+
+def test_un_fallo_al_bajar_la_imagen_no_tumba_el_webhook() -> None:
+    """Si la descarga falla, el ciudadano recibe algo. **Un webhook nunca contesta 500.**"""
+
+    class MediosRotos:
+        def descargar(self, url: str) -> bytes:
+            return b""
+
+    enviador = EnviadorFalso()
+    bruto = _sobre_imagen()
+    assert atender(
+        bruto,
+        firmar(bruto, SECRETO),
+        SECRETO,
+        enviador,
+        lector=LectorFalso("texto"),
+        medios=MediosRotos(),
+    )
+    assert "Copiar" in enviador.enviados[0][2]
+
+
+def test_el_audio_lo_transcribe_kapso_y_se_usa() -> None:
+    """**Kapso ya transcribe los audios.** No hay que bajar nada: el texto viene en el sobre."""
+    medios = MediosFalsos()
+    enviador = EnviadorFalso()
+    # El campo del sobre de Kapso se llama `transcript`, no `transcripcion`: ese es el nombre
+    # nuestro una vez leido.
+    dicho = "me llego un mensaje de bancoestado que dice que entre a bancoestado-chile-login.xyz"
+    bruto = _sobre_imagen(transcript=dicho)
+    atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador, medios=medios)
+    assert medios.pedidas == [], "el audio ya viene transcrito: no hay nada que bajar"
+    respuesta = enviador.enviados[0][2]
+    assert "bancoestado-chile-login.xyz" in respuesta, "el veredicto usa lo que dijo el audio"
+    assert "no puedo leer" not in respuesta.lower(), "el audio no es una imagen ilegible"
+
+
+def test_el_texto_escrito_gana_sobre_la_imagen() -> None:
+    """Si el ciudadano escribió algo, eso manda. La imagen no se baja."""
+    medios = MediosFalsos()
+    enviador = EnviadorFalso()
+    bruto = json.dumps(
+        {
+            "event": "whatsapp.message.received",
+            "phone_number_id": ID_NUMERO,
+            "message": {
+                "id": "wamid.MIXTO",
+                "kapso": {
+                    "direction": "inbound",
+                    "has_media": True,
+                    "content": "mire, me llego esto: entre a bancoestado-chile-login.xyz",
+                    "media_url": "https://api.kapso.ai/media/abc",
+                },
+            },
+            "conversation": {"id": "c-mix", "phone_number": "56912345678"},
+        }
+    ).encode()
+    atender(
+        bruto, firmar(bruto, SECRETO), SECRETO, enviador, lector=LectorFalso("x"), medios=medios
+    )
+    assert medios.pedidas == []
+    assert "bancoestado-chile-login.xyz" in enviador.enviados[0][2]

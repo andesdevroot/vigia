@@ -63,7 +63,9 @@ def componer(
         )
 
     partes: list[str] = []
-    if mensaje.tiene_media:
+    # Solo se aclara si el texto **no** salió del adjunto. Si el OCR lo leyó, decir que no se puede
+    # leer sería contradecirse en la misma frase.
+    if mensaje.tiene_media and not mensaje.de_adjunto:
         partes.append(ACLARAR_IMAGEN)
     if evaluacion.veredicto is Veredicto.SIN_ENLACES:
         partes.append(PEDIR_EL_MENSAJE)

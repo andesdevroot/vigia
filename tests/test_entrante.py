@@ -102,3 +102,95 @@ def test_un_cuerpo_que_no_es_un_diccionario_no_revienta() -> None:
     basuras: tuple[object, ...] = ("no soy json", [], None, 42, {"event": EVENTO_MENSAJE})
     for basura in basuras:
         assert interpretar(basura) is None
+
+
+def test_una_imagen_trae_su_url() -> None:
+    """Sin la URL no hay forma de bajar la captura, y el robot queda pidiendo el texto a mano."""
+    sobre = {
+        "event": "whatsapp.message.received",
+        "phone_number_id": "123",
+        "message": {
+            "id": "wamid.FOTO",
+            "kapso": {
+                "direction": "inbound",
+                "has_media": True,
+                "content": "",
+                "media_url": "https://api.kapso.ai/media/abc",
+            },
+        },
+        "conversation": {"phone_number": "56912345678"},
+    }
+    leido = interpretar(sobre)
+    assert leido is not None
+    assert leido.media_url == "https://api.kapso.ai/media/abc"
+
+
+def test_la_url_de_la_imagen_se_busca_en_varios_lugares() -> None:
+    """**Kapso documenta tres ayudas de medios y la forma exacta no está fijada.** Se buscan todas,
+    en orden, y se toma la primera que sea una URL. Es más robusto que apostar a una sola."""
+    candidatas: list[dict[str, Any]] = [
+        {"media_data": {"url": "https://a.example/x"}},
+        {"media_data": {"link": "https://b.example/x"}},
+        {"message_type_data": {"image": {"url": "https://c.example/x"}}},
+        {"message_type_data": {"image": {"link": "https://d.example/x"}}},
+        {"message_type_data": {"url": "https://e.example/x"}},
+    ]
+    for kapso in candidatas:
+        sobre = {
+            "event": "whatsapp.message.received",
+            "phone_number_id": "123",
+            "message": {"id": "wamid.F", "kapso": {"direction": "inbound", "has_media": True,
+            **kapso}},
+            "conversation": {"phone_number": "56912345678"},
+        }
+        leido = interpretar(sobre)
+        assert leido is not None and leido.media_url is not None, kapso
+
+
+def test_una_url_que_no_es_http_no_cuenta() -> None:
+    """Un campo con basura no puede convertirse en una descarga."""
+    sobre = {
+        "event": "whatsapp.message.received",
+        "phone_number_id": "123",
+        "message": {
+            "id": "wamid.F",
+            "kapso": {"direction": "inbound", "has_media": True, "media_url": "file:///etc/passwd"},
+        },
+        "conversation": {"phone_number": "56912345678"},
+    }
+    leido = interpretar(sobre)
+    assert leido is not None
+    assert leido.media_url is None
+
+
+def test_el_audio_ya_viene_transcrito_por_kapso() -> None:
+    """**Kapso transcribe los audios.** No hay que hacer nada: el texto ya está en el sobre."""
+    sobre = {
+        "event": "whatsapp.message.received",
+        "phone_number_id": "123",
+        "message": {
+            "id": "wamid.AUDIO",
+            "kapso": {
+                "direction": "inbound",
+                "has_media": True,
+                "content": "",
+                "transcript": "me llego un mensaje de bancoestado que dice que entre a un link",
+            },
+        },
+        "conversation": {"phone_number": "56912345678"},
+    }
+    leido = interpretar(sobre)
+    assert leido is not None
+    assert leido.transcripcion is not None
+    assert "bancoestado" in leido.transcripcion
+
+
+def test_sin_texto_ni_adjunto_sigue_siendo_nada() -> None:
+    """La regla vieja no cambia: una reacción o una ubicación no se contestan."""
+    sobre = {
+        "event": "whatsapp.message.received",
+        "phone_number_id": "123",
+        "message": {"id": "wamid.X", "kapso": {"direction": "inbound", "content": ""}},
+        "conversation": {"phone_number": "56912345678"},
+    }
+    assert interpretar(sobre) is None

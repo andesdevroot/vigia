@@ -17,6 +17,19 @@ ENV PYTHONDONTWRITEBYTECODE=1 \
 
 WORKDIR /app
 
+# **El OCR corre acá adentro.** La captura que manda el ciudadano no sale del servidor: una captura
+# de un banco trae su nombre, su saldo y su teléfono, y mandarla a un proveedor de visión sería
+# cambiar el único activo que tenemos por comodidad.
+#
+# Ojo con la distinción, porque importa: **el núcleo de decisión sigue siendo stdlib**, y el test que
+# lo impone sigue pasando. Tesseract es una herramienta de **entrada**, como el propio servidor HTTP:
+# sin él, el robot pide el texto a mano y todo lo demás funciona igual.
+#
+# El paquete `-spa` es el idioma. Sin él, el OCR de un mensaje chileno inventa palabras.
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-spa \
+    && rm -rf /var/lib/apt/lists/*
+
 # Solo lo que el servidor necesita. El corpus va incluido para que la imagen sea el artefacto
 # completo y no una parte.
 COPY src/ ./src/

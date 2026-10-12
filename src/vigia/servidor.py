@@ -27,6 +27,7 @@ from __future__ import annotations
 import json
 import os
 from collections.abc import Callable, Mapping, Sequence
+from dataclasses import replace
 from http.client import HTTPMessage
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -35,11 +36,13 @@ from urllib.error import HTTPError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from vigia.conversacion import AVISO_PRIVACIDAD, ESPERA, componer
-from vigia.entrante import interpretar
+from vigia.entrante import MensajeRecibido, interpretar
 from vigia.extractor import CacheDeExtraccion, Extractor, ExtractorLLM
 from vigia.firma import es_valida
+from vigia.imagen import Lector, LectorTesseract
 from vigia.marcas import MARCAS
 from vigia.medicion import Contador, Contar
+from vigia.medios import KapsoMedios, Medios
 from vigia.memoria import MENSAJES_POR_VENTANA, VENTANA_S, Decision, Memoria
 from vigia.motor import evaluar
 from vigia.suplantacion import Marca
@@ -129,6 +132,8 @@ def atender(
     extraer: Extractor | None = None,
     memoria: Memoria | None = None,
     anotar: Callable[[str], None] | None = None,
+    lector: Lector | None = None,
+    medios: Medios | None = None,
 ) -> bool:
     """Atiende un webhook y devuelve si se alcanzó a responder.
 
@@ -149,6 +154,8 @@ def atender(
         return False
 
     mensaje = interpretar(sobre)
+    if mensaje is not None:
+        mensaje = _con_el_texto_del_adjunto(mensaje, lector, medios, anotar)
     if mensaje is None or mensaje.destinatario is None:
         # Un mensaje saliente, o un sobre con la forma equivocada. No se contesta y no es un error.
         _anota(anotar, "sin destinatario")
@@ -183,6 +190,43 @@ def atender(
     return True
 
 
+def _con_el_texto_del_adjunto(
+    mensaje: MensajeRecibido,
+    lector: Lector | None,
+    medios: Medios | None,
+    anotar: Callable[[str], None] | None = None,
+) -> MensajeRecibido:
+    """El mensaje con el texto que se va a juzgar, leyendo el adjunto si hace falta.
+
+    **El orden importa, y es de lo más barato a lo más caro:**
+
+    1. Si el ciudadano escribió algo, eso manda. No se baja nada.
+    2. El audio ya viene transcrito por Kapso: no hay nada que hacer.
+    3. La captura se baja y **se lee acá adentro**. La imagen no sale del servidor.
+
+    Si nada de eso da texto, el mensaje vuelve como vino y el robot pide el texto a mano, que es
+    exactamente lo que hacía antes de que esto existiera.
+    """
+    if mensaje.texto.strip():
+        return mensaje
+    if mensaje.transcripcion and mensaje.transcripcion.strip():
+        _anota(anotar, "audio transcrito por Kapso")
+        return replace(mensaje, texto=mensaje.transcripcion, de_adjunto=True)
+    if not mensaje.media_url or lector is None or medios is None:
+        return mensaje
+
+    imagen = medios.descargar(mensaje.media_url)
+    if not imagen:
+        _anota(anotar, "no se pudo bajar el adjunto")
+        return mensaje
+    texto = lector.leer(imagen)
+    if not texto:
+        _anota(anotar, "el adjunto no tenia texto legible")
+        return mensaje
+    _anota(anotar, "captura leida con OCR local")
+    return replace(mensaje, texto=texto, de_adjunto=True)
+
+
 def _anota(anotar: Callable[[str], None] | None, motivo: str) -> None:
     """Deja constancia de un motivo. **Nunca del contenido.**"""
     if anotar is not None:
@@ -207,6 +251,8 @@ class _Manejador(BaseHTTPRequestHandler):
     contar: Contar | None
     extraer: Extractor | None
     memoria: Memoria | None
+    lector: Lector | None
+    medios: Medios | None
 
     def do_GET(self) -> None:  # noqa: N802 - lo impone la clase base
         """El chequeo de salud.
@@ -238,6 +284,8 @@ class _Manejador(BaseHTTPRequestHandler):
                 self.extraer,
                 self.memoria,
                 lambda motivo: self.log_message("%s", motivo),
+                self.lector,
+                self.medios,
             )
         except Exception as error:  # noqa: BLE001 - un webhook nunca contesta 500
             # Se registra el **motivo**, nunca el contenido. Sin esto, un envío que falla se ve
@@ -261,6 +309,8 @@ def _manejador(
     contar: Contar | None,
     extraer: Extractor | None,
     memoria: Memoria | None = None,
+    lector: Lector | None = None,
+    medios: Medios | None = None,
 ) -> type[BaseHTTPRequestHandler]:
     """Una subclase con la configuración pegada, que es como `http.server` espera recibirla."""
     campos: dict[str, Any] = {
@@ -270,6 +320,8 @@ def _manejador(
         "contar": contar,
         "extraer": extraer,
         "memoria": memoria,
+        "lector": lector,
+        "medios": medios,
     }
     return type("Manejador", (_Manejador,), campos)
 
@@ -282,9 +334,12 @@ def construir_servidor(
     contar: Contar | None = None,
     extraer: Extractor | None = None,
     memoria: Memoria | None = None,
+    lector: Lector | None = None,
+    medios: Medios | None = None,
 ) -> ThreadingHTTPServer:
     return ThreadingHTTPServer(
-        direccion, _manejador(secreto, enviar, tuple(marcas), contar, extraer, memoria)
+        direccion,
+        _manejador(secreto, enviar, tuple(marcas), contar, extraer, memoria, lector, medios),
     )
 
 
@@ -342,9 +397,22 @@ def main() -> None:
         ventana_s=float(os.environ.get("VIGIA_VENTANA_S", str(VENTANA_S))),
     )
 
+    # El OCR es **local**: la captura no sale del servidor. Si el binario no está, no se activa y el
+    # robot vuelve a pedir el texto, que es lo que hacía antes.
+    lector: Lector | None = None
+    if LectorTesseract().esta_disponible():
+        lector = LectorTesseract()
+
     puerto = puerto_del_entorno(os.environ)
     servidor = construir_servidor(
-        ("", puerto), secreto, enviar, contar=contar, extraer=extraer, memoria=memoria
+        ("", puerto),
+        secreto,
+        enviar,
+        contar=contar,
+        extraer=extraer,
+        memoria=memoria,
+        lector=lector,
+        medios=KapsoMedios(api_key=api_key),
     )
     print(f"Escuchando en el puerto {puerto}.")  # noqa: T201 - es la salida del programa
     servidor.serve_forever()

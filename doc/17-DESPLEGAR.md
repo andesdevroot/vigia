@@ -27,6 +27,7 @@ bash scripts/probar_local.sh     # levanta ngrok, registra el webhook, arranca e
 | **`Dockerfile`** | La imagen. **No instala nada**, y hay un test que lo impone |
 | **`GET /`** | Chequeo de salud. Sin firma —la plataforma no puede firmar— y sin revelar nada de adentro |
 | **`src/vigia/salud.py`** | El chequeo desde adentro del contenedor, en stdlib para no meter `curl` |
+| **`tesseract-ocr`** | El OCR de las capturas, **adentro del contenedor** |
 | **`puerto_del_entorno()`** | `PORT` primero, que es la convención de las plataformas |
 
 **Lo que NO cambió:** el motor, los tests, ni una línea del núcleo de decisión.
@@ -112,6 +113,19 @@ python3 scripts/registrar_webhook.py --apagar
 
 **Conviene recrear el webhook en vez de reusar el que existe.** Su UUID quedó en la historia pública
 del repositorio, y aunque no es una credencial, recrearlo es más limpio.
+
+## La única cosa que la imagen instala, y por qué no rompe nada
+
+`Dockerfile` instala **`tesseract-ocr` y `tesseract-ocr-spa`**. Es lo único que se instala, y conviene
+entender la distinción:
+
+> **El núcleo de decisión sigue siendo stdlib.** Tesseract es una herramienta de **entrada**, como el
+> propio servidor HTTP. Sin él, el robot pide el texto a mano y **todo lo demás funciona igual**.
+
+El test que prohíbe `pip install` sigue pasando, y hay uno nuevo que exige el OCR **con el idioma**:
+sin el paquete `-spa`, el OCR de un mensaje chileno inventa palabras.
+
+**Y la captura no sale del contenedor.** Corre local, por la entrada estándar, y nunca toca el disco.
 
 ## Lo que sigue faltando
 
