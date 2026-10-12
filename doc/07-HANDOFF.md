@@ -7,17 +7,17 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **Conectar DeepSeek al robot** y medir la latencia real. Después, `T2.1` (el paper) |
-| Después | `T4.2` índice de IoC · `T4.3` control invertido · `T4.4` extractor de la petición + regla |
+| Tarea en curso | **`T4.8b` cerrada: DeepSeek está cableado al robot.** Falta la prueba por WhatsApp. Después, `T2.1` (el paper) |
+| Después | `T2.1` (el paper). Pendiente de gestión: `T0.7` (clave de urlscan.io) y el rediseño de la sensibilidad |
 | Medido | **Cobertura 99,7 %** (342 estafas: 239 confirmadas, 70 %) y **precisión: 0 falsas acusaciones de 211** (`T4.3`). Ver `doc/12-MEDICION.md` |
 | Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
 | Catálogo | **25 instituciones**: 14 estatales y 11 suplantadas, todas verificadas por certificado |
 | Funcionando | **Probado de punta a punta el 2026-10-10 17:17**: un teléfono real mandó el phishing y recibió el veredicto en **1 segundo** |
-| Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` (+ `suplantacion`) |
-| Datos | `corpus/alertas_csirt.json` (45) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
-| Tests | **190 casos verdes** (181 funciones), 1 de integración, sin red, en un segundo |
-| Requisitos | **129 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
+| Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` · `peticion` · `extractor` · `redaccion` · `indicadores` |
+| Datos | `corpus/alertas_csirt.json` (342) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
+| Tests | **192 casos verdes** (183 funciones), 1 de integración, sin red, en un segundo |
+| Requisitos | **132 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 

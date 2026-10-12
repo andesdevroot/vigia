@@ -14,6 +14,7 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 from vigia.entrante import MensajeRecibido
+from vigia.extractor import Extractor
 from vigia.marcas import MARCAS
 from vigia.motor import Veredicto, evaluar
 from vigia.suplantacion import Marca
@@ -28,12 +29,28 @@ PEDIR_TEXTO = (
 ACLARAR_IMAGEN = "Ojo: las imágenes no las puedo leer, esto lo digo por el texto que venía abajo."
 
 
-def componer(mensaje: MensajeRecibido, marcas: Sequence[Marca] = MARCAS) -> str:
-    """El texto que se le manda de vuelta, listo para enviar."""
+def componer(
+    mensaje: MensajeRecibido,
+    marcas: Sequence[Marca] = MARCAS,
+    extraer: Extractor | None = None,
+) -> str:
+    """El texto que se le manda de vuelta, listo para enviar.
+
+    Con `extraer`, el veredicto cubre además **lo que el mensaje pide**, que es lo único que se
+    puede decir cuando no trae enlace. Sin él, el motor se comporta como antes.
+    """
     if mensaje.tiene_media and not mensaje.texto:
         return PEDIR_TEXTO
 
     evaluacion = evaluar(mensaje.texto, marcas=marcas)
+    if extraer is not None:
+        # Se evalúa dos veces a propósito: la primera dice de quién dice ser, y eso es lo que el
+        # extractor necesita para que la regla de la petición tenga sus dos condiciones. Las dos
+        # evaluaciones son deterministas y locales.
+        dice_ser = evaluacion.reclamadas[0] if evaluacion.reclamadas else None
+        evaluacion = evaluar(
+            mensaje.texto, marcas=marcas, peticion=extraer.extraer(mensaje.texto, dice_ser)
+        )
 
     partes: list[str] = []
     if mensaje.tiene_media:

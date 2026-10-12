@@ -216,7 +216,15 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-199 | La caché evita mandar dos veces el mismo mensaje | `test_la_cache_evita_mandar_dos_veces_el_mismo_mensaje` |
 | REQ-200 | Una respuesta ilegible no revienta | `test_una_respuesta_ilegible_no_revienta` |
 
-## 16. La arquitectura
+## 16. El extractor conectado al robot
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-210 | Un mensaje sin enlace que pide la clave **ya no queda mudo** en el robot | `test_un_mensaje_sin_enlace_que_pide_la_clave_ya_no_queda_mudo` |
+| REQ-211 | **Sin extractor el motor se comporta como antes** | `test_sin_extractor_el_motor_se_comporta_como_antes` |
+| REQ-212 | El proveedor caído se declara y no parece perfecto | `test_un_proveedor_caido_no_parece_un_modelo_perfecto` |
+
+## 17. La arquitectura
 
 | # | Requisito | Test |
 |---|---|---|

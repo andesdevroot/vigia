@@ -807,7 +807,7 @@ mantiene auditable un extractor llenado por un modelo.
 el extractor de referencia marca 3 mal —las tres con negación—. Eso necesita credenciales de DeepSeek
 o de JEV, y hay que decidir cuál se usa **midiendo**, no por gusto.
 
-## ⬜ T4.8 — Enfrentar DeepSeek y JEV contra la vara
+## ✅ T4.8 — Enfrentar DeepSeek y JEV contra la vara
 
 `scripts/comparar_extractores.py`: mide **falsas alarmas sobre las 6 sondas** y **sensibilidad sobre
 una muestra del corpus**, y dice cuál gana. **Sin claves corre igual**, y muestra el baseline solo.
@@ -862,6 +862,36 @@ El `aciertos` mide el veredicto final, que exige que **además** se reconozca el
 del CSIRT es mayormente de **pinchar un enlace** —que no es una petición indebida—, así que mide otra
 cosa. **La vara es la métrica válida; la sensibilidad hay que rediseñarla** midiendo la extracción
 contra etiquetas hechas a mano.
+
+## ✅ T4.8b — DeepSeek conectado al robot, y el caso que deja de quedar mudo
+
+**Lo que faltaba no era el modelo: era el cable.** El extractor estaba escrito y medido, pero el
+servidor no lo llamaba. Ahora `main()` arma `CacheDeExtraccion(ExtractorLLM(...))` **solo si existe
+`DEEPSEEK_API_KEY`**, y `conversacion.componer` lo usa.
+
+```
+sin la clave   → el robot funciona igual que antes (degradación silenciosa, sin romperse)
+con la clave   → el mensaje sin enlace que pide la clave sale PIDE_LO_INDEBIDO
+```
+
+### `componer` evalúa dos veces, y tiene que hacerlo
+
+El extractor **necesita saber de quién dice ser el mensaje** para extraer la petición, y eso lo
+resuelve el motor. Así que se evalúa una primera vez para obtener `reclamadas` → `dice_ser`, se llama
+al extractor, y se evalúa de nuevo con la petición puesta. **El motor decide las dos veces; el modelo
+solo llena el formulario en el medio.**
+
+### Y el caso que esto desbloquea es el 8 % del corpus
+
+En las 342 estafas, **28 no traen enlace** (`avisa`) y una más queda muda. Hasta hoy salían con
+`SIN_ENLACES`. Con el extractor conectado pasan a tener veredicto —**si piden algo indebido**—, que es
+exactamente la brecha que `T4.4` declaró y no podía cerrar sola.
+
+### Verificado sin red
+
+`tests/test_servidor.py` usa un `ExtractorFalso` con la petición inyectada: **un test fija que el
+mensaje sin enlace ya no queda mudo**, y **otro fija que sin extractor el robot se comporta como
+antes**. La regla de arriba queda clavada en los tests, no en la buena voluntad.
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

@@ -205,3 +205,69 @@ def test_el_servidor_contesta_200_aunque_la_firma_sea_mala() -> None:
     finally:
         servidor.shutdown()
         servidor.server_close()
+
+
+class ExtractorFalso:
+    """Un extractor de mentira, para probar el cableado sin red."""
+
+    def __init__(self, pide: tuple[Any, ...] = ()) -> None:
+        self.pide = pide
+
+    def extraer(self, texto: str, dice_ser: str | None) -> Any:
+        from vigia.peticion import Peticion
+
+        return Peticion(dice_ser=dice_ser, pide=self.pide)
+
+
+def test_un_mensaje_sin_enlace_que_pide_la_clave_ya_no_queda_mudo() -> None:
+    """**El extractor conectado al robot.** Antes del cableado esto daba `SIN_ENLACES`."""
+    from vigia.peticion import PeticionDe
+
+    enviador = EnviadorFalso()
+    bruto = json.dumps(
+        {
+            "event": "whatsapp.message.received",
+            "phone_number_id": ID_NUMERO,
+            "message": {
+                "id": "wamid.PET",
+                "kapso": {
+                    "direction": "inbound",
+                    "has_media": False,
+                    "content": "Su ClaveUnica sera bloqueada. Responda con su clave y su RUT.",
+                },
+            },
+            "conversation": {"id": "c-pet", "phone_number": "56912345678"},
+        }
+    ).encode()
+    assert atender(
+        bruto,
+        firmar(bruto, SECRETO),
+        SECRETO,
+        enviador,
+        extraer=ExtractorFalso((PeticionDe.CLAVE, PeticionDe.DATOS_PERSONALES)),
+    )
+    texto = enviador.enviados[0][2]
+    assert "ClaveÚnica" in texto
+    assert "clave" in texto
+    assert "seguro" not in texto.lower()
+
+
+def test_sin_extractor_el_motor_se_comporta_como_antes() -> None:
+    enviador = EnviadorFalso()
+    bruto = json.dumps(
+        {
+            "event": "whatsapp.message.received",
+            "phone_number_id": ID_NUMERO,
+            "message": {
+                "id": "wamid.MUDO",
+                "kapso": {
+                    "direction": "inbound",
+                    "has_media": False,
+                    "content": "Su ClaveUnica sera bloqueada",
+                },
+            },
+            "conversation": {"id": "c-mudo", "phone_number": "56912345678"},
+        }
+    ).encode()
+    assert atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador)
+    assert "Pégame" in enviador.enviados[0][2]

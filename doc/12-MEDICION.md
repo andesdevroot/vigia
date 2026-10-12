@@ -153,6 +153,51 @@ precisamente los mensajes que enseñan a la gente a cuidarse.
 **El mismo hueco, por segunda vez.** El corpus de mensajes legítimos dejó de ser una tarea de
 calibración y pasó a ser **el insumo que falta** para dos mediciones distintas.
 
+## T4.8b — DeepSeek contra la vara, y el cableado
+
+### El modelo pasa la vara, sonda por sonda
+
+```
+extractor                          falsas alarmas  aciertos   veredicto
+------------------------------------------------------------------------------
+referencia (sin modelo)            3 de 6            2/40       no sirve
+DeepSeek deepseek-chat             0 de 6            1/40       PASA
+JEV typesafe/jev-router            0 de 6            0/40       NO VERIFICABLE (31 fallidas)
+```
+
+**La vara eran las 6 sondas**, porque **3 de 6 son consejos contra el phishing** y el extractor de
+referencia los marca. DeepSeek devuelve `pide=[]` en las seis, **con 0 llamadas fallidas**. La vara se
+cumple.
+
+**La columna de aciertos no dice nada, y hay que declararlo:** sobre 40 mensajes del corpus, el
+extractor encuentra 1 «acierto» contra 2 del baseline. Ese número mide el **veredicto final**, que
+exige reconocer además el reclamo —y el corpus del CSIRT es casi todo «pinche un enlace», que **no es
+una petición indebida**—. **La sensibilidad sigue sin medirse bien**; ver arriba.
+
+### JEV se descarta por costo, no por saldo
+
+`typesafe/jev-router` **enruta a modelos pagados sin decir cuál ni a qué precio** (en la prueba derivó
+a `deepseek/deepseek-v4.1-flash`). En un servicio público el costo por verificación tiene que ser **un
+número**. Y su precio reportado era **`-1`**, que no es un precio.
+
+Coste de la alternativa, medido: `deepseek-chat` a **USD 0,32 / millón de tokens de entrada** →
+**≈ 0,13 CLP por mensaje**, contra **≈ 19 CLP de la respuesta de WhatsApp**: **0,7 %**. El costo no es
+el argumento en contra; la opacidad sí.
+
+### Y los **28 mensajes sin enlace** dejan de quedar mudos
+
+El extractor ya estaba medido pero **no estaba conectado**. Cableado: `main()` arma
+`CacheDeExtraccion(ExtractorLLM(...))` **solo si existe la clave**, y `conversacion.componer` lo usa
+evaluando **dos veces** —la primera para saber de quién dice ser el mensaje, la segunda con la
+petición puesta—.
+
+**Lo que cambia, en números:** de las 342 estafas, **28 no traen enlace** y hasta hoy respondían
+`SIN_ENLACES`. Con el extractor pasan a tener veredicto **si piden algo indebido**. Es la brecha 2 del
+`doc/14-GAP.md`, y es la única forma de cubrirla: el enlace no está, así que el motor no tiene nada que
+juzgar.
+
+**Sin la clave el robot no se rompe: se degrada** al comportamiento anterior.
+
 ## T4.3 — El control invertido, y la precisión
 
 **El mismo texto de la estafa, con el enlace de la institución real.** Eso aísla una sola variable:

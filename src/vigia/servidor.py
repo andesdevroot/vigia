@@ -36,6 +36,7 @@ from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from vigia.conversacion import componer
 from vigia.entrante import interpretar
+from vigia.extractor import CacheDeExtraccion, Extractor, ExtractorLLM
 from vigia.firma import es_valida
 from vigia.marcas import MARCAS
 from vigia.medicion import Contador, Contar
@@ -123,6 +124,7 @@ def atender(
     enviar: Respondedor,
     marcas: Sequence[Marca] = MARCAS,
     contar: Contar | None = None,
+    extraer: Extractor | None = None,
 ) -> bool:
     """Atiende un webhook y devuelve si se alcanzó a responder.
 
@@ -148,7 +150,7 @@ def atender(
     enviar.responder(
         mensaje.phone_number_id,
         mensaje.destinatario,
-        componer(mensaje, marcas),
+        componer(mensaje, marcas, extraer),
     )
     return True
 
@@ -168,6 +170,7 @@ class _Manejador(BaseHTTPRequestHandler):
     enviar: Respondedor
     marcas: tuple[Marca, ...]
     contar: Contar | None
+    extraer: Extractor | None
 
     def do_POST(self) -> None:  # noqa: N802 - lo impone la clase base
         respondido = False
@@ -180,6 +183,7 @@ class _Manejador(BaseHTTPRequestHandler):
                 self.enviar,
                 self.marcas,
                 self.contar,
+                self.extraer,
             )
         except Exception as error:  # noqa: BLE001 - un webhook nunca contesta 500
             # Se registra el **motivo**, nunca el contenido. Sin esto, un envío que falla se ve
@@ -197,7 +201,11 @@ class _Manejador(BaseHTTPRequestHandler):
 
 
 def _manejador(
-    secreto: str, enviar: Respondedor, marcas: tuple[Marca, ...], contar: Contar | None
+    secreto: str,
+    enviar: Respondedor,
+    marcas: tuple[Marca, ...],
+    contar: Contar | None,
+    extraer: Extractor | None,
 ) -> type[BaseHTTPRequestHandler]:
     """Una subclase con la configuración pegada, que es como `http.server` espera recibirla."""
     campos: dict[str, Any] = {
@@ -205,6 +213,7 @@ def _manejador(
         "enviar": enviar,
         "marcas": marcas,
         "contar": contar,
+        "extraer": extraer,
     }
     return type("Manejador", (_Manejador,), campos)
 
@@ -215,9 +224,10 @@ def construir_servidor(
     enviar: Respondedor,
     marcas: Sequence[Marca] = MARCAS,
     contar: Contar | None = None,
+    extraer: Extractor | None = None,
 ) -> ThreadingHTTPServer:
     return ThreadingHTTPServer(
-        direccion, _manejador(secreto, enviar, tuple(marcas), contar)
+        direccion, _manejador(secreto, enviar, tuple(marcas), contar, extraer)
     )
 
 
@@ -237,8 +247,22 @@ def main() -> None:
     if os.environ.get("VIGIA_CONTAR"):
         contar = Contador(Path(os.environ.get("VIGIA_CONTADOR", "conteo.json")))
 
+    # El extractor, si hay clave. Se envuelve en la caché para no pagar dos veces el mismo mensaje.
+    extraer: Extractor | None = None
+    clave_deepseek = os.environ.get("DEEPSEEK_API_KEY")
+    if clave_deepseek:
+        extraer = CacheDeExtraccion(
+            ExtractorLLM(
+                base=os.environ.get("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1"),
+                api_key=clave_deepseek,
+                modelo=os.environ.get("DEEPSEEK_MODELO", "deepseek-chat"),
+            )
+        )
+
     puerto = int(os.environ.get("VIGIA_PUERTO", "8000"))
-    servidor = construir_servidor(("", puerto), secreto, enviar, contar=contar)
+    servidor = construir_servidor(
+        ("", puerto), secreto, enviar, contar=contar, extraer=extraer
+    )
     print(f"Escuchando en el puerto {puerto}.")  # noqa: T201 - es la salida del programa
     servidor.serve_forever()
 

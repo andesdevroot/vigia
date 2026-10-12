@@ -220,7 +220,12 @@ nombre o NADA»*. Después decide el catálogo de siempre.
 | **Novedad** | baja por sí sola |
 | **Cubre** | la brecha 1, y mejora los alias («banco de estado», «BCI», «Scotiabank») |
 
-### Opción C — Un LLM que extrae **qué pide** el mensaje, y una regla que decide
+### Opción C — Un LLM que extrae **qué pide** el mensaje, y una regla que decide — **ELEGIDA Y CONECTADA** (`T4.4`, `T4.5`, `T4.8b`)
+
+> **Resuelto.** Está implementada (`peticion.py` + `extractor.py`), medida contra la vara
+> (**DeepSeek: 0 falsas alarmas de 6 sondas, 0 llamadas fallidas**; el extractor de referencia: 3 de
+> 6) y **cableada al robot** en `T4.8b`. JEV se descartó por costo opaco, no por saldo. Los **28
+> mensajes del corpus sin enlace** dejan de quedar mudos.
 
 **Es la que creo que es el núcleo.** El LLM llena un formulario de campos cerrados, y **ninguna
 decisión la toma él**:
