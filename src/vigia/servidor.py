@@ -34,12 +34,14 @@ from typing import IO, Any, Protocol
 from urllib.error import HTTPError
 from urllib.request import HTTPRedirectHandler, Request, build_opener
 
-from vigia.conversacion import componer
+from vigia.conversacion import AVISO_PRIVACIDAD, ESPERA, componer
 from vigia.entrante import interpretar
 from vigia.extractor import CacheDeExtraccion, Extractor, ExtractorLLM
 from vigia.firma import es_valida
 from vigia.marcas import MARCAS
 from vigia.medicion import Contador, Contar
+from vigia.memoria import MENSAJES_POR_VENTANA, VENTANA_S, Decision, Memoria
+from vigia.motor import evaluar
 from vigia.suplantacion import Marca
 
 TIEMPO_LIMITE_S = 10
@@ -125,21 +127,31 @@ def atender(
     marcas: Sequence[Marca] = MARCAS,
     contar: Contar | None = None,
     extraer: Extractor | None = None,
+    memoria: Memoria | None = None,
+    anotar: Callable[[str], None] | None = None,
 ) -> bool:
     """Atiende un webhook y devuelve si se alcanzó a responder.
 
     La firma se verifica **antes** de parsear: es lo que documenta Kapso y lo único que garantiza
     que el cuerpo no se interpretó antes de saber quién lo mandó.
+
+    Con `memoria` se aplica el límite por persona y se avisa de la privacidad la primera vez. Con
+    `anotar` queda registrado **por qué** no se respondió: sin eso, un envío que falla se ve
+    exactamente igual que un mensaje sin nada que responder, y ya nos dejó ciegos una vez.
     """
     if not es_valida(firma, cuerpo, secreto):
+        _anota(anotar, "firma invalida")
         return False
     try:
         sobre = json.loads(cuerpo)
     except (json.JSONDecodeError, UnicodeDecodeError):
+        _anota(anotar, "cuerpo ilegible")
         return False
 
     mensaje = interpretar(sobre)
     if mensaje is None or mensaje.destinatario is None:
+        # Un mensaje saliente, o un sobre con la forma equivocada. No se contesta y no es un error.
+        _anota(anotar, "sin destinatario")
         return False
 
     # Se cuenta **antes** de enviar, a propósito: si el envío falla, el mensaje igual llegó, y para
@@ -147,12 +159,35 @@ def atender(
     if contar is not None:
         contar(mensaje)
 
-    enviar.responder(
-        mensaje.phone_number_id,
-        mensaje.destinatario,
-        componer(mensaje, marcas, extraer),
-    )
+    decision = Decision(responder=True)
+    if memoria is not None:
+        decision = memoria.decidir(mensaje.destinatario)
+        if not decision.responder:
+            # **Acá es donde se ahorra el dinero.** Cada respuesta cuesta ≈ 19 CLP, y esta no sale.
+            _anota(anotar, "limite alcanzado, sin respuesta")
+            return False
+
+    # **Una sola vez.** `componer` con extractor llama al modelo, y llamarlo dos veces pagaría
+    # DeepSeek dos veces por el mismo mensaje.
+    partes = [componer(mensaje, marcas, extraer)]
+    if decision.avisar_limite:
+        partes.append(ESPERA)
+    if decision.avisar_privacidad:
+        partes.append(AVISO_PRIVACIDAD)
+
+    enviar.responder(mensaje.phone_number_id, mensaje.destinatario, " ".join(partes))
+    # El veredicto del **enlace**, que es local y gratis, y se rotula como tal: con extractor el
+    # veredicto final puede ser otro, y el registro no debería insinuar que es el mismo.
+    enlace = evaluar(mensaje.texto, marcas=marcas).veredicto.value
+    _anota(anotar, f"respondido (enlace {enlace})")
     return True
+
+
+def _anota(anotar: Callable[[str], None] | None, motivo: str) -> None:
+    """Deja constancia de un motivo. **Nunca del contenido.**"""
+    if anotar is not None:
+        anotar(motivo)
+
 
 def _motivo(error: BaseException) -> str:
     """Cómo se nombra un fallo en el registro.
@@ -171,6 +206,7 @@ class _Manejador(BaseHTTPRequestHandler):
     marcas: tuple[Marca, ...]
     contar: Contar | None
     extraer: Extractor | None
+    memoria: Memoria | None
 
     def do_POST(self) -> None:  # noqa: N802 - lo impone la clase base
         respondido = False
@@ -184,6 +220,8 @@ class _Manejador(BaseHTTPRequestHandler):
                 self.marcas,
                 self.contar,
                 self.extraer,
+                self.memoria,
+                lambda motivo: self.log_message("%s", motivo),
             )
         except Exception as error:  # noqa: BLE001 - un webhook nunca contesta 500
             # Se registra el **motivo**, nunca el contenido. Sin esto, un envío que falla se ve
@@ -206,6 +244,7 @@ def _manejador(
     marcas: tuple[Marca, ...],
     contar: Contar | None,
     extraer: Extractor | None,
+    memoria: Memoria | None = None,
 ) -> type[BaseHTTPRequestHandler]:
     """Una subclase con la configuración pegada, que es como `http.server` espera recibirla."""
     campos: dict[str, Any] = {
@@ -214,6 +253,7 @@ def _manejador(
         "marcas": marcas,
         "contar": contar,
         "extraer": extraer,
+        "memoria": memoria,
     }
     return type("Manejador", (_Manejador,), campos)
 
@@ -225,9 +265,10 @@ def construir_servidor(
     marcas: Sequence[Marca] = MARCAS,
     contar: Contar | None = None,
     extraer: Extractor | None = None,
+    memoria: Memoria | None = None,
 ) -> ThreadingHTTPServer:
     return ThreadingHTTPServer(
-        direccion, _manejador(secreto, enviar, tuple(marcas), contar, extraer)
+        direccion, _manejador(secreto, enviar, tuple(marcas), contar, extraer, memoria)
     )
 
 
@@ -259,9 +300,16 @@ def main() -> None:
             )
         )
 
+    # El límite **no es opcional**: cada respuesta cuesta ≈ 19 CLP, y sin él cualquiera que
+    # encuentre el número puede vaciar el presupuesto de un servicio público.
+    memoria = Memoria(
+        maximo=int(os.environ.get("VIGIA_MAXIMO", str(MENSAJES_POR_VENTANA))),
+        ventana_s=float(os.environ.get("VIGIA_VENTANA_S", str(VENTANA_S))),
+    )
+
     puerto = int(os.environ.get("VIGIA_PUERTO", "8000"))
     servidor = construir_servidor(
-        ("", puerto), secreto, enviar, contar=contar, extraer=extraer
+        ("", puerto), secreto, enviar, contar=contar, extraer=extraer, memoria=memoria
     )
     print(f"Escuchando en el puerto {puerto}.")  # noqa: T201 - es la salida del programa
     servidor.serve_forever()

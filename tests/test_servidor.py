@@ -10,6 +10,7 @@ from typing import Any
 from urllib.request import Request, urlopen
 
 from vigia.firma import firmar
+from vigia.memoria import Memoria
 from vigia.servidor import (
     KapsoRespondedor,
     _SinRedirecciones,
@@ -271,3 +272,63 @@ def test_sin_extractor_el_motor_se_comporta_como_antes() -> None:
     ).encode()
     assert atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador)
     assert "Pégame" in enviador.enviados[0][2]
+
+
+def test_el_limite_corta_los_mensajes_y_ahorra_dinero() -> None:
+    """**Cada respuesta cuesta ≈ 19 CLP.** El que se pasa recibe un aviso y después silencio."""
+    memoria = Memoria(maximo=2, ventana_s=3600, ahora=lambda: 0.0)
+    enviador = EnviadorFalso()
+    for i in range(4):
+        bruto = cuerpo(conversation={"id": "c", "phone_number": "56912345678"}, message={
+            "id": f"wamid.{i}",
+            "kapso": {"direction": "inbound", "has_media": False, "content": "hola"},
+        })
+        atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador, memoria=memoria)
+
+    # El tercero cruza el límite y todavía se contesta para poder avisar; el cuarto ya no.
+    assert len(enviador.enviados) == 3, "el cuarto mensaje no se contesta: costaría 19 CLP"
+    assert "muchos mensajes" in enviador.enviados[2][2].lower()
+
+
+def test_el_aviso_de_privacidad_viaja_en_la_primera_respuesta() -> None:
+    """La decisión de `doc/14-GAP.md` §5.1, cumplida: se avisa que se usa un modelo."""
+    memoria = Memoria(maximo=10, ventana_s=3600, ahora=lambda: 0.0)
+    enviador = EnviadorFalso()
+    bruto = cuerpo()
+    atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador, memoria=memoria)
+    primera = enviador.enviados[0][2]
+    assert "modelo" in primera.lower()
+    assert "no lo guardamos" in primera.lower() or "no se guarda" in primera.lower()
+
+    bruto2 = cuerpo(message={
+        "id": "wamid.DOS",
+        "kapso": {"direction": "inbound", "has_media": False, "content": "otra vez"},
+    })
+    atender(bruto2, firmar(bruto2, SECRETO), SECRETO, enviador, memoria=memoria)
+    assert "modelo" not in enviador.enviados[1][2].lower(), "no se repite: sería ruido"
+
+
+def test_sin_memoria_nada_cambia() -> None:
+    """La memoria es opcional, como todo lo demás: sin ella el robot se comporta como antes."""
+    enviador = EnviadorFalso()
+    bruto = cuerpo()
+    assert atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador)
+    assert len(enviador.enviados) == 1
+
+
+def test_el_servidor_anota_por_que_no_respondio() -> None:
+    """**Un envío que falla no puede verse igual que un mensaje sin nada que responder.**
+
+    Es el modo de fallo que ya nos dejó ciegos una vez: en la prueba real hubo que ir a la API de
+    Kapso para saber si la respuesta había salido, porque el registro solo tenía el código HTTP.
+    """
+    anotaciones: list[str] = []
+    enviador = EnviadorFalso()
+
+    atender(b"{}", "mala", SECRETO, enviador, anotar=anotaciones.append)
+    assert anotaciones and not anotaciones[0].startswith("respondido")
+
+    anotaciones.clear()
+    bruto = cuerpo()
+    atender(bruto, firmar(bruto, SECRETO), SECRETO, enviador, anotar=anotaciones.append)
+    assert anotaciones[-1].startswith("respondido")

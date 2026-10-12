@@ -28,6 +28,16 @@ PEDIR_TEXTO = (
 
 ACLARAR_IMAGEN = "Ojo: las imágenes no las puedo leer, esto lo digo por el texto que venía abajo."
 
+AVISO_PRIVACIDAD = (
+    "Ojo: para analizarlo se lo paso a un modelo, sin tus datos personales ni el enlace. "
+    "Tu mensaje no se guarda."
+)
+
+ESPERA = (
+    "Me estás mandando muchos mensajes seguidos. Espera un rato y seguimos: "
+    "cada respuesta tiene un costo y esto lo paga alguien."
+)
+
 
 def componer(
     mensaje: MensajeRecibido,

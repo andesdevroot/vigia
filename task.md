@@ -44,6 +44,7 @@ código.
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper | 🚧 **borrador escrito, falta revisión y publicar el repo** |
+| T2.2 | Límite, aviso de privacidad y registro | ✅ **los tres huecos operativos, cerrados** |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
 decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
@@ -987,6 +988,55 @@ delivered`.
 `tests/test_servidor.py` usa un `ExtractorFalso` con la petición inyectada: **un test fija que el
 mensaje sin enlace ya no queda mudo**, y **otro fija que sin extractor el robot se comporta como
 antes**. La regla de arriba queda clavada en los tests, no en la buena voluntad.
+
+## ✅ T2.2 — Los tres huecos operativos que la cola no tenía
+
+Los encontró una revisión del código, no una tarea. **Los tres son bloqueos, y los tres son de
+horas.**
+
+### 1. No había límite, y cada respuesta cuesta ≈ 19 CLP
+
+**Es una fuga de dinero, no un tema de rendimiento.** Cualquiera que encuentre el número puede
+vaciar el presupuesto de un servicio público, y no hace falta malicia: alcanza con reenviar.
+
+`src/vigia/memoria.py`: **20 mensajes por persona por hora**, y 4.096 personas recordadas a la vez —
+pasado el tope se descarta la entrada más vieja, porque una memoria que crece con cada número que
+escribe es una fuga en un servicio público.
+
+**Y no se calla de golpe:** al que cruza el límite se le dice **una vez** que frene, y recién después
+no se le contesta. Callar sin avisar es el modo de fallo que este proyecto persigue en todas partes.
+
+### 2. El aviso de privacidad era una promesa escrita y no cumplida
+
+La decisión estaba tomada en `doc/14-GAP.md` §5.1 —decirlo en la bienvenida— y **no estaba
+implementada**. El ciudadano nunca se enteraba de que su mensaje se analiza con un modelo.
+
+Ahora viaja en la primera respuesta, y **solo en la primera**:
+
+> Ojo: para analizarlo se lo paso a un modelo, sin tus datos personales ni el enlace. Tu mensaje no
+> se guarda.
+
+### 3. El servidor no decía por qué no había respondido
+
+Lo vivimos en la prueba real: hubo que ir a la API de Kapso para saber si la respuesta había salido,
+porque el registro solo tenía el código HTTP. **Un envío que falla se veía igual que un mensaje sin
+nada que responder.**
+
+```
+antes:   127.0.0.1 - - [..] "POST /webhook HTTP/1.1" 200 -
+ahora:   127.0.0.1 - - [..] firma invalida
+         127.0.0.1 - - [..] "POST /webhook HTTP/1.1" 200 -
+```
+
+Con el veredicto rotulado como del **enlace**, que es local y gratis: con extractor el veredicto
+final puede ser otro, y el registro no debería insinuar que es el mismo.
+
+### Y un bug que se arregló de paso
+
+Al cablear los avisos, `componer` quedaba llamándose **dos veces**. Con el extractor puesto, eso
+**paga DeepSeek dos veces por el mismo mensaje**. Ahora se llama una sola vez.
+
+**211 tests verdes** (202 funciones), **13 requisitos nuevos** (REQ-220 a REQ-232).
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 

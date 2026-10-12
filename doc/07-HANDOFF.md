@@ -14,11 +14,12 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
 | Catálogo | **25 instituciones**: 14 estatales y 11 suplantadas, todas verificadas por certificado |
 | Funcionando | **Probado de punta a punta el 2026-10-11**: 4 mensajes reales por WhatsApp, los 4 `delivered`, **1–3 s** con DeepSeek en el camino. Incluye el mensaje **sin enlace** que antes quedaba mudo |
-| Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` · `peticion` · `extractor` · `redaccion` · `indicadores` |
+| Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` · `peticion` · `extractor` · `redaccion` · `indicadores` · `memoria` |
 | Datos | `corpus/alertas_csirt.json` (342) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
-| Tests | **198 casos verdes** (189 funciones), 1 de integración, sin red, en un segundo |
-| Requisitos | **138 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
+| Tests | **211 casos verdes** (202 funciones), 1 de integración, sin red, en un segundo |
+| Requisitos | **151 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
+| Licencia | **Apache-2.0** el código, **CC BY 4.0** el corpus, con `NOTICE` |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
 ## Último commit

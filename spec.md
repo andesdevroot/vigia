@@ -230,6 +230,24 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-217 | Con tres, la conjunción va antes de la última | `test_con_tres_cosas_la_conjuncion_va_antes_de_la_ultima` |
 | REQ-218 | Sin petición indebida no se agrega nada | `test_sin_peticion_indebida_no_dice_nada` |
 
+## 18. El límite, los avisos y el registro
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-220 | La primera vez que alguien escribe se le **avisa de la privacidad** | `test_la_primera_vez_avisa_de_la_privacidad` |
+| REQ-221 | Ese aviso **no se repite** en los mensajes siguientes | `test_la_privacidad_se_avisa_una_sola_vez` |
+| REQ-222 | El aviso es **por persona**: si no, el segundo nunca se entera | `test_a_cada_persona_se_le_avisa_por_separado` |
+| REQ-223 | Bajo el límite se contesta siempre | `test_bajo_el_limite_se_contesta_siempre` |
+| REQ-224 | Al cruzar el límite **se avisa una vez**, y después no se contesta | `test_al_cruzar_el_limite_se_avisa_una_vez_y_despues_no_se_contesta` |
+| REQ-225 | El límite es **por persona**, no global | `test_el_limite_es_por_persona_y_no_global` |
+| REQ-226 | La ventana se renueva: nadie queda bloqueado para siempre | `test_la_ventana_se_renueva` |
+| REQ-227 | **La memoria no guarda el mensaje**: solo números y banderas | `test_la_memoria_no_guarda_el_mensaje` |
+| REQ-228 | La memoria **no crece sin límite** | `test_no_crece_sin_limite` |
+| REQ-229 | **El límite corta los mensajes y ahorra dinero** | `test_el_limite_corta_los_mensajes_y_ahorra_dinero` |
+| REQ-230 | El aviso de privacidad viaja en la primera respuesta | `test_el_aviso_de_privacidad_viaja_en_la_primera_respuesta` |
+| REQ-231 | Sin memoria el robot se comporta como antes | `test_sin_memoria_nada_cambia` |
+| REQ-232 | **El servidor anota por qué no respondió** | `test_el_servidor_anota_por_que_no_respondio` |
+
 ## 17. La arquitectura
 
 | # | Requisito | Test |
