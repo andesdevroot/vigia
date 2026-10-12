@@ -217,6 +217,20 @@ existe: `vigia` no tiene remoto.** Se cambió por una declaración de disponibil
 | **Un segundo modelo** | La vara del §5.3 es barata de correr contra otro proveedor |
 | **Publicar el repositorio** | Lo dicho arriba |
 
+### El repositorio está publicado, y verificado en un clon limpio
+
+**<https://github.com/andesdevroot/vigia>** — público, Apache-2.0 el código y CC BY 4.0 el corpus.
+
+Antes de publicarlo se auditó la historia completa de git: **ninguna de las cinco claves aparece en
+ningún blob**, y `.env` nunca estuvo versionado. Lo único que quedó en la historia es el **UUID del
+webhook**, que no es una credencial —y que conviene recrear igual, por higiene—.
+
+**Y se verificó donde importa:** `git clone` a un directorio vacío y `./gate.sh` da **211 tests
+verdes**, ruff limpio y mypy limpio. Es la diferencia entre prometer reproducibilidad y reproducirlo.
+
+El corpus se revisó antes de publicar: **cero RUT, cero teléfonos**, y los únicos correos son
+`test@csirt.gob.cl` del propio CSIRT.
+
 **Bloqueo de acceso, no de datos:** la lista de inscripciones de ANCI no se publica. Se puede pedir
 por Ley de Transparencia, y eso es una gestión.
 

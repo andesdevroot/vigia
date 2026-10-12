@@ -11,8 +11,17 @@ quién dice ser el mensaje y qué pide— y una **regla escrita** decide. El mod
 veredicto. La abstención es un veredicto de primera clase.
 
 ```bash
+git clone https://github.com/andesdevroot/vigia
+cd vigia
 ./gate.sh          # pytest + ruff + mypy. Debe decir "GATE EN VERDE"
 ```
+
+**211 tests, sin red, en un segundo.** El núcleo de decisión usa **solo la stdlib**, y un test lo
+impone.
+
+## Licencia
+
+Código **Apache-2.0** · corpus, índice y documentación **CC BY 4.0**.
 
 | | |
 |---|---|

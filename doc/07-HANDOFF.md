@@ -20,6 +20,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 | Requisitos | **151 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
 | Licencia | **Apache-2.0** el código, **CC BY 4.0** el corpus, con `NOTICE` |
+| Repositorio | **<https://github.com/andesdevroot/vigia>** — público, y verificado con un clon limpio |
 | Árbol git | limpio, y `.env` fuera del control de versiones |
 
 ## Último commit
