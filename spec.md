@@ -248,6 +248,20 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-231 | Sin memoria el robot se comporta como antes | `test_sin_memoria_nada_cambia` |
 | REQ-232 | **El servidor anota por qué no respondió** | `test_el_servidor_anota_por_que_no_respondio` |
 
+## 19. El despliegue
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-240 | El servidor contesta un **chequeo de salud sin firma** | `test_el_chequeo_de_salud_contesta_sin_firma` |
+| REQ-241 | El chequeo de salud **no cuenta como mensaje** | `test_el_chequeo_de_salud_no_cuenta_como_mensaje` |
+| REQ-242 | El chequeo de salud **no revela nada de adentro** | `test_el_chequeo_de_salud_no_revela_nada_de_adentro` |
+| REQ-243 | El puerto lo manda la plataforma por `PORT` | `test_el_puerto_lo_manda_la_plataforma` |
+| REQ-244 | `PORT` gana sobre `VIGIA_PUERTO` | `test_port_gana_sobre_el_nombre_nuestro` |
+| REQ-245 | Un puerto inválido **falla al arrancar**, no escucha a medias | `test_un_puerto_absurdo_no_arranca_a_medias` |
+| REQ-246 | Hay `Dockerfile` | `test_hay_dockerfile` |
+| REQ-247 | **La imagen no instala dependencias**: el núcleo sigue siendo stdlib | `test_la_imagen_no_instala_dependencias` |
+| REQ-248 | **La imagen no se lleva los secretos**: entran por entorno, nunca por `COPY` | `test_la_imagen_no_se_lleva_los_secretos` |
+
 ## 17. La arquitectura
 
 | # | Requisito | Test |

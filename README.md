@@ -48,5 +48,6 @@ Los datos de alertas provienen del CSIRT Nacional de Chile, que los publica abie
 | **Medición** | [`doc/12-MEDICION.md`](doc/12-MEDICION.md) |
 | **Handoff** | [`doc/07-HANDOFF.md`](doc/07-HANDOFF.md) |
 | **Publicar** | [`doc/16-PUBLICAR.md`](doc/16-PUBLICAR.md) — dónde vive cada cosa, y **el orden que no se puede invertir** |
+| **Desplegar** | [`doc/17-DESPLEGAR.md`](doc/17-DESPLEGAR.md) — el `Dockerfile`, las variables y los pasos |
 
 `doc/` es la fuente de verdad · `task.md` es la cola de trabajo · `./gate.sh` es el gate.

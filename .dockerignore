@@ -1,0 +1,18 @@
+# Nada de esto entra a la imagen. Lo que se copia está declarado en el Dockerfile, uno por uno.
+.git/
+.github/
+.privado/
+.uv-cache/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+cache/
+conteo.json
+
+# Secretos. Entran por variables de entorno, nunca por COPY.
+.env
+*.parcial
+.tmp-*

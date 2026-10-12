@@ -26,7 +26,7 @@ from __future__ import annotations
 
 import json
 import os
-from collections.abc import Callable, Sequence
+from collections.abc import Callable, Mapping, Sequence
 from http.client import HTTPMessage
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -208,6 +208,22 @@ class _Manejador(BaseHTTPRequestHandler):
     extraer: Extractor | None
     memoria: Memoria | None
 
+    def do_GET(self) -> None:  # noqa: N802 - lo impone la clase base
+        """El chequeo de salud.
+
+        **Sin firma, porque la plataforma no puede firmar.** Y sin decir nada de adentro: que el
+        servicio esté vivo es un dato público; qué versión corre, no.
+
+        No dispara el contador ni el extractor. Una plataforma llama a esto cada pocos segundos, y
+        no puede costar lo que cuesta un mensaje.
+        """
+        respuesta = json.dumps({"ok": True}).encode()
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json")
+        self.send_header("Content-Length", str(len(respuesta)))
+        self.end_headers()
+        self.wfile.write(respuesta)
+
     def do_POST(self) -> None:  # noqa: N802 - lo impone la clase base
         respondido = False
         try:
@@ -272,6 +288,25 @@ def construir_servidor(
     )
 
 
+def puerto_del_entorno(entorno: Mapping[str, str]) -> int:
+    """El puerto donde escuchar, sacado del entorno.
+
+    **`PORT` primero**: es la convención de las plataformas, y es la que ellas van a usar para
+    enrutar. `VIGIA_PUERTO` es el nombre nuestro y sirve para correr local.
+
+    Un puerto inválido **falla al arrancar**, a propósito: mejor no levantar que escuchar donde
+    nadie va a llamar.
+    """
+    crudo = entorno.get("PORT") or entorno.get("VIGIA_PUERTO") or "8000"
+    try:
+        puerto = int(crudo)
+    except ValueError as error:
+        raise ValueError(f"el puerto {crudo!r} no es un número") from error
+    if not 1 <= puerto <= 65535:
+        raise ValueError(f"el puerto {puerto} está fuera de rango")
+    return puerto
+
+
 def main() -> None:
     """Levanta el webhook. `python -m vigia.servidor`."""
     secreto = os.environ.get("VIGIA_WEBHOOK_SECRET")
@@ -307,7 +342,7 @@ def main() -> None:
         ventana_s=float(os.environ.get("VIGIA_VENTANA_S", str(VENTANA_S))),
     )
 
-    puerto = int(os.environ.get("VIGIA_PUERTO", "8000"))
+    puerto = puerto_del_entorno(os.environ)
     servidor = construir_servidor(
         ("", puerto), secreto, enviar, contar=contar, extraer=extraer, memoria=memoria
     )

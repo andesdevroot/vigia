@@ -7,8 +7,8 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **`T2.1` — el paper. Borrador escrito** (el borrador (en `.privado/`, fuera del repositorio), 5.084 palabras, inglés). Falta revisión del autor y publicar el repo |
-| Después | Cerrar `T2.1`: revisión del autor, sensibilidad rediseñada, y **publicar el repositorio** (sin él no hay reproducibilidad) |
+| Tarea en curso | **`T5` — desarrollo.** El paper y la publicación quedaron **pausados por el autor** (`T2.1`, `T2.3`) (el borrador (en `.privado/`, fuera del repositorio), 5.084 palabras, inglés). Falta revisión del autor y publicar el repo |
+| Después | `T5.2` imágenes por OCR local · `T5.3` refresco del índice · `T5.4` CI · `T5.5` saber si está vivo |
 | Medido | **Cobertura 99,7 %** (342 estafas: 239 confirmadas, 70 %) y **precisión: 0 falsas acusaciones de 211** (`T4.3`). Ver `doc/12-MEDICION.md` |
 | Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |
 | Pregunta del motor | **«¿este enlace es el sitio de la institución que el mensaje dice ser?»** (`COINCIDE` / `NO_COINCIDE`), con `OFICIAL` / `AJENO` de respaldo |
@@ -16,8 +16,8 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 | Funcionando | **Probado de punta a punta el 2026-10-11**: 4 mensajes reales por WhatsApp, los 4 `delivered`, **1–3 s** con DeepSeek en el camino. Incluye el mensaje **sin enlace** que antes quedaba mudo |
 | Código | `marcas` · `firma` · `entrante` · `motor` · `conversacion` · `servidor` · `peticion` · `extractor` · `redaccion` · `indicadores` · `memoria` |
 | Datos | `corpus/alertas_csirt.json` (342) · `corpus/prueba_t31.json` (3 mensajes de prueba) · `scripts/` |
-| Tests | **211 casos verdes** (202 funciones), 1 de integración, sin red, en un segundo |
-| Requisitos | **151 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
+| Tests | **220 casos verdes** (211 funciones), 1 de integración, sin red, en ~3 s |
+| Requisitos | **160 en `spec.md`**, y `tests/test_spec.py` falla si alguno queda sin test |
 | Gate | **`./gate.sh`** en verde |
 | Licencia | **Apache-2.0** el código, **CC BY 4.0** el corpus, con `NOTICE` |
 | Repositorio | **<https://github.com/andesdevroot/vigia>** — público, y verificado con un clon limpio |

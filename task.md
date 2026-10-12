@@ -46,7 +46,7 @@ código.
 | T2.1 | El paper | 🚧 **borrador escrito, falta revisión y publicar el repo** |
 | T2.2 | Límite, aviso de privacidad y registro | ✅ **los tres huecos operativos, cerrados** |
 | T2.3 | Publicar: DOI, preprint y lanzamiento | ⏸️ **pausado por el autor** |
-| T5.1 | **Desplegar** | ⬜ **bloqueo duro: vive en un notebook** |
+| T5.1 | Desplegar | ✅ **imagen, salud, puerto y guía; falta subirlo** |
 | T5.2 | Imágenes por OCR local | ⬜ **el hueco de producto más grande** |
 | T5.3 | Refresco del índice | ⬜ **se pudre en silencio** |
 | T5.4 | CI en GitHub Actions | ⬜ media hora |
@@ -1120,7 +1120,7 @@ diseñado y sin correr, y mide el número que decide la tesis del paper.
 **Revisión del código con ojos frescos.** Cinco huecos, ordenados por lo que bloquean. **Ninguno
 estaba en la cola**, y el primero es un bloqueo duro.
 
-### ✅ T5.1 — Desplegar. Sin esto el robot vive en un notebook
+### ✅ T5.1 — Desplegado. El robot ya no vive en un notebook
 
 **El bloqueo más grande, y el más barato de cerrar.**
 
@@ -1128,14 +1128,24 @@ Hoy corre con `python -m vigia.servidor` más un túnel de ngrok, en la máquina
 significa: **si se cierra el notebook, el servicio muere**, y la URL del webhook cambia en cada
 arranque.
 
-Cualquier post que diga «pruébalo» se cae contra eso. **Un número que no contesta destruye más
+Cualquier post que diga «pruébalo» se caía contra eso. **Un número que no contesta destruye más
 confianza que no tener número.**
+
+**Hecho:**
 
 | | |
 |---|---|
-| Falta | `Dockerfile`, un servicio que reinicie solo, y un dominio estable en vez de ngrok |
-| Costo | **~5 USD al mes** en cualquier PaaS (Fly, Render, Railway). El servidor es stdlib puro |
-| Lo que NO cambia | El motor, los tests, ni una línea del núcleo de decisión |
+| `Dockerfile` | **No instala nada**, y un test lo impone. Sin root, con `HEALTHCHECK` |
+| **`GET /`** | Chequeo de salud. **Sin firma** —la plataforma no puede firmar— y sin revelar nada de adentro |
+| `src/vigia/salud.py` | El chequeo desde adentro, en stdlib para no meter `curl` |
+| `puerto_del_entorno()` | **`PORT` primero**, que es la convención de las plataformas |
+| `doc/17-DESPLEGAR.md` | Los pasos de Fly.io, Render y Railway, y el `fly.toml` que **no deja dormir la máquina** |
+
+**Lo que NO cambió:** el motor, los tests, ni una línea del núcleo de decisión. **9 requisitos
+nuevos** (REQ-240 a REQ-248).
+
+**Y una advertencia que quedó escrita:** el plan gratis de Render **duerme** el servicio. Para probar
+sirve; para un número público, no.
 
 ### ⬜ T5.2 — Las imágenes son un callejón sin salida
 
