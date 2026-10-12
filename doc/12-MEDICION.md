@@ -220,6 +220,23 @@ cuarta vez en el proyecto que un número rompe algo que los tests no veían.
 **Y el vocabulario se filtraba a la respuesta:** decía `pide datos_personales`. El vocabulario cerrado
 es para el modelo; el ciudadano lee castellano.
 
+
+### Probado por WhatsApp: las dos respuestas correctas, y la latencia
+
+Cuatro mensajes reales, medidos contra la API de Kapso (no contra la consola), los cuatro
+`outbound delivered`:
+
+| Mensaje | Respuesta | Latencia |
+|---|---|---|
+| Enlace malo de BancoEstado **+** pide los datos | Nombra el enlace **y** la petición | **2 s** |
+| Sin enlace, pide la clave y el RUT | `PIDE_LO_INDEBIDO`: dice de quién dice ser y qué pide | **1 s** |
+| Enlace `claveunica-gob-cl.xyz` | «NO es del Estado», con la suplantación nombrada | **1 s** |
+| El mismo, repetido | Idéntico | **3 s** |
+
+**1–3 segundos con el modelo en el camino.** El costo del modelo sigue siendo **≈ 0,13 CLP**, o sea
+**0,7 % de los ≈ 19 CLP** que cuesta la respuesta de WhatsApp: la latencia y el costo del extractor no
+son el problema; la privacidad y la trazabilidad sí, y están tratadas.
+
 ## T4.3 — El control invertido, y la precisión
 
 **El mismo texto de la estafa, con el enlace de la institución real.** Eso aísla una sola variable:

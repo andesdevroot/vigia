@@ -920,6 +920,36 @@ y sus datos personales»**. La respuesta completa, medida contra DeepSeek:
 > enlace se parece a BancoEstado. **Y además pide sus datos personales**: ninguna institución pide su
 > clave, sus datos personales ni una transferencia por mensaje.
 
+### Probado por WhatsApp, y las dos respuestas correctas
+
+```
+1) «Su BancoEstado tiene un cargo no reconocido. Ingrese a
+    https://bancoestado-chile-login.xyz/verificar y confirme sus datos»
+
+   -> El mensaje dice ser de BancoEstado y el enlace bancoestado-chile-login.xyz
+      no es de BancoEstado. El enlace se parece a BancoEstado. Y además pide
+      sus datos personales: ninguna institución pide su clave, sus datos
+      personales ni una transferencia por mensaje.
+                                                    entregado, 2 s
+
+2) «Estimado cliente: su ClaveUnica sera bloqueada en 24 horas. Responda
+    con su clave y su RUT para evitar la suspension»
+
+   -> Este mensaje dice ser de ClaveÚnica y pide su clave y sus datos
+      personales. Ninguna institución pide su clave, sus datos personales
+      ni una transferencia por mensaje: lo dicen ellas mismas.
+                                                    entregado, 1 s
+```
+
+**La 1 dice las dos cosas** —el enlace *y* la petición—, que es el arreglo de arriba funcionando en
+producción. **La 2 no trae enlace y antes quedaba muda**: el veredicto `PIDE_LO_INDEBIDO` es nuevo y
+es lo único que se puede decir ahí.
+
+Latencia medida en cuatro mensajes reales: **1, 1, 2 y 3 segundos**, con el modelo en el camino.
+
+Confirmado contra la API de Kapso, no contra mi consola: los cuatro mensajes salen `outbound
+delivered`.
+
 ### Verificado sin red
 
 `tests/test_servidor.py` usa un `ExtractorFalso` con la petición inyectada: **un test fija que el
