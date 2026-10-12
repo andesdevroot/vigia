@@ -40,7 +40,7 @@ código.
 | T4.7 | Cosechar hasta 1.500 | ✅ **no se puede: el techo es ~400, y está medido** |
 | T4.4 | Extractor de la petición + regla (opción C) | ✅ **regla lista; el baseline no sirve, y está medido** |
 | T4.5 | Extractor con modelo, redacción y caché | ✅ **sin red en los tests; la privacidad, resuelta a medias** |
-| T4.8 | Enfrentar DeepSeek y JEV contra la vara | 🚧 **DeepSeek PASA; OpenRouter sin saldo** |
+| T4.8 | Enfrentar DeepSeek y JEV contra la vara | ✅ **DeepSeek PASA; JEV descartado por costo opaco** |
 | T4.6 | Invariantes sobre el corpus real | ✅ **342 estafas, cero indulgencias** |
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper de medición | ⬜ |
@@ -834,12 +834,16 @@ DeepSeek deepseek-chat             0 de 6            1/40       PASA
 JEV typesafe/jev-router            0 de 6            0/40       NO VERIFICABLE (31 fallidas)
 ```
 
-**DeepSeek entiende la negación**: deja las 6 sondas en **0 falsas alarmas**, contra las 3 del
-extractor de referencia. Es el argumento medido a favor del modelo, cumplido.
+**DeepSeek entiende la negación, verificado sonda por sonda:** las 6 en `pide=[]`, **0 fallos**. Es el
+argumento medido a favor del modelo, cumplido.
 
-**JEV no es verificable, y el motivo está declarado: `HTTP 402`.** La clave es correcta —`sk-or-v1-`,
-73 caracteres— y el modelo responde, pero **la cuenta de OpenRouter tiene `total_credits: 0`**. El
-error se ve porque hay un contador de fallos con su motivo; sin él, JEV habría salido «PASA».
+**JEV se descarta, y no por el saldo: por el costo opaco.** `typesafe/jev-router` **enruta a modelos
+pagados sin decir cuál ni a qué precio** —en la prueba derivó a `deepseek/deepseek-v4.1-flash`— y en un
+servicio público el costo por verificación tiene que ser **un número, no una sorpresa**.
+
+Y hay una demostración concreta: en las 6 sondas, **JEV dio 1 fallo `HTTP 402` y aun así imprimió 6
+«ok»**. Ese «ok» era una llamada caída, no una respuesta. **La misma trampa, ahora en la vara**: sin el
+contador de fallos, JEV habría aprobado.
 
 ### Y el instrumento tenía el mismo defecto que medía
 

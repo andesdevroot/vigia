@@ -7,7 +7,7 @@ un veredicto sobre su enlace. Probado con un teléfono real y medido contra 45 e
 
 | | |
 |---|---|
-| Tarea en curso | **Arreglar la clave de OpenRouter para verificar JEV**, y rediseñar la métrica de sensibilidad. Después, `T2.1` (el paper) |
+| Tarea en curso | **Conectar DeepSeek al robot** y medir la latencia real. Después, `T2.1` (el paper) |
 | Después | `T4.2` índice de IoC · `T4.3` control invertido · `T4.4` extractor de la petición + regla |
 | Medido | **Cobertura 99,7 %** (342 estafas: 239 confirmadas, 70 %) y **precisión: 0 falsas acusaciones de 211** (`T4.3`). Ver `doc/12-MEDICION.md` |
 | Datos del motor | Catálogo de **25 instituciones** · índice de **738 dominios** del Estado (`doc/15-INDICE.md`) |
@@ -40,6 +40,8 @@ posiciona como precursora. Ver `doc/03-ESTADO-DEL-ARTE.md`.
 
 | Fecha | Decisión |
 |---|---|---|
+| 2026-10-11 | **DeepSeek es el modelo, verificado sonda por sonda: las 6 en `pide=[]` y 0 fallos.** Entiende la negación, que era la vara entera. El extractor de referencia marca 3 de 6 |
+| 2026-10-11 | **JEV se descarta por costo opaco, no por el saldo.** `typesafe/jev-router` enruta a modelos pagados **sin decir cuál ni a qué precio**, y en un servicio público el costo por verificación tiene que ser un número. Además falló 1 de 6 sondas con `HTTP 402` **imprimiendo «ok»**: una llamada caída se ve igual que una respuesta correcta, la misma trampa que el contador de fallos vino a atrapar |---|
 | 2026-10-11 | **DeepSeek entiende la negación y pasa la vara: 0 falsas alarmas de 6.** El extractor de referencia marca 3. Es el argumento medido a favor del modelo, cumplido |
 | 2026-10-11 | **Un proveedor caído parecía un modelo perfecto.** El comparador informó «JEV PASA» mientras **31 de 40 llamadas** devolvían 401: una petición vacía se ve igual que un modelo que no encontró nada. **Se agregó un contador de fallos** y ahora un modelo con llamadas fallidas sale «NO VERIFICABLE», con un test que fija el caso exacto. **Tercera vez hoy que un fallo se disfraza de éxito** |
 | 2026-10-11 | **La métrica de sensibilidad está mal diseñada, y se declara.** Mide el veredicto final, que exige además reconocer el reclamo, y el corpus del CSIRT es mayormente de pinchar un enlace —que **no** es una petición indebida—. **La vara es la métrica válida**; la sensibilidad hay que rediseñarla contra etiquetas a mano |---|
