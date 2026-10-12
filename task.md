@@ -159,18 +159,52 @@ entrega.
   abierto.
 - **Riesgo:** que exista pero sea solo para organismos del Estado. **Eso también es un resultado.**
 
-## ⬜ T2.1 — El paper de medición
+## 🚧 T2.1 — El paper
 
-> *Measuring a national trust anchor: does `.gob.cl` give the Chilean State identifiability online?*
+> ### The scam is in the ask, not the link
+> **An abstention-first verifier for Chilean smishing, measured against 342 alerts published by the
+> national CSIRT**
 
-Tres preguntas medibles, en orden de costo:
+**El título anterior de esta tarea estaba viejo, y hay que decirlo:** decía *«does `.gob.cl` give
+the Chilean State identifiability online?»*, que es **la hipótesis que la propia medición refutó**
+(2–3 dominios de 1.521 certificados, `doc/02-MEDICION-CT.md`). El paper vigente es otro, y su tesis
+está en `doc/14-GAP.md`: *el cuello de botella no es clasificar, es que la mayoría del fraude no trae
+nada que clasificar.*
 
-1. **¿La barra azul es falsificable?** Es un control **visual**: el PNG y el CSS se copian. Es la
-   hipótesis más atacable y la más barata de medir.
-2. **¿El ancla se sostiene?** Censo de `.gob.cl` contra las reglas de ANCI (nombres de empresa,
-   genéricos reservados, un subdominio por institución).
-3. **¿Dónde queda el ataque?** Homoglifo **en el propio TLD** (`gob.cl` con cirílica), `.cl` que
-   parece oficial, y la barra copiada sobre un dominio ajeno.
+Borrador en **[`paper/vigia-draft.md`](paper/vigia-draft.md)** — **5.084 palabras**, en inglés, cs.SE,
+escrito contra el molde de `doc/08-PAPER.md` de `rasante` y el análisis de estilo del autor
+([`paper/analisis-estilo.md`](paper/analisis-estilo.md)).
+
+### La estructura, y qué sostiene cada sección
+
+| § | Qué dice | De dónde sale el número |
+|---|---|---|
+| §3 | **El Estado publica indicadores, no mensajes** — el enlace no está en la cita en **44 de 45** | `doc/12-MEDICION.md` |
+| §3.3 | El corpus tiene **techo ~400**: 350 intentos, **0 nuevos** | `T4.7` |
+| §5.1 | Cobertura **99,7 %** (341 de 342), **239 confirmados** (69,9 %) | corpus, re-verificado |
+| §5.2 | Precisión: **0 falsas acusaciones de 211** | `T4.3` |
+| §5.3 | La vara: baseline **3 de 6**, DeepSeek **0 de 6**, **0 llamadas caídas** | re-verificado hoy |
+| §5.4 | **1–3 s** y **≈0,13 CLP** contra **≈19 CLP** (0,7 %) | WhatsApp real |
+| §6 | **Lo que esto NO es**, siete puntos | — |
+| §7 | Amenazas a la validez, incluido el proveedor descartado | `T4.8` |
+
+### Y una afirmación que el borrador NO hace, a propósito
+
+La sección de reproducibilidad decía `git clone github.com/andesdevroot/vigia`. **Ese repositorio no
+existe: `vigia` no tiene remoto.** Se cambió por una declaración de disponibilidad honesta.
+
+> **Acción antes de enviar:** publicar el repositorio. Un paper de cs.SE que promete reproducibilidad
+> y no tiene artefacto público se cae en la revisión.
+
+### Lo que falta para enviarlo
+
+| | |
+|---|---|
+| **Sensibilidad, rediseñada** | Etiquetar ~40 mensajes a mano. Bloquea el §5.5 |
+| **Corpus de mensajes legítimos** | Bloquea la medición real de falsos positivos. **Dos** evaluaciones dependen de él |
+| **Tasa de mal uso de la barra** | Necesita índice de subrecursos (clave de urlscan.io) |
+| **Un segundo modelo** | La vara del §5.3 es barata de correr contra otro proveedor |
+| **Publicar el repositorio** | Lo dicho arriba |
 
 **Bloqueo de acceso, no de datos:** la lista de inscripciones de ANCI no se publica. Se puede pedir
 por Ley de Transparencia, y eso es una gestión.
