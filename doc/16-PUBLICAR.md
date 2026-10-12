@@ -29,15 +29,38 @@ primero y se activa después, ese release **no recibe DOI** y hay que cortar otr
 
 ### Paso 1 — Activar en Zenodo (lo hace el autor, con su cuenta)
 
-1. Entrar a <https://zenodo.org> y elegir **Sign in with GitHub**.
-2. Ir a **Settings → GitHub** (<https://zenodo.org/account/settings/github/>).
-3. Buscar `andesdevroot/vigia` en la lista y **poner el interruptor en ON**.
-4. Volver a GitHub y **refrescar** la página de *Settings → Webhooks* del repositorio: Zenodo deja un
-   webhook. Si no está, la conexión no quedó.
+> **La ruta vieja `/account/settings/github/` ya NO existe.** Zenodo migró a **InvenioRDM** y reordenó
+> todo bajo un menú de perfil. Por eso no se llega con un enlace directo: **hay que navegar.**
+
+**Se hace por el menú, y por eso no depende de ninguna URL:**
+
+1. Entrar a <https://zenodo.org> e iniciar sesión.
+2. **Menú de perfil** (arriba a la derecha) → **Linked accounts**. Ahí se conecta GitHub si no lo está.
+   Sin cuenta de GitHub vinculada, el paso siguiente no aparece.
+3. **Menú de perfil** → **GitHub**.
+4. Pulsar **Sync now** en el encabezado. Esto es nuevo y es obligatorio: sin sincronizar, la lista de
+   repositorios puede venir vacía.
+5. Buscar `andesdevroot/vigia` y **poner el interruptor en ON**.
+6. **Refrescar la página** para que la lista de repositorios activados se actualice.
 
 **No hay nada que subir a mano.** `.zenodo.json` ya está en la raíz del repositorio, así que Zenodo
 toma el título, los autores, la licencia y las palabras clave de ahí. El archivo existe justamente
 para no tener que llenar el formulario y para que los metadatos queden versionados con el código.
+
+### Dos fallas conocidas de Zenodo, y cómo se esquivan
+
+| | |
+|---|---|
+| **No detecta un release que ya existía** ([zenodo/zenodo#2420](https://github.com/zenodo/zenodo/issues/2420)) | **Por eso el release se corta DESPUÉS de activar.** Si ya existe, hay que cortar uno nuevo con otra versión |
+| **No deja activar el repositorio** ([zenodo/zenodo#2477](https://github.com/zenodo/zenodo/issues/2477)) | Suele ser GitHub sin vincular, o la lista sin sincronizar. Se resuelve con **Linked accounts** y **Sync now** |
+
+### Si el menú no aparece o algo se cuelga
+
+Zenodo es un servicio del CERN y **se cae**. Si la página no carga, no es el repositorio: es el sitio.
+
+**Y hay un camino que no depende de la integración:** la **subida manual**. Se descarga el zip del
+repositorio, se sube a Zenodo como *software*, se pegan los mismos metadatos de `.zenodo.json`, y da
+**el mismo DOI**. Lo único que se pierde es que cada release futuro reciba el suyo solo.
 
 ### Paso 2 — El release
 

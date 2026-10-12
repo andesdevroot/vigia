@@ -1087,6 +1087,9 @@ Al cablear los avisos, `componer` quedaba llamándose **dos veces**. Con el extr
 3. Zenodo asigna el DOI solo
 ```
 
+**La ruta vieja `/account/settings/github/` ya no existe:** Zenodo migró a InvenioRDM. Se llega por
+el **menú de perfil → Linked accounts / GitHub → Sync now**, no con un enlace directo.
+
 ### Y la decisión sobre el correo del trabajo
 
 Usar el correo institucional **acelera el endorsement de arXiv**, pero **el paper quedaría asociado al
