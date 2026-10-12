@@ -50,7 +50,7 @@ código.
 | T5.2 | Imágenes por OCR local | ✅ **lee capturas; los audios ya venían transcritos** |
 | T5.3 | Refresco del índice | ⬜ **se pudre en silencio** |
 | T5.4 | CI en GitHub Actions | ✅ **gate + build de la imagen, y el OCR verificado** |
-| T5.5 | Saber si el robot está vivo | ⬜ |
+| T5.5 | Saber si el robot está vivo | ✅ **marcador + `/estado` con token** |
 | T5.6 | El hueco de privacidad del transporte | ⬜ antes de arXiv |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
@@ -1225,13 +1225,25 @@ demás.
 
 **4 requisitos nuevos** (REQ-270 a REQ-273).
 
-### ⬜ T5.5 — No se sabe si el robot está vivo
+### ✅ T5.5 — Se sabe si el robot está vivo, y si contesta
 
-Se agregó el registro del motivo por mensaje (`T2.2`), pero **no hay nada que diga si dejó de
-responder hace tres días.**
+Se agregó el registro del motivo por mensaje (`T2.2`), pero no había nada que dijera si **dejó de
+responder**. Y esas dos cosas se ven igual:
 
-Falta lo mínimo: un contador agregado de veredictos en el tiempo, y un aviso si el servidor lleva
-sin contestar. **Sin eso, un servicio caído se ve igual que nadie usándolo.**
+> **Un servicio caído y un servicio que nadie usa son indistinguibles desde afuera.**
+
+| | |
+|---|---|
+| `src/vigia/marcador.py` | Cuenta **llegadas, respuestas por veredicto y silencios por motivo**, y guarda **cuándo fue el último**. Seguro entre hilos: el servidor atiende cada webhook en su propio hilo, y un contador que pierde cuentas es peor que no tenerlo |
+| `GET /estado` | El resumen, **con token**. Sin `VIGIA_ESTADO_TOKEN` la ruta **no existe** — 404, no 401: un 401 diría «acá hay algo» |
+
+**La lista de motivos es cerrada**, igual que el vocabulario del extractor: si las claves vinieran de
+afuera, cualquiera podría inflar el archivo hasta llenar el disco.
+
+**El número que hay que mirar es `sin_contestar`.** Si sube, algo se rompió. Y `segundos_desde_el_ultimo`
+distingue «nadie lo usa» de «el webhook murió».
+
+**14 requisitos nuevos** (REQ-280 a REQ-293).
 
 ### ⬜ T5.6 — El hueco de privacidad del transporte
 

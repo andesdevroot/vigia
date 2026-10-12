@@ -98,7 +98,7 @@ mismo que todo lo demás.
 | **T5.1** Desplegar | ✅ código listo; **falta subirlo** |
 | **T5.2** Imágenes por OCR local | ✅ **hecho.** Y los audios ya venían transcritos por Kapso |
 | **T5.4** CI en GitHub Actions | ✅ **hecho.** Corre el gate, y construye y levanta la imagen |
-| **T5.5** Saber si está vivo | Un servicio caído se ve igual que nadie usándolo |
+| **T5.5** Saber si está vivo | ✅ **hecho.** Marcador + `GET /estado` con token |
 | **T5.3** Refresco del índice | El 70 % de los `CONFIRMADO` sale de una foto que se genera a mano |
 
 **Sin esta fase, publicar el post manda gente a un número muerto o a un callejón sin salida.**

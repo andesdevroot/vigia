@@ -140,6 +140,53 @@ docker run --rm --entrypoint sh vigia -c 'tesseract --list-langs | grep -q spa'
 
 Si algo de eso falla, **te enteras antes de desplegar**, no en el primer `fly deploy`.
 
+## Saber si está vivo, y si contesta
+
+Dos cosas distintas, y la segunda es la que importa.
+
+| | |
+|---|---|
+| **¿El proceso vive?** | El chequeo de salud (`GET /`). Se le pone un monitor externo gratis —UptimeRobot, BetterStack— que lo llame cada cinco minutos y te avise si deja de contestar |
+| **¿Está contestando mensajes?** | `GET /estado` con token. **Esto no lo cubre ningún monitor externo**, porque un servicio caído y uno que nadie usa se ven igual desde afuera |
+
+### El token, y por qué está cerrado por defecto
+
+```bash
+fly secrets set VIGIA_ESTADO_TOKEN=$(openssl rand -hex 32)
+```
+
+> **Sin `VIGIA_ESTADO_TOKEN` la ruta no existe.** Contesta 404, igual que cualquier otra que no esté. No hay una superficie que uno tenga que acordarse de proteger.
+
+Y con un token equivocado contesta **404, no 401**: un 401 diría «acá hay algo».
+
+### Consultarlo
+
+```bash
+curl -H "Authorization: Bearer $VIGIA_ESTADO_TOKEN" https://<tu-app>.fly.dev/estado
+```
+
+```json
+{
+  "llegaron": 47,
+  "contestados": 47,
+  "sin_contestar": 0,
+  "silencio": {"firma_invalida": 0, "limite": 2, "sin_destinatario": 0},
+  "veredicto": {"confirmado": 12, "no_coincide": 30, "ajeno": 5},
+  "ultimo_mensaje": "2026-10-12T19:40:11",
+  "segundos_desde_el_ultimo": 128
+}
+```
+
+### Los tres números que hay que mirar
+
+| | |
+|---|---|
+| **`sin_contestar`** | **Si sube, algo se rompió.** Debería ser 0 salvo por el límite |
+| **`segundos_desde_el_ultimo`** | Distingue «nadie lo usa» de «el webhook murió». Si es grande y alguien debería estar usándolo, el problema es el webhook |
+| **`silencio.firma_invalida`** | **Si sube de golpe, es una alarma**: o cambió el secreto, o alguien está probando. No es un mensaje: es un ataque o una mala configuración |
+
+**Y `veredicto` dice si el motor sigue funcionando.** Si todo sale `sin_enlaces`, el extractor se rompió, y el total no lo mostraría.
+
 ## Lo que sigue faltando
 
 **`T5.5`: saber si está vivo de verdad.** El chequeo de salud dice que el proceso responde, no que los

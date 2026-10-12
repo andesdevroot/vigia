@@ -28,6 +28,7 @@ import json
 import os
 from collections.abc import Callable, Mapping, Sequence
 from dataclasses import replace
+from hmac import compare_digest
 from http.client import HTTPMessage
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -40,6 +41,7 @@ from vigia.entrante import MensajeRecibido, interpretar
 from vigia.extractor import CacheDeExtraccion, Extractor, ExtractorLLM
 from vigia.firma import es_valida
 from vigia.imagen import Lector, LectorTesseract
+from vigia.marcador import Marcador, Salida
 from vigia.marcas import MARCAS
 from vigia.medicion import Contador, Contar
 from vigia.medios import KapsoMedios, Medios
@@ -134,6 +136,7 @@ def atender(
     anotar: Callable[[str], None] | None = None,
     lector: Lector | None = None,
     medios: Medios | None = None,
+    marcador: Marcador | None = None,
 ) -> bool:
     """Atiende un webhook y devuelve si se alcanzó a responder.
 
@@ -145,11 +148,15 @@ def atender(
     exactamente igual que un mensaje sin nada que responder, y ya nos dejó ciegos una vez.
     """
     if not es_valida(firma, cuerpo, secreto):
+        # **Una firma que empieza a fallar es una alarma**, no un mensaje: o cambio el secreto, o
+        # alguien esta probando. Por eso se cuenta aparte de las llegadas.
+        _silencio(marcador, Salida.FIRMA)
         _anota(anotar, "firma invalida")
         return False
     try:
         sobre = json.loads(cuerpo)
     except (json.JSONDecodeError, UnicodeDecodeError):
+        _silencio(marcador, Salida.ILEGIBLE)
         _anota(anotar, "cuerpo ilegible")
         return False
 
@@ -158,11 +165,17 @@ def atender(
         mensaje = _con_el_texto_del_adjunto(mensaje, lector, medios, anotar)
     if mensaje is None or mensaje.destinatario is None:
         # Un mensaje saliente, o un sobre con la forma equivocada. No se contesta y no es un error.
+        _silencio(marcador, Salida.SIN_DESTINATARIO)
         _anota(anotar, "sin destinatario")
         return False
 
     # Se cuenta **antes** de enviar, a propósito: si el envío falla, el mensaje igual llegó, y para
     # medir modalidades lo que importa es cómo llegó, no si alcanzamos a contestar.
+    # Llegó de verdad: firma verificada y destinatario conocido. Se cuenta acá y no antes, porque
+    # un mensaje sin destinatario no es una llegada: es un sobre que no supimos leer.
+    if marcador is not None:
+        marcador.llegada()
+
     if contar is not None:
         contar(mensaje)
 
@@ -171,6 +184,7 @@ def atender(
         decision = memoria.decidir(mensaje.destinatario)
         if not decision.responder:
             # **Acá es donde se ahorra el dinero.** Cada respuesta cuesta ≈ 19 CLP, y esta no sale.
+            _silencio(marcador, Salida.LIMITE)
             _anota(anotar, "limite alcanzado, sin respuesta")
             return False
 
@@ -186,6 +200,8 @@ def atender(
     # El veredicto del **enlace**, que es local y gratis, y se rotula como tal: con extractor el
     # veredicto final puede ser otro, y el registro no debería insinuar que es el mismo.
     enlace = evaluar(mensaje.texto, marcas=marcas).veredicto.value
+    if marcador is not None:
+        marcador.contestado(enlace)
     _anota(anotar, f"respondido (enlace {enlace})")
     return True
 
@@ -227,6 +243,12 @@ def _con_el_texto_del_adjunto(
     return replace(mensaje, texto=texto, de_adjunto=True)
 
 
+def _silencio(marcador: Marcador | None, motivo: Salida) -> None:
+    """Deja constancia de que no se contestó, y por qué. **Vocabulario cerrado.**"""
+    if marcador is not None:
+        marcador.silencio(motivo)
+
+
 def _anota(anotar: Callable[[str], None] | None, motivo: str) -> None:
     """Deja constancia de un motivo. **Nunca del contenido.**"""
     if anotar is not None:
@@ -253,19 +275,44 @@ class _Manejador(BaseHTTPRequestHandler):
     memoria: Memoria | None
     lector: Lector | None
     medios: Medios | None
+    marcador: Marcador | None
+    token_de_estado: str
 
     def do_GET(self) -> None:  # noqa: N802 - lo impone la clase base
-        """El chequeo de salud.
+        """El chequeo de salud, y el estado.
 
-        **Sin firma, porque la plataforma no puede firmar.** Y sin decir nada de adentro: que el
-        servicio esté vivo es un dato público; qué versión corre, no.
+        El chequeo de salud va **sin firma, porque la plataforma no puede firmar**. Y no dice
+        nada de adentro: que el servicio esté vivo es un dato público; qué versión corre, no.
 
         No dispara el contador ni el extractor. Una plataforma llama a esto cada pocos segundos, y
         no puede costar lo que cuesta un mensaje.
         """
-        respuesta = json.dumps({"ok": True}).encode()
-        self.send_response(200)
-        self.send_header("Content-Type", "application/json")
+        if self.path.split("?", 1)[0].rstrip("/") == "/estado":
+            self._estado()
+            return
+        self._json(200, {"ok": True})
+
+    def _estado(self) -> None:
+        """Cuántos mensajes llegaron, cuántos se contestaron y cuándo fue el último.
+
+        **Cerrado por defecto.** Sin `VIGIA_ESTADO_TOKEN` configurado, esta ruta no existe: no hay
+        superficie que atacar. Y con un token equivocado contesta **404, no 401** — un 401 diría
+        «acá hay algo».
+
+        La comparación es de tiempo constante. Comparar con `==` filtra, por el tiempo que tarda, en
+        qué prefijo se equivocó el que prueba.
+        """
+        esperado = f"Bearer {self.token_de_estado}" if self.token_de_estado else ""
+        recibido = self.headers.get("Authorization", "")
+        if not esperado or not compare_digest(recibido, esperado) or self.marcador is None:
+            self._json(404, {"ok": False})
+            return
+        self._json(200, self.marcador.resumen())
+
+    def _json(self, codigo: int, datos: dict[str, Any]) -> None:
+        respuesta = json.dumps(datos, ensure_ascii=False).encode()
+        self.send_response(codigo)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(respuesta)))
         self.end_headers()
         self.wfile.write(respuesta)
@@ -311,6 +358,8 @@ def _manejador(
     memoria: Memoria | None = None,
     lector: Lector | None = None,
     medios: Medios | None = None,
+    marcador: Marcador | None = None,
+    token_de_estado: str = "",
 ) -> type[BaseHTTPRequestHandler]:
     """Una subclase con la configuración pegada, que es como `http.server` espera recibirla."""
     campos: dict[str, Any] = {
@@ -322,6 +371,8 @@ def _manejador(
         "memoria": memoria,
         "lector": lector,
         "medios": medios,
+        "marcador": marcador,
+        "token_de_estado": token_de_estado,
     }
     return type("Manejador", (_Manejador,), campos)
 
@@ -336,10 +387,23 @@ def construir_servidor(
     memoria: Memoria | None = None,
     lector: Lector | None = None,
     medios: Medios | None = None,
+    marcador: Marcador | None = None,
+    token_de_estado: str = "",
 ) -> ThreadingHTTPServer:
     return ThreadingHTTPServer(
         direccion,
-        _manejador(secreto, enviar, tuple(marcas), contar, extraer, memoria, lector, medios),
+        _manejador(
+            secreto,
+            enviar,
+            tuple(marcas),
+            contar,
+            extraer,
+            memoria,
+            lector,
+            medios,
+            marcador,
+            token_de_estado,
+        ),
     )
 
 
@@ -403,6 +467,9 @@ def main() -> None:
     if LectorTesseract().esta_disponible():
         lector = LectorTesseract()
 
+    # El marcador **no es opcional**: sin el, un servicio caido se ve igual que nadie usandolo.
+    marcador = Marcador()
+
     puerto = puerto_del_entorno(os.environ)
     servidor = construir_servidor(
         ("", puerto),
@@ -413,6 +480,8 @@ def main() -> None:
         memoria=memoria,
         lector=lector,
         medios=KapsoMedios(api_key=api_key),
+        marcador=marcador,
+        token_de_estado=os.environ.get("VIGIA_ESTADO_TOKEN", ""),
     )
     print(f"Escuchando en el puerto {puerto}.")  # noqa: T201 - es la salida del programa
     servidor.serve_forever()

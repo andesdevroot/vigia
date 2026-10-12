@@ -294,6 +294,25 @@ Un requisito que no se puede verificar **no es un requisito**: es un deseo. Si a
 | REQ-272 | Corre en cada push y en cada pull request | `test_la_ci_corre_en_cada_push_y_en_cada_pr` |
 | REQ-273 | **La CI construye la imagen y la levanta** | `test_la_ci_construye_la_imagen_y_la_levanta` |
 
+## 22. Saber si el robot esta vivo
+
+| # | Requisito | Test |
+|---|---|---|
+| REQ-280 | Cuenta las llegadas | `test_cuenta_las_llegadas` |
+| REQ-281 | Cuenta las respuestas **por veredicto** | `test_cuenta_las_respuestas_por_veredicto` |
+| REQ-282 | Cuenta los silencios **por motivo** | `test_cuenta_los_silencios_por_motivo` |
+| REQ-283 | **Una clave de afuera se descarta**: vocabulario cerrado | `test_una_clave_de_afuera_se_descarta` |
+| REQ-284 | Guarda cuándo fue el último mensaje | `test_guarda_cuando_fue_el_ultimo` |
+| REQ-285 | `sin_contestar` es la resta, y es el número que hay que mirar | `test_sin_contestar_es_la_resta` |
+| REQ-286 | **El resumen no lleva contenido** | `test_el_resumen_no_lleva_contenido` |
+| REQ-287 | **Es seguro entre hilos**: no pierde cuentas | `test_es_seguro_entre_hilos` |
+| REQ-288 | **Sin token configurado el endpoint no existe** | `test_sin_token_configurado_el_endpoint_no_existe` |
+| REQ-289 | Con token equivocado contesta 404, **no 401** | `test_con_token_equivocado_tampoco_existe` |
+| REQ-290 | Con el token bueno devuelve el resumen | `test_con_el_token_bueno_devuelve_el_resumen` |
+| REQ-291 | El endpoint **no es una vía para mandar mensajes** | `test_el_endpoint_no_es_una_via_para_mandar_mensajes` |
+| REQ-292 | El webhook alimenta el marcador | `test_el_webhook_alimenta_el_marcador` |
+| REQ-293 | **Una firma que falla es una alarma**, y se cuenta aparte | `test_una_firma_mala_mueve_el_silencio_y_no_el_contador_de_llegadas` |
+
 ## 17. La arquitectura
 
 | # | Requisito | Test |
