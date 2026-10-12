@@ -45,7 +45,13 @@ código.
 | T1.9 | Reformular la pregunta del producto | ✅ **y la medición no cambió: falta T1.8** |
 | T2.1 | El paper | 🚧 **borrador escrito, falta revisión y publicar el repo** |
 | T2.2 | Límite, aviso de privacidad y registro | ✅ **los tres huecos operativos, cerrados** |
-| T2.3 | Publicar: DOI, preprint y lanzamiento | 🚧 **metadatos listos; falta activar Zenodo y cortar el release** |
+| T2.3 | Publicar: DOI, preprint y lanzamiento | ⏸️ **pausado por el autor** |
+| T5.1 | **Desplegar** | ⬜ **bloqueo duro: vive en un notebook** |
+| T5.2 | Imágenes por OCR local | ⬜ **el hueco de producto más grande** |
+| T5.3 | Refresco del índice | ⬜ **se pudre en silencio** |
+| T5.4 | CI en GitHub Actions | ⬜ media hora |
+| T5.5 | Saber si el robot está vivo | ⬜ |
+| T5.6 | El hueco de privacidad del transporte | ⬜ antes de arXiv |
 
 **T0 es una fase de validación, no de construcción.** Tres de las cinco tareas cerraron con una
 decisión, y dos de esas decisiones fueron negativas. Es a propósito: el proyecto anterior murió por
@@ -161,7 +167,7 @@ entrega.
   abierto.
 - **Riesgo:** que exista pero sea solo para organismos del Estado. **Eso también es un resultado.**
 
-## 🚧 T2.1 — El paper
+## ⏸️ T2.1 — El paper *(pausado por el autor)*
 
 > ### The scam is in the ask, not the link
 > **An abstention-first verifier for Chilean smishing, measured against 342 alerts published by the
@@ -1063,7 +1069,7 @@ Al cablear los avisos, `componer` quedaba llamándose **dos veces**. Con el extr
 
 **211 tests verdes** (202 funciones), **13 requisitos nuevos** (REQ-220 a REQ-232).
 
-## 🚧 T2.3 — Publicar el artefacto, y el paper
+## ⏸️ T2.3 — Publicar el artefacto, y el paper *(pausado por el autor)*
 
 **Guía completa, con el orden que no se puede invertir, en [`doc/16-PUBLICAR.md`](doc/16-PUBLICAR.md).**
 
@@ -1108,6 +1114,118 @@ computación. **No pide endorsement.** El mismo contenido puede ir a arXiv despu
 
 No es una publicación: son **usuarios**. El experimento de `T3.1` (20 personas × 3 mensajes) está
 diseñado y sin correr, y mide el número que decide la tesis del paper.
+
+## 🔍 Lo que falta, y por qué — auditoría del 2026-10-12
+
+**Revisión del código con ojos frescos.** Cinco huecos, ordenados por lo que bloquean. **Ninguno
+estaba en la cola**, y el primero es un bloqueo duro.
+
+### ✅ T5.1 — Desplegar. Sin esto el robot vive en un notebook
+
+**El bloqueo más grande, y el más barato de cerrar.**
+
+Hoy corre con `python -m vigia.servidor` más un túnel de ngrok, en la máquina del autor. Eso
+significa: **si se cierra el notebook, el servicio muere**, y la URL del webhook cambia en cada
+arranque.
+
+Cualquier post que diga «pruébalo» se cae contra eso. **Un número que no contesta destruye más
+confianza que no tener número.**
+
+| | |
+|---|---|
+| Falta | `Dockerfile`, un servicio que reinicie solo, y un dominio estable en vez de ngrok |
+| Costo | **~5 USD al mes** en cualquier PaaS (Fly, Render, Railway). El servidor es stdlib puro |
+| Lo que NO cambia | El motor, los tests, ni una línea del núcleo de decisión |
+
+### ⬜ T5.2 — Las imágenes son un callejón sin salida
+
+**El hueco de producto más grande.** Hoy, si llega una imagen:
+
+> *«No puedo leer imágenes. Mándame el mensaje como texto: mantén apretado el mensaje, elige Copiar
+> y pégalo acá.»*
+
+**Casi nadie va a hacer eso.** Y buena parte del fraude chileno llega como captura de pantalla: la
+página falsa del banco, el WhatsApp reenviado como imagen, la foto del papel.
+
+**Y no hace falta un modelo de visión para el enlace.** En una captura, el enlace **está escrito en
+la imagen**. Basta **OCR**, que corre **local** — sin mandar nada a ningún lado:
+
+```
+imagen  ->  OCR local  ->  texto  ->  motor determinista (lo que ya existe)
+```
+
+**Eso protege la privacidad en vez de romperla**: una captura de pantalla trae el nombre, el saldo y
+el teléfono de la persona, y mandarla a un proveedor de visión sería el peor intercambio del
+proyecto.
+
+| | |
+|---|---|
+| Decisión pendiente | OCR local (Tesseract) contra modelo de visión. **Local es más lento y no filtra** |
+| Y hay que medir | **Cuántos de los mensajes que llegan son solo imagen.** Hoy no se sabe |
+| Ojo | Tesseract es dependencia externa. **No entra al núcleo de decisión**, así que el guardián de arquitectura no se rompe — pero hay que decidirlo a propósito |
+
+### ⬜ T5.3 — El índice se pudre, y nadie se entera
+
+**El 70 % de los `CONFIRMADO` sale de una foto de 738 dominios.** El archivo dice
+`generado: 2026-10-11` y está fresco **porque se generó a mano ayer**, no porque algo lo mantenga.
+
+Los dominios de estafa son nuevos cada semana. En seis meses, sin refresco, **la mejor cifra del
+proyecto se degrada en silencio** — que es el modo de fallo que este proyecto persigue en todo lo
+demás.
+
+| | |
+|---|---|
+| Qué falta | Un job que corra `construir_indice.py` + `cosechar_alertas.py` y publique el índice |
+| Y una decisión | **Cada cuánto.** Sin medirlo, cualquier cadencia es una corazonada |
+| **Y es publicable** | **¿Cuál es la vida media de un índice de fraude publicado por el Estado?** Nadie lo ha medido. Es una medición nueva, y barata |
+
+### ⬜ T5.4 — No hay CI, y el repositorio es público
+
+`gate.sh` corre en la máquina del autor. **Un repositorio público sin CI no demuestra nada** a quien
+llega: la insignia verde no existe.
+
+Falta un workflow de GitHub Actions que corra pytest + ruff + mypy en cada push. **Es media hora**, y
+es lo que hace creíble la sección de reproducibilidad del paper.
+
+### ⬜ T5.5 — No se sabe si el robot está vivo
+
+Se agregó el registro del motivo por mensaje (`T2.2`), pero **no hay nada que diga si dejó de
+responder hace tres días.**
+
+Falta lo mínimo: un contador agregado de veredictos en el tiempo, y un aviso si el servidor lleva
+sin contestar. **Sin eso, un servicio caído se ve igual que nadie usándolo.**
+
+### ⬜ T5.6 — El hueco de privacidad del transporte
+
+**El paper afirma que el mensaje no sale del servidor, y eso es cierto solo respecto del modelo.** El
+mensaje no llega directo: pasa por **Meta** y por **Kapso**, que lo ven crudo **antes** de que la
+redacción corra.
+
+```
+ciudadano -> Meta -> Kapso -> nuestro servidor -> (redacción) -> DeepSeek
+             ^        ^                          ^
+          ya lo    ya lo                  lo único que protegemos
+           vio      vio
+```
+
+**Es el mismo argumento del paper, aplicado una capa más abajo.** Y callarlo es peor que decirlo: un
+revisor lo va a encontrar. Agregar el párrafo **fortalece** el paper.
+
+**Pendiente:** el párrafo en el §4.7 de las dos versiones, y una nota de salida en
+`doc/09-INTERFAZ.md` (qué costaría irse a la API de Meta directo).
+
+---
+
+## Lo que NO falta, y conviene decirlo
+
+Revisado y descartado a propósito:
+
+| | Por qué no |
+|---|---|
+| **Reintentos al enviar** | Decisión tomada y documentada: reintentar un mensaje que no supimos leer no lo vuelve legible, y arriesga un bucle |
+| **Base de datos** | No hay nada que guardar. La memoria del límite es en RAM **a propósito** |
+| **Dependencias** | El núcleo de decisión es stdlib y un test lo impone. No es un descuido, es el diseño |
+| **Entrenar un modelo** | El corpus es de una sola clase. Está medido y explicado en `T4.6` |
 
 ## 🚧 T0.7 — Medir el mal uso de la barra
 
