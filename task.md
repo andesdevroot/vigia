@@ -171,9 +171,19 @@ the Chilean State identifiability online?»*, que es **la hipótesis que la prop
 está en `doc/14-GAP.md`: *el cuello de botella no es clasificar, es que la mayoría del fraude no trae
 nada que clasificar.*
 
-Borrador en **[`paper/vigia-draft.md`](paper/vigia-draft.md)** — **5.084 palabras**, en inglés, cs.SE,
-escrito contra el molde de `doc/08-PAPER.md` de `rasante` y el análisis de estilo del autor
-([`paper/analisis-estilo.md`](paper/analisis-estilo.md)).
+| | |
+|---|---|
+| **[`paper/vigia-draft.md`](paper/vigia-draft.md)** | El que se envía. **5.084 palabras**, inglés, cs.SE |
+| **[`paper/vigia-borrador-es.md`](paper/vigia-borrador-es.md)** | **5.427 palabras**, para leer y corregir. No es traducción literal: está escrito en el registro en que el proyecto piensa |
+| **[`paper/analisis-estilo.md`](paper/analisis-estilo.md)** | El patrón de escritura del autor, medido sobre 51 repos: 30.224 palabras, 16 archivos, **71 de 71 citas verificadas** |
+
+Escritos contra el molde de `doc/08-PAPER.md` de `rasante` —el borrador de paper del propio autor, con
+teoremas numerados y `∎`— y contra sus reglas medidas: **cero `sin embargo`**, **cero `en cambio`**,
+**cero `impacto`**, **cero hedging**, em dash en 42–44 sitios, y coma decimal chilena.
+
+> **La versión en castellano es la que hay que leer primero.** La voz real del autor es **98 %
+> español**; la estructura se pudo copiar al inglés, el registro no. **Si algo suena mal en
+> castellano, el problema es de contenido y hay que arreglarlo en las dos.**
 
 ### La estructura, y qué sostiene cada sección
 
